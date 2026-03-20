@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\crm\layout;
+namespace App\View\Components\Crm\Layout;
 
 use Closure;
 use Illuminate\Contracts\View\View;
