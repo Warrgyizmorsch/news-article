@@ -237,7 +237,7 @@
                         </div>
                         <div class="rs-footer-copyright-item">
                             <div class="rs-footer-copyright">
-                                <p class="underline">Copyright © <span id="year">2025</span> Democracy Asia. Designed by <a
+                                <p class="underline">Copyright © <span id="year">2025</span> Democracy Asia. Created by <a
                                         target="_blank" href="https://warrgyizmorsch.com/">Warrgyizmorsch</a></p>
                             </div>
                         </div>

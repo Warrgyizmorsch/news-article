@@ -36,11 +36,11 @@
             <div class="page-header">
                 <div class="page-header-left d-flex align-items-center">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Category List</h5>
+                        <h5 class="m-b-10">Tag List</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-                        <li class="breadcrumb-item">Category List</li>
+                        <li class="breadcrumb-item">Tag List</li>
                     </ul>
                 </div>
 
@@ -49,25 +49,17 @@
                         data-bs-target="#collapseOne">
                         Filter
                     </a>
-                    <a href="{{ route('category.create') }}" class="btn btn-primary">Create</a>
+                    <a href="{{ route('tags.create') }}" class="btn btn-primary">Create</a>
                 </div>
             </div>
 
             <div id="collapseOne"
-                class="accordion-collapse collapse page-header-collapse {{ request('name') || request('status') ? 'show' : '' }}">
+                class="accordion-collapse collapse page-header-collapse {{ request('name') ? 'show' : '' }}">
                 <div class="accordion-body pb-2">
                     <form method="GET" action="{{ url()->current() }}" class="mb-3 row g-2">
                         <div class="col-md-4">
                             <input type="text" name="name" class="form-control" placeholder="Search by Name"
                                 value="{{ request('name') }}">
-                        </div>
-
-                        <div class="col-md-4">
-                            <select name="status" class="form-select" data-select2-selector="status">
-                                <option value="">All Status</option>
-                                <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>Active</option>
-                                <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Inactive</option>
-                            </select>
                         </div>
 
                         <div class="col-md-4 d-flex">
@@ -88,37 +80,29 @@
                         <tr>
                             <th>Name</th>
                             <th>Slug</th>
-                            <th>Status</th>
-                            <th>Sort Order</th>
                             <th>Created</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($categories as $category)
+                        @forelse($tags as $tag)
                             <tr>
-                                <td>{{ $category->name }}</td>
-                                <td>{{ $category->slug }}</td>
-                                <td>
-                                    <span class="badge {{ $category->status ? 'bg-success' : 'bg-danger' }}">
-                                        {{ $category->status ? 'Active' : 'Inactive' }}
-                                    </span>
-                                </td>
-                                <td>{{ $category->sort_order }}</td>
-                                <td>{{ $category->created_at?->format('d M Y') }}</td>
+                                <td>{{ $tag->name }}</td>
+                                <td>{{ $tag->slug }}</td>
+                                <td>{{ $tag->created_at?->format('d M Y') }}</td>
                                 <td>
                                     <div class="action-links">
-                                        <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn-edit"
+                                        <a href="{{ route('tags.edit', ['id' => $tag->id]) }}" class="btn-edit"
                                             title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
 
                                         <button type="button" class="btn-delete" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal{{ $category->id }}" title="Delete">
+                                            data-bs-target="#deleteModal{{ $tag->id }}" title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </button>
 
-                                        <div class="modal fade" id="deleteModal{{ $category->id }}" tabindex="-1"
+                                        <div class="modal fade" id="deleteModal{{ $tag->id }}" tabindex="-1"
                                             aria-hidden="true">
                                             <div class="modal-dialog"
                                                 style="display:flex;justify-content:center;align-items:center;height:100vh;">
@@ -129,13 +113,12 @@
                                                             data-bs-dismiss="modal"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Are you sure you want to delete this category?
+                                                        Are you sure you want to delete this tag?
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close</button>
-                                                        <form action="{{ route('category.delete', $category->id) }}"
-                                                            method="POST">
+                                                        <form action="{{ route('tags.delete', $tag->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -150,7 +133,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6">No categories found</td>
+                                <td colspan="4">No tags found</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -158,7 +141,7 @@
             </div>
 
             <div class="m-4" style="display:flex;justify-content:center;">
-                {{ $categories->withQueryString()->links('pagination::bootstrap-4') }}
+                {{ $tags->withQueryString()->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>
