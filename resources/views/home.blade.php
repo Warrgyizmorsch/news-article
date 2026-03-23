@@ -470,9 +470,9 @@
                                 @php $article = $featuredArticles[$i]; @endphp
                                 <div class="rs-post-medium-item">
                                     <div class="rs-post-medium-thumb">
-                                        <a href="{{ route('news.show', $article->slug) }}" class="image-link">
+                                        <a href="{{ route('news.show', $article->slug) }}" class="image-link" style="height: 240px;">
                                             <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                                alt="{{ $article->title }}">
+                                                alt="{{ $article->title }}" style="height: 100%; width: 100%; object-fit: cover;">
                                         </a>
                                     </div>
                                     <div class="rs-post-medium-content">
@@ -554,7 +554,7 @@
                                 <ul>
                                     @foreach($categories as $category)
                                         <li>
-                                            <a href="javascript:void(0)" class="rs-categories-bg-thumb"
+                                            <a href={{ "/category/" . $category->slug }} class="rs-categories-bg-thumb"
                                                 data-background="{{ $category->image ? asset('storage/' . $category->image) : asset('assets/images/categories/categories-thumb-01.webp') }}">
                                                 <span class="rs-categories-name">
                                                     {{ $category->name }}
