@@ -10,9 +10,17 @@
                         <p class="header-top-title">Live News</p>
                     </div>
                     <div class="header-top-content">
-                        <p class="header-top-description is-active">Global Warming Is Changing How Hurricanes Work
-                        </p>
-                        <p class="header-top-description">Youth Sports Developing the Next Generation</p>
+                        @forelse($headerBreakingNews as $index => $news)
+                            <p class="header-top-description {{ $index === 0 ? 'is-active' : '' }}">
+                                <a href="{{ route('news.show', $news->slug) }}">
+                                    {{ $news->title }}
+                                </a>
+                            </p>
+                        @empty
+                            <p class="header-top-description is-active">
+                                Stay updated with the latest headlines.
+                            </p>
+                        @endforelse
                     </div>
                 </div>
                 <div class="header-top-right">
@@ -28,7 +36,7 @@
                                     fill="white" />
                             </svg>
                         </span>
-                        <p class="header-top-meta-title">AUGUST 5, 2025</p>
+                        <p class="header-top-meta-title">{{ strtoupper(now()->format('F d, Y')) }}</p>
                     </div>
                     <div class="header-top-social-wrapper">
                         <h6 class="header-top-social-title"> Follow Us:</h6>
@@ -43,13 +51,14 @@
             </div>
             <!-- top end -->
             <!-- header bottom start -->
-            <div class="header-bottom-wrapper">
+            <div class="header-bottom-wrapper" style="flex-wrap: nowrap;">
                 <div class="header-logo">
-                    <a class="logo-black" href="/"><img src="assets/images/logo/democracy-asia-logo.webp"
+                    <a class="logo-black" href="/"><img src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}"
                             alt="logo"></a>
                 </div>
-                <div style="height: 70px;">
-                    <a href="contact.html"><img src="assets/images/ad/ad-banner-thumb-05.webp" alt="image" style="height: 100%; width: 100%; object-fit: fill;  border-radius: 10px;"></a>
+                <div class="header-ad-banner">
+                    <a href="/contact-us"><img src="{{ asset('assets/images/ad/ad-banner-thumb-05.webp') }}"
+                            alt="image" style="height: 100%; width: 100%; object-fit: fill;  border-radius: 10px;"></a>
                 </div>
             </div>
             <!-- header bottom end -->
@@ -63,382 +72,156 @@
                                     <li>
                                         <a href="/">Home</a>
                                     </li>
-                                    <!-- technology menu -->
+                                    <!-- news menu -->
                                     <li class="rs-mega-menu menu-item-has-children is-text-white">
-                                        <a href="javascript:void(0)">Technology</a>
+                                        <a href="javascript:void(0)">News</a>
                                         <ul class="mega-menu mega-grid">
                                             <li class="rs-mega-menu-left">
-                                                <h6 class="mega-menu-title"><a href="technology.html">Technology</a>
+                                                <h6 class="mega-menu-title">
+                                                    <a
+                                                        href="{{ $headerMegaFeaturedNews ? route('news.show', $headerMegaFeaturedNews->slug) : 'javascript:void(0)' }}">
+                                                        News
+                                                    </a>
                                                 </h6>
-                                                <div class="rs-post-medium rs-post-medium-two">
-                                                    <div class="rs-post-medium-item">
-                                                        <div class="rs-post-medium-thumb">
-                                                            <a href="blog-details.html" class="image-link">
-                                                                <img src="assets/images/small-card/small-card-thumb-35.webp"
-                                                                    alt="medium thumb">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rs-post-medium-content">
-                                                            <p class="rs-description">In today’s fast-paced digital
-                                                                world, Artificial Intelligence is
-                                                                empowering developers.</p>
+
+                                                @if($headerMegaFeaturedNews)
+                                                    <div class="rs-post-medium rs-post-medium-two">
+                                                        <div class="rs-post-medium-item">
+                                                            <div class="rs-post-medium-thumb">
+                                                                <a href="{{ route('news.show', $headerMegaFeaturedNews->slug) }}"
+                                                                    class="image-link" style="height: 120px;">
+                                                                    <img src="{{ $headerMegaFeaturedNews->featured_image ? asset('storage/' . $headerMegaFeaturedNews->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                                                        alt="{{ $headerMegaFeaturedNews->title }}" style="height: 100%; width: 100%; object-fit: cover;">
+                                                                </a>
+                                                            </div>
+                                                            <div class="rs-post-medium-content">
+                                                                <p class="rs-description">
+                                                                    {{ \Illuminate\Support\Str::limit($headerMegaFeaturedNews->excerpt ?: $headerMegaFeaturedNews->title, 100) }}
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @else
+                                                    <div class="rs-post-medium rs-post-medium-two">
+                                                        <div class="rs-post-medium-item">
+                                                            <div class="rs-post-medium-content">
+                                                                <p class="rs-description">No featured news available right
+                                                                    now.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </li>
                                             <li class="rs-mega-menu-right">
                                                 <div class="rs-mega-menu-list">
                                                     <div class="rs-mega-menu-list-item">
                                                         <h6 class="mega-menu-title">Latest News</h6>
                                                         <div class="rs-menu-post-small">
-                                                            <div class="rs-post-small rs-post-small-eight">
-                                                                <div class="rs-post-small-thumb">
-                                                                    <a href="blog-details.html" class="image-link">
-                                                                        <img src="assets/images/small-card/small-card-thumb-01.webp"
-                                                                            alt="small thumb">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="rs-post-small-content">
-                                                                    <div class="rs-post-tag">
-                                                                        <a href="technology.html"
-                                                                            class="post-tag">Technology</a>
+                                                            @forelse($headerMegaLatestNews as $post)
+                                                                <div class="rs-post-small rs-post-small-eight">
+                                                                    <div class="rs-post-small-thumb">
+                                                                        <a href="{{ route('news.show', $post->slug) }}"
+                                                                            class="image-link">
+                                                                            <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                                                                alt="{{ $post->title }}">
+                                                                        </a>
                                                                     </div>
-                                                                    <h6 class="rs-post-small-title underline">
-                                                                        <a href="blog-details.html"> New tech
-                                                                            startups are pushing creating</a>
-                                                                    </h6>
-                                                                    <div class="rs-post-meta">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    By <a href="author.html"
-                                                                                        class="meta-author">rstheme</a>
-                                                                                </span>
-                                                                            </li>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    <svg width="10" height="8"
-                                                                                        viewBox="0 0 10 8" fill="none"
-                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path
-                                                                                            d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                            fill="white" />
-                                                                                    </svg>
-                                                                                    <span>5,385 Views</span>
-                                                                                </span>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="rs-post-small rs-post-small-eight">
-                                                                <div class="rs-post-small-thumb">
-                                                                    <a href="blog-details.html" class="image-link">
-                                                                        <img src="assets/images/small-card/small-card-thumb-33.webp"
-                                                                            alt="small thumb">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="rs-post-small-content">
-                                                                    <div class="rs-post-tag">
-                                                                        <a href="technology.html"
-                                                                            class="post-tag is-green">Tech</a>
-                                                                    </div>
-                                                                    <h6 class="rs-post-small-title underline">
-                                                                        <a href="blog-details.html"> Green Tech
-                                                                            Solutions Fighting Climate Change</a>
-                                                                    </h6>
-                                                                    <div class="rs-post-meta">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    By <a href="author.html"
-                                                                                        class="meta-author">rstheme</a>
-                                                                                </span>
-                                                                            </li>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    <svg width="10" height="8"
-                                                                                        viewBox="0 0 10 8" fill="none"
-                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path
-                                                                                            d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                            fill="white" />
-                                                                                    </svg>
-                                                                                    <span>5,385 Views</span>
-                                                                                </span>
-                                                                            </li>
-                                                                        </ul>
+                                                                    <div class="rs-post-small-content">
+                                                                        <div class="rs-post-tag">
+                                                                            <a href="{{ $post->category ? route('category.show', $post->category->slug) : 'javascript:void(0)' }}"
+                                                                                class="post-tag">
+                                                                                {{ $post->category->name ?? 'News' }}
+                                                                            </a>
+                                                                        </div>
+                                                                        <h6 class="rs-post-small-title underline">
+                                                                            <a href="{{ route('news.show', $post->slug) }}">
+                                                                                {{ \Illuminate\Support\Str::limit($post->title, 35) }}
+                                                                            </a>
+                                                                        </h6>
+                                                                        <div class="rs-post-meta">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <span class="rs-meta">
+                                                                                        By
+                                                                                        <a href="javascript:void(0)"
+                                                                                            class="meta-author">
+                                                                                            {{ $post->author->name ?? 'Admin' }}
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <span class="rs-meta">
+                                                                                        <svg width="10" height="8"
+                                                                                            viewBox="0 0 10 8" fill="none"
+                                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                                            <path
+                                                                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
+                                                                                                fill="white" />
+                                                                                        </svg>
+                                                                                        <span>{{ number_format($post->views ?? 0) }}
+                                                                                            Views</span>
+                                                                                    </span>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            @empty
+                                                                <p>No latest news found.</p>
+                                                            @endforelse
                                                         </div>
                                                     </div>
                                                     <div class="rs-mega-menu-list-item">
-                                                        <h6 class="mega-menu-title">Trending News</h6>
+                                                        <h6 class="mega-menu-title">Breaking News</h6>
                                                         <div class="rs-menu-post-small">
-                                                            <div class="rs-post-small rs-post-small-eight">
-                                                                <div class="rs-post-small-thumb">
-                                                                    <a href="blog-details.html" class="image-link">
-                                                                        <img src="assets/images/small-card/small-card-thumb-34.webp"
-                                                                            alt="small thumb">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="rs-post-small-content">
-                                                                    <div class="rs-post-tag">
-                                                                        <a href="technology.html"
-                                                                            class="post-tag is-pink">Ai</a>
+                                                            @forelse($headerMegaBreakingNews as $post)
+                                                                <div class="rs-post-small rs-post-small-eight">
+                                                                    <div class="rs-post-small-thumb">
+                                                                        <a href="{{ route('news.show', $post->slug) }}" class="image-link">
+                                                                            <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                                                                alt="{{ $post->title }}">
+                                                                        </a>
                                                                     </div>
-                                                                    <h6 class="rs-post-small-title underline">
-                                                                        <a href="blog-details.html"> reen Tech
-                                                                            Sustainable The Future difference</a>
-                                                                    </h6>
-                                                                    <div class="rs-post-meta">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    By <a href="author.html"
-                                                                                        class="meta-author">rstheme</a>
-                                                                                </span>
-                                                                            </li>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    <svg width="10" height="8"
-                                                                                        viewBox="0 0 10 8" fill="none"
-                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path
-                                                                                            d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                            fill="white" />
-                                                                                    </svg>
-                                                                                    <span>5,385 Views</span>
-                                                                                </span>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="rs-post-small rs-post-small-eight">
-                                                                <div class="rs-post-small-thumb">
-                                                                    <a href="blog-details.html" class="image-link">
-                                                                        <img src="assets/images/small-card/small-card-thumb-40.webp"
-                                                                            alt="small thumb">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="rs-post-small-content">
-                                                                    <div class="rs-post-tag">
-                                                                        <a href="technology.html"
-                                                                            class="post-tag is-yellow">Tech</a>
-                                                                    </div>
-                                                                    <h6 class="rs-post-small-title underline">
-                                                                        <a href="blog-details.html"> Grassroots
-                                                                            Movements The Changing Artificial</a>
-                                                                    </h6>
-                                                                    <div class="rs-post-meta">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    By <a href="author.html"
-                                                                                        class="meta-author">rstheme</a>
-                                                                                </span>
-                                                                            </li>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    <svg width="10" height="8"
-                                                                                        viewBox="0 0 10 8" fill="none"
-                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path
-                                                                                            d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                            fill="white" />
-                                                                                    </svg>
-                                                                                    <span>5,385 Views</span>
-                                                                                </span>
-                                                                            </li>
-                                                                        </ul>
+                                                                    <div class="rs-post-small-content">
+                                                                        <div class="rs-post-tag">
+                                                                            <a href="{{ $post->category ? route('category.show', $post->category->slug) : 'javascript:void(0)' }}"
+                                                                                class="post-tag is-pink">
+                                                                                {{ $post->category->name ?? 'Breaking' }}
+                                                                            </a>
+                                                                        </div>
+                                                                        <h6 class="rs-post-small-title underline">
+                                                                            <a href="{{ route('news.show', $post->slug) }}">
+                                                                                {{ \Illuminate\Support\Str::limit($post->title, 35) }}
+                                                                            </a>
+                                                                        </h6>
+                                                                        <div class="rs-post-meta">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <span class="rs-meta">
+                                                                                        By
+                                                                                        <a href="javascript:void(0)" class="meta-author">
+                                                                                            {{ $post->author->name ?? 'Admin' }}
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <span class="rs-meta">
+                                                                                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
+                                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                                            <path
+                                                                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
+                                                                                                fill="white" />
+                                                                                        </svg>
+                                                                                        <span>{{ number_format($post->views ?? 0) }} Views</span>
+                                                                                    </span>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <!-- sports menu -->
-                                    <li class=" rs-mega-menu menu-item-has-children is-text-white">
-                                        <a href="javascript:void(0)">Sports</a>
-                                        <ul class="mega-menu mega-grid-two">
-                                            <li class="rs-mega-menu-section">
-                                                <h6 class="mega-menu-title">Sports</h6>
-                                                <div class="rs-mega-menu-btn">
-                                                    <a class="rs-btn has-text has-icon" href="sports.html">View All
-                                                        <span class="icon-box">
-                                                            <svg class="icon-first" width="17" height="12"
-                                                                viewBox="0 0 17 12" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                                    fill="#121213"></path>
-                                                            </svg>
-                                                            <svg class="icon-second" width="17" height="12"
-                                                                viewBox="0 0 17 12" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                                    fill="#121213"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                            </li>
-                                            <li class="rs-mega-menu-content">
-                                                <div class="rs-post-medium rs-post-medium-two">
-                                                    <div class="rs-post-medium-item">
-                                                        <div class="rs-post-medium-thumb">
-                                                            <a href="blog-details.html" class="image-link">
-                                                                <img src="assets/images/small-card/small-card-thumb-03.webp"
-                                                                    alt="medium thumb">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rs-post-medium-content">
-                                                            <h5 class="rs-post-overlay-title underline">
-                                                                <a href="blog-details.html"> Local team clinches the
-                                                                    national championship.</a>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="rs-post-meta">
-                                                            <ul>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        By <a href="author.html"
-                                                                            class="meta-author">rstheme</a>
-                                                                    </span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        <svg width="10" height="8" viewBox="0 0 10 8"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                fill="white"></path>
-                                                                        </svg>
-                                                                        <span>5,385 Views</span>
-                                                                    </span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="rs-post-medium rs-post-medium-two">
-                                                    <div class="rs-post-medium-item">
-                                                        <div class="rs-post-medium-thumb">
-                                                            <a href="blog-details.html" class="image-link">
-                                                                <img src="assets/images/small-card/small-card-thumb-10.webp"
-                                                                    alt="medium thumb">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rs-post-medium-content">
-                                                            <h5 class="rs-post-overlay-title underline">
-                                                                <a href="blog-details.html"> Soccer league playoffs
-                                                                    heat up with surprise upsets</a>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="rs-post-meta">
-                                                            <ul>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        By <a href="author.html"
-                                                                            class="meta-author">rstheme</a>
-                                                                    </span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        <svg width="10" height="8" viewBox="0 0 10 8"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                fill="white"></path>
-                                                                        </svg>
-                                                                        <span>5,385 Views</span>
-                                                                    </span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="rs-post-medium rs-post-medium-two">
-                                                    <div class="rs-post-medium-item">
-                                                        <div class="rs-post-medium-thumb">
-                                                            <a href="blog-details.html" class="image-link">
-                                                                <img src="assets/images/small-card/small-card-thumb-13.webp"
-                                                                    alt="medium thumb">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rs-post-medium-content">
-                                                            <h5 class="rs-post-overlay-title underline">
-                                                                <a href="blog-details.html"> Rising star dominates
-                                                                    tennis unbeaten streak</a>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="rs-post-meta">
-                                                            <ul>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        By <a href="author.html"
-                                                                            class="meta-author">rstheme</a>
-                                                                    </span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        <svg width="10" height="8" viewBox="0 0 10 8"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                fill="white"></path>
-                                                                        </svg>
-                                                                        <span>5,385 Views</span>
-                                                                    </span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="rs-post-medium rs-post-medium-two">
-                                                    <div class="rs-post-medium-item">
-                                                        <div class="rs-post-medium-thumb">
-                                                            <a href="blog-details.html" class="image-link">
-                                                                <img src="assets/images/small-card/small-card-thumb-48.webp"
-                                                                    alt="medium thumb">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rs-post-medium-content">
-                                                            <h5 class="rs-post-overlay-title underline">
-                                                                <a href="blog-details.html"> Soccer legend announces
-                                                                    from international play</a>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="rs-post-meta">
-                                                            <ul>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        By <a href="author.html"
-                                                                            class="meta-author">rstheme</a>
-                                                                    </span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        <svg width="10" height="8" viewBox="0 0 10 8"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                fill="white"></path>
-                                                                        </svg>
-                                                                        <span>5,385 Views</span>
-                                                                    </span>
-                                                                </li>
-                                                            </ul>
+                                                            @empty
+                                                                <p>No breaking news found.</p>
+                                                            @endforelse
                                                         </div>
                                                     </div>
                                                 </div>
@@ -449,32 +232,22 @@
                                     <li class="menu-item-has-children">
                                         <a href="javascript:void(0)">Categories</a>
                                         <ul class="submenu last-children">
-                                            <li>
-                                                <a href="technology.html">Technology</a>
-                                            </li>
-                                            <li>
-                                                <a href="politics.html">Politics</a>
-                                            </li>
-                                            <li>
-                                                <a href="food-recipe.html">Food Recipe</a>
-                                            </li>
-                                            <li>
-                                                <a href="travel.html">Travel</a>
-                                            </li>
-                                            <li>
-                                                <a href="sports.html">Sports</a>
-                                            </li>
-                                            <li>
-                                                <a href="gaming.html">Gaming</a>
-                                            </li>
-                                            <li>
-                                                <a href="business.html">Business</a>
-                                            </li>
+                                            @forelse($headerCategories as $category)
+                                                <li>
+                                                    <a href="{{ route('category.show', $category->slug) }}">
+                                                        {{ $category->name }}
+                                                    </a>
+                                                </li>
+                                            @empty
+                                                <li>
+                                                    <a href="javascript:void(0)">No Categories Found</a>
+                                                </li>
+                                            @endforelse
                                         </ul>
                                     </li>
                                     <!-- contact menu -->
                                     <li>
-                                        <a href="contact.html">Contact</a>
+                                        <a href="/contact-us">Contact</a>
                                     </li>
 
                                     <li class="">
@@ -490,55 +263,27 @@
                         <div class="header-right">
                             <div class="swiper header-menu-slide">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="travel.html">#Travel</a></li>
-                                            </ul>
+                                    @forelse($headerTrendingTags as $tag)
+                                        <div class="swiper-slide">
+                                            <div class="header-top-tag">
+                                                <ul>
+                                                    <li>
+                                                        <a href="{{ route('tag.show', $tag->slug) }}">
+                                                            #{{ $tag->name }}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="sports.html">#Sports</a></li>
-                                            </ul>
+                                    @empty
+                                        <div class="swiper-slide">
+                                            <div class="header-top-tag">
+                                                <ul>
+                                                    <li><a href="javascript:void(0)">#News</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="technology.html">#Technology</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="blog.html">#Science</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="politics.html">#Politics</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="blog.html">#AI</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="blog.html">#Health</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    @endforelse
                                 </div>
                             </div>
                             <!-- If we need navigation buttons -->
@@ -546,7 +291,7 @@
                                 <button class="slider-button-prev"><i class="ri-arrow-left-s-line"></i></button>
                                 <button class="slider-button-next"><i class="ri-arrow-right-s-line"></i></button>
                             </div>
-                            
+
                             <!-- hamburger start -->
                             <div class="header-toggle">
                                 <div class="header-hamburger">
@@ -583,383 +328,156 @@
                                     <li>
                                         <a href="/">Home</a>
                                     </li>
-                                    <!-- technology menu -->
+                                    <!-- news menu -->
                                     <li class="rs-mega-menu menu-item-has-children is-text-white">
-                                        <a href="javascript:void(0)">Technology</a>
+                                        <a href="javascript:void(0)">News</a>
                                         <ul class="mega-menu mega-grid">
                                             <li class="rs-mega-menu-left">
-                                                <h6 class="mega-menu-title"><a href="technology.html">Technology</a>
+                                                <h6 class="mega-menu-title">
+                                                    <a
+                                                        href="{{ $headerMegaFeaturedNews ? route('news.show', $headerMegaFeaturedNews->slug) : 'javascript:void(0)' }}">
+                                                        News
+                                                    </a>
                                                 </h6>
-                                                <div class="rs-post-medium rs-post-medium-two">
-                                                    <div class="rs-post-medium-item">
-                                                        <div class="rs-post-medium-thumb">
-                                                            <a href="blog-details.html" class="image-link">
-                                                                <img src="assets/images/small-card/small-card-thumb-35.webp"
-                                                                    alt="medium thumb">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rs-post-medium-content">
-                                                            <p class="rs-description">In today’s fast-paced digital
-                                                                world, Artificial Intelligence is
-                                                                empowering developers.</p>
+
+                                                @if($headerMegaFeaturedNews)
+                                                    <div class="rs-post-medium rs-post-medium-two">
+                                                        <div class="rs-post-medium-item">
+                                                            <div class="rs-post-medium-thumb">
+                                                                <a href="{{ route('news.show', $headerMegaFeaturedNews->slug) }}"
+                                                                    class="image-link" style="height: 120px;">
+                                                                    <img src="{{ $headerMegaFeaturedNews->featured_image ? asset('storage/' . $headerMegaFeaturedNews->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                                                        alt="{{ $headerMegaFeaturedNews->title }}" style="height: 100%; width: 100%; object-fit: cover">
+                                                                </a>
+                                                            </div>
+                                                            <div class="rs-post-medium-content">
+                                                                <p class="rs-description">
+                                                                    {{ \Illuminate\Support\Str::limit($headerMegaFeaturedNews->excerpt ?: $headerMegaFeaturedNews->title, 100) }}
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @else
+                                                    <div class="rs-post-medium rs-post-medium-two">
+                                                        <div class="rs-post-medium-item">
+                                                            <div class="rs-post-medium-content">
+                                                                <p class="rs-description">No featured news available right
+                                                                    now.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </li>
                                             <li class="rs-mega-menu-right">
                                                 <div class="rs-mega-menu-list">
                                                     <div class="rs-mega-menu-list-item">
                                                         <h6 class="mega-menu-title">Latest News</h6>
                                                         <div class="rs-menu-post-small">
-                                                            <div class="rs-post-small rs-post-small-eight">
-                                                                <div class="rs-post-small-thumb">
-                                                                    <a href="blog-details.html" class="image-link">
-                                                                        <img src="assets/images/small-card/small-card-thumb-01.webp"
-                                                                            alt="small thumb">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="rs-post-small-content">
-                                                                    <div class="rs-post-tag">
-                                                                        <a href="technology.html"
-                                                                            class="post-tag">Technology</a>
+                                                            @forelse($headerMegaLatestNews as $post)
+                                                                <div class="rs-post-small rs-post-small-eight">
+                                                                    <div class="rs-post-small-thumb">
+                                                                        <a href="{{ route('news.show', $post->slug) }}"
+                                                                            class="image-link">
+                                                                            <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                                                                alt="{{ $post->title }}">
+                                                                        </a>
                                                                     </div>
-                                                                    <h6 class="rs-post-small-title underline">
-                                                                        <a href="blog-details.html"> New tech
-                                                                            startups are pushing creating</a>
-                                                                    </h6>
-                                                                    <div class="rs-post-meta">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    By <a href="author.html"
-                                                                                        class="meta-author">rstheme</a>
-                                                                                </span>
-                                                                            </li>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    <svg width="10" height="8"
-                                                                                        viewBox="0 0 10 8" fill="none"
-                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path
-                                                                                            d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                            fill="white" />
-                                                                                    </svg>
-                                                                                    <span>5,385 Views</span>
-                                                                                </span>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="rs-post-small rs-post-small-eight">
-                                                                <div class="rs-post-small-thumb">
-                                                                    <a href="blog-details.html" class="image-link">
-                                                                        <img src="assets/images/small-card/small-card-thumb-33.webp"
-                                                                            alt="small thumb">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="rs-post-small-content">
-                                                                    <div class="rs-post-tag">
-                                                                        <a href="technology.html"
-                                                                            class="post-tag is-green">Tech</a>
-                                                                    </div>
-                                                                    <h6 class="rs-post-small-title underline">
-                                                                        <a href="blog-details.html"> Green Tech
-                                                                            Solutions Fighting Climate Change</a>
-                                                                    </h6>
-                                                                    <div class="rs-post-meta">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    By <a href="author.html"
-                                                                                        class="meta-author">rstheme</a>
-                                                                                </span>
-                                                                            </li>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    <svg width="10" height="8"
-                                                                                        viewBox="0 0 10 8" fill="none"
-                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path
-                                                                                            d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                            fill="white" />
-                                                                                    </svg>
-                                                                                    <span>5,385 Views</span>
-                                                                                </span>
-                                                                            </li>
-                                                                        </ul>
+                                                                    <div class="rs-post-small-content">
+                                                                        <div class="rs-post-tag">
+                                                                            <a href="{{ $post->category ? route('category.show', $post->category->slug) : 'javascript:void(0)' }}"
+                                                                                class="post-tag">
+                                                                                {{ $post->category->name ?? 'News' }}
+                                                                            </a>
+                                                                        </div>
+                                                                        <h6 class="rs-post-small-title underline">
+                                                                            <a href="{{ route('news.show', $post->slug) }}">
+                                                                                {{ \Illuminate\Support\Str::limit($post->title, 35) }}
+                                                                            </a>
+                                                                        </h6>
+                                                                        <div class="rs-post-meta">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <span class="rs-meta">
+                                                                                        By
+                                                                                        <a href="javascript:void(0)"
+                                                                                            class="meta-author">
+                                                                                            {{ $post->author->name ?? 'Admin' }}
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <span class="rs-meta">
+                                                                                        <svg width="10" height="8"
+                                                                                            viewBox="0 0 10 8" fill="none"
+                                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                                            <path
+                                                                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
+                                                                                                fill="white" />
+                                                                                        </svg>
+                                                                                        <span>{{ number_format($post->views ?? 0) }}
+                                                                                            Views</span>
+                                                                                    </span>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            @empty
+                                                                <p>No latest news found.</p>
+                                                            @endforelse
                                                         </div>
                                                     </div>
                                                     <div class="rs-mega-menu-list-item">
-                                                        <h6 class="mega-menu-title">Trending News</h6>
+                                                        <h6 class="mega-menu-title">Breaking News</h6>
                                                         <div class="rs-menu-post-small">
-                                                            <div class="rs-post-small rs-post-small-eight">
-                                                                <div class="rs-post-small-thumb">
-                                                                    <a href="blog-details.html" class="image-link">
-                                                                        <img src="assets/images/small-card/small-card-thumb-34.webp"
-                                                                            alt="small thumb">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="rs-post-small-content">
-                                                                    <div class="rs-post-tag">
-                                                                        <a href="technology.html"
-                                                                            class="post-tag is-pink">Ai</a>
+                                                            @forelse($headerMegaBreakingNews as $post)
+                                                                <div class="rs-post-small rs-post-small-eight">
+                                                                    <div class="rs-post-small-thumb">
+                                                                        <a href="{{ route('news.show', $post->slug) }}" class="image-link">
+                                                                            <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                                                                alt="{{ $post->title }}">
+                                                                        </a>
                                                                     </div>
-                                                                    <h6 class="rs-post-small-title underline">
-                                                                        <a href="blog-details.html"> reen Tech
-                                                                            Sustainable The Future difference</a>
-                                                                    </h6>
-                                                                    <div class="rs-post-meta">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    By <a href="author.html"
-                                                                                        class="meta-author">rstheme</a>
-                                                                                </span>
-                                                                            </li>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    <svg width="10" height="8"
-                                                                                        viewBox="0 0 10 8" fill="none"
-                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path
-                                                                                            d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                            fill="white" />
-                                                                                    </svg>
-                                                                                    <span>5,385 Views</span>
-                                                                                </span>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="rs-post-small rs-post-small-eight">
-                                                                <div class="rs-post-small-thumb">
-                                                                    <a href="blog-details.html" class="image-link">
-                                                                        <img src="assets/images/small-card/small-card-thumb-40.webp"
-                                                                            alt="small thumb">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="rs-post-small-content">
-                                                                    <div class="rs-post-tag">
-                                                                        <a href="technology.html"
-                                                                            class="post-tag is-yellow">Tech</a>
-                                                                    </div>
-                                                                    <h6 class="rs-post-small-title underline">
-                                                                        <a href="blog-details.html"> Grassroots
-                                                                            Movements The Changing Artificial</a>
-                                                                    </h6>
-                                                                    <div class="rs-post-meta">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    By <a href="author.html"
-                                                                                        class="meta-author">rstheme</a>
-                                                                                </span>
-                                                                            </li>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    <svg width="10" height="8"
-                                                                                        viewBox="0 0 10 8" fill="none"
-                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path
-                                                                                            d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                            fill="white" />
-                                                                                    </svg>
-                                                                                    <span>5,385 Views</span>
-                                                                                </span>
-                                                                            </li>
-                                                                        </ul>
+                                                                    <div class="rs-post-small-content">
+                                                                        <div class="rs-post-tag">
+                                                                            <a href="{{ $post->category ? route('category.show', $post->category->slug) : 'javascript:void(0)' }}"
+                                                                                class="post-tag is-pink">
+                                                                                {{ $post->category->name ?? 'Breaking' }}
+                                                                            </a>
+                                                                        </div>
+                                                                        <h6 class="rs-post-small-title underline">
+                                                                            <a href="{{ route('news.show', $post->slug) }}">
+                                                                                {{ \Illuminate\Support\Str::limit($post->title, 35) }}
+                                                                            </a>
+                                                                        </h6>
+                                                                        <div class="rs-post-meta">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <span class="rs-meta">
+                                                                                        By
+                                                                                        <a href="javascript:void(0)" class="meta-author">
+                                                                                            {{ $post->author->name ?? 'Admin' }}
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <span class="rs-meta">
+                                                                                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
+                                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                                            <path
+                                                                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
+                                                                                                fill="white" />
+                                                                                        </svg>
+                                                                                        <span>{{ number_format($post->views ?? 0) }} Views</span>
+                                                                                    </span>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <!-- sports menu -->
-                                    <li class=" rs-mega-menu menu-item-has-children is-text-white">
-                                        <a href="javascript:void(0)">Sports</a>
-                                        <ul class="mega-menu mega-grid-two">
-                                            <li class="rs-mega-menu-section">
-                                                <h6 class="mega-menu-title">Sports</h6>
-                                                <div class="rs-mega-menu-btn">
-                                                    <a class="rs-btn has-text has-icon" href="sports.html">View All
-                                                        <span class="icon-box">
-                                                            <svg class="icon-first" width="17" height="12"
-                                                                viewBox="0 0 17 12" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                                    fill="#121213"></path>
-                                                            </svg>
-                                                            <svg class="icon-second" width="17" height="12"
-                                                                viewBox="0 0 17 12" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                                    fill="#121213"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                            </li>
-
-                                            <li class="rs-mega-menu-content">
-                                                <div class="rs-post-medium rs-post-medium-two">
-                                                    <div class="rs-post-medium-item">
-                                                        <div class="rs-post-medium-thumb">
-                                                            <a href="blog-details.html" class="image-link">
-                                                                <img src="assets/images/small-card/small-card-thumb-03.webp"
-                                                                    alt="medium thumb">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rs-post-medium-content">
-                                                            <h5 class="rs-post-overlay-title underline">
-                                                                <a href="blog-details.html"> Local team clinches the
-                                                                    national championship.</a>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="rs-post-meta">
-                                                            <ul>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        By <a href="author.html"
-                                                                            class="meta-author">rstheme</a>
-                                                                    </span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        <svg width="10" height="8" viewBox="0 0 10 8"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                fill="white"></path>
-                                                                        </svg>
-                                                                        <span>5,385 Views</span>
-                                                                    </span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="rs-post-medium rs-post-medium-two">
-                                                    <div class="rs-post-medium-item">
-                                                        <div class="rs-post-medium-thumb">
-                                                            <a href="blog-details.html" class="image-link">
-                                                                <img src="assets/images/small-card/small-card-thumb-10.webp"
-                                                                    alt="medium thumb">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rs-post-medium-content">
-                                                            <h5 class="rs-post-overlay-title underline">
-                                                                <a href="blog-details.html"> Soccer league playoffs
-                                                                    heat up with surprise upsets</a>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="rs-post-meta">
-                                                            <ul>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        By <a href="author.html"
-                                                                            class="meta-author">rstheme</a>
-                                                                    </span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        <svg width="10" height="8" viewBox="0 0 10 8"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                fill="white"></path>
-                                                                        </svg>
-                                                                        <span>5,385 Views</span>
-                                                                    </span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="rs-post-medium rs-post-medium-two">
-                                                    <div class="rs-post-medium-item">
-                                                        <div class="rs-post-medium-thumb">
-                                                            <a href="blog-details.html" class="image-link">
-                                                                <img src="assets/images/small-card/small-card-thumb-13.webp"
-                                                                    alt="medium thumb">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rs-post-medium-content">
-                                                            <h5 class="rs-post-overlay-title underline">
-                                                                <a href="blog-details.html"> Rising star dominates
-                                                                    tennis unbeaten streak</a>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="rs-post-meta">
-                                                            <ul>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        By <a href="author.html"
-                                                                            class="meta-author">rstheme</a>
-                                                                    </span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        <svg width="10" height="8" viewBox="0 0 10 8"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                fill="white"></path>
-                                                                        </svg>
-                                                                        <span>5,385 Views</span>
-                                                                    </span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="rs-post-medium rs-post-medium-two">
-                                                    <div class="rs-post-medium-item">
-                                                        <div class="rs-post-medium-thumb">
-                                                            <a href="blog-details.html" class="image-link">
-                                                                <img src="assets/images/small-card/small-card-thumb-48.webp"
-                                                                    alt="medium thumb">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rs-post-medium-content">
-                                                            <h5 class="rs-post-overlay-title underline">
-                                                                <a href="blog-details.html"> Soccer legend announces
-                                                                    from international play</a>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="rs-post-meta">
-                                                            <ul>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        By <a href="author.html"
-                                                                            class="meta-author">rstheme</a>
-                                                                    </span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        <svg width="10" height="8" viewBox="0 0 10 8"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                fill="white"></path>
-                                                                        </svg>
-                                                                        <span>5,385 Views</span>
-                                                                    </span>
-                                                                </li>
-                                                            </ul>
+                                                            @empty
+                                                                <p>No breaking news found.</p>
+                                                            @endforelse
                                                         </div>
                                                     </div>
                                                 </div>
@@ -970,36 +488,27 @@
                                     <li class="menu-item-has-children">
                                         <a href="javascript:void(0)">Categories</a>
                                         <ul class="submenu last-children">
-                                            <li>
-                                                <a href="technology.html">Technology</a>
-                                            </li>
-                                            <li>
-                                                <a href="politics.html">Politics</a>
-                                            </li>
-                                            <li>
-                                                <a href="food-recipe.html">Food Recipe</a>
-                                            </li>
-                                            <li>
-                                                <a href="travel.html">Travel</a>
-                                            </li>
-                                            <li>
-                                                <a href="sports.html">Sports</a>
-                                            </li>
-                                            <li>
-                                                <a href="gaming.html">Gaming</a>
-                                            </li>
-                                            <li>
-                                                <a href="business.html">Business</a>
-                                            </li>
+                                            @forelse($headerCategories as $category)
+                                                <li>
+                                                    <a href="{{ route('category.show', $category->slug) }}">
+                                                        {{ $category->name }}
+                                                    </a>
+                                                </li>
+                                            @empty
+                                                <li>
+                                                    <a href="javascript:void(0)">No Categories Found</a>
+                                                </li>
+                                            @endforelse
                                         </ul>
                                     </li>
                                     <!-- contact menu -->
                                     <li>
-                                        <a href="contact.html">Contact</a>
+                                        <a href="/contact-us">Contact</a>
                                     </li>
 
                                     <li class="">
-                                        <a class="rs-btn hover-white" style="padding-right: 5px; padding-left: 5px;" href="/login">SignIn
+                                        <a class="rs-btn hover-white" style="padding-right: 5px; padding-left: 5px;"
+                                            href="/login">SignIn
                                         </a>
                                     </li>
 
@@ -1011,55 +520,27 @@
                         <div class="header-right">
                             <div class="swiper header-menu-slide">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="travel.html">#Travel</a></li>
-                                            </ul>
+                                    @forelse($headerTrendingTags as $tag)
+                                        <div class="swiper-slide">
+                                            <div class="header-top-tag">
+                                                <ul>
+                                                    <li>
+                                                        <a href="{{ route('tag.show', $tag->slug) }}">
+                                                            #{{ $tag->name }}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="sports.html">#Sports</a></li>
-                                            </ul>
+                                    @empty
+                                        <div class="swiper-slide">
+                                            <div class="header-top-tag">
+                                                <ul>
+                                                    <li><a href="javascript:void(0)">#News</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="technology.html">#Technology</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="blog.html">#Science</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="politics.html">#Politics</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="blog.html">#AI</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="blog.html">#Health</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    @endforelse
                                 </div>
                             </div>
                             <!-- If we need navigation buttons -->
@@ -1097,8 +578,8 @@
             <div class="offcanvas-content">
                 <div class="offcanvas-top d-flex justify-content-between align-items-center mb-20">
                     <div class="offcanvas-logo">
-                        <a class="logo-black" href="index.html"><img src="assets/images/logo/democracy-asia-logo.webp"
-                                alt="logo"></a>
+                        <a class="logo-black" href="index.html"><img
+                                src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}" alt="logo"></a>
                     </div>
                     <div class="offcanvas-close">
                         <button class="offcanvas-close-icon animation--flip">
@@ -1111,43 +592,9 @@
                     </div>
                 </div>
                 <div class="offcanvas-about mb-30 d-none d-xl-block">
-                    <p> Nerio News Magazine brings you trusted timely and thought-provoking stories from around the
+                    <p> Democracy Asia News Magazine brings you trusted timely and thought-provoking stories from around the
                         globe.
                     </p>
-                </div>
-                <div class="offcanvas-gallery d-none d-xl-block">
-                    <div class="offcanvas-gallery-thumb-wrapper">
-                        <div class="offcanvas-popup-thumb">
-                            <a class="popup-image" href="assets/images/gallery/gallery-thumb-01.webp">
-                                <img src="assets/images/gallery/gallery-thumb-01.webp" alt="image">
-                            </a>
-                        </div>
-                        <div class="offcanvas-popup-thumb">
-                            <a class="popup-image" href="assets/images/gallery/gallery-thumb-02.webp">
-                                <img src="assets/images/gallery/gallery-thumb-02.webp" alt="image">
-                            </a>
-                        </div>
-                        <div class="offcanvas-popup-thumb">
-                            <a class="popup-image" href="assets/images/gallery/gallery-thumb-03.webp">
-                                <img src="assets/images/gallery/gallery-thumb-03.webp" alt="image">
-                            </a>
-                        </div>
-                        <div class="offcanvas-popup-thumb">
-                            <a class="popup-image" href="assets/images/gallery/gallery-thumb-04.webp">
-                                <img src="assets/images/gallery/gallery-thumb-04.webp" alt="image">
-                            </a>
-                        </div>
-                        <div class="offcanvas-popup-thumb">
-                            <a class="popup-image" href="assets/images/gallery/gallery-thumb-05.webp">
-                                <img src="assets/images/gallery/gallery-thumb-05.webp" alt="image">
-                            </a>
-                        </div>
-                        <div class="offcanvas-popup-thumb">
-                            <a class="popup-image" href="assets/images/gallery/gallery-thumb-06.webp">
-                                <img src="assets/images/gallery/gallery-thumb-06.webp" alt="image">
-                            </a>
-                        </div>
-                    </div>
                 </div>
                 <div class="mobile-menu">
                     <div class="rs-offcanvas-menu mb-30">

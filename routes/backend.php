@@ -6,7 +6,8 @@ use App\Http\Controllers\CRM\CategoryController;
 use App\Http\Controllers\CRM\ArticleController;
 use App\Http\Controllers\CRM\TagController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Categories

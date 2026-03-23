@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Tag;
 
 class HomeController extends Controller
 {
@@ -89,23 +90,226 @@ class HomeController extends Controller
         ));
     }
 
-    public function show($slug)
+    public function newsIndex()
+    {
+        $articles = Article::with(['category', 'author', 'tags'])
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->latest('published_at')
+            ->paginate(12)->withQueryString();
+
+        $popularArticles = Article::with(['category', 'author'])
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->orderByDesc('views')
+            ->take(3)
+            ->get();
+
+        $categories = Category::withCount([
+            'articles' => function ($q) {
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            }
+        ])
+            ->where('status', 1)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        $sidebarTags = Tag::withCount([
+            'articles' => function ($q) {
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            }
+        ])
+            ->having('articles_count', '>', 0)
+            ->orderByDesc('articles_count')
+            ->take(14)
+            ->get();
+
+        $pageTitle = 'News';
+        $pageType = 'news';
+        $pageObject = null;
+
+        return view('news.index', compact(
+            'articles',
+            'popularArticles',
+            'categories',
+            'sidebarTags',
+            'pageTitle',
+            'pageType',
+            'pageObject'
+        ));
+    }
+
+    public function category($slug)
+    {
+        $category = Category::where('slug', $slug)
+            ->where('status', 1)
+            ->firstOrFail();
+
+        $articles = Article::with(['category', 'author', 'tags'])
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->where('category_id', $category->id)
+            ->latest('published_at')
+            ->paginate(12)->withQueryString();
+
+        $popularArticles = Article::with(['category', 'author'])
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->orderByDesc('views')
+            ->take(3)
+            ->get();
+
+        $categories = Category::withCount([
+            'articles' => function ($q) {
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            }
+        ])
+            ->where('status', 1)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        $sidebarTags = Tag::withCount([
+            'articles' => function ($q) {
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            }
+        ])
+            ->having('articles_count', '>', 0)
+            ->orderByDesc('articles_count')
+            ->take(14)
+            ->get();
+
+        $pageTitle = $category->name;
+        $pageType = 'category';
+        $pageObject = $category;
+
+        return view('news.index', compact(
+            'articles',
+            'popularArticles',
+            'categories',
+            'sidebarTags',
+            'pageTitle',
+            'pageType',
+            'pageObject'
+        ));
+    }
+
+    public function tag($slug)
+    {
+        $tag = Tag::where('slug', $slug)->firstOrFail();
+
+        $articles = Article::with(['category', 'author', 'tags'])
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->whereHas('tags', function ($q) use ($tag) {
+                $q->where('tags.id', $tag->id);
+            })
+            ->latest('published_at')
+            ->paginate(12)->withQueryString();
+
+        $popularArticles = Article::with(['category', 'author'])
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->orderByDesc('views')
+            ->take(3)
+            ->get();
+
+        $categories = Category::withCount([
+            'articles' => function ($q) {
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            }
+        ])
+            ->where('status', 1)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        $sidebarTags = Tag::withCount([
+            'articles' => function ($q) {
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            }
+        ])
+            ->having('articles_count', '>', 0)
+            ->orderByDesc('articles_count')
+            ->take(14)
+            ->get();
+
+        $pageTitle = $tag->name;
+        $pageType = 'tag';
+        $pageObject = $tag;
+
+        return view('news.index', compact(
+            'articles',
+            'popularArticles',
+            'categories',
+            'sidebarTags',
+            'pageTitle',
+            'pageType',
+            'pageObject'
+        ));
+    }
+    public function newsDetailSlug($slug)
     {
         $article = Article::with(['category', 'author', 'tags'])
             ->where('slug', $slug)
             ->where('status', 'published')
+            ->whereNotNull('published_at')
             ->firstOrFail();
 
         $article->increment('views');
 
         $relatedArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
+            ->whereNotNull('published_at')
             ->where('category_id', $article->category_id)
             ->where('id', '!=', $article->id)
             ->latest('published_at')
             ->take(4)
             ->get();
 
-        return view('news-details', compact('article', 'relatedArticles'));
+        $popularArticles = Article::with(['category', 'author'])
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->where('id', '!=', $article->id)
+            ->orderByDesc('views')
+            ->take(4)
+            ->get();
+
+        $categories = Category::withCount([
+            'articles' => function ($q) {
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            }
+        ])
+            ->where('status', 1)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        $sidebarTags = \App\Models\Tag::withCount([
+            'articles' => function ($q) {
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            }
+        ])
+            ->having('articles_count', '>', 0)
+            ->orderByDesc('articles_count')
+            ->take(14)
+            ->get();
+
+        return view('news.news-detail', compact(
+            'article',
+            'relatedArticles',
+            'popularArticles',
+            'categories',
+            'sidebarTags'
+        ));
     }
 }

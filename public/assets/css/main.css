@@ -13135,8 +13135,16 @@ html.lenis body {
   height: 100px;
 }
 
+.header-ad-banner {
+  height: 70px;
+}
+
 @media only screen and (max-width: 768px) {
   .image-link {
+    height: 100%;
+  }
+
+  .header-ad-banner {
     height: 100%;
   }
 }
@@ -13189,4 +13197,8 @@ html.lenis body {
   .featured-category-post .rs-post-overlay-bg-thumb {
     min-height: 300px;
   }
+}
+
+.rs-postbox-details-content img {
+  width: 100% !important;
 }

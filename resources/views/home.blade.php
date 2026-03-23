@@ -205,7 +205,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="rs-ad-banner-thumb">
-                        <a href="contact.html"><img src="assets/images/ad/ad-banner-thumb-01.webp" alt="image"></a>
+                        <a href="contact.html"><img src="{{ asset('assets/images/ad/ad-banner-thumb-01.webp') }}" alt="image"></a>
                     </div>
                 </div>
             </div>
@@ -213,13 +213,13 @@
     </div>
     <!-- ad banner area end -->
 
-    <!-- trending news area start -->
+    <!-- breaking news area start -->
     <section class="rs-trending-news-area section-space-bottom rs-ptop rs-trending-news-one bg-primary">
         <div class="container">
             <div class="row section-title-space align-items-center g-5">
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-title-wrapper">
-                        <h2 class="section-title rs-split-text-enable split-in-left is-white">Trending News</h2>
+                        <h2 class="section-title rs-split-text-enable split-in-left is-white">Breaking News</h2>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6">
@@ -428,15 +428,15 @@
             @endif
         </div>
     </section>
-    <!-- trending news area start -->
+    <!-- breaking news area start -->
 
-    <!-- trending stories area start -->
+    <!-- featured news area start -->
     <section class="rs-trending-stories-area section-space-bottom rs-ptop rs-trending-stories-one secondary-bg">
         <div class="container">
             <div class="row section-title-space align-items-center g-5">
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-title-wrapper">
-                        <h2 class="section-title rs-split-text-enable split-in-left">Trending Stories</h2>
+                        <h2 class="section-title rs-split-text-enable split-in-left">Featured News</h2>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6">
@@ -738,28 +738,28 @@
             </div>
         </div>
     </section>
-    <!-- trending stories area end -->
+    <!-- featured nes area end -->
 
     <!-- cta area start -->
     <section class="rs-cta-area rs-cta-one section-space">
         <div class="container">
             <div class="rs-cta-wrapper">
                 <div class="cta-shape-one">
-                    <img src="assets/images/cta/cta-thumb-01.webp" alt="image">
+                    <img src="{{ asset('assets/images/cta/cta-thumb-01.webp') }}" alt="image">
                 </div>
                 <div class="cta-shape-two">
-                    <img src="assets/images/cta/cta-thumb-02.webp" alt="image">
+                    <img src="{{ asset('assets/images/cta/cta-thumb-02.webp') }}" alt="image">
                 </div>
                 <div class="cta-shape-three">
-                    <img src="assets/images/cta/cta-thumb-03.webp" alt="image">
+                    <img src="{{ asset('assets/images/cta/cta-thumb-03.webp') }}" alt="image">
                 </div>
                 <div class="cta-shape-four">
-                    <img src="assets/images/cta/cta-thumb-04.webp" alt="image">
+                    <img src="{{ asset('assets/images/cta/cta-thumb-04.webp') }}" alt="image">
                 </div>
                 <div class="cta-shape-five">
-                    <img src="assets/images/shape/multi-dot-shape.webp" alt="image">
+                    <img src="{{ asset('assets/images/shape/multi-dot-shape.webp') }}" alt="image">
                 </div>
-                <div class="rs-cta-bg-thumb" data-background="assets/images/bg/cta-bg-thumb-01.webp"></div>
+                <div class="rs-cta-bg-thumb" data-background="{{ asset('assets/images/bg/cta-bg-thumb-01.webp') }}"></div>
                 <div class="row">
                     <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-10">
                         <div class="rs-cta-content-wrapper">
@@ -841,7 +841,7 @@
                         <div class="rs-post-video-item">
                             <div class="rs-post-video">
                                 <video loop="" muted="" autoplay="" playsinline="">
-                                    <source src="assets/video/video.mp4" type="video/mp4">
+                                    <source src="{{ asset('assets/video/video.mp4') }}" type="video/mp4">
                                 </video>
                             </div>
                             <div class="rs-post-video-content">
@@ -896,7 +896,7 @@
                         <div class="rs-post-video-item">
                             <div class="rs-post-video-thumb">
                                 <a href="#">
-                                    <img src="assets/images/video-card/video-card-thumb-01.webp" alt="small thumb">
+                                    <img src="{{ asset('assets/images/video-card/video-card-thumb-01.webp') }}" alt="small thumb">
                                 </a>
                                 <a href="https://www.youtube.com/watch?v=go7QYaQR494"
                                     class="rs-play-btn popup-video is-small is-red"><i class="ri-play-large-fill"></i></a>
@@ -935,7 +935,7 @@
                         <div class="rs-post-video-item">
                             <div class="rs-post-video-thumb">
                                 <a href="#">
-                                    <img src="assets/images/video-card/video-card-thumb-02.webp" alt="small thumb">
+                                    <img src="{{ asset('assets/images/video-card/video-card-thumb-02.webp') }}" alt="small thumb">
                                 </a>
                                 <a href="https://www.youtube.com/watch?v=go7QYaQR494"
                                     class="rs-play-btn popup-video is-small is-red"><i class="ri-play-large-fill"></i></a>
@@ -973,7 +973,7 @@
                         <div class="rs-post-video-item">
                             <div class="rs-post-video-thumb">
                                 <a href="#">
-                                    <img src="assets/images/video-card/video-card-thumb-03.webp" alt="small thumb">
+                                    <img src="{{ asset('assets/images/video-card/video-card-thumb-03.webp') }}" alt="small thumb">
                                 </a>
                                 <a href="https://www.youtube.com/watch?v=go7QYaQR494"
                                     class="rs-play-btn popup-video is-small is-red"><i class="ri-play-large-fill"></i></a>
@@ -1179,7 +1179,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="rs-ad-banner-thumb">
-                        <a href="contact.html"><img src="assets/images/ad/ad-banner-thumb-01.webp" alt="image"></a>
+                        <a href="contact.html"><img src="{{ asset('assets/images/ad/ad-banner-thumb-01.webp') }}" alt="image"></a>
                     </div>
                 </div>
             </div>

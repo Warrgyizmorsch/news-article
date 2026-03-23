@@ -113,59 +113,59 @@
     }
 
     /* settings append in body Js */
-    function rs_settings_append($x) {
-        var settings = $('body');
-        let dark;
-        $x === true ? dark = 'd-block' : dark = 'd-none';
-        /* no need switcher then add 'd-none' */
-        var settings_html = `<div class="rs-theme-settings-area">
-        <div class="rs-theme-wrapper">
-        <div class="rs-theme-header text-center">
-           <h4 class="rs-theme-header-title">Color Settings</h4>
-        </div>
+    // function rs_settings_append($x) {
+    //     var settings = $('body');
+    //     let dark;
+    //     $x === true ? dark = 'd-block' : dark = 'd-none';
+    //     /* no need switcher then add 'd-none' */
+    //     var settings_html = `<div class="rs-theme-settings-area">
+    //     <div class="rs-theme-wrapper">
+    //     <div class="rs-theme-header text-center">
+    //        <h4 class="rs-theme-header-title">Color Settings</h4>
+    //     </div>
 
-        <!-- THEME TOGGLER -->
-        <div class="rs-theme-toggle mb-20 ${dark}">
-           <label class="rs-theme-toggle-main" for="rs-theme-toggler">
-           <span class="rs-theme-toggle-dark"><i class="ri-moon-line"></i> Dark </span>
-                 <input type="checkbox" id="rs-theme-toggler">
-                 <i class="rs-theme-toggle-slide"></i>
-                 <span class="rs-theme-toggle-light active"><i class="ri-sun-line"></i> Light</span>
-           </label>
-        </div>
+    //     <!-- THEME TOGGLER -->
+    //     <div class="rs-theme-toggle mb-20 ${dark}">
+    //        <label class="rs-theme-toggle-main" for="rs-theme-toggler">
+    //        <span class="rs-theme-toggle-dark"><i class="ri-moon-line"></i> Dark </span>
+    //              <input type="checkbox" id="rs-theme-toggler">
+    //              <i class="rs-theme-toggle-slide"></i>
+    //              <span class="rs-theme-toggle-light active"><i class="ri-sun-line"></i> Light</span>
+    //        </label>
+    //     </div>
 
-        <div class="rs-theme-header text-center">
-           <h4 class="rs-theme-header-title">Template Settings</h4>
-        </div>
+    //     <div class="rs-theme-header text-center">
+    //        <h4 class="rs-theme-header-title">Template Settings</h4>
+    //     </div>
 
-        <!--  RTL SETTINGS  mb-20 -->
-        <div class="rs-theme-dir">
-           <label class="rs-theme-dir-main" for="rs-dir-toggler">
-              <span class="rs-theme-dir-rtl"> RTL</span>
-                 <input type="checkbox" id="rs-dir-toggler">
-                 <i class="rs-theme-dir-slide"></i>
-              <span class="rs-theme-dir-ltr active"> LTR</span>
-           </label>
-        </div>
+    //     <!--  RTL SETTINGS  mb-20 -->
+    //     <div class="rs-theme-dir">
+    //        <label class="rs-theme-dir-main" for="rs-dir-toggler">
+    //           <span class="rs-theme-dir-rtl"> RTL</span>
+    //              <input type="checkbox" id="rs-dir-toggler">
+    //              <i class="rs-theme-dir-slide"></i>
+    //           <span class="rs-theme-dir-ltr active"> LTR</span>
+    //        </label>
+    //     </div>
 
-        <div class="rs-theme-settings">
-           <div class="rs-theme-settings-wrapper">
-              <div class="rs-theme-settings-open">
-                 <button class="rs-theme-settings-open-btn">
-                    <span class="rs-theme-settings-gear">
-                       <i class="ri-settings-2-line"></i>
-                    </span>
-                    <span class="rs-theme-settings-close">
-                       <i class="ri-close-line"></i>
-                    </span>
-                 </button>
-              </div>
-           </div>
-        </div>
-     </div>
-     </div>`;
-        settings.append(settings_html);
-    }
+    //     <div class="rs-theme-settings">
+    //        <div class="rs-theme-settings-wrapper">
+    //           <div class="rs-theme-settings-open">
+    //              <button class="rs-theme-settings-open-btn">
+    //                 <span class="rs-theme-settings-gear">
+    //                    <i class="ri-settings-2-line"></i>
+    //                 </span>
+    //                 <span class="rs-theme-settings-close">
+    //                    <i class="ri-close-line"></i>
+    //                 </span>
+    //              </button>
+    //           </div>
+    //        </div>
+    //     </div>
+    //  </div>
+    //  </div>`;
+    //     settings.append(settings_html);
+    // }
     // rtl setting end
 
 

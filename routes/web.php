@@ -5,8 +5,13 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/contact-us', function () {
+    return view('contact.index');
+})->name('contact.index');
+
 Route::get('/news', [HomeController::class, 'newsIndex'])->name('news.index');
-Route::get('/news/{slug}', [HomeController::class, 'show'])->name('news.show');
+Route::get('/news/{slug}', [HomeController::class, 'newsDetailSlug'])->name('news.show');
 
 Route::get('/category/{slug}', [HomeController::class, 'category'])->name('category.show');
 Route::get('/tag/{slug}', [HomeController::class, 'tag'])->name('tag.show');
