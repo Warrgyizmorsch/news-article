@@ -70,6 +70,38 @@
                     </ul>
                 </li>
 
+                <li class="nxl-item nxl-hasmenu {{ request()->routeIs('plans.*') ? 'active' : '' }}">
+                    <a href="javascript:void(0);" class="nxl-link">
+                        <span class="nxl-micon"><i class="feather-credit-card"></i></span>
+                        <span class="nxl-mtext">Plans</span>
+                        <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                    </a>
+                    <ul class="nxl-submenu">
+                        <li class="nxl-item">
+                            <a href="{{ route('plans.create') }}" class="nxl-link">Add Plan</a>
+                        </li>
+                        <li class="nxl-item">
+                            <a href="{{ route('plans.index') }}" class="nxl-link">Plan List</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nxl-item nxl-hasmenu {{ request()->routeIs('user-subscriptions.*') ? 'active' : '' }}">
+                    <a href="javascript:void(0);" class="nxl-link">
+                        <span class="nxl-micon"><i class="feather-users"></i></span>
+                        <span class="nxl-mtext">Subscriptions</span>
+                        <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                    </a>
+                    <ul class="nxl-submenu">
+                        <li class="nxl-item">
+                            <a href="{{ route('user-subscriptions.create') }}" class="nxl-link">Assign Subscription</a>
+                        </li>
+                        <li class="nxl-item">
+                            <a href="{{ route('user-subscriptions.index') }}" class="nxl-link">Subscription List</a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </div>
     </div>

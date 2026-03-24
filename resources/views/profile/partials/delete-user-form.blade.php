@@ -1,6 +1,6 @@
 <section>
     <div class="mb-4">
-        <h6 class="mb-1 text-danger">Delete Account</h6>
+        <h4 class="mb-1 text-danger">Delete Account</h4>
         <p class="text-muted mb-0">
             Once your account is deleted, all of its resources and data will be permanently deleted.
             Please enter your password to confirm you would like to permanently delete your account.

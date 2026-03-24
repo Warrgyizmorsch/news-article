@@ -22,7 +22,44 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role === 'user';
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(UserSubscription::class);
+    }
+
+    public function activeSubscription()
+    {
+        return $this->hasOne(UserSubscription::class)
+            ->where('status', 'active')
+            ->whereDate('end_date', '>=', now());
+    }
+
+    public function hasActiveSubscription(): bool
+    {
+        return $this->activeSubscription()->exists();
+    }
+
+    public function canReadFullArticles(): bool
+    {
+        if ($this->isAdmin()) {
+            return true;
+        }
+
+        return $this->hasActiveSubscription();
+    }
 
     /**
      * The attributes that should be hidden for serialization.

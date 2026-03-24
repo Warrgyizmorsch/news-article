@@ -1,6 +1,6 @@
 <section>
     <div class="mb-4">
-        <h6 class="mb-1">Update Password</h6>
+        <h4 class="mb-1">Update Password</h4>
         <p class="text-muted mb-0">
             Ensure your account is using a long, random password to stay secure.
         </p>
@@ -24,8 +24,8 @@
         <div class="row g-3 mb-4">
             <label class="col-lg-3 col-form-label fw-semibold">New Password</label>
             <div class="col-lg-9">
-                <input id="update_password_password" name="password" type="password" class="form-control"
-                    autocomplete="new-password">
+                <input id="update_password_password" name="password" type="password"
+                    class="form-control" autocomplete="new-password">
                 @error('password', 'updatePassword')
                     <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
@@ -44,7 +44,9 @@
         </div>
 
         <div class="d-flex justify-content-end gap-2">
-            <button type="submit" class="btn btn-primary">Update Password</button>
+            <button type="submit" class="rs-btn text-center">
+                Update Password
+            </button>
         </div>
 
         @if (session('status') === 'password-updated')

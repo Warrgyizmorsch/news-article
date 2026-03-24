@@ -16,8 +16,21 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $user = $request->user();
+
+        $currentSubscription = null;
+
+        if ($user->role !== 'admin') {
+            $currentSubscription = $user->subscriptions()
+                ->with('plan')
+                ->whereIn('status', ['active', 'pending'])
+                ->latest()
+                ->first();
+        }
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'currentSubscription' => $currentSubscription,
         ]);
     }
 

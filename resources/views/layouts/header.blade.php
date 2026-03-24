@@ -1,4 +1,165 @@
 <header>
+    <style>
+        .header-auth-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+    
+        .header-auth-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--rs-title-primary);
+            transition: all 0.3s ease;
+        }
+    
+        .header-auth-link:hover {
+            color: var(--rs-theme-primary);
+        }
+    
+        .header-subscribe-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 999px;
+            background: #10171e;
+            color: #fff !important;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1;
+            transition: all 0.3s ease;
+            border: 1px solid #10171e;
+        }
+    
+        .header-subscribe-btn:hover {
+            background: transparent;
+            color: #10171e !important;
+        }
+    
+        .header-user-dropdown {
+            position: relative;
+        }
+    
+        .header-user-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 999px;
+            background: #fff;
+            color: #10171e;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+    
+        .header-user-toggle:hover {
+            border-color: #10171e;
+        }
+    
+        .header-user-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #10171e;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+    
+        .header-user-menu {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            min-width: 220px;
+            background: #fff;
+            border: 1px solid #ececec;
+            border-radius: 16px;
+            box-shadow: 0 16px 40px rgba(16, 23, 30, 0.12);
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: all 0.25s ease;
+            z-index: 999;
+        }
+    
+        .header-user-dropdown:hover .header-user-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    
+        .header-user-menu a,
+        .header-user-menu button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 12px;
+            border-radius: 10px;
+            background: transparent;
+            border: 0;
+            text-align: left;
+            color: #10171e;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+    
+        .header-user-menu a:hover,
+        .header-user-menu button:hover {
+            background: #f6f7f9;
+            color: var(--rs-theme-primary);
+        }
+    
+        .header-user-divider {
+            height: 1px;
+            background: #ececec;
+            margin: 8px 0;
+        }
+    
+        .header-user-name {
+            max-width: 110px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    
+        @media (max-width: 991px) {
+            .header-bottom-wrapper {
+                justify-content: center !important;
+                text-align: center;
+            }
+    
+            .header-auth-actions {
+                justify-content: center;
+                width: 100%;
+            }
+    
+            .header-user-menu {
+                right: 50%;
+                transform: translate(50%, 8px);
+            }
+    
+            .header-user-dropdown:hover .header-user-menu {
+                transform: translate(50%, 0);
+            }
+        }
+    </style>
+
     <div class="rs-header-area rs-header-three">
         <div class="container-fluid g-0">
             <!-- top start -->
@@ -51,14 +212,84 @@
             </div>
             <!-- top end -->
             <!-- header bottom start -->
-            <div class="header-bottom-wrapper" style="flex-wrap: nowrap;">
+            <div class="header-bottom-wrapper"
+                style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+            
                 <div class="header-logo">
-                    <a class="logo-black" href="/"><img src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}"
-                            alt="logo"></a>
+                    <a class="logo-black" href="{{ route('home') }}">
+                        <img src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}" alt="logo">
+                    </a>
                 </div>
-                <div class="header-ad-banner">
-                    <a href="/contact-us"><img src="{{ asset('assets/images/ad/ad-banner-thumb-05.webp') }}"
-                            alt="image" style="height: 100%; width: 100%; object-fit: fill;  border-radius: 10px;"></a>
+            
+                <div class="header-auth-actions">
+                    @guest
+                        <a href="{{ route('login') }}" class="header-auth-link">
+                            <i class="ri-login-circle-line"></i>
+                            <span>Login</span>
+                        </a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="header-auth-link">
+                                <i class="ri-user-add-line"></i>
+                                <span>Register</span>
+                            </a>
+                        @endif
+
+                        <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn">
+                            <i class="ri-vip-crown-2-line"></i>
+                            <span>Subscribe</span>
+                        </a>
+                    @endguest
+            
+                    @auth
+                        @if(auth()->user()->role !== 'admin')
+                            <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn">
+                                <i class="ri-vip-crown-2-line"></i>
+                                <span>Subscribe</span>
+                            </a>
+                        @endif
+
+                        <div class="header-user-dropdown">
+                            <button type="button" class="header-user-toggle">
+                                <span class="header-user-avatar">
+                                    {{ \Illuminate\Support\Str::substr(auth()->user()->name, 0, 1) }}
+                                </span>
+                                <span class="header-user-name">{{ auth()->user()->name }}</span>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
+
+                            <div class="header-user-menu">
+                                <a href="{{ route('profile.edit') }}">
+                                    <i class="ri-user-3-line"></i>
+                                    <span>My Profile</span>
+                                </a>
+
+                                @if(auth()->user()->role === 'admin')
+                                    <a href="{{ route('dashboard') }}">
+                                        <i class="ri-layout-grid-line"></i>
+                                        <span>Dashboard</span>
+                                    </a>
+                                @endif
+
+                                @if(auth()->user()->role !== 'admin')
+                                    <a href="{{ route('frontend.plans.index') }}">
+                                        <i class="ri-vip-crown-line"></i>
+                                        <span>Manage Subscription</span>
+                                    </a>
+                                @endif
+
+                                <div class="header-user-divider"></div>
+
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit">
+                                        <i class="ri-logout-box-r-line"></i>
+                                        <span>Logout</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @endauth
                 </div>
             </div>
             <!-- header bottom end -->
@@ -248,11 +479,6 @@
                                     <!-- contact menu -->
                                     <li>
                                         <a href="/contact-us">Contact</a>
-                                    </li>
-
-                                    <li class="">
-                                        <a class="" href="/login">SignIn
-                                        </a>
                                     </li>
 
                                 </ul>
@@ -506,12 +732,6 @@
                                         <a href="/contact-us">Contact</a>
                                     </li>
 
-                                    <li class="">
-                                        <a class="rs-btn hover-white" style="padding-right: 5px; padding-left: 5px;"
-                                            href="/login">SignIn
-                                        </a>
-                                    </li>
-
                                 </ul>
                             </nav>
                         </div>
@@ -601,6 +821,73 @@
                         <nav></nav>
                     </div>
                 </div>
+
+                <div class="offcanvas-auth mb-30">
+    @guest
+        <div style="display:flex; flex-direction:column; gap:12px;">
+            <a href="{{ route('login') }}" class="header-auth-link">
+                <i class="ri-login-circle-line"></i>
+                <span>Login</span>
+            </a>
+
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="header-auth-link">
+                    <i class="ri-user-add-line"></i>
+                    <span>Register</span>
+                </a>
+            @endif
+
+            <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn"
+                style="width:100%; justify-content:center;">
+                <i class="ri-vip-crown-2-line"></i>
+                <span>Subscribe</span>
+            </a>
+        </div>
+    @endguest
+
+    @auth
+        <div style="display:flex; flex-direction:column; gap:12px;">
+            <div class="d-flex align-items-center gap-10">
+                <span class="header-user-avatar">
+                    {{ \Illuminate\Support\Str::substr(auth()->user()->name, 0, 1) }}
+                </span>
+                <div>
+                    <strong>{{ auth()->user()->name }}</strong>
+                    <div style="font-size:13px; color:#6d6d6d;">{{ auth()->user()->email }}</div>
+                </div>
+            </div>
+
+            <a href="{{ route('profile.edit') }}" class="header-auth-link">
+                <i class="ri-user-3-line"></i>
+                <span>My Profile</span>
+            </a>
+
+            @if(auth()->user()->role === 'admin')
+                <a href="{{ route('dashboard') }}" class="header-auth-link">
+                    <i class="ri-layout-grid-line"></i>
+                    <span>Dashboard</span>
+                </a>
+            @endif
+
+            @if(auth()->user()->role !== 'admin')
+                <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn"
+                    style="width:100%; justify-content:center;">
+                    <i class="ri-vip-crown-2-line"></i>
+                    <span>Subscribe</span>
+                </a>
+            @endif
+
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="header-auth-link" style="border:0; background:none; padding:0;">
+                    <i class="ri-logout-box-r-line"></i>
+                    <span>Logout</span>
+                </button>
+            </form>
+        </div>
+    @endauth
+</div>
+
                 <div class="offcanvas-contact mb-30">
                     <h4 class="offcanvas-title-meta">Contact Info</h4>
                     <ul>
