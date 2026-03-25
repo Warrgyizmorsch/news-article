@@ -170,8 +170,8 @@
                                         </a>
                                     @endif
                                 @else
-                                    <a href="{{ route('login') }}" class="rs-btn w-100 text-center">
-                                        Login to Subscribe
+                                    <a href="{{ route('plans.subscribe.show', $plan->slug) }}" class="rs-btn w-100 text-center">
+                                        Subscribe Now
                                     </a>
                                 @endauth
                             </div>

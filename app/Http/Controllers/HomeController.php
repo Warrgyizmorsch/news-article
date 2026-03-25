@@ -5,22 +5,46 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\SubscriptionPlan;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // Section 1: Hero News (7 articles)
-        $heroArticles = Article::with(['category', 'author'])
+        // Section 1: Hero News
+
+        // Center Hero Article (latest published article)
+        $heroCenter = Article::with(['category', 'author'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
             ->latest('published_at')
-            ->take(7)
+            ->first();
+
+        // Left Side: Most Viewed Articles
+        $heroLeft = Article::with(['category', 'author'])
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->when($heroCenter, function ($query) use ($heroCenter) {
+                $query->where('id', '!=', $heroCenter->id);
+            })
+            ->orderByDesc('views')
+            ->orderByDesc('published_at')
+            ->take(3)
             ->get();
 
-        $heroCenter = $heroArticles->slice(0, 1)->first();
-        $heroLeft = $heroArticles->slice(1, 3);
-        $heroRight = $heroArticles->slice(4, 3);
+        // Right Side: Recent Articles
+        $heroRight = Article::with(['category', 'author'])
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->when($heroCenter, function ($query) use ($heroCenter) {
+                $query->where('id', '!=', $heroCenter->id);
+            })
+            ->when($heroLeft->count(), function ($query) use ($heroLeft) {
+                $query->whereNotIn('id', $heroLeft->pluck('id'));
+            })
+            ->latest('published_at')
+            ->take(3)
+            ->get();
 
         // Section 3: Breaking / Trending News
         $breakingArticles = Article::with(['category', 'author'])
@@ -70,11 +94,16 @@ class HomeController extends Controller
             $categoryArticles = Article::with(['category', 'author'])
                 ->where('category_id', $selectedCategory->id)
                 ->where('status', 'published')
+                ->whereNotNull('published_at')
                 ->orderByDesc('published_at')
                 ->take(9)
                 ->get()
                 ->values();
         }
+
+        $ctaPlan = SubscriptionPlan::where('id', 1)
+            ->where('status', 1)
+            ->first();
 
         return view('home', compact(
             'heroCenter',
@@ -86,7 +115,8 @@ class HomeController extends Controller
             'categories',
             'popularArticles',
             'selectedCategory',
-            'categoryArticles'
+            'categoryArticles',
+            'ctaPlan'
         ));
     }
 

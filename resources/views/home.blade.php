@@ -8,61 +8,68 @@
                     <div class="rs-banner-wrapper">
 
                         {{-- Left Side 3 News --}}
-                        <div class="rs-banner-small-post">
-                            <div class="rs-post-small rs-post-small-seventeen">
-                                @forelse($heroLeft as $article)
-                                    <div class="rs-post-small-item">
-                                        <div class="rs-post-small-thumb">
-                                            <a href="{{ route('news.show', $article->slug) }}" class="image-link">
-                                                <img style="height: 100%; width: 100%; object-fit: cover;"
-                                                    src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                                    alt="{{ $article->title }}">
-                                            </a>
-                                        </div>
-                                        <div class="rs-post-small-content">
-                                            <div class="rs-post-tag-two">
-                                                <a href="javascript:void(0)" class="post-tag is-green">
-                                                    {{ $article->category->name ?? 'News' }}
+                        <div>
+                            <div class="section-title-wrapper mb-15">
+                                <h4 class="section-title rs-split-text-enable split-in-left" style="font-size: 30px;">
+                                    Most Viewed Articles
+                                </h4>
+                            </div>
+                            <div class="rs-banner-small-post">
+                                <div class="rs-post-small rs-post-small-seventeen">
+                                    @forelse($heroLeft as $article)
+                                        <div class="rs-post-small-item">
+                                            <div class="rs-post-small-thumb">
+                                                <a href="{{ route('news.show', $article->slug) }}" class="image-link">
+                                                    <img style="height: 100%; width: 100%; object-fit: cover;"
+                                                        src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                                        alt="{{ $article->title }}">
                                                 </a>
                                             </div>
-                                            <h6 class="rs-post-small-title underline">
-                                                <a href="{{ route('news.show', $article->slug) }}">
-                                                    {{ \Illuminate\Support\Str::limit($article->title, 35) }}
-                                                </a>
-                                            </h6>
-                                            <div class="rs-post-meta">
-                                                <ul>
-                                                    <li>
-                                                        <span class="rs-meta">
-                                                            By
-                                                            <a href="javascript:void(0)" class="meta-author">
-                                                                {{ $article->author->name ?? 'Admin' }}
-                                                            </a>
-                                                        </span>
-                                                    </li>
-                                                    <li>
-                                                        <span class="rs-meta">
-                                                            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                    fill="white" />
-                                                            </svg>
-                                                            <span>{{ number_format($article->views ?? 0) }} Views</span>
-                                                        </span>
-                                                    </li>
-                                                </ul>
+                                            <div class="rs-post-small-content">
+                                                <div class="rs-post-tag-two">
+                                                    <a href="javascript:void(0)" class="post-tag is-green">
+                                                        {{ $article->category->name ?? 'News' }}
+                                                    </a>
+                                                </div>
+                                                <h6 class="rs-post-small-title underline">
+                                                    <a href="{{ route('news.show', $article->slug) }}">
+                                                        {{ \Illuminate\Support\Str::limit($article->title, 55) }}
+                                                    </a>
+                                                </h6>
+                                                <div class="rs-post-meta">
+                                                    <ul>
+                                                        <li>
+                                                            <span class="rs-meta">
+                                                                By
+                                                                <a href="javascript:void(0)" class="meta-author">
+                                                                    {{ $article->author->name ?? 'Admin' }}
+                                                                </a>
+                                                            </span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="rs-meta">
+                                                                <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
+                                                                        fill="white" />
+                                                                </svg>
+                                                                <span>{{ number_format($article->views ?? 0) }} Views</span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @empty
-                                    <div class="rs-post-small-item">
-                                        <div class="rs-post-small-content text-center py-4">
-                                            <h6 class="rs-post-small-title">No articles found</h6>
-                                            <p class="mb-0">Latest stories will appear here soon.</p>
+                                    @empty
+                                        <div class="rs-post-small-item">
+                                            <div class="rs-post-small-content text-center py-4">
+                                                <h6 class="rs-post-small-title">No articles found</h6>
+                                                <p class="mb-0">Latest stories will appear here soon.</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforelse
+                                    @endforelse
+                                </div>
                             </div>
                         </div>
 
@@ -141,54 +148,59 @@
                         @endif
 
                         {{-- Right Side 3 News --}}
-                        <div class="rs-banner-small-post">
-                            <div class="rs-post-small rs-post-small-seventeen">
-                                @forelse($heroRight as $article)
-                                    <div class="rs-post-small-item">
-                                        <div class="rs-post-small-content">
-                                            <div class="rs-post-tag-two">
-                                                <a href="javascript:void(0)" class="post-tag is-green">
-                                                    {{ $article->category->name ?? 'News' }}
-                                                </a>
-                                            </div>
-                                            <h6 class="rs-post-small-title underline">
-                                                <a href="{{ route('news.show', $article->slug) }}">
-                                                    {{ \Illuminate\Support\Str::limit($article->title, 35) }}
-                                                </a>
-                                            </h6>
-                                            <div class="rs-post-meta">
-                                                <ul>
-                                                    <li>
-                                                        <span class="rs-meta">
-                                                            By
-                                                            <a href="javascript:void(0)" class="meta-author">
-                                                                {{ $article->author->name ?? 'Admin' }}
-                                                            </a>
-                                                        </span>
-                                                    </li>
-                                                    <li>
-                                                        <span class="rs-meta">
-                                                            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                    fill="white" />
-                                                            </svg>
-                                                            <span>{{ number_format($article->views ?? 0) }} Views</span>
-                                                        </span>
-                                                    </li>
-                                                </ul>
+                        <div>
+                            <div class="section-title-wrapper mb-15">
+                                <h3 class="section-title rs-split-text-enable split-in-left" style="font-size: 30px;">Recent Articles</h3>
+                            </div>
+                            <div class="rs-banner-small-post">
+                                <div class="rs-post-small rs-post-small-seventeen">
+                                    @forelse($heroRight as $article)
+                                        <div class="rs-post-small-item">
+                                            <div class="rs-post-small-content">
+                                                <div class="rs-post-tag-two">
+                                                    <a href="javascript:void(0)" class="post-tag is-green">
+                                                        {{ $article->category->name ?? 'News' }}
+                                                    </a>
+                                                </div>
+                                                <h6 class="rs-post-small-title underline">
+                                                    <a href="{{ route('news.show', $article->slug) }}">
+                                                        {{ \Illuminate\Support\Str::limit($article->title, 55) }}
+                                                    </a>
+                                                </h6>
+                                                <div class="rs-post-meta">
+                                                    <ul>
+                                                        <li>
+                                                            <span class="rs-meta">
+                                                                By
+                                                                <a href="javascript:void(0)" class="meta-author">
+                                                                    {{ $article->author->name ?? 'Admin' }}
+                                                                </a>
+                                                            </span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="rs-meta">
+                                                                <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
+                                                                        fill="white" />
+                                                                </svg>
+                                                                <span>{{ number_format($article->views ?? 0) }} Views</span>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @empty
-                                    <div class="rs-post-small-item">
-                                        <div class="rs-post-small-content text-center py-4">
-                                            <h6 class="rs-post-small-title">No articles found</h6>
-                                            <p class="mb-0">More stories will appear here soon.</p>
+                                    @empty
+                                        <div class="rs-post-small-item">
+                                            <div class="rs-post-small-content text-center py-4">
+                                                <h6 class="rs-post-small-title">No articles found</h6>
+                                                <p class="mb-0">More stories will appear here soon.</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforelse
+                                    @endforelse
+                                </div>
                             </div>
                         </div>
 
@@ -205,7 +217,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="rs-ad-banner-thumb">
-                        <a href="contact.html"><img src="{{ asset('assets/images/ad/ad-banner-thumb-01.webp') }}" alt="image"></a>
+                        <a href="/plans"><img src="{{ asset('assets/images/ad/ad-1.webp') }}"
+                                alt="image"></a>
                     </div>
                 </div>
             </div>
@@ -470,7 +483,8 @@
                                 @php $article = $featuredArticles[$i]; @endphp
                                 <div class="rs-post-medium-item">
                                     <div class="rs-post-medium-thumb">
-                                        <a href="{{ route('news.show', $article->slug) }}" class="image-link" style="height: 240px;">
+                                        <a href="{{ route('news.show', $article->slug) }}" class="image-link"
+                                            style="height: 240px;">
                                             <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                                 alt="{{ $article->title }}" style="height: 100%; width: 100%; object-fit: cover;">
                                         </a>
@@ -743,7 +757,8 @@
     <!-- cta area start -->
     <section class="rs-cta-area rs-cta-one section-space">
         <div class="container">
-            <div class="rs-cta-wrapper">
+            <div class="rs-cta-wrapper"
+                style="background: linear-gradient(90deg, #0b1d4d 0%, #173f88 45%, #2d83e6 100%); border-radius: 12px;">
                 <div class="cta-shape-one">
                     <img src="{{ asset('assets/images/cta/cta-thumb-01.webp') }}" alt="image">
                 </div>
@@ -760,42 +775,49 @@
                     <img src="{{ asset('assets/images/shape/multi-dot-shape.webp') }}" alt="image">
                 </div>
                 <div class="rs-cta-bg-thumb" data-background="{{ asset('assets/images/bg/cta-bg-thumb-01.webp') }}"></div>
+
                 <div class="row">
                     <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-10">
                         <div class="rs-cta-content-wrapper">
-                            <h3 class="section-title rs-split-text-enable split-in-left is-white"> Subscribe to our
-                                new
-                                updates!
+                            <h3 class="section-title rs-split-text-enable split-in-left is-white">
+                                Subscribe to our new updates!
                             </h3>
+
                             <div class="rs-cta-form">
-                                <form action="#">
-                                    <div class="rs-cta-input">
-                                        <input id="name" name="name" type="text" placeholder="Enter your email">
-                                        <button type="submit" class="rs-btn has-icon hover-black">
-                                            Subscribe
-                                            <span class="icon-box">
-                                                <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                        fill="white" />
-                                                </svg>
+                                @if($ctaPlan)
+                                    <form action="{{ route('plans.subscribe.show', $ctaPlan->slug) }}" method="GET">
+                                        <div class="rs-cta-input">
+                                            <input id="cta_email" name="email" type="email" placeholder="Enter your email"
+                                                value="{{ request('email') }}" required>
 
-                                                <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                        fill="white" />
-                                                </svg>
+                                            <button type="submit" class="rs-btn has-icon hover-black">
+                                                Subscribe
+                                                <span class="icon-box">
+                                                    <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                                            fill="white" />
+                                                    </svg>
 
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div class="rs-form-check">
-                                        <input id="remeber" type="checkbox">
-                                        <label for="remeber">I have read and agree to the terms & conditions</label>
-                                    </div>
-                                </form>
+                                                    <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                                            fill="white" />
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+
+                                        <div class="rs-form-check">
+                                            <input id="remeber" type="checkbox" required>
+                                            <label for="remeber">I have read and agree to the terms & conditions</label>
+                                        </div>
+                                    </form>
+                                @else
+                                    <p class="text-white mb-0">Subscription plan is currently unavailable.</p>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -896,7 +918,8 @@
                         <div class="rs-post-video-item">
                             <div class="rs-post-video-thumb">
                                 <a href="#">
-                                    <img src="{{ asset('assets/images/video-card/video-card-thumb-01.webp') }}" alt="small thumb">
+                                    <img src="{{ asset('assets/images/video-card/video-card-thumb-01.webp') }}"
+                                        alt="small thumb">
                                 </a>
                                 <a href="https://www.youtube.com/watch?v=go7QYaQR494"
                                     class="rs-play-btn popup-video is-small is-red"><i class="ri-play-large-fill"></i></a>
@@ -935,7 +958,8 @@
                         <div class="rs-post-video-item">
                             <div class="rs-post-video-thumb">
                                 <a href="#">
-                                    <img src="{{ asset('assets/images/video-card/video-card-thumb-02.webp') }}" alt="small thumb">
+                                    <img src="{{ asset('assets/images/video-card/video-card-thumb-02.webp') }}"
+                                        alt="small thumb">
                                 </a>
                                 <a href="https://www.youtube.com/watch?v=go7QYaQR494"
                                     class="rs-play-btn popup-video is-small is-red"><i class="ri-play-large-fill"></i></a>
@@ -973,7 +997,8 @@
                         <div class="rs-post-video-item">
                             <div class="rs-post-video-thumb">
                                 <a href="#">
-                                    <img src="{{ asset('assets/images/video-card/video-card-thumb-03.webp') }}" alt="small thumb">
+                                    <img src="{{ asset('assets/images/video-card/video-card-thumb-03.webp') }}"
+                                        alt="small thumb">
                                 </a>
                                 <a href="https://www.youtube.com/watch?v=go7QYaQR494"
                                     class="rs-play-btn popup-video is-small is-red"><i class="ri-play-large-fill"></i></a>
@@ -1179,7 +1204,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="rs-ad-banner-thumb">
-                        <a href="contact.html"><img src="{{ asset('assets/images/ad/ad-banner-thumb-01.webp') }}" alt="image"></a>
+                        <a href="/plans"><img src="{{ asset('assets/images/ad/ad-2.webp') }}"
+                                alt="image"></a>
                     </div>
                 </div>
             </div>

@@ -2,9 +2,9 @@
     <div class="navbar-wrapper">
         <div class="m-header">
             <a href="{{ route('dashboard') }}" class="b-brand">
-                <img src="{{ asset('/assets/images/logo/democracy-asia-logo.webp') }}" alt="Full Logo"
+                <img src="{{ asset('/assets/images/logo/da-logo-black.png') }}" alt="Full Logo"
                     class="logo logo-lg" style="max-height: 50px;">
-                <img src="{{ asset('/assets/images/logo/democracy-asia-logo.webp') }}" alt="Small Logo"
+                <img src="{{ asset('/assets/images/logo/da-logo-black.png') }}" alt="Small Logo"
                     class="logo logo-sm">
             </a>
         </div>

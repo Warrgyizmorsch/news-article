@@ -19,13 +19,13 @@ Route::get('/tag/{slug}', [HomeController::class, 'tag'])->name('tag.show');
 
 Route::get('/plans', [SubscriptionController::class, 'index'])->name('frontend.plans.index');
 
+Route::get('/plans/{slug}/subscribe', [SubscriptionController::class, 'showSubscribe'])->name('plans.subscribe.show');
+Route::post('/plans/{slug}/subscribe', [SubscriptionController::class, 'subscribe'])->name('plans.subscribe');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('/plans/{slug}/subscribe', [SubscriptionController::class, 'showSubscribe'])->name('plans.subscribe.show');
-    Route::post('/plans/{slug}/subscribe', [SubscriptionController::class, 'subscribe'])->name('plans.subscribe');
 });
 
 require __DIR__.'/auth.php';

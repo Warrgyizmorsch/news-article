@@ -229,15 +229,9 @@
 
                                             <h6 class="mb-2 fw-semibold">Subscribe to read full article</h6>
 
-                                            @auth
-                                                <a href={{ route('frontend.plans.index') }} class="btn btn-primary btn-sm">
-                                                    View Plans
-                                                </a>
-                                            @else
-                                                <a href="{{ route('login') }}" class="btn btn-primary btn-sm">
-                                                    Login to Continue
-                                                </a>
-                                            @endauth
+                                            <a href="{{ route('frontend.plans.index') }}" class="btn btn-primary btn-sm">
+                                                Subscribe Now
+                                            </a>
 
                                         </div>
 

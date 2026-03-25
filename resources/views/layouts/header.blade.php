@@ -6,7 +6,7 @@
             gap: 12px;
             flex-wrap: wrap;
         }
-    
+
         .header-auth-link {
             display: inline-flex;
             align-items: center;
@@ -16,11 +16,11 @@
             color: var(--rs-title-primary);
             transition: all 0.3s ease;
         }
-    
+
         .header-auth-link:hover {
             color: var(--rs-theme-primary);
         }
-    
+
         .header-subscribe-btn {
             display: inline-flex;
             align-items: center;
@@ -36,16 +36,16 @@
             transition: all 0.3s ease;
             border: 1px solid #10171e;
         }
-    
+
         .header-subscribe-btn:hover {
             background: transparent;
             color: #10171e !important;
         }
-    
+
         .header-user-dropdown {
             position: relative;
         }
-    
+
         .header-user-toggle {
             display: inline-flex;
             align-items: center;
@@ -60,11 +60,11 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-    
+
         .header-user-toggle:hover {
             border-color: #10171e;
         }
-    
+
         .header-user-avatar {
             width: 34px;
             height: 34px;
@@ -78,7 +78,7 @@
             font-weight: 700;
             text-transform: uppercase;
         }
-    
+
         .header-user-menu {
             position: absolute;
             top: calc(100% + 12px);
@@ -95,13 +95,13 @@
             transition: all 0.25s ease;
             z-index: 999;
         }
-    
+
         .header-user-dropdown:hover .header-user-menu {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
-    
+
         .header-user-menu a,
         .header-user-menu button {
             width: 100%;
@@ -118,42 +118,42 @@
             font-weight: 600;
             transition: all 0.25s ease;
         }
-    
+
         .header-user-menu a:hover,
         .header-user-menu button:hover {
             background: #f6f7f9;
             color: var(--rs-theme-primary);
         }
-    
+
         .header-user-divider {
             height: 1px;
             background: #ececec;
             margin: 8px 0;
         }
-    
+
         .header-user-name {
             max-width: 110px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-    
+
         @media (max-width: 991px) {
             .header-bottom-wrapper {
                 justify-content: center !important;
                 text-align: center;
             }
-    
+
             .header-auth-actions {
                 justify-content: center;
                 width: 100%;
             }
-    
+
             .header-user-menu {
                 right: 50%;
                 transform: translate(50%, 8px);
             }
-    
+
             .header-user-dropdown:hover .header-user-menu {
                 transform: translate(50%, 0);
             }
@@ -213,14 +213,14 @@
             <!-- top end -->
             <!-- header bottom start -->
             <div class="header-bottom-wrapper"
-                style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
-            
+                style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:nowrap;">
+
                 <div class="header-logo">
                     <a class="logo-black" href="{{ route('home') }}">
-                        <img src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}" alt="logo">
+                        <img src="{{ asset('assets/images/logo/da-logo-black.png') }}" alt="logo">
                     </a>
                 </div>
-            
+
                 <div class="header-auth-actions">
                     @guest
                         <a href="{{ route('login') }}" class="header-auth-link">
@@ -240,13 +240,21 @@
                             <span>Subscribe</span>
                         </a>
                     @endguest
-            
+
                     @auth
                         @if(auth()->user()->role !== 'admin')
-                            <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn">
-                                <i class="ri-vip-crown-2-line"></i>
-                                <span>Subscribe</span>
-                            </a>
+                            @if($headerHasActiveSubscription)
+                                <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn"
+                                    style="background:#c9a227; border-color:#c9a227; color:#fff !important;">
+                                    <i class="ri-vip-crown-2-line"></i>
+                                    <span>Premium User</span>
+                                </a>
+                            @else
+                                <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn">
+                                    <i class="ri-vip-crown-2-line"></i>
+                                    <span>Subscribe</span>
+                                </a>
+                            @endif
                         @endif
 
                         <div class="header-user-dropdown">
@@ -274,7 +282,7 @@
                                 @if(auth()->user()->role !== 'admin')
                                     <a href="{{ route('frontend.plans.index') }}">
                                         <i class="ri-vip-crown-line"></i>
-                                        <span>Manage Subscription</span>
+                                        <span>{{ $headerHasActiveSubscription ? 'Premium Access' : 'Manage Subscription' }}</span>
                                     </a>
                                 @endif
 
@@ -322,7 +330,8 @@
                                                                 <a href="{{ route('news.show', $headerMegaFeaturedNews->slug) }}"
                                                                     class="image-link" style="height: 120px;">
                                                                     <img src="{{ $headerMegaFeaturedNews->featured_image ? asset('storage/' . $headerMegaFeaturedNews->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                                                        alt="{{ $headerMegaFeaturedNews->title }}" style="height: 100%; width: 100%; object-fit: cover;">
+                                                                        alt="{{ $headerMegaFeaturedNews->title }}"
+                                                                        style="height: 100%; width: 100%; object-fit: cover;">
                                                                 </a>
                                                             </div>
                                                             <div class="rs-post-medium-content">
@@ -408,7 +417,8 @@
                                                             @forelse($headerMegaBreakingNews as $post)
                                                                 <div class="rs-post-small rs-post-small-eight">
                                                                     <div class="rs-post-small-thumb">
-                                                                        <a href="{{ route('news.show', $post->slug) }}" class="image-link">
+                                                                        <a href="{{ route('news.show', $post->slug) }}"
+                                                                            class="image-link">
                                                                             <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                                                                 alt="{{ $post->title }}">
                                                                         </a>
@@ -430,20 +440,23 @@
                                                                                 <li>
                                                                                     <span class="rs-meta">
                                                                                         By
-                                                                                        <a href="javascript:void(0)" class="meta-author">
+                                                                                        <a href="javascript:void(0)"
+                                                                                            class="meta-author">
                                                                                             {{ $post->author->name ?? 'Admin' }}
                                                                                         </a>
                                                                                     </span>
                                                                                 </li>
                                                                                 <li>
                                                                                     <span class="rs-meta">
-                                                                                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
+                                                                                        <svg width="10" height="8"
+                                                                                            viewBox="0 0 10 8" fill="none"
                                                                                             xmlns="http://www.w3.org/2000/svg">
                                                                                             <path
                                                                                                 d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
                                                                                                 fill="white" />
                                                                                         </svg>
-                                                                                        <span>{{ number_format($post->views ?? 0) }} Views</span>
+                                                                                        <span>{{ number_format($post->views ?? 0) }}
+                                                                                            Views</span>
                                                                                     </span>
                                                                                 </li>
                                                                             </ul>
@@ -573,7 +586,8 @@
                                                                 <a href="{{ route('news.show', $headerMegaFeaturedNews->slug) }}"
                                                                     class="image-link" style="height: 120px;">
                                                                     <img src="{{ $headerMegaFeaturedNews->featured_image ? asset('storage/' . $headerMegaFeaturedNews->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                                                        alt="{{ $headerMegaFeaturedNews->title }}" style="height: 100%; width: 100%; object-fit: cover">
+                                                                        alt="{{ $headerMegaFeaturedNews->title }}"
+                                                                        style="height: 100%; width: 100%; object-fit: cover">
                                                                 </a>
                                                             </div>
                                                             <div class="rs-post-medium-content">
@@ -659,7 +673,8 @@
                                                             @forelse($headerMegaBreakingNews as $post)
                                                                 <div class="rs-post-small rs-post-small-eight">
                                                                     <div class="rs-post-small-thumb">
-                                                                        <a href="{{ route('news.show', $post->slug) }}" class="image-link">
+                                                                        <a href="{{ route('news.show', $post->slug) }}"
+                                                                            class="image-link">
                                                                             <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                                                                 alt="{{ $post->title }}">
                                                                         </a>
@@ -681,20 +696,23 @@
                                                                                 <li>
                                                                                     <span class="rs-meta">
                                                                                         By
-                                                                                        <a href="javascript:void(0)" class="meta-author">
+                                                                                        <a href="javascript:void(0)"
+                                                                                            class="meta-author">
                                                                                             {{ $post->author->name ?? 'Admin' }}
                                                                                         </a>
                                                                                     </span>
                                                                                 </li>
                                                                                 <li>
                                                                                     <span class="rs-meta">
-                                                                                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
+                                                                                        <svg width="10" height="8"
+                                                                                            viewBox="0 0 10 8" fill="none"
                                                                                             xmlns="http://www.w3.org/2000/svg">
                                                                                             <path
                                                                                                 d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
                                                                                                 fill="white" />
                                                                                         </svg>
-                                                                                        <span>{{ number_format($post->views ?? 0) }} Views</span>
+                                                                                        <span>{{ number_format($post->views ?? 0) }}
+                                                                                            Views</span>
                                                                                     </span>
                                                                                 </li>
                                                                             </ul>
@@ -799,7 +817,7 @@
                 <div class="offcanvas-top d-flex justify-content-between align-items-center mb-20">
                     <div class="offcanvas-logo">
                         <a class="logo-black" href="index.html"><img
-                                src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}" alt="logo"></a>
+                                src="{{ asset('assets/images/logo/da-logo-black.png') }}" alt="logo"></a>
                     </div>
                     <div class="offcanvas-close">
                         <button class="offcanvas-close-icon animation--flip">
@@ -812,89 +830,89 @@
                     </div>
                 </div>
                 <div class="offcanvas-about mb-30 d-none d-xl-block">
-                    <p> Democracy Asia News Magazine brings you trusted timely and thought-provoking stories from around the
+                    <p> Democracy Asia News Magazine brings you trusted timely and thought-provoking stories from around
+                        the
                         globe.
                     </p>
                 </div>
+                <div class="offcanvas-auth mb-30 mt-30">
+                    @guest
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                            <a href="{{ route('login') }}" class="header-auth-link">
+                                <i class="ri-login-circle-line"></i>
+                                <span>Login</span>
+                            </a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="header-auth-link">
+                                    <i class="ri-user-add-line"></i>
+                                    <span>Register</span>
+                                </a>
+                            @endif
+
+                            <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn"
+                                style="width:100%; justify-content:center;">
+                                <i class="ri-vip-crown-2-line"></i>
+                                <span>Subscribe</span>
+                            </a>
+                        </div>
+                    @endguest
+                
+                    @auth
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                            <div class="d-flex align-items-center gap-10">
+                                <span class="header-user-avatar">
+                                    {{ \Illuminate\Support\Str::substr(auth()->user()->name, 0, 1) }}
+                                </span>
+                                <div>
+                                    <strong>{{ auth()->user()->name }}</strong>
+                                    <div style="font-size:13px; color:#6d6d6d;">{{ auth()->user()->email }}</div>
+                                </div>
+                            </div>
+
+                            <a href="{{ route('profile.edit') }}" class="header-auth-link">
+                                <i class="ri-user-3-line"></i>
+                                <span>My Profile</span>
+                            </a>
+
+                            @if(auth()->user()->role === 'admin')
+                                <a href="{{ route('dashboard') }}" class="header-auth-link">
+                                    <i class="ri-layout-grid-line"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            @endif
+
+                            @if(auth()->user()->role !== 'admin')
+                                <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn"
+                                    style="width:100%; justify-content:center;">
+                                    <i class="ri-vip-crown-2-line"></i>
+                                    <span>{{ $headerHasActiveSubscription ? 'Premium User' : 'Subscribe' }}</span>
+                                </a>
+                            @endif
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="header-auth-link" style="border:0; background:none; padding:0;">
+                                    <i class="ri-logout-box-r-line"></i>
+                                    <span>Logout</span>
+                                </button>
+                            </form>
+                        </div>
+                    @endauth
+                </div>
+
                 <div class="mobile-menu">
                     <div class="rs-offcanvas-menu mb-30">
                         <nav></nav>
                     </div>
                 </div>
 
-                <div class="offcanvas-auth mb-30">
-    @guest
-        <div style="display:flex; flex-direction:column; gap:12px;">
-            <a href="{{ route('login') }}" class="header-auth-link">
-                <i class="ri-login-circle-line"></i>
-                <span>Login</span>
-            </a>
-
-            @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="header-auth-link">
-                    <i class="ri-user-add-line"></i>
-                    <span>Register</span>
-                </a>
-            @endif
-
-            <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn"
-                style="width:100%; justify-content:center;">
-                <i class="ri-vip-crown-2-line"></i>
-                <span>Subscribe</span>
-            </a>
-        </div>
-    @endguest
-
-    @auth
-        <div style="display:flex; flex-direction:column; gap:12px;">
-            <div class="d-flex align-items-center gap-10">
-                <span class="header-user-avatar">
-                    {{ \Illuminate\Support\Str::substr(auth()->user()->name, 0, 1) }}
-                </span>
-                <div>
-                    <strong>{{ auth()->user()->name }}</strong>
-                    <div style="font-size:13px; color:#6d6d6d;">{{ auth()->user()->email }}</div>
-                </div>
-            </div>
-
-            <a href="{{ route('profile.edit') }}" class="header-auth-link">
-                <i class="ri-user-3-line"></i>
-                <span>My Profile</span>
-            </a>
-
-            @if(auth()->user()->role === 'admin')
-                <a href="{{ route('dashboard') }}" class="header-auth-link">
-                    <i class="ri-layout-grid-line"></i>
-                    <span>Dashboard</span>
-                </a>
-            @endif
-
-            @if(auth()->user()->role !== 'admin')
-                <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn"
-                    style="width:100%; justify-content:center;">
-                    <i class="ri-vip-crown-2-line"></i>
-                    <span>Subscribe</span>
-                </a>
-            @endif
-
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="header-auth-link" style="border:0; background:none; padding:0;">
-                    <i class="ri-logout-box-r-line"></i>
-                    <span>Logout</span>
-                </button>
-            </form>
-        </div>
-    @endauth
-</div>
-
                 <div class="offcanvas-contact mb-30">
                     <h4 class="offcanvas-title-meta">Contact Info</h4>
                     <ul>
                         <li class="d-flex gap-15">
                             <div class="offcanvas-contact-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18"
-                                    fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18" fill="none">
                                     <path
                                         d="M11.8768 9.68475C11.3059 10.835 10.5331 11.9818 9.74128 13.0109C8.95198 14.0368 8.15999 14.9249 7.5643 15.5572C7.48514 15.6412 7.40956 15.7206 7.33802 15.7951C7.26648 15.7206 7.1909 15.6412 7.11174 15.5572C6.51605 14.9249 5.72406 14.0368 4.93476 13.0109C4.14299 11.9818 3.37019 10.835 2.79925 9.68475C2.22242 8.52266 1.89032 7.43373 1.89032 6.5C1.89032 3.50846 4.32934 1.08333 7.33802 1.08333C10.3467 1.08333 12.7857 3.50846 12.7857 6.5C12.7857 7.43373 12.4536 8.52266 11.8768 9.68475ZM7.33802 17.3333C7.33802 17.3333 13.8753 11.1732 13.8753 6.5C13.8753 2.91015 10.9484 0 7.33802 0C3.7276 0 0.800781 2.91015 0.800781 6.5C0.800781 11.1732 7.33802 17.3333 7.33802 17.3333Z"
                                         fill="#6D6D6D"></path>
@@ -909,8 +927,7 @@
                         </li>
                         <li class="d-flex gap-15">
                             <div class="offcanvas-contact-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                    fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <path
                                         d="M3.65387 1.32849C3.40343 1.00649 2.92745 0.976861 2.639 1.26531L1.60508 2.29923C1.1216 2.78271 0.94387 3.46766 1.1551 4.06847C2.00338 6.48124 3.39215 8.74671 5.32272 10.6773C7.25329 12.6078 9.51876 13.9966 11.9315 14.8449C12.5323 15.0561 13.2173 14.8784 13.7008 14.3949L14.7347 13.361C15.0231 13.0726 14.9935 12.5966 14.6715 12.3461L12.3653 10.5524C12.2008 10.4245 11.9866 10.3793 11.7845 10.4298L9.59541 10.9771C9.00082 11.1257 8.37183 10.9515 7.93845 10.5181L5.48187 8.06155C5.04849 7.62817 4.87427 6.99919 5.02292 6.40459L5.57019 4.21553C5.62073 4.01336 5.57552 3.79918 5.44758 3.63468L3.65387 1.32849ZM1.88477 0.511076C2.62689 -0.231039 3.8515 -0.154797 4.49583 0.673634L6.28954 2.97983C6.6187 3.40304 6.73502 3.95409 6.60498 4.47423L6.05772 6.66329C5.99994 6.8944 6.06766 7.13888 6.2361 7.30732L8.69268 9.7639C8.86113 9.93235 9.1056 10.0001 9.33671 9.94229L11.5258 9.39502C12.0459 9.26499 12.597 9.3813 13.0202 9.71047L15.3264 11.5042C16.1548 12.1485 16.231 13.3731 15.4889 14.1152L14.455 15.1492C13.7153 15.8889 12.6089 16.2137 11.5778 15.8512C9.01754 14.9511 6.61438 13.4774 4.56849 11.4315C2.5226 9.38562 1.04895 6.98246 0.148838 4.42225C-0.213682 3.39112 0.11113 2.28472 0.85085 1.545L1.88477 0.511076Z"
                                         fill="#6D6D6D"></path>
@@ -925,8 +942,7 @@
                         </li>
                         <li class="d-flex gap-15">
                             <div class="offcanvas-contact-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                    fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <path
                                         d="M2 2C0.895431 2 0 2.89543 0 4V12L2.58386e-05 12.0103C0.00555998 13.1101 0.898859 14 2 14H7.5C7.77614 14 8 13.7761 8 13.5C8 13.2239 7.77614 13 7.5 13H2C1.53715 13 1.14774 12.6855 1.03376 12.2586L6.67417 8.7876L8 9.5831L15 5.3831V8.5C15 8.77614 15.2239 9 15.5 9C15.7761 9 16 8.77614 16 8.5V4C16 2.89543 15.1046 2 14 2H2ZM5.70808 8.20794L1 11.1052V5.3831L5.70808 8.20794ZM1 4.2169V4C1 3.44772 1.44772 3 2 3H14C14.5523 3 15 3.44772 15 4V4.2169L8 8.4169L1 4.2169Z"
                                         fill="#6D6D6D"></path>
@@ -941,6 +957,7 @@
                         </li>
                     </ul>
                 </div>
+
                 <div class="offcanvas-social">
                     <h4 class="offcanvas-title-meta">Follow Us</h4>
                     <ul>

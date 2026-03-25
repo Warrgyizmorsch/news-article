@@ -123,6 +123,17 @@ class AppServiceProvider extends ServiceProvider
                 ->take(2)
                 ->get();
 
+            $authUser = auth()->user();
+
+            $headerHasActiveSubscription = false;
+
+            if ($authUser && $authUser->role !== 'admin') {
+                $headerHasActiveSubscription = $authUser->subscriptions()
+                    ->where('status', 'active')
+                    ->whereDate('end_date', '>=', now())
+                    ->exists();
+            }
+
             $view->with([
                 'footerCategories' => $footerCategories,
                 'footerRecentPosts' => $footerRecentPosts,
@@ -135,6 +146,8 @@ class AppServiceProvider extends ServiceProvider
                 'headerMegaFeaturedNews' => $headerMegaFeaturedNews,
                 'headerMegaLatestNews' => $headerMegaLatestNews,
                 'headerMegaBreakingNews' => $headerMegaBreakingNews,
+
+                'headerHasActiveSubscription' => $headerHasActiveSubscription,
             ]);
         });
     }

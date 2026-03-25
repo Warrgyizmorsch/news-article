@@ -34,6 +34,7 @@
                 <div class="col-xl-7 col-lg-8">
                     <div class="card border-0 shadow-sm" style="border-radius: 16px;">
                         <div class="card-body p-4 p-md-5">
+
                             <div class="text-center mb-4">
                                 <span class="badge bg-danger text-white px-3 py-2 mb-3">{{ $plan->name }}</span>
                                 <h2 class="mb-2">₹{{ number_format($plan->price, 2) }}</h2>
@@ -52,13 +53,75 @@
                                 </ul>
                             </div>
 
-                            <div class="alert alert-warning">
+                            @if ($errors->any())
+                                <div class="alert alert-danger mb-4">
+                                    <ul class="mb-0 ps-3">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            @guest
+                                <div class="mb-4">
+                                    <h5 class="mb-3">Your Details</h5>
+                                    <p class="text-muted mb-0">
+                                        Please enter your details to continue with the subscription.
+                                    </p>
+                                </div>
+                            @else
+                                <div class="alert alert-light border mb-4" style="border-radius: 12px;">
+                                    <h5 class="mb-2">Subscribed As</h5>
+                                    <p class="mb-1"><strong>Name:</strong> {{ auth()->user()->name }}</p>
+                                    <p class="mb-0"><strong>Email:</strong> {{ auth()->user()->email }}</p>
+                                </div>
+                            @endguest
+
+                            <div class="alert alert-warning mb-4">
                                 This is the confirmation step before final activation. Later, payment gateway or manual
                                 payment approval can be added here.
                             </div>
 
                             <form action="{{ route('plans.subscribe', $plan->slug) }}" method="POST">
                                 @csrf
+
+                                @guest
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="name" class="form-label">Full Name <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" id="name" name="name"
+                                                class="form-control @error('name') is-invalid @enderror"
+                                                value="{{ old('name') }}" required>
+                                            @error('name')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="email" class="form-label">Email Address <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="email" id="email" name="email"
+                                                class="form-control @error('email') is-invalid @enderror"
+                                                value="{{ old('email', request('email')) }}" required>
+                                            @error('email')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-6 mb-4">
+                                            <label for="phone" class="form-label">Mobile Number <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" id="phone" name="phone"
+                                                class="form-control @error('phone') is-invalid @enderror"
+                                                value="{{ old('phone') }}" required>
+                                            @error('phone')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                @endguest
 
                                 <div class="d-flex flex-wrap gap-3">
                                     <a href="{{ route('frontend.plans.index') }}"
