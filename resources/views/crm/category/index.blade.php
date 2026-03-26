@@ -88,6 +88,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Slug</th>
+                            <th>Images</th>
                             <th>Status</th>
                             <th>Sort Order</th>
                             <th>Created</th>
@@ -99,6 +100,13 @@
                             <tr>
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->slug }}</td>
+                                <td>
+                                    @if($category->images)
+                                        <img src="{{ asset($category->images) }}" alt="Category Image" style="max-width: 80px; max-height: 60px; border-radius: 4px;">
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <span class="badge {{ $category->status ? 'bg-success' : 'bg-danger' }}">
                                         {{ $category->status ? 'Active' : 'Inactive' }}

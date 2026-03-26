@@ -23,7 +23,7 @@
     <div class="crm-page-container">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('category.store') }}" method="POST">
+                <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="row g-3 mb-4">
@@ -82,6 +82,27 @@
                         </div>
                     </div>
 
+                    <div class="row g-3 mb-4">
+                        <label class="col-lg-3 col-form-label fw-semibold">Add Images</label>
+                        <div class="col-lg-9">
+                            <input type="file" name="images" id="imageInput" class="form-control" accept="image/*">
+                            <small class="d-block mt-2 text-muted">Upload image file (JPG, PNG, etc.) - Max 10MB</small>
+                            @error('images')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                            
+                            <!-- Image Preview -->
+                            <div id="imagePreview" class="mt-4" style="display: none;">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Preview:</label>
+                                    <div class="border rounded p-3" style="background-color: #f8f9fa; display: inline-block;">
+                                        <img id="previewImg" src="" alt="Image Preview" class="img-fluid" style="max-width: 200px; max-height: 300px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="d-flex justify-content-end gap-2">
                         <a href="{{ route('category.index') }}" class="btn btn-secondary">Cancel</a>
                         <button type="submit" class="btn btn-primary">Save Category</button>
@@ -90,4 +111,48 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const previewDiv = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+
+        // Restore preview from localStorage on page load (if validation error occurred)
+        window.addEventListener('load', function() {
+            const savedImage = localStorage.getItem('categoryImageData');
+            if (savedImage) {
+                previewImg.src = savedImage;
+                previewDiv.style.display = 'block';
+            }
+        });
+
+        // Save image to localStorage when user selects a file
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageData = e.target.result;
+                    previewImg.src = imageData;
+                    previewDiv.style.display = 'block';
+                    // Store in localStorage so it persists even if form validation fails
+                    localStorage.setItem('categoryImageData', imageData);
+                };
+                reader.readAsDataURL(file);
+            } else if (file) {
+                previewDiv.style.display = 'none';
+                localStorage.removeItem('categoryImageData');
+                alert('Please select a valid image file');
+            }
+        });
+
+        // Clear localStorage when form is successfully submitted
+        document.querySelector('form').addEventListener('submit', function() {
+            // Only clear on successful submit (user won't see this as page redirects)
+            setTimeout(() => {
+                localStorage.removeItem('categoryImageData');
+            }, 100);
+        });
+    </script>
 </x-crm.layout.app>
