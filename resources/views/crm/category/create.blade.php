@@ -29,7 +29,7 @@
                     <div class="row g-3 mb-4">
                         <label class="col-lg-3 col-form-label fw-semibold">Name</label>
                         <div class="col-lg-9">
-                            <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
+                            <input id="nameInput" type="text" name="name" class="form-control" value="{{ old('name') }}" required>
                             @error('name')
                                 <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
@@ -39,7 +39,7 @@
                     <div class="row g-3 mb-4">
                         <label class="col-lg-3 col-form-label fw-semibold">Slug</label>
                         <div class="col-lg-9">
-                            <input type="text" name="slug" class="form-control" value="{{ old('slug') }}"
+                            <input id="slugInput" type="text" name="slug" class="form-control" value="{{ old('slug') }}"
                                 placeholder="Leave blank to auto-generate from name">
                             @error('slug')
                                 <div class="text-danger mt-1">{{ $message }}</div>
@@ -116,13 +116,50 @@
         const imageInput = document.getElementById('imageInput');
         const previewDiv = document.getElementById('imagePreview');
         const previewImg = document.getElementById('previewImg');
+        const nameInput = document.getElementById('nameInput');
+        const slugInput = document.getElementById('slugInput');
 
-        // Restore preview from localStorage on page load (if validation error occurred)
+        let slugEdited = slugInput.value.trim() !== '';
+
+        function slugify(value) {
+            return value
+                .toString()
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, '-')
+                .replace(/[^a-z0-9\-]/g, '')
+                .replace(/-+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
+        nameInput.addEventListener('input', function() {
+            if (!slugEdited) {
+                slugInput.value = slugify(nameInput.value);
+            }
+        });
+
+        slugInput.addEventListener('input', function() {
+            slugEdited = slugInput.value.trim() !== '';
+        });
+
+        const hasFormErrors = {{ $errors->any() ? 'true' : 'false' }};
+
+        // Restore preview from localStorage on page load (if validation error occurred) or clear stale image for fresh form
         window.addEventListener('load', function() {
+            if (!hasFormErrors) {
+                localStorage.removeItem('categoryImageData');
+                previewImg.src = '';
+                previewDiv.style.display = 'none';
+                return;
+            }
+
             const savedImage = localStorage.getItem('categoryImageData');
             if (savedImage) {
                 previewImg.src = savedImage;
                 previewDiv.style.display = 'block';
+            } else {
+                previewImg.src = '';
+                previewDiv.style.display = 'none';
             }
         });
 
@@ -141,9 +178,15 @@
                 };
                 reader.readAsDataURL(file);
             } else if (file) {
+                previewImg.src = '';
                 previewDiv.style.display = 'none';
                 localStorage.removeItem('categoryImageData');
                 alert('Please select a valid image file');
+            } else {
+                // if user cleared the selection
+                previewImg.src = '';
+                previewDiv.style.display = 'none';
+                localStorage.removeItem('categoryImageData');
             }
         });
 

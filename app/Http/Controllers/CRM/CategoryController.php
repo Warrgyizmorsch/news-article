@@ -66,6 +66,13 @@ class CategoryController extends Controller
         $data = $request->validated();
         $data['slug'] = Str::slug($data['slug'] ?: $data['name']);
 
+        if ($request->hasFile('images')) {
+            $file = $request->file('images');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('category-images', $filename, 'public');
+            $data['images'] = 'storage/category-images/' . $filename;
+        }
+
         $category->update($data);
 
         return redirect()->route('category.index')
