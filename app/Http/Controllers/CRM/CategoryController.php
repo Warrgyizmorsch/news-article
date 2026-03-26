@@ -37,14 +37,14 @@ class CategoryController extends Controller
         $data = $request->validated();
         $data['slug'] = Str::slug($data['slug'] ?: $data['name']);
 
-        // Handle image upload
-        $imagePath = null;
+        // ✅ IMAGE UPLOAD
         if ($request->hasFile('images')) {
             $file = $request->file('images');
             $filename = time() . '_' . $file->getClientOriginalName();
+
             $file->storeAs('category-images', $filename, 'public');
-            $imagePath = 'storage/category-images/' . $filename;
-            $data['images'] = $imagePath;
+
+            $data['images'] = 'storage/category-images/' . $filename;
         }
 
         Category::create($data);
@@ -65,6 +65,19 @@ class CategoryController extends Controller
 
         $data = $request->validated();
         $data['slug'] = Str::slug($data['slug'] ?: $data['name']);
+
+        // ✅ IMAGE UPDATE FIX
+        if ($request->hasFile('images')) {
+            $file = $request->file('images');
+            $filename = time() . '_' . $file->getClientOriginalName();
+
+            $file->storeAs('category-images', $filename, 'public');
+
+            $data['images'] = 'storage/category-images/' . $filename;
+        } else {
+            // old image keep
+            $data['images'] = $category->images;
+        }
 
         $category->update($data);
 
