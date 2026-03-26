@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+    //
     }
 
     /**
@@ -29,9 +29,9 @@ class AppServiceProvider extends ServiceProvider
             // Footer Top Categories
             $footerCategories = Category::withCount([
                 'articles' => function ($q) {
-                    $q->where('status', 'published')
-                        ->whereNotNull('published_at');
-                }
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            }
             ])
                 ->where('status', 1)
                 ->having('articles_count', '>', 0)
@@ -51,9 +51,9 @@ class AppServiceProvider extends ServiceProvider
             // Footer Tags
             $footerTags = Tag::withCount([
                 'articles' => function ($q) {
-                    $q->where('status', 'published')
-                        ->whereNotNull('published_at');
-                }
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            }
             ])
                 ->having('articles_count', '>', 0)
                 ->orderByDesc('articles_count')
@@ -62,9 +62,9 @@ class AppServiceProvider extends ServiceProvider
 
             $headerCategories = Category::withCount([
                 'articles' => function ($q) {
-                    $q->where('status', 'published')
-                        ->whereNotNull('published_at');
-                }
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            }
             ])
                 ->where('status', 1)
                 ->having('articles_count', '>', 0)
@@ -83,9 +83,9 @@ class AppServiceProvider extends ServiceProvider
 
             $headerTrendingTags = Tag::withCount([
                 'articles' => function ($q) {
-                    $q->where('status', 'published')
-                        ->whereNotNull('published_at');
-                }
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            }
             ])
                 ->having('articles_count', '>', 0)
                 ->orderByDesc('articles_count')
@@ -96,9 +96,10 @@ class AppServiceProvider extends ServiceProvider
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->where(function ($q) {
-                    $q->where('is_breaking', true)
-                        ->orWhere('is_featured', true);
-                })
+                $q->where('is_breaking', true)
+                    ->orWhere('is_featured', true);
+            }
+            )
                 ->latest('published_at')
                 ->first();
 
@@ -106,8 +107,9 @@ class AppServiceProvider extends ServiceProvider
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->when($headerMegaFeaturedNews, function ($q) use ($headerMegaFeaturedNews) {
-                    $q->where('id', '!=', $headerMegaFeaturedNews->id);
-                })
+                $q->where('id', '!=', $headerMegaFeaturedNews->id);
+            }
+            )
                 ->latest('published_at')
                 ->take(2)
                 ->get();
@@ -117,8 +119,9 @@ class AppServiceProvider extends ServiceProvider
                 ->whereNotNull('published_at')
                 ->where('is_breaking', true)
                 ->when($headerMegaFeaturedNews, function ($q) use ($headerMegaFeaturedNews) {
-                    $q->where('id', '!=', $headerMegaFeaturedNews->id);
-                })
+                $q->where('id', '!=', $headerMegaFeaturedNews->id);
+            }
+            )
                 ->latest('published_at')
                 ->take(2)
                 ->get();
