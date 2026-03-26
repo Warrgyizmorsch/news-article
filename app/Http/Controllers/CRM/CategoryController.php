@@ -8,8 +8,6 @@ use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Support\Str;
 
-use Illuminate\Support\Facades\File; 
-
 class CategoryController extends Controller
 {
     public function index()
@@ -67,22 +65,6 @@ class CategoryController extends Controller
 
         $data = $request->validated();
         $data['slug'] = Str::slug($data['slug'] ?: $data['name']);
-
-        if ($request->hasFile('images')) {
-
-    // 🔥 OLD IMAGE DELETE
-    if ($category->images && File::exists(public_path($category->images))) {
-        File::delete(public_path($category->images));
-    }
-
-    // 🔥 NEW IMAGE UPLOAD
-    $file = $request->file('images');
-    $filename = time() . '_' . $file->getClientOriginalName();
-
-    $file->storeAs('category-images', $filename, 'public');
-
-    $data['images'] = 'storage/category-images/' . $filename;
-}
 
         $category->update($data);
 
