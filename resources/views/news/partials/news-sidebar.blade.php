@@ -26,53 +26,35 @@
     </div>
     <div class="rs-sidebar mb-30">
         <div class="rs-post-small rs-post-small-five">
-            <h5 class="section-title is-small">Popular News</h5>
+            <h5 class="section-title is-small" style="font-size: 18px; font-weight: 700; margin-bottom: 20px; position: relative; padding-bottom: 10px;">
+                Popular News
+                <span style="position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: #0d6efd;"></span>
+            </h5>
 
             @foreach($popularArticles as $popular)
-                <div class="rs-post-small-item">
-                    <div class="rs-post-small-thumb">
-                        <a href="{{ route('news.show', $popular->slug) }}" class="image-link">
+                <div class="rs-post-small-item d-flex align-items-center mb-20 pb-20" style="border-bottom: 1px solid #f1f1f1;">
+                    <div class="rs-post-small-thumb" style="flex: 0 0 80px; height: 80px; border-radius: 8px; overflow: hidden; margin-right: 15px;">
+                        <a href="{{ route('news.show', $popular->slug) }}" class="image-link h-100">
                             <img src="{{ $popular->featured_image ? asset('storage/' . $popular->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                alt="{{ $popular->title }}">
+                                alt="{{ $popular->title }}" class="w-100 h-100 object-fit-cover">
                         </a>
                     </div>
                     <div class="rs-post-small-content">
-                        <div class="rs-post-tag">
-                            @if($popular->category)
-                                <a href="{{ route('category.show', $popular->category->slug) }}" class="post-tag is-green">
-                                    {{ $popular->category->name }}
-                                </a>
-                            @endif
-                        </div>
-
-                        <h6 class="rs-post-small-title underline">
-                            <a href="{{ route('news.show', $popular->slug) }}">
-                                {{ \Illuminate\Support\Str::limit($popular->title, 35) }}
+                        <h6 class="rs-post-small-title" style="font-size: 15px; font-weight: 700; line-height: 1.4; margin-bottom: 8px;">
+                            <a href="{{ route('news.show', $popular->slug) }}" class="text-dark text-decoration-none transition-all" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;" onmouseover="this.style.color='#0d6efd';" onmouseout="this.style.color='#000';">
+                                {{ $popular->title }}
                             </a>
                         </h6>
 
-                        <div class="rs-post-meta">
-                            <ul>
-                                <li>
-                                    <span class="rs-meta">
-                                        By
-                                        <a href="javascript:void(0)" class="meta-author">
-                                            {{ $popular->author->name ?? 'Admin' }}
-                                        </a>
-                                    </span>
-                                </li>
-                                <li>
-                                    <span class="rs-meta">
-                                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                fill="white" />
-                                        </svg>
-                                        <span>{{ number_format($popular->views) }} Views</span>
-                                    </span>
-                                </li>
-                            </ul>
+                        <div class="rs-post-meta d-flex align-items-center gap-3" style="font-size: 12px; color: #888;">
+                            <span class="rs-meta">By admin</span>
+                            <span class="rs-meta d-flex align-items-center">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                {{ number_format($popular->views) }} Views
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -81,106 +63,54 @@
     </div>
     <div class="rs-sidebar mb-30">
         <div class="rs-social rs-social-one">
-            <h5 class="section-title is-small">Follow Us</h5>
-            <ul class="rs-social-wrapper">
-                <li class="rs-social-item">
-                    <a href="#">
-                        <span class="rs-social-label">
-                            <span class="rs-social-icon">
-                                <svg width="14" height="22" viewBox="0 0 14 22" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M11.624 11.9541L12.193 8.54137L8.63572 8.54137V6.32676C8.63572 5.39311 9.13264 4.48303 10.7258 4.48303H12.343V1.57748C12.343 1.57748 10.8755 1.34692 9.47233 1.34692C6.54282 1.34692 4.62796 2.98146 4.62796 5.94041L4.62796 8.54137H1.37158L1.37158 11.9541H4.62796L4.62796 20.2041H8.63572L8.63572 11.9541H11.624Z"
-                                        fill="white" />
-                                </svg>
-                            </span>
-                            <span class="rs-social-name">Facebook</span>
+            <h5 class="section-title is-small" style="font-size: 18px; font-weight: 700; margin-bottom: 20px; position: relative; padding-bottom: 10px;">
+                Follow Us
+                <span style="position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: #0d6efd;"></span>
+            </h5>
+            <ul class="rs-social-wrapper" style="list-style: none; padding: 0;">
+                <li class="rs-social-item mb-2">
+                    <a href="#" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #3b5998; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
+                        <span class="d-flex align-items-center">
+                            <i class="ri-facebook-fill" style="font-size: 18px; margin-right: 12px;"></i>
+                            <span class="fw-bold">Facebook</span>
                         </span>
-                        <span class="rs-social-count">88.2k Followers</span>
+                        <span style="font-size: 12px; opacity: 0.8;">88.2k Followers</span>
+                    </a>
+                </li>
+                <li class="rs-social-item mb-2">
+                    <a href="#" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #000000; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
+                        <span class="d-flex align-items-center">
+                            <i class="ri-twitter-x-fill" style="font-size: 18px; margin-right: 12px;"></i>
+                            <span class="fw-bold">Twitter</span>
+                        </span>
+                        <span style="font-size: 12px; opacity: 0.8;">48.6k Followers</span>
+                    </a>
+                </li>
+                <li class="rs-social-item mb-2">
+                    <a href="#" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #0077b5; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
+                        <span class="d-flex align-items-center">
+                            <i class="ri-linkedin-fill" style="font-size: 18px; margin-right: 12px;"></i>
+                            <span class="fw-bold">LinkedIn</span>
+                        </span>
+                        <span style="font-size: 12px; opacity: 0.8;">30.3k Followers</span>
+                    </a>
+                </li>
+                <li class="rs-social-item mb-2">
+                    <a href="#" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #e1306c; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
+                        <span class="d-flex align-items-center">
+                            <i class="ri-instagram-line" style="font-size: 18px; margin-right: 12px;"></i>
+                            <span class="fw-bold">Instagram</span>
+                        </span>
+                        <span style="font-size: 12px; opacity: 0.8;">24.5k Followers</span>
                     </a>
                 </li>
                 <li class="rs-social-item">
-                    <a href="#">
-                        <span class="rs-social-label">
-                            <span class="rs-social-icon">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M9.35332 6.88729L14.6472 0.733521H13.3928L8.79603 6.07675L5.12465 0.733521H0.890137L6.44199 8.81343L0.890137 15.2666H2.1447L6.99896 9.62397L10.8762 15.2666H15.1107L9.35332 6.88729ZM7.63502 8.88462L7.0725 8.08004L2.59674 1.67793H4.52367L8.13567 6.84464L8.69818 7.64922L13.3933 14.3651H11.4664L7.63502 8.88462Z"
-                                        fill="white" />
-                                </svg>
-                            </span>
-                            <span class="rs-social-name">Twitter - X</span>
+                    <a href="#" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #bd081c; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
+                        <span class="d-flex align-items-center">
+                            <i class="ri-pinterest-fill" style="font-size: 18px; margin-right: 12px;"></i>
+                            <span class="fw-bold">Pinterest</span>
                         </span>
-                        <span class="rs-social-count">48.6k Followers</span>
-                    </a>
-                </li>
-                <li class="rs-social-item">
-                    <a href="#">
-                        <span class="rs-social-label">
-                            <span class="rs-social-icon">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M13.6283 19.3083C13.645 19.3033 13.6608 19.2967 13.6775 19.2908C23.8567 15.2467 21.0408 0 10 0C4.45917 0 0 4.51667 0 10C0 16.9392 7.02833 21.8908 13.6283 19.3083ZM4.40083 16.7158C5.11083 15.5225 7.40833 12.1558 11.33 10.9942C12.2429 13.3207 12.7345 15.7912 12.7817 18.29C11.3672 18.7696 9.85294 18.8767 8.385 18.601C6.91706 18.3253 5.54491 17.676 4.40083 16.7158ZM14.0108 17.7683C13.9187 15.355 13.4375 12.9724 12.5858 10.7125C14.3208 10.4417 16.3292 10.6225 18.6067 11.535C18.3689 12.8565 17.8309 14.1057 17.0341 15.1864C16.2373 16.2672 15.2029 17.1505 14.0108 17.7683ZM18.7375 10.2425C16.2292 9.3 14.0183 9.1825 12.105 9.5475C11.8092 8.88083 11.4983 8.24 11.1692 7.65C14.105 6.4775 15.84 5.04833 16.6167 4.29167C18.0497 5.93631 18.8073 8.06225 18.7375 10.2425ZM15.7292 3.40167C15.0225 4.07417 13.3583 5.4325 10.5125 6.54333C9.1175 4.33667 7.62583 2.78 6.68083 1.90833C8.17845 1.28978 9.81908 1.10183 11.4178 1.36568C13.0165 1.62953 14.5097 2.33469 15.7292 3.40167ZM5.48583 2.51917C6.19917 3.14667 7.765 4.65333 9.27583 6.98333C7.20083 7.65167 4.59917 8.1425 1.435 8.21167C1.93833 5.8 3.44167 3.75667 5.48583 2.51917ZM1.27667 9.46667C4.81833 9.40917 7.685 8.85 9.95083 8.09333C10.2642 8.6425 10.5617 9.24083 10.8475 9.8625C6.90167 11.1192 4.43583 14.3633 3.49167 15.8283C2.71507 14.9704 2.11881 13.9652 1.7383 12.8724C1.3578 11.7795 1.20081 10.6214 1.27667 9.46667Z"
-                                        fill="white" />
-                                </svg>
-                            </span>
-                            <span class="rs-social-name">Dribbble</span>
-                        </span>
-                        <span class="rs-social-count">39.5k Followers</span>
-                    </a>
-                </li>
-                <li class="rs-social-item">
-                    <a href="#">
-                        <span class="rs-social-label">
-                            <span class="rs-social-icon">
-                                <svg width="16" height="20" viewBox="0 0 16 20" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M6.61654 13.2282C6.09154 15.9813 5.45013 18.6212 3.55013 20.0001C2.9638 15.8384 4.41146 12.713 5.08334 9.39502C3.93724 7.46533 5.22123 3.58252 7.6388 4.53955C10.6134 5.71611 5.06302 11.7126 8.7892 12.4614C12.6798 13.2431 14.2677 5.71104 11.8556 3.26182C8.36966 -0.275292 1.70873 3.18096 2.52787 8.24502C2.72709 9.48291 4.00638 9.85869 3.03919 11.5669C0.807945 11.0724 0.142319 9.31299 0.227866 6.96729C0.365757 3.12744 3.67787 0.439161 7.00013 0.0672862C11.2013 -0.403026 15.1443 1.60947 15.6888 5.56182C16.3021 10.0224 13.7923 14.8532 9.30013 14.506C8.08216 14.4114 7.57123 13.8079 6.61654 13.2282Z"
-                                        fill="white" />
-                                </svg>
-
-                            </span>
-                            <span class="rs-social-name">Pinterest</span>
-                        </span>
-                        <span class="rs-social-count">28.2k Followers</span>
-                    </a>
-                </li>
-                <li class="rs-social-item">
-                    <a href="#">
-                        <span class="rs-social-label">
-                            <span class="rs-social-icon">
-                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M17.7973 17.7992V11.3532C17.7973 8.18522 17.1153 5.76522 13.4193 5.76522C11.6373 5.76522 10.4493 6.73322 9.96527 7.65722H9.92126V6.05122H6.42326V17.7992H10.0753V11.9692C10.0753 10.4292 10.3613 8.95522 12.2533 8.95522C14.1233 8.95522 14.1453 10.6932 14.1453 12.0572V17.7772H17.7973V17.7992ZM0.483266 6.05122H4.13527V17.7992H0.483266V6.05122ZM2.30927 0.199219C1.14327 0.199219 0.197266 1.14522 0.197266 2.31122C0.197266 3.47722 1.14327 4.44522 2.30927 4.44522C3.47527 4.44522 4.42127 3.47722 4.42127 2.31122C4.42127 1.14522 3.47527 0.199219 2.30927 0.199219Z"
-                                        fill="white" />
-                                </svg>
-                            </span>
-                            <span class="rs-social-name">LinkedIn</span>
-                        </span>
-                        <span class="rs-social-count">30.3k Followers</span>
-                    </a>
-                </li>
-                <li class="rs-social-item">
-                    <a href="#">
-                        <span class="rs-social-label">
-                            <span class="rs-social-icon">
-                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M17.6045 5.45036C17.5641 4.53485 17.4161 3.9055 17.204 3.3601C16.9852 2.78121 16.6486 2.26294 16.2077 1.83208C15.7768 1.39452 15.2551 1.0545 14.6829 0.839154C14.1344 0.627106 13.5083 0.479009 12.5928 0.438686C11.6705 0.394863 11.3777 0.384766 9.03843 0.384766C6.69917 0.384766 6.40637 0.394863 5.48747 0.435253C4.57199 0.475643 3.94261 0.623808 3.39738 0.835721C2.81832 1.0545 2.30005 1.39108 1.86919 1.83208C1.43163 2.26291 1.09178 2.78461 0.876264 3.3568C0.664216 3.9055 0.516152 4.53148 0.475796 5.44692C0.432006 6.36927 0.421875 6.66206 0.421875 9.00132C0.421875 11.3406 0.432006 11.6334 0.472363 12.5523C0.512753 13.4678 0.660917 14.0971 0.872999 14.6425C1.09178 15.2214 1.43163 15.7397 1.86919 16.1706C2.30005 16.6081 2.82175 16.9481 3.39395 17.1635C3.94258 17.3755 4.56856 17.5236 5.4842 17.564C6.40294 17.6045 6.6959 17.6144 9.03516 17.6144C11.3744 17.6144 11.6672 17.6045 12.5861 17.564C13.5016 17.5236 14.131 17.3756 14.6762 17.1635C15.2489 16.9421 15.7689 16.6035 16.2031 16.1693C16.6372 15.7352 16.9759 15.2152 17.1973 14.6425C17.4092 14.0939 17.5574 13.4678 17.5978 12.5523C17.6382 11.6334 17.6483 11.3406 17.6483 9.00132C17.6483 6.66206 17.6449 6.36923 17.6045 5.45036ZM16.0529 12.485C16.0159 13.3264 15.8745 13.7808 15.7567 14.0837C15.4672 14.8343 14.8715 15.4301 14.1208 15.7196C13.8179 15.8374 13.3603 15.9787 12.5221 16.0157C11.6133 16.0562 11.3408 16.0662 9.04186 16.0662C6.74296 16.0662 6.46699 16.0562 5.56148 16.0157C4.72002 15.9787 4.26563 15.8374 3.96271 15.7196C3.5892 15.5815 3.24922 15.3628 2.97322 15.0767C2.68712 14.7973 2.46834 14.4607 2.33027 14.0872C2.21247 13.7842 2.07114 13.3264 2.03421 12.4884C1.99369 11.5796 1.98373 11.3069 1.98373 9.00802C1.98373 6.70911 1.99369 6.43315 2.03421 5.5278C2.07114 4.68634 2.21247 4.23196 2.33027 3.92903C2.46834 3.55535 2.68712 3.21544 2.97665 2.93937C3.25588 2.65328 3.59246 2.4345 3.96614 2.2966C4.26907 2.17879 4.72689 2.03743 5.56491 2.00037C6.47369 1.95998 6.74639 1.94988 9.04513 1.94988C11.3475 1.94988 11.62 1.95998 12.5255 2.00037C13.367 2.03746 13.8214 2.17876 14.1243 2.29656C14.4978 2.4345 14.8378 2.65328 15.1138 2.93937C15.3999 3.21877 15.6186 3.55535 15.7567 3.92903C15.8745 4.23196 16.0159 4.68961 16.0529 5.5278C16.0933 6.43658 16.1034 6.70911 16.1034 9.00802C16.1034 11.3069 16.0933 11.5762 16.0529 12.485Z"
-                                        fill="white" />
-                                    <path
-                                        d="M9.0335 4.57741C6.58997 4.57741 4.60742 6.55982 4.60742 9.00349C4.60742 11.4472 6.58997 13.4296 9.0335 13.4296C11.4771 13.4296 13.4596 11.4472 13.4596 9.00349C13.4596 6.55982 11.4771 4.57741 9.0335 4.57741ZM9.0335 11.8746C7.44826 11.8746 6.16237 10.5889 6.16237 9.00349C6.16237 7.41811 7.44826 6.13243 9.03347 6.13243C10.6188 6.13243 11.9046 7.41811 11.9046 9.00349C11.9046 10.5889 10.6188 11.8746 9.0335 11.8746ZM14.668 4.40239C14.668 4.97303 14.2053 5.4357 13.6345 5.4357C13.0639 5.4357 12.6013 4.97303 12.6013 4.40239C12.6013 3.83167 13.0639 3.36914 13.6346 3.36914C14.2053 3.36914 14.668 3.83164 14.668 4.40239Z"
-                                        fill="white" />
-                                </svg>
-                            </span>
-                            <span class="rs-social-name">Instagram</span>
-                        </span>
-                        <span class="rs-social-count">24.5k Followers</span>
+                        <span style="font-size: 12px; opacity: 0.8;">28.2k Followers</span>
                     </a>
                 </li>
             </ul>
@@ -188,12 +118,15 @@
     </div>
     <div class="rs-sidebar mb-30">
         <div class="sidebar-widget">
-            <h5 class="sidebar-widget-title">Tags</h5>
-            <div class="sidebar-widget-content tagcloud has-bg-white">
+            <h5 class="sidebar-widget-title" style="font-size: 18px; font-weight: 700; margin-bottom: 20px; position: relative; padding-bottom: 10px;">
+                Tags
+                <span style="position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: #0d6efd;"></span>
+            </h5>
+            <div class="sidebar-widget-content tagcloud has-bg-white d-flex flex-wrap gap-2">
                 @forelse($sidebarTags as $tag)
-                    <a href="{{ route('tag.show', $tag->slug) }}">{{ $tag->name }}</a>
+                    <a href="{{ route('tag.show', $tag->slug) }}" style="background: #f8f9fa; color: #444; border: 1px solid #eee; padding: 6px 15px; border-radius: 30px; font-size: 13px; text-decoration: none; transition: all 0.3s;" onmouseover="this.style.background='#0d6efd'; this.style.color='#fff'; this.style.border='1px solid #0d6efd';" onmouseout="this.style.background='#f8f9fa'; this.style.color='#444'; this.style.border='1px solid #eee';">{{ $tag->name }}</a>
                 @empty
-                    <a href="javascript:void(0)">News</a>
+                    <a href="javascript:void(0)" style="background: #f8f9fa; color: #444; border: 1px solid #eee; padding: 6px 15px; border-radius: 30px; font-size: 13px;">News</a>
                 @endforelse
             </div>
         </div>

@@ -4,7 +4,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
 
         .header-auth-link {
@@ -138,24 +138,60 @@
             text-overflow: ellipsis;
         }
 
+
+        @media (max-width: 576px) {
+            .header-auth-actions {
+                gap: 8px;
+                flex-wrap: nowrap;
+            }
+
+            .header-subscribe-btn {
+                padding: 10px 14px;
+                font-size: 13px;
+                gap: 5px;
+            }
+
+            .header-auth-link {
+                font-size: 13px;
+                gap: 5px;
+            }
+
+            .header-user-name {
+                display: none;
+            }
+
+            .header-user-toggle {
+                padding: 6px;
+                gap: 0;
+            }
+
+            .header-user-toggle i {
+                display: none;
+            }
+
+            .header-logo img {
+                max-height: 80px !important;
+            }
+        }
+
         @media (max-width: 991px) {
             .header-bottom-wrapper {
-                justify-content: center !important;
-                text-align: center;
+                justify-content: space-between !important;
+                gap: 10px !important;
             }
 
             .header-auth-actions {
-                justify-content: center;
-                width: 100%;
+                justify-content: flex-end;
+                flex: 1;
             }
 
             .header-user-menu {
-                right: 50%;
-                transform: translate(50%, 8px);
+                right: 0;
+                transform: translateY(8px);
             }
 
             .header-user-dropdown:hover .header-user-menu {
-                transform: translate(50%, 0);
+                transform: translateY(0);
             }
         }
 
@@ -165,6 +201,41 @@
 
         .rs-sticky-header.active .sticky-logo-col {
             display: block;
+        }
+
+        @media (max-width: 576px) {
+            .sticky-logo img {
+                max-height: 25px !important;
+            }
+
+            .rs-sticky-header .row {
+                flex-wrap: nowrap !important;
+                align-items: center !important;
+                padding-right: 15px !important;
+            }
+
+            .header-right {
+                justify-content: flex-end !important;
+                gap: 5px !important;
+            }
+
+            .header-navigation {
+                margin-left: 5px !important;
+                gap: 4px !important;
+            }
+
+            .sticky-hamburger-col {
+                margin-left: 5px !important;
+            }
+        }
+
+        .sticky-hamburger-col {
+            display: none;
+        }
+
+        .rs-sticky-header.active .sticky-hamburger-col {
+            display: block;
+            margin-left: 15px;
         }
 
         .rs-sticky-header .nav-col {
@@ -209,6 +280,24 @@
 
         .custom-hamburger-btn:hover {
             border-color: #9ca3af;
+        }
+
+        /* Hide Default MeanMenu and show custom slider */
+        .mean-container .mean-bar {
+            background: transparent !important;
+            padding: 0 !important;
+            height: 0 !important;
+            min-height: 0 !important;
+        }
+
+        .mean-container a.meanmenu-reveal {
+            display: none !important;
+        }
+
+        @media (max-width: 1199px) {
+            .mobile-menu-toggle {
+                display: flex !important;
+            }
         }
     </style>
 
@@ -269,17 +358,22 @@
 
                 <!-- Hamburger & Logo Group -->
                 <div class="header-left-group" style="display:flex; align-items:center; gap:20px;">
-                    <button type="button" class="custom-hamburger-btn" onclick="document.querySelector('.offcanvas-area').classList.add('opened'); document.querySelector('.offcanvas-overlay').classList.add('opened');">
+                    <button type="button" class="custom-hamburger-btn"
+                        onclick="document.querySelector('.offcanvas-area').classList.add('opened'); document.querySelector('.offcanvas-overlay').classList.add('overlay-open');">
                         <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <line x1="2" y1="1.5" x2="18" y2="1.5" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
-                            <line x1="2" y1="7" x2="18" y2="7" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
-                            <line x1="2" y1="12.5" x2="15" y2="12.5" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="2" y1="1.5" x2="18" y2="1.5" stroke="#1a1a1a" stroke-width="2"
+                                stroke-linecap="round" />
+                            <line x1="2" y1="7" x2="18" y2="7" stroke="#1a1a1a" stroke-width="2"
+                                stroke-linecap="round" />
+                            <line x1="2" y1="12.5" x2="15" y2="12.5" stroke="#1a1a1a" stroke-width="2"
+                                stroke-linecap="round" />
                         </svg>
                     </button>
 
                     <div class="header-logo">
                         <a class="logo-black" href="{{ route('home') }}">
-                            <img src="{{ asset('assets/images/logo/da-logo-black.png') }}" alt="logo" style="max-height: 40px;">
+                            <img src="{{ asset('assets/images/logo/da-logo-black.png') }}" alt="logo"
+                                style="max-height: 40px;">
                         </a>
                     </div>
                 </div>
@@ -359,8 +453,8 @@
             </div>
             <!-- header bottom end -->
             <div id="rs-sticky-header" class="header-wrapper rs-sticky-header">
-                <div class="row align-items-center">
-                    <div class="sticky-logo-col col-xl-2 d-none d-xl-block">
+                <div class="row align-items-center flex-nowrap">
+                    <div class="sticky-logo-col col-auto col-xl-2">
                         <div class="sticky-logo">
                             <a href="{{ route('home') }}">
                                 <img src="{{ asset('assets/images/logo/da-logo-white.png') }}" alt="logo"
@@ -601,24 +695,29 @@
                                 </div>
                             </div>
                             <!-- If we need navigation buttons -->
-                            <div class="header-navigation">
+                            <div class="header-navigation"
+                                style="margin-left: 15px; display: flex; gap: 8px; align-items: center;">
                                 <button class="slider-button-prev"><i class="ri-arrow-left-s-line"></i></button>
                                 <button class="slider-button-next"><i class="ri-arrow-right-s-line"></i></button>
                             </div>
 
-                            <!-- hamburger start -->
-                            <div class="header-toggle">
-                                <div class="header-hamburger">
-                                    <div class="sidebar-toggle">
-                                        <a class="header-bar-icon" href="javascript:void(0)">
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                        </a>
-                                    </div>
+                            <div class="sticky-hamburger-col">
+                                <div class="sidebar-toggle" style="cursor: pointer;"
+                                    onclick="document.querySelector('.offcanvas-area').classList.add('opened'); document.querySelector('.offcanvas-overlay').classList.add('overlay-open');">
+                                    <a class="header-bar-icon" href="javascript:void(0)"
+                                        style="display: flex; align-items: center; justify-content: center; background: transparent;">
+                                        <svg width="20" height="14" viewBox="0 0 20 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <line x1="2" y1="1.5" x2="18" y2="1.5" stroke="#fff" stroke-width="2"
+                                                stroke-linecap="round" />
+                                            <line x1="2" y1="7" x2="18" y2="7" stroke="#fff" stroke-width="2"
+                                                stroke-linecap="round" />
+                                            <line x1="2" y1="12.5" x2="15" y2="12.5" stroke="#fff" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </a>
                                 </div>
                             </div>
-                            <!-- hamburger end -->
                         </div>
                     </div>
                 </div>
@@ -872,19 +971,6 @@
                                 <button class="slider-button-next"><i class="ri-arrow-right-s-line"></i></button>
                             </div>
 
-                            <!-- hamburger start -->
-                            <div class="header-toggle">
-                                <div class="header-hamburger">
-                                    <div class="sidebar-toggle">
-                                        <a class="header-bar-icon" href="javascript:void(0)">
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- hamburger end -->
                         </div>
                     </div>
                 </div>
@@ -895,4 +981,3 @@
 <!-- header area two end -->
 
 @include('layouts.offcanvas')
-
