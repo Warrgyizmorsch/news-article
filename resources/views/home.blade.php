@@ -838,7 +838,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-btn">
-                        <a class="rs-btn has-text has-icon is-text-white" href="#">View Channel
+                        <a class="rs-btn has-text has-icon is-text-white" href="https://www.youtube.com/watch?v=fyUmW3JFuAA&t=2s">View Channel
                             <span class="icon-box">
                                 <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -861,12 +861,22 @@
                 <div class="col-xl-8 col-lg-7">
                     <div class="rs-post-video rs-post-video-one">
                         <div class="rs-post-video-item">
-                            <div class="rs-post-video" style="height:300px;">
-                                <video loop="" muted="" autoplay="" playsinline="">
+                            <div class="rs-post-video" >
+                                <!-- <video loop="" muted="" autoplay="" playsinline="">
                                     <source src="{{ asset('assets/video/Democrecy Asia (Bangladesh).mov') }}" type="video/mp4">
-                                </video>
+                                </video> -->
+                                <iframe 
+                                    width="100%" 
+                                    height="400"
+                                    src="https://www.youtube.com/embed/fyUmW3JFuAA"
+                                    title="YouTube Shorts"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                    style="border-radius:12px;">
+                                </iframe>
                             </div>
-                            <div class="rs-post-video-content">
+                            <!-- <div class="rs-post-video-content">
                                 <div class="rs-post-tag">
                                     <a href="travel.html" class="post-tag is-yellow">Travel</a>
                                 </div>
@@ -909,7 +919,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
