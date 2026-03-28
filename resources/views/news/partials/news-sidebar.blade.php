@@ -131,9 +131,9 @@
             </div>
         </div>
     </div>
-    <div class="rs-sidebar rs-ad-banner-one">
+    <!-- <div class="rs-sidebar rs-ad-banner-one">
         <div class="rs-ad-banner-thumb">
             <a href="contact.html"><img src="{{ asset('assets/images/ad/ad-banner-thumb-03.webp') }}" alt="image"></a>
         </div>
-    </div>
+    </div> -->
 </div>

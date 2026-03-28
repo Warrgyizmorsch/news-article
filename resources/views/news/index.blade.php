@@ -44,7 +44,7 @@
 
                                 @if($pageType === 'news')
                                 <li class="rs-breadcumb-item active">
-                                    News
+                                    article
                                 </li>
                                 @elseif($pageType === 'category')
                                 <li class="rs-breadcumb-item">
@@ -58,7 +58,7 @@
                                 @elseif($pageType === 'tag')
                                 <li class="rs-breadcumb-item">
                                     <span>
-                                        <a href="{{ route('news.index') }}">News</a>
+                                        <a href="{{ route('news.index') }}">Articles</a>
                                     </span>
                                 </li>
                                 <li class="rs-breadcumb-item active">
@@ -83,14 +83,15 @@
                 <div class="mb-30">
                     <h2 class="section-title">
                         @if($pageType === 'news')
-                        All News
+                        All Articles
                         @elseif($pageType === 'category')
-                        {{ $pageTitle }} News
+                        {{ $pageTitle }}
                         @elseif($pageType === 'tag')
-                        {{ $pageTitle }} News
+                        {{ $pageTitle }} 
                         @endif
                     </h2>
                 </div>
+
                 <div class="row g-4">
                     @forelse($articles as $article)
                     <div class="col-xl-6 col-md-6 mb-4">
@@ -151,12 +152,15 @@
                                         {{ optional($article->published_at)->format('F j, Y') }}
                                     </span>
                                 </div>
-
+                                @if($article->category_id == '21')
+                                <a href="{{ asset('assets/video/'.$article->excerpt)}}" style="color: #2563eb; font-weight: 600; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; transition: color 0.2s;">
+                                        See more
+                                    </a>
+                                @else
                                 <p class="card-desc"
                                     style="font-size: 15px; color: #4b5563; line-height: 1.6; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex-grow: 1;">
                                     {{ $article->excerpt ?: strip_tags($article->content) }}
                                 </p>
-
                                 <div class="card-footer" style="margin-top: auto;">
                                     <a href="{{ route('news.show', $article->slug) }}"
                                         style="color: #2563eb; font-weight: 600; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; transition: color 0.2s;">
@@ -168,6 +172,7 @@
                                         </svg>
                                     </a>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>

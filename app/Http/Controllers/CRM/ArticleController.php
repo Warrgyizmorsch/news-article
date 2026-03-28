@@ -30,7 +30,7 @@ class ArticleController extends Controller
             $query->where('category_id', request('category_id'));
         }
 
-        $articles = $query->latest()->paginate(10);
+        $articles = $query->orderBy('id','desc')->latest()->paginate(10);
         $allCategories = Category::where('status', 1)->orderBy('name')->get();
 
         return view('crm.article.index', compact('articles', 'allCategories'));

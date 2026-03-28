@@ -13,8 +13,9 @@
                                 <h4 class="section-title rs-split-text-enable split-in-left" style="font-size: 30px;">
                                     Most Viewed Articles
                                 </h4>
+                                  <hr>
                             </div>
-                             <hr>
+                           
                             <div class="rs-banner-small-post">
                                 <div class="rs-post-small rs-post-small-seventeen">
                                     @forelse($heroLeft as $article)
@@ -152,8 +153,9 @@
                         <div>
                             <div class="section-title-wrapper mb-15">
                                 <h3 class="section-title rs-split-text-enable split-in-left" style="font-size: 30px;">Recent Articles</h3>
+                                  <hr>
                             </div>
-                             <hr>
+                           
                             <div class="rs-banner-small-post">
                                 <div class="rs-post-small rs-post-small-seventeen">
                                     @forelse($heroRight as $article)
@@ -643,7 +645,7 @@
                             </div>
                         </div>
 
-                        <div class="rs-sidebar">
+                        <!-- <div class="rs-sidebar">
                             <div class="rs-social rs-social-one">
                                 <h5 class="section-title is-small">Follow Us</h5>
                                 <ul class="rs-social-wrapper">
@@ -748,7 +750,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -1050,7 +1052,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-btn d-flex justify-content-lg-end">
-                        <a class="rs-btn has-text has-icon" href="javascript:void(0)">View All
+                        <a class="rs-btn has-text has-icon" href="{{ route('category.show', 'business') }}">View All
                             <span class="icon-box">
                                 <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
