@@ -441,7 +441,11 @@
                         $cleanContent = preg_replace('#\s(width|height|align|class)=("|\')(.*?)\2#i', '', $cleanContent);
                     @endphp
 
-                    @if($canRead)
+                       <div class="article-body-content">
+                            {!! $cleanContent !!}
+                        </div>
+                        
+                    <!-- @if($canRead)
                         <div class="article-body-content">
                             {!! $cleanContent !!}
                         </div>
@@ -464,7 +468,7 @@
                                 </a>
                             </div>
                         </div>
-                    @endif
+                    @endif -->
 
                     <!-- Tags -->
                     <div class="rs-postbox-details-social mt-50">

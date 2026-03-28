@@ -662,9 +662,9 @@
                                         </ul>
                                     </li> -->
                                     <!-- contact menu -->
-                                    <!-- <li>
+                                    <li>
                                         <a href="/contact-us">Contact</a>
-                                    </li> -->
+                                    </li>
 
                                 </ul>
                             </nav>
@@ -937,17 +937,17 @@
                                         </ul>
                                     </li> -->
                                     <!-- contact menu -->
-                                    <!-- <li>
+                                    <li>
                                         <a href="/contact-us">Contact</a>
-                                    </li> -->
+                                    </li>
 
                                 </ul>
                             </nav>
                         </div>
                     </div>
-                    <div class="col-xl-7">
-                        <div class="header-right">
-                            <div class="swiper header-menu-slide">
+                    <!-- <div class="col-xl-7">
+                        <div class="header-right"> -->
+                            <!-- <div class="swiper header-menu-slide">
                                 <div class="swiper-wrapper">
                                     @forelse($headerTrendingTags as $tag)
                                     <div class="swiper-slide">
@@ -971,15 +971,15 @@
                                     </div>
                                     @endforelse
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- If we need navigation buttons -->
-                            <div class="header-navigation">
+                            <!-- <div class="header-navigation">
                                 <button class="slider-button-prev"><i class="ri-arrow-left-s-line"></i></button>
                                 <button class="slider-button-next"><i class="ri-arrow-right-s-line"></i></button>
-                            </div>
+                            </div> -->
 
-                        </div>
-                    </div>
+                        <!-- </div>
+                    </div> -->
                 </div>
             </div>
         </div>
