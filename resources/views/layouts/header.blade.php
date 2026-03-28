@@ -358,7 +358,7 @@
 
                 <!-- Hamburger & Logo Group -->
                 <div class="header-left-group" style="display:flex; align-items:center; gap:20px;">
-                    <!-- <button type="button" class="custom-hamburger-btn"
+                    <button type="button" class="custom-hamburger-btn"
                         onclick="document.querySelector('.offcanvas-area').classList.add('opened'); document.querySelector('.offcanvas-overlay').classList.add('overlay-open');">
                         <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <line x1="2" y1="1.5" x2="18" y2="1.5" stroke="#1a1a1a" stroke-width="2"
@@ -368,7 +368,7 @@
                             <line x1="2" y1="12.5" x2="15" y2="12.5" stroke="#1a1a1a" stroke-width="2"
                                 stroke-linecap="round" />
                         </svg>
-                    </button> -->
+                    </button>
 
                     <div class="header-logo">
                         <a class="logo-black" href="{{ route('home') }}">
@@ -698,13 +698,13 @@
                                 </div>
                             </div> -->
                             <!-- If we need navigation buttons -->
-                            <!-- <div class="header-navigation"
+                            <div class="header-navigation"
                                 style="margin-left: 15px; display: flex; gap: 8px; align-items: center;">
                                 <button class="slider-button-prev"><i class="ri-arrow-left-s-line"></i></button>
                                 <button class="slider-button-next"><i class="ri-arrow-right-s-line"></i></button>
-                            </div> -->
+                            </div>
 
-                            <!-- <div class="sticky-hamburger-col">
+                            <div class="sticky-hamburger-col">
                                 <div class="sidebar-toggle" style="cursor: pointer;"
                                     onclick="document.querySelector('.offcanvas-area').classList.add('opened'); document.querySelector('.offcanvas-overlay').classList.add('overlay-open');">
                                     <a class="header-bar-icon" href="javascript:void(0)"
@@ -719,9 +719,9 @@
                                                 stroke-linecap="round" />
                                         </svg>
                                     </a>
-                                </div> -->
-                            <!-- </div>
-                        </div> -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -43,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
             // Footer Recent Posts
             $footerRecentPosts = Article::with(['author'])
                 ->where('status', 'published')
+                ->where('category_id', '!=', 21)
                 ->whereNotNull('published_at')
                 ->latest('published_at')
                 ->take(3)

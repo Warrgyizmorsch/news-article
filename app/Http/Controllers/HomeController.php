@@ -17,6 +17,7 @@ class HomeController extends Controller
         $heroCenter = Article::with(['category', 'author'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
+            ->where('category_id', '!=', 21)
             ->latest('published_at')
             ->first();
 
@@ -24,6 +25,7 @@ class HomeController extends Controller
         $heroLeft = Article::with(['category', 'author'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
+             ->where('category_id', '!=', 21)
             ->when($heroCenter, function ($query) use ($heroCenter) {
                 $query->where('id', '!=', $heroCenter->id);
             })
@@ -36,6 +38,7 @@ class HomeController extends Controller
         $heroRight = Article::with(['category', 'author'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
+             ->where('category_id', '!=', 21)
             ->when($heroCenter, function ($query) use ($heroCenter) {
                 $query->where('id', '!=', $heroCenter->id);
             })
@@ -49,6 +52,7 @@ class HomeController extends Controller
         // Section 3: Breaking / Trending News
         $breakingArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
+             ->where('category_id', '!=', 21)
             ->where('is_breaking', true)
             ->whereNotNull('published_at')
             ->latest('published_at')
@@ -62,6 +66,7 @@ class HomeController extends Controller
         $featuredArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
             ->where('is_featured', true)
+             ->where('category_id', '!=', 21)
             ->whereNotNull('published_at')
             ->latest('published_at')
             ->take(6)
@@ -76,6 +81,7 @@ class HomeController extends Controller
         // Sidebar popular news
         $popularArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
+             ->where('category_id', '!=', 21)
             ->whereNotNull('published_at')
             ->orderByDesc('views')
             ->take(3)
