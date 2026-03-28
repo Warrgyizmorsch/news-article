@@ -218,10 +218,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="rs-ad-banner-thumb">
+                    <!-- <div class="rs-ad-banner-thumb">
                         <a href="/plans"><img src="{{ asset('assets/images/ad/ad-1.webp') }}"
                                 alt="image"></a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -234,7 +234,7 @@
             <div class="row section-title-space align-items-center g-5">
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-title-wrapper">
-                        <h2 class="section-title rs-split-text-enable split-in-left is-white">Breaking News</h2>
+                        <h2 class="section-title rs-split-text-enable split-in-left is-white">Insider</h2>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6">
@@ -451,7 +451,7 @@
             <div class="row section-title-space align-items-center g-5">
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-title-wrapper">
-                        <h2 class="section-title rs-split-text-enable split-in-left">Featured News</h2>
+                        <h2 class="section-title rs-split-text-enable split-in-left">Featured Articles</h2>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6">
@@ -593,7 +593,7 @@
 
                         <div class="rs-sidebar mb-30">
                             <div class="rs-post-small rs-post-small-five">
-                                <h5 class="section-title is-small">Popular News</h5>
+                                <h5 class="section-title is-small">Latest Stories</h5>
 
                                 @foreach($popularArticles as $article)
                                     <div class="rs-post-small-item">
@@ -786,8 +786,7 @@
                             </h3>
 
                             <div class="rs-cta-form">
-                                @if($ctaPlan)
-                                    <form action="{{ route('plans.subscribe.show', $ctaPlan->slug) }}" method="GET">
+                                    <form method="GET">
                                         <div class="rs-cta-input">
                                             <input id="cta_email" name="email" type="email" placeholder="Enter your email"
                                                 value="{{ request('email') }}" required>
@@ -811,15 +810,12 @@
                                                 </span>
                                             </button>
                                         </div>
-
                                         <div class="rs-form-check">
                                             <input id="remeber" type="checkbox" required>
                                             <label for="remeber">I have read and agree to the terms & conditions</label>
                                         </div>
                                     </form>
-                                @else
-                                    <p class="text-white mb-0">Subscription plan is currently unavailable.</p>
-                                @endif
+                              
                             </div>
                         </div>
                     </div>
@@ -835,7 +831,7 @@
             <div class="row section-title-space align-items-center g-5">
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-title-wrapper">
-                        <h2 class="section-title rs-split-text-enable split-in-left is-white">Video News</h2>
+                        <h2 class="section-title rs-split-text-enable split-in-left is-white">Highlight Stories</h2>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6">
@@ -863,9 +859,9 @@
                 <div class="col-xl-8 col-lg-7">
                     <div class="rs-post-video rs-post-video-one">
                         <div class="rs-post-video-item">
-                            <div class="rs-post-video">
+                            <div class="rs-post-video" style="height:300px;">
                                 <video loop="" muted="" autoplay="" playsinline="">
-                                    <source src="{{ asset('assets/video/video.mp4') }}" type="video/mp4">
+                                    <source src="{{ asset('assets/video/Democrecy Asia (Bangladesh).mov') }}" type="video/mp4">
                                 </video>
                             </div>
                             <div class="rs-post-video-content">
@@ -873,7 +869,7 @@
                                     <a href="travel.html" class="post-tag is-yellow">Travel</a>
                                 </div>
                                 <h3 class="rs-post-video-title is-white underline">
-                                    <a href="blog-details.html"> Family Travel: Fun and Safe Destinations for All
+                                    <a> Family Travel: Fun and Safe Destinations for All
                                         Ages
                                         Stress-Free Adventures</a>
                                 </h3>
@@ -915,7 +911,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-5">
+                <!-- <div class="col-xl-4 col-lg-5">
                     <div class="rs-post-video rs-post-video-three">
                         <div class="rs-post-video-item">
                             <div class="rs-post-video-thumb">
@@ -1035,7 +1031,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -1048,7 +1044,7 @@
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-title-wrapper">
                         <h2 class="section-title rs-split-text-enable split-in-left">
-                            {{ $selectedCategory->name ?? 'Category News' }}
+                            {{ $selectedCategory->name ?? 'Business' }}
                         </h2>
                     </div>
                 </div>
@@ -1205,10 +1201,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="rs-ad-banner-thumb">
+                    <!-- <div class="rs-ad-banner-thumb">
                         <a href="/plans"><img src="{{ asset('assets/images/ad/ad-2.webp') }}"
                                 alt="image"></a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

@@ -358,7 +358,7 @@
 
                 <!-- Hamburger & Logo Group -->
                 <div class="header-left-group" style="display:flex; align-items:center; gap:20px;">
-                    <button type="button" class="custom-hamburger-btn"
+                    <!-- <button type="button" class="custom-hamburger-btn"
                         onclick="document.querySelector('.offcanvas-area').classList.add('opened'); document.querySelector('.offcanvas-overlay').classList.add('overlay-open');">
                         <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <line x1="2" y1="1.5" x2="18" y2="1.5" stroke="#1a1a1a" stroke-width="2"
@@ -368,7 +368,7 @@
                             <line x1="2" y1="12.5" x2="15" y2="12.5" stroke="#1a1a1a" stroke-width="2"
                                 stroke-linecap="round" />
                         </svg>
-                    </button>
+                    </button> -->
 
                     <div class="header-logo">
                         <a class="logo-black" href="{{ route('home') }}">
@@ -466,11 +466,15 @@
                             <nav id="mobile-menu" class="main-menu">
                                 <ul class="multipage-menu">
                                     <!-- home -->
-                                    <li>
-                                        <a href="/">Home</a>
-                                    </li>
+                                      @forelse($headerCategories as $category)
+                                        <li class="rs-mega-menu  is-text-white" style="white-space:nowrap;">
+                                            <a href="{{ route('category.show', $category->slug) }}">
+                                                {{ $category->name }}
+                                            </a>
+                                        </li>
+                                     @endforeach
                                     <!-- news menu -->
-                                    <li class="rs-mega-menu menu-item-has-children is-text-white">
+                                    <!-- <li class="rs-mega-menu menu-item-has-children is-text-white">
                                         <a href="javascript:void(0)">News</a>
                                         <ul class="mega-menu mega-grid">
                                             <li class="rs-mega-menu-left">
@@ -639,9 +643,9 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </li> -->
                                     <!-- services menu -->
-                                    <li class="menu-item-has-children">
+                                    <!-- <li class="menu-item-has-children">
                                         <a href="javascript:void(0)">Categories</a>
                                         <ul class="submenu last-children">
                                             @forelse($headerCategories as $category)
@@ -656,19 +660,19 @@
                                             </li>
                                             @endforelse
                                         </ul>
-                                    </li>
+                                    </li> -->
                                     <!-- contact menu -->
-                                    <li>
+                                    <!-- <li>
                                         <a href="/contact-us">Contact</a>
-                                    </li>
+                                    </li> -->
 
                                 </ul>
                             </nav>
                         </div>
                     </div>
-                    <div class="right-col col">
-                        <div class="header-right">
-                            <div class="swiper header-menu-slide">
+                    <!-- <div class="right-col col">
+                        <div class="header-right"> -->
+                            <!-- <div class="swiper header-menu-slide">
                                 <div class="swiper-wrapper">
                                     @forelse($headerTrendingTags as $tag)
                                     <div class="swiper-slide">
@@ -692,15 +696,15 @@
                                     </div>
                                     @endforelse
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- If we need navigation buttons -->
-                            <div class="header-navigation"
+                            <!-- <div class="header-navigation"
                                 style="margin-left: 15px; display: flex; gap: 8px; align-items: center;">
                                 <button class="slider-button-prev"><i class="ri-arrow-left-s-line"></i></button>
                                 <button class="slider-button-next"><i class="ri-arrow-right-s-line"></i></button>
-                            </div>
+                            </div> -->
 
-                            <div class="sticky-hamburger-col">
+                            <!-- <div class="sticky-hamburger-col">
                                 <div class="sidebar-toggle" style="cursor: pointer;"
                                     onclick="document.querySelector('.offcanvas-area').classList.add('opened'); document.querySelector('.offcanvas-overlay').classList.add('overlay-open');">
                                     <a class="header-bar-icon" href="javascript:void(0)"
@@ -715,9 +719,9 @@
                                                 stroke-linecap="round" />
                                         </svg>
                                     </a>
-                                </div>
-                            </div>
-                        </div>
+                                </div> -->
+                            <!-- </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -735,13 +739,17 @@
                     <div class="col-xl-5">
                         <div class="header-menu">
                             <nav id="mobile-menu-two" class="main-menu">
-                                <ul class="multipage-menu">
+                               <ul class="multipage-menu">
                                     <!-- home -->
-                                    <li>
-                                        <a href="/">Home</a>
-                                    </li>
+                                      @forelse($headerCategories as $category)
+                                        <li class="rs-mega-menu  is-text-white" style="white-space:nowrap;">
+                                            <a href="{{ route('category.show', $category->slug) }}">
+                                                {{ $category->name }}
+                                            </a>
+                                        </li>
+                                     @endforeach
                                     <!-- news menu -->
-                                    <li class="rs-mega-menu menu-item-has-children is-text-white">
+                                    <!-- <li class="rs-mega-menu menu-item-has-children is-text-white">
                                         <a href="javascript:void(0)">News</a>
                                         <ul class="mega-menu mega-grid">
                                             <li class="rs-mega-menu-left">
@@ -760,7 +768,7 @@
                                                                 class="image-link" style="height: 120px;">
                                                                 <img src="{{ $headerMegaFeaturedNews->featured_image ? asset('storage/' . $headerMegaFeaturedNews->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                                                     alt="{{ $headerMegaFeaturedNews->title }}"
-                                                                    style="height: 100%; width: 100%; object-fit: cover">
+                                                                    style="height: 100%; width: 100%; object-fit: cover;">
                                                             </a>
                                                         </div>
                                                         <div class="rs-post-medium-content">
@@ -910,9 +918,9 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </li> -->
                                     <!-- services menu -->
-                                    <li class="menu-item-has-children">
+                                    <!-- <li class="menu-item-has-children">
                                         <a href="javascript:void(0)">Categories</a>
                                         <ul class="submenu last-children">
                                             @forelse($headerCategories as $category)
@@ -927,11 +935,11 @@
                                             </li>
                                             @endforelse
                                         </ul>
-                                    </li>
+                                    </li> -->
                                     <!-- contact menu -->
-                                    <li>
+                                    <!-- <li>
                                         <a href="/contact-us">Contact</a>
-                                    </li>
+                                    </li> -->
 
                                 </ul>
                             </nav>

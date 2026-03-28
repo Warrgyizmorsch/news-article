@@ -66,8 +66,9 @@ class AppServiceProvider extends ServiceProvider
                     ->whereNotNull('published_at');
             }
             ])
-                ->where('status', 1)
-                ->having('articles_count', '>', 0)
+                // ->where('status', 1)
+                ->where('main_menu', 1)
+                // ->having('articles_count', '>', 0)
                 ->orderBy('sort_order')
                 ->orderBy('name')
                 ->take(8)

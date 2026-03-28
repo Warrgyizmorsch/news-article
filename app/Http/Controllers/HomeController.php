@@ -31,7 +31,7 @@ class HomeController extends Controller
             ->orderByDesc('published_at')
             ->take(3)
             ->get();
-        dd($heroLeft);
+        // dd($heroLeft);
         // Right Side: Recent Articles
         $heroRight = Article::with(['category', 'author'])
             ->where('status', 'published')
@@ -82,7 +82,7 @@ class HomeController extends Controller
             ->get();
 
         // Section 5: One category section
-        $selectedCategory = Category::where('name', 'Employment')->where('status', 1)
+        $selectedCategory = Category::where('name', 'Business')->where('status', 1)
             ->whereHas('articles', function ($q) {
                 $q->where('status', 'published');
             })

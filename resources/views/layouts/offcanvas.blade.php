@@ -123,7 +123,7 @@
                 <!-- Logo -->
                 <div class="offcanvas-logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/images/logo/da-logo-white.png') }}" alt="logo"
+                        <img src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}" alt="logo"
                             style="max-height: 40px;">
                     </a>
                 </div>
@@ -152,12 +152,12 @@
 
             <!-- Description -->
             <p style="font-size: 15px; line-height: 1.6; color: #9ca3af; margin-bottom: 30px;">
-                Democracy Asia News Magazine brings you trusted timely and thought-provoking stories from around the
+                Democracy Asia Magazine brings you trusted timely and thought-provoking stories from around the
                 globe.
             </p>
 
             <!-- Image Grid -->
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 40px;">
+            <!-- <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 40px;">
                 <img src="{{ asset('assets/images/gallery/gallery-thumb-01.webp') }}"
                     style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px;" alt="gallery">
                 <img src="{{ asset('assets/images/gallery/gallery-thumb-02.webp') }}"
@@ -170,7 +170,7 @@
                     style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px;" alt="gallery">
                 <img src="{{ asset('assets/images/gallery/gallery-thumb-06.webp') }}"
                     style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px;" alt="gallery">
-            </div>
+            </div> -->
 
             <!-- Quick Contact -->
             <h4 style="color: #fff; font-size: 18px; font-weight: 500; margin-bottom: 20px;">Quick Contact:</h4>
