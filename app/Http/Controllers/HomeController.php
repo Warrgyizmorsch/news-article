@@ -31,7 +31,7 @@ class HomeController extends Controller
             ->orderByDesc('published_at')
             ->take(3)
             ->get();
-
+        dd($heroLeft);
         // Right Side: Recent Articles
         $heroRight = Article::with(['category', 'author'])
             ->where('status', 'published')

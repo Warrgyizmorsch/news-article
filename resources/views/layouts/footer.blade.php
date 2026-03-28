@@ -8,7 +8,7 @@
                     <div class="rs-footer-widget footer-1-col-1">
                         <div class="rs-footer-widget-logo">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/images/logo/da-logo-white.png') }}" alt="logo">
+                                <img src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}" alt="logo">
                             </a>
                         </div>
 

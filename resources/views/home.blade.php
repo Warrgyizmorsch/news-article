@@ -14,6 +14,7 @@
                                     Most Viewed Articles
                                 </h4>
                             </div>
+                             <hr>
                             <div class="rs-banner-small-post">
                                 <div class="rs-post-small rs-post-small-seventeen">
                                     @forelse($heroLeft as $article)
@@ -152,6 +153,7 @@
                             <div class="section-title-wrapper mb-15">
                                 <h3 class="section-title rs-split-text-enable split-in-left" style="font-size: 30px;">Recent Articles</h3>
                             </div>
+                             <hr>
                             <div class="rs-banner-small-post">
                                 <div class="rs-post-small rs-post-small-seventeen">
                                     @forelse($heroRight as $article)

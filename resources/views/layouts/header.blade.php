@@ -309,7 +309,7 @@
                     <div class="header-top-item">
                         <span class="popup-circle">
                         </span>
-                        <p class="header-top-title">Live News</p>
+                        <p class="header-top-title">Latest Articles</p>
                     </div>
                     <div class="header-top-content">
                         @forelse($headerBreakingNews as $index => $news)
@@ -372,8 +372,7 @@
 
                     <div class="header-logo">
                         <a class="logo-black" href="{{ route('home') }}">
-                            <img src="{{ asset('assets/images/logo/da-logo-black.png') }}" alt="logo"
-                                style="max-height: 40px;">
+                            <img src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}" alt="logo" style="max-height: 60px;">
                         </a>
                     </div>
                 </div>
