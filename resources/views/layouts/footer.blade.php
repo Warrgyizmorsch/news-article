@@ -49,7 +49,7 @@
                                         </svg></a>
                                 </div>
                             </div>
-
+                            <!-- 
                             <div class="rs-footer-widget-app">
                                 <div class="rs-footer-widget-app-thumb">
                                     <a href="#">
@@ -61,7 +61,7 @@
                                         <img src="{{ asset('assets/images/icon/apple-store-icon.webp') }}" alt="app">
                                     </a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
