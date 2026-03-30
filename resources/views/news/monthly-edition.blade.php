@@ -153,7 +153,7 @@
                         <div class="custom-news-card"
                             style="border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; background: #fff; height: 100%; display: flex; flex-direction: column; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);">
                             <div class="card-thumb" style="aspect-ratio: 16/10; overflow: hidden; flex-shrink: 0;">
-                                <a href="{{ route('news.show', $article->slug) }}" class="hover-zoom-img">
+                                <a href="{{ asset('assets/video/'.$article->excerpt)}}}" class="hover-zoom-img">
                                     <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                         alt="{{ $article->title }}"
                                         style="width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s ease;">
@@ -173,7 +173,7 @@
 
                                 <h3 class="card-title"
                                     style="font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 14px; line-height: 1.3;">
-                                    <a href="{{ route('news.show', $article->slug) }}"
+                                    <a href="{{ asset('assets/video/'.$article->excerpt)}}"
                                         style="color: inherit; text-decoration: none;">
                                         {{ \Illuminate\Support\Str::limit($article->title, 70) }}
                                     </a>
@@ -199,7 +199,7 @@
                                     {{ $article->excerpt ?: strip_tags($article->content) }}
                                 </p>
                                 <div class="card-footer" style="margin-top: auto;">
-                                    <a href="{{ route('news.show', $article->slug) }}"
+                                    <a href="{{ asset('assets/video/'.$article->excerpt)}}"
                                         style="color: #2563eb; font-weight: 600; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; transition: color 0.2s;">
                                         Read
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
