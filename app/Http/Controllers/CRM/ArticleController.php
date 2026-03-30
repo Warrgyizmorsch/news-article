@@ -52,6 +52,7 @@ class ArticleController extends Controller
         $data['slug'] = Str::slug($data['slug'] ?: $data['title']);
         $data['is_featured'] = $request->boolean('is_featured');
         $data['is_breaking'] = $request->boolean('is_breaking');
+        $data['is_hero'] = $request->boolean('is_hero');
 
         if ($request->hasFile('featured_image')) {
             $data['featured_image'] = $request->file('featured_image')->store('articles', 'public');
@@ -88,6 +89,7 @@ class ArticleController extends Controller
         $data['slug'] = Str::slug($data['slug'] ?: $data['title']);
         $data['is_featured'] = $request->boolean('is_featured');
         $data['is_breaking'] = $request->boolean('is_breaking');
+        $data['is_hero'] = $request->boolean('is_hero');
 
         if ($request->hasFile('featured_image')) {
             if ($article->featured_image && Storage::disk('public')->exists($article->featured_image)) {

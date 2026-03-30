@@ -23,6 +23,7 @@ class Article extends Model
         'status',
         'is_featured',
         'is_breaking',
+        'is_hero',
         'published_at',
         'views',
     ];

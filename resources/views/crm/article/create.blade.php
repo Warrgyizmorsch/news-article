@@ -196,7 +196,7 @@
                     <div class="row g-3 mb-4">
                         <label class="col-lg-3 col-form-label fw-semibold">Options</label>
                         <div class="col-lg-9 d-flex flex-column gap-2">
-                            <div class="form-check">
+                            <!-- <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="is_featured" value="1"
                                     id="isFeatured" {{ old('is_featured') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="isFeatured">Featured Article</label>
@@ -206,6 +206,12 @@
                                 <input class="form-check-input" type="checkbox" name="is_breaking" value="1"
                                     id="isBreaking" {{ old('is_breaking') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="isBreaking">Breaking News</label>
+                            </div> -->
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="is_hero" value="1"
+                                    id="isHero" {{ old('is_hero') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="isHero">Hero Slider</label>
                             </div>
                         </div>
                     </div>
