@@ -671,7 +671,7 @@
                         </div>
                     </div>
 
-                            <div class="sticky-hamburger-col">
+                            <!-- <div class="sticky-hamburger-col">
                                 <div class="sidebar-toggle" style="cursor: pointer;"
                                     onclick="document.querySelector('.offcanvas-area').classList.add('opened'); document.querySelector('.offcanvas-overlay').classList.add('overlay-open');">
                                     <a class="header-bar-icon" href="javascript:void(0)"
@@ -687,7 +687,7 @@
                                         </svg>
                                     </a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
