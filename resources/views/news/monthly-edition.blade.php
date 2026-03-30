@@ -133,7 +133,7 @@
                             <div style="aspect-ratio: 16/9; overflow: hidden; border: 1px solid #e5e7eb;">
                                 <a href="{{ route('news.show', $latestArticle->slug) }}" class="hover-zoom-img">
                                     <img src="{{ $latestArticle->featured_image ? asset('storage/' . $latestArticle->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                        alt="{{ $latestArticle->title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                        alt="{{ $latestArticle->title }}" style="width: 100%; height: 100%; object-fit: contain;">
                                 </a>
                             </div>
                         </div>
@@ -156,7 +156,7 @@
                                 <a href="{{ route('news.show', $article->slug) }}" class="hover-zoom-img">
                                     <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                         alt="{{ $article->title }}"
-                                        style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
+                                        style="width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s ease;">
                                 </a>
                             </div>
 
