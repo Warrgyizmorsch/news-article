@@ -123,7 +123,7 @@
                 <!-- Logo -->
                 <div class="offcanvas-logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}" alt="logo"
+                        <img src="{{ asset('assets/images/logo/da-logo-white.png') }}" alt="logo"
                             style="max-height: 40px;">
                     </a>
                 </div>

@@ -18,16 +18,17 @@ class HomeController extends Controller
             ->where('status', 'published')
             ->whereNotNull('published_at')
             ->where('category_id', '!=', 21)
+            ->where('is_hero',1)
             ->latest('published_at')
-            ->first();
+            ->get();
 
         // Left Side: Most Viewed Articles
         $heroLeft = Article::with(['category', 'author'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
-             ->where('category_id', '!=', 21)
-            ->when($heroCenter, function ($query) use ($heroCenter) {
-                $query->where('id', '!=', $heroCenter->id);
+            ->where('category_id', '!=', 21)
+            ->when($heroCenter->count(), function ($query) use ($heroCenter) {
+                $query->whereNotIn('id', $heroCenter->pluck('id'));
             })
             ->orderByDesc('views')
             ->orderByDesc('published_at')
@@ -38,9 +39,9 @@ class HomeController extends Controller
         $heroRight = Article::with(['category', 'author'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
-             ->where('category_id', '!=', 21)
-            ->when($heroCenter, function ($query) use ($heroCenter) {
-                $query->where('id', '!=', $heroCenter->id);
+            ->where('category_id', '!=', 21)
+            ->when($heroCenter->count(), function ($query) use ($heroCenter) {
+                $query->whereNotIn('id', $heroCenter->pluck('id'));
             })
             ->when($heroLeft->count(), function ($query) use ($heroLeft) {
                 $query->whereNotIn('id', $heroLeft->pluck('id'));
@@ -49,11 +50,13 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
-        // Section 3: Breaking / Trending News
+        // Section 3: Monthly Edition News
+        $monthlyEditionCategory = Category::where('slug', 'monthly-edition')->first();
+        $monthlyEditionCategoryId = $monthlyEditionCategory ? $monthlyEditionCategory->id : 21;
+
         $breakingArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
-             ->where('category_id', '!=', 21)
-            ->where('is_breaking', true)
+            ->where('category_id', $monthlyEditionCategoryId)
             ->whereNotNull('published_at')
             ->latest('published_at')
             ->take(5)
@@ -183,6 +186,34 @@ class HomeController extends Controller
         $category = Category::where('slug', $slug)
             ->where('status', 1)
             ->firstOrFail();
+
+        if ($slug === 'monthly-edition') {
+            $latestArticle = Article::with(['category', 'author', 'tags'])
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->where('category_id', $category->id)
+                ->latest('published_at')
+                ->first();
+
+            $otherArticles = Article::with(['category', 'author', 'tags'])
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->where('category_id', $category->id)
+                ->latest('published_at')
+                ->paginate(12)->withQueryString();
+
+            $pageTitle = $category->name;
+            $pageType = 'category';
+            $pageObject = $category;
+
+            return view('news.monthly-edition', compact(
+                'latestArticle',
+                'otherArticles',
+                'pageTitle',
+                'pageType',
+                'pageObject'
+            ));
+        }
 
         $articles = Article::with(['category', 'author', 'tags'])
             ->where('status', 'published')

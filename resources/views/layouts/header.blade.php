@@ -372,7 +372,7 @@
 
                     <div class="header-logo">
                         <a class="logo-black" href="{{ route('home') }}">
-                            <img src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}" alt="logo" style="max-height: 60px;">
+                            <img src="{{ asset('assets/images/logo/da-logo-black.png') }}" alt="logo" style="max-height: 60px;">
                         </a>
                     </div>
                 </div>
@@ -670,39 +670,6 @@
                             </nav>
                         </div>
                     </div>
-                    <!-- <div class="right-col col">
-                        <div class="header-right"> -->
-                            <!-- <div class="swiper header-menu-slide">
-                                <div class="swiper-wrapper">
-                                    @forelse($headerTrendingTags as $tag)
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li>
-                                                    <a href="{{ route('tag.show', $tag->slug) }}">
-                                                        #{{ $tag->name }}
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    @empty
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="javascript:void(0)">#News</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    @endforelse
-                                </div>
-                            </div> -->
-                            <!-- If we need navigation buttons -->
-                            <div class="header-navigation"
-                                style="margin-left: 15px; display: flex; gap: 8px; align-items: center;">
-                                <button class="slider-button-prev"><i class="ri-arrow-left-s-line"></i></button>
-                                <button class="slider-button-next"><i class="ri-arrow-right-s-line"></i></button>
-                            </div>
 
                             <div class="sticky-hamburger-col">
                                 <div class="sidebar-toggle" style="cursor: pointer;"
@@ -945,41 +912,6 @@
                             </nav>
                         </div>
                     </div>
-                    <!-- <div class="col-xl-7">
-                        <div class="header-right"> -->
-                            <!-- <div class="swiper header-menu-slide">
-                                <div class="swiper-wrapper">
-                                    @forelse($headerTrendingTags as $tag)
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li>
-                                                    <a href="{{ route('tag.show', $tag->slug) }}">
-                                                        #{{ $tag->name }}
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    @empty
-                                    <div class="swiper-slide">
-                                        <div class="header-top-tag">
-                                            <ul>
-                                                <li><a href="javascript:void(0)">#News</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    @endforelse
-                                </div>
-                            </div> -->
-                            <!-- If we need navigation buttons -->
-                            <!-- <div class="header-navigation">
-                                <button class="slider-button-prev"><i class="ri-arrow-left-s-line"></i></button>
-                                <button class="slider-button-next"><i class="ri-arrow-right-s-line"></i></button>
-                            </div> -->
-
-                        <!-- </div>
-                    </div> -->
                 </div>
             </div>
         </div>
