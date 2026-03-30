@@ -483,6 +483,7 @@
 
                     <!-- Author Box -->
                     <div class="rs-author-box">
+                        <img src="{{ asset('assets/images/user/user-thumb-05.webp') }}" alt="author">
                         <div class="rs-author-info">
                             <h4>{{ $article->author->name ?? 'Editorial Staff' }}</h4>
                             <p>Senior editor and contributor covering global politics, emerging technology, and social justice. Dedicated to delivering impartial, fact-based reporting from the heart of Asia.</p>
