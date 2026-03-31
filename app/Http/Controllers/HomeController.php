@@ -307,7 +307,68 @@ if ($lifestyleCategory) {
             $pageType = 'category';
             $pageObject = $category;
 
-            return view('news.monthy-editions', compact(
+            return view('news.monthy-edition', compact(
+                'latestArticle',
+                'otherArticles',
+                'pageTitle',
+                'pageType',
+                'pageObject'
+            ));
+        }
+
+         if ($slug === 'asia-in-brief') {
+            $latestArticle = Article::with(['category', 'author', 'tags'])
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->where('category_id', $category->id)
+                ->latest('published_at')
+                ->first();
+
+            $otherArticles = Article::with(['category', 'author', 'tags'])
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->where('category_id', $category->id)
+                ->when($latestArticle, function ($query) use ($latestArticle) {
+                    $query->where('id', '!=', $latestArticle->id);
+                })
+                ->latest('published_at')
+                ->paginate(12)->withQueryString();
+
+            $pageTitle = $category->name;
+            $pageType = 'category';
+            $pageObject = $category;
+
+            return view('news.asia-this-month', compact(
+                'latestArticle',
+                'otherArticles',
+                'pageTitle',
+                'pageType',
+                'pageObject'
+            ));
+        }
+         if ($slug === 'editorial') {
+            $latestArticle = Article::with(['category', 'author', 'tags'])
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->where('category_id', $category->id)
+                ->latest('published_at')
+                ->first();
+
+            $otherArticles = Article::with(['category', 'author', 'tags'])
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->where('category_id', $category->id)
+                ->when($latestArticle, function ($query) use ($latestArticle) {
+                    $query->where('id', '!=', $latestArticle->id);
+                })
+                ->latest('published_at')
+                ->paginate(12)->withQueryString();
+
+            $pageTitle = $category->name;
+            $pageType = 'category';
+            $pageObject = $category;
+
+            return view('news.editorial', compact(
                 'latestArticle',
                 'otherArticles',
                 'pageTitle',
