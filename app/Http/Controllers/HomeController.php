@@ -53,7 +53,7 @@ class HomeController extends Controller
             ->get();
 
         // Section 3: Monthly Edition News
-        $monthlyEditionCategory = Category::where('slug', 'monthly-edition')->first();
+        $monthlyEditionCategory = Category::where('slug', 'monthy-editions')->first();
         $monthlyEditionCategoryId = $monthlyEditionCategory ? $monthlyEditionCategory->id : 21;
 
         $breakingArticles = Article::with(['category', 'author'])
@@ -134,6 +134,72 @@ class HomeController extends Controller
                 ->values();
         }
 
+        // Politics Category
+$politicsCategory = Category::where('slug', 'politics')
+    ->where('status', 1)
+    ->whereHas('articles', function ($q) {
+        $q->where('status', 'published')
+          ->whereNotNull('published_at');
+    })
+    ->first();
+
+$politicsArticles = collect();
+
+if ($politicsCategory) {
+    $politicsArticles = Article::with(['category', 'author'])
+        ->where('category_id', $politicsCategory->id)
+        ->where('status', 'published')
+        ->whereNotNull('published_at')
+        ->latest('published_at')
+        ->take(6) // same as featured count
+        ->get()
+        ->values();
+}
+
+        // Section: Bookshelf
+$bookshelfCategory = Category::where('slug', 'bookshelf')
+    ->where('status', 1)
+    ->whereHas('articles', function ($q) {
+        $q->where('status', 'published')
+          ->whereNotNull('published_at');
+    })
+    ->first();
+
+$bookshelfArticles = collect();
+
+if ($bookshelfCategory) {
+    $bookshelfArticles = Article::with(['category', 'author'])
+        ->where('category_id', $bookshelfCategory->id)
+        ->where('status', 'published')
+        ->whereNotNull('published_at')
+        ->latest('published_at')
+        ->take(3)
+        ->get()
+        ->values();
+}
+
+// Section: Lifestyle
+$lifestyleCategory = Category::where('slug', 'lifestyle')
+    ->where('status', 1)
+    ->whereHas('articles', function ($q) {
+        $q->where('status', 'published')
+          ->whereNotNull('published_at');
+    })
+    ->first();
+
+$lifestyleArticles = collect();
+
+if ($lifestyleCategory) {
+    $lifestyleArticles = Article::with(['category', 'author'])
+        ->where('category_id', $lifestyleCategory->id)
+        ->where('status', 'published')
+        ->whereNotNull('published_at')
+        ->latest('published_at')
+        ->take(3)
+        ->get()
+        ->values();
+}
+
         $ctaPlan = SubscriptionPlan::where('id', 1)
             ->where('status', 1)
             ->first();
@@ -152,6 +218,12 @@ class HomeController extends Controller
             'ctaPlan',
             'asiaInBriefCategory',
             'asiaInBriefArticles',
+            'bookshelfCategory',
+            'bookshelfArticles',
+            'lifestyleCategory',
+            'lifestyleArticles',
+            'politicsCategory',
+            'politicsArticles',
         ));
     }
 
@@ -213,7 +285,7 @@ class HomeController extends Controller
             ->where('status', 1)
             ->firstOrFail();
 
-        if ($slug === 'monthly-edition') {
+        if ($slug === 'monthy-editions') {
             $latestArticle = Article::with(['category', 'author', 'tags'])
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
@@ -235,7 +307,7 @@ class HomeController extends Controller
             $pageType = 'category';
             $pageObject = $category;
 
-            return view('news.monthly-edition', compact(
+            return view('news.monthy-editions', compact(
                 'latestArticle',
                 'otherArticles',
                 'pageTitle',

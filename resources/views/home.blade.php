@@ -40,7 +40,7 @@
                                                     <span class="rs-meta">
                                                         By
                                                         <a href="javascript:void(0)" class="meta-author">
-                                                            {{ $article->author->name ?? 'Admin' }}
+                                                            {{ $article->auther ?? 'Admin' }}
                                                         </a>
                                                     </span>
                                                 </li>
@@ -165,7 +165,7 @@
                                                             <span class="rs-meta">
                                                                 By
                                                                 <a href="javascript:void(0)" class="meta-author">
-                                                                    {{ $article->author->name ?? 'Admin' }}
+                                                                    {{ $article->auther ?? 'Admin' }}
                                                                 </a>
                                                             </span>
                                                         </li>
@@ -248,7 +248,7 @@ $featuredVideos = [
         <div class="row section-title-space align-items-center g-5">
             <div class="col-xl-6 col-lg-6">
                 <div class="section-title-wrapper">
-                    <h2 class="section-title rs-split-text-enable split-in-left">Featured Videos</h2>
+                    <h2 class="section-title rs-split-text-enable split-in-left">DA Videos</h2>
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6">
@@ -495,7 +495,7 @@ $featuredVideos = [
                                 <li>
                                     <span class="rs-meta">
                                         By <a href="javascript:void(0)"
-                                            class="meta-author">{{ $article->author->name ?? 'Admin' }}</a>
+                                            class="meta-author">{{ $article->auther ?? 'Admin' }}</a>
                                     </span>
                                 </li>
                             </ul>
@@ -626,12 +626,13 @@ $featuredVideos = [
         <div class="row section-title-space align-items-center g-5">
             <div class="col-xl-6 col-lg-6">
                 <div class="section-title-wrapper">
-                    <h2 class="section-title rs-split-text-enable split-in-left">Featured Articles</h2>
+                    {{ $politicsCategory->name ?? 'Politics' }}
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6">
                 <div class="section-btn">
-                    <a class="rs-btn has-text has-icon" href="{{ route('news.index') }}">View All
+                    <a class="rs-btn has-text has-icon"
+   href="{{ route('category.show', $politicsCategory->slug ?? 'politics') }}">View All
                         <span class="icon-box">
                             <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -656,8 +657,8 @@ $featuredVideos = [
                 <div class="rs-post-medium rs-post-medium-one">
 
                     @for($i = 0; $i < 6; $i++)
-                        @if(isset($featuredArticles[$i]))
-                        @php $article=$featuredArticles[$i]; @endphp
+                        @if(isset($politicsArticles[$i]))
+                        @php $article=$politicsArticles[$i]; @endphp
                         <div class="rs-post-medium-item">
                         <div class="rs-post-medium-thumb">
                             <a href="{{ route('news.show', $article->slug) }}" class="image-link"
@@ -688,7 +689,7 @@ $featuredVideos = [
                                         <li>
                                             <span class="rs-meta">
                                                 By <a href="javascript:void(0)" class="meta-author">
-                                                    {{ $article->author->name ?? 'Admin' }}
+                                                    {{ $article->auther ?? 'Admin' }}
                                                 </a>
                                             </span>
                                         </li>
@@ -732,7 +733,7 @@ $featuredVideos = [
                     <div class="rs-categories rs-categories-one">
                         <h5 class="section-title is-small">Explore Categories</h5>
                         <ul>
-                            @foreach($categories as $category)
+                            @foreach($categories->where('slug', '!=', 'politics') as $category)
                             <li>
                                 <a href="{{ route('category.show', $category->slug) }}" class="rs-categories-bg-thumb"
                                     style="background-image: url('{{ $category->images ? asset($category->images) : asset('assets/images/categories/categories-thumb-01.webp') }}')">
@@ -783,7 +784,7 @@ $featuredVideos = [
                                         <li>
                                             <span class="rs-meta">
                                                 By <a href="javascript:void(0)" class="meta-author">
-                                                    {{ $article->author->name ?? 'Admin' }}
+                                                    {{ $article->auther ?? 'Admin' }}
                                                 </a>
                                             </span>
                                         </li>
@@ -974,7 +975,7 @@ $featuredVideos = [
                                     <span class="rs-meta">
                                         By
                                         <a href="javascript:void(0)" class="meta-author">
-                                            {{ $article->author->name ?? 'Admin' }}
+                                            {{ $article->auther ?? 'Admin' }}
                                         </a>
                                     </span>
                                 </li>
@@ -1005,6 +1006,81 @@ $featuredVideos = [
 </section>
 @endif
 <!-- Asia In Brief area end -->
+
+<!-- Lifestyle category start -->
+@if($lifestyleCategory && $lifestyleArticles->count())
+<section class="rs-trending-news-area section-space-bottom rs-ptop rs-trending-news-three">
+    <div class="container">
+
+        <div class="row section-title-space align-items-center g-5">
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-title-wrapper">
+                    <h2 class="section-title">
+                        {{ $lifestyleCategory->name }}
+                    </h2>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-btn d-flex justify-content-lg-end">
+                    <a class="rs-btn has-text has-icon"
+                        href="{{ route('category.show', $lifestyleCategory->slug) }}">
+                        View All
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        @if(isset($lifestyleArticles[0]))
+        <div class="row g-5">
+
+            <!-- Featured -->
+            <div class="{{ count($lifestyleArticles) > 1 ? 'col-xl-4' : 'col-xl-12' }}">
+                <div class="rs-post-overlay rs-post-overlay-one featured-category-post">
+                    <a href="{{ route('news.show', $lifestyleArticles[0]->slug) }}">
+                        <div class="rs-post-overlay-bg-thumb"
+                            data-background="{{ $lifestyleArticles[0]->featured_image ? asset('storage/' . $lifestyleArticles[0]->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
+                        </div>
+                    </a>
+
+                    <div class="rs-post-overlay-content">
+                        <h5 class="rs-post-overlay-title is-white underline">
+                            <a href="{{ route('news.show', $lifestyleArticles[0]->slug) }}">
+                                {{ \Illuminate\Support\Str::limit($lifestyleArticles[0]->title, 55) }}
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- List -->
+            @if(count($lifestyleArticles) > 1)
+            <div class="col-xl-8">
+                @foreach($lifestyleArticles->slice(1) as $article)
+                <div class="rs-post-small">
+                    <div class="rs-post-small-thumb">
+                        <a href="{{ route('news.show', $article->slug) }}">
+                            <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
+                        </a>
+                    </div>
+                    <div class="rs-post-small-content">
+                        <h6 class="rs-post-small-title">
+                            <a href="{{ route('news.show', $article->slug) }}">
+                                {{ \Illuminate\Support\Str::limit($article->title, 55) }}
+                            </a>
+                        </h6>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endif
+
+        </div>
+        @endif
+
+    </div>
+</section>
+@endif
+<!-- Lifestyle category end -->
 
 <!-- cta area start -->
 @if(!auth()->user())
@@ -1074,6 +1150,64 @@ $featuredVideos = [
 </section>
 @endif
 <!-- cta area end -->
+
+<!-- Bookshelf area start -->
+@if($bookshelfCategory && $bookshelfArticles->count())
+<section class="rs-popular-news-area section-space-bottom rs-ptop bg-primary">
+    <div class="container">
+        <div class="row section-title-space align-items-center g-5">
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-title-wrapper">
+                    <h2 class="section-title rs-split-text-enable split-in-left is-white">
+                        {{ $bookshelfCategory->name }}
+                    </h2>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-btn d-flex justify-content-lg-end">
+                    <a class="rs-btn has-text has-icon is-text-white"
+                        href="{{ route('category.show', $bookshelfCategory->slug) }}">
+                        View All
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-5">
+            @foreach($bookshelfArticles as $article)
+            <div class="col-xl-4 col-lg-4 col-md-6">
+                <div class="rs-post-overlay rs-post-overlay-four">
+                    <a href="{{ route('news.show', $article->slug) }}">
+                        <div class="rs-post-overlay-bg-thumb"
+                            data-background="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
+                        </div>
+                    </a>
+
+                    <div class="rs-post-overlay-content">
+                        <div class="rs-post-tag-two">
+                            <a href="{{ route('category.show', $article->category->slug) }}" class="post-tag is-white">
+                                {{ $article->category->name ?? 'News' }}
+                            </a>
+                        </div>
+
+                        <h5 class="rs-post-overlay-title is-white underline">
+                            <a href="{{ route('news.show', $article->slug) }}">
+                                {{ \Illuminate\Support\Str::limit($article->title, 70) }}
+                            </a>
+                        </h5>
+
+                        <div class="rs-post-meta meta-white">
+                            <span>By {{ $article->auther ?? 'Admin' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+<!-- Bookshelf area end -->
 
 <!-- video area start -->
 <section class="rs-video-area bg-primary section-space-bottom rs-ptop rs-video-one">
@@ -1245,7 +1379,7 @@ $featuredVideos = [
                                         <li>
                                             <span class="rs-meta">
                                                 By <a href="javascript:void(0)" class="meta-author">
-                                                    {{ $article->author->name ?? 'Admin' }}
+                                                    {{ $article->auther ?? 'Admin' }}
                                                 </a>
                                             </span>
                                         </li>
