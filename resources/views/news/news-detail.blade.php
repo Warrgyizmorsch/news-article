@@ -5,526 +5,611 @@
 
 @section('content')
 
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap');
 
-    :root {
-        --rs-theme-primary: #0d6efd;
-        --rs-theme-red: #da2128;
-        --rs-text-serif: 'Merriweather', serif;
-        --rs-text-sans: 'Source Sans 3', sans-serif;
-        --rs-title-primary: #10171e;
-        --rs-body-text: #4b5563;
-    }
+                    :root {
+                        --rs-theme-primary: #0d6efd;
+                        --rs-theme-red: #da2128;
+                        --rs-text-serif: 'Merriweather', serif;
+                        --rs-text-sans: 'Source Sans 3', sans-serif;
+                        --rs-title-primary: #10171e;
+                        --rs-body-text: #4b5563;
+                    }
 
-    #rsReadingProgress {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 4px;
-        background: var(--rs-theme-red);
-        z-index: 9999;
-        transition: width 0.1s ease;
-    }
+                    #rsReadingProgress {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 0%;
+                        height: 4px;
+                        background: var(--rs-theme-red);
+                        z-index: 9999;
+                        transition: width 0.1s ease;
+                    }
 
-    .rs-breadcrumb-two {
-        padding: 30px 0;
-        background: #f8fafc;
-        border-bottom: 1px solid #eef2f6;
-    }
+                    .rs-breadcrumb-two {
+                        padding: 30px 0;
+                        background: #f8fafc;
+                        border-bottom: 1px solid #eef2f6;
+                    }
 
-    .rs-breadcumb-item {
-        font-family: var(--rs-text-sans);
-        font-size: 14px;
-        color: #64748b;
-    }
+                    .rs-breadcumb-item {
+                        font-family: var(--rs-text-sans);
+                        font-size: 14px;
+                        color: #64748b;
+                    }
 
-    .rs-breadcumb-item a {
-        color: var(--rs-title-primary);
-        font-weight: 600;
-        transition: color 0.3s;
-    }
+                    .rs-breadcumb-item a {
+                        color: var(--rs-title-primary);
+                        font-weight: 600;
+                        transition: color 0.3s;
+                    }
 
-    .rs-breadcumb-item a:hover {
-        color: var(--rs-theme-red);
-    }
+                    .rs-breadcumb-item a:hover {
+                        color: var(--rs-theme-red);
+                    }
 
-    .rs-blog-post-area {
-        padding-top: 60px;
-    }
+                    .rs-blog-post-area {
+                        padding-top: 60px;
+                    }
 
-    .rs-article-header {
-        position: relative;
-        margin-bottom: 40px;
-    }
+                    .rs-article-header {
+                        position: relative;
+                        margin-bottom: 40px;
+                    }
 
-    .rs-category-badge {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: var(--rs-theme-red);
-        color: #fff;
-        padding: 6px 16px;
-        font-family: var(--rs-text-sans);
-        font-weight: 700;
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        z-index: 2;
-    }
+                    .rs-category-badge {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        background: var(--rs-theme-red);
+                        color: #fff;
+                        padding: 6px 16px;
+                        font-family: var(--rs-text-sans);
+                        font-weight: 700;
+                        font-size: 13px;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                        z-index: 2;
+                    }
 
-    .rs-blog-post-title {
-        font-family: var(--rs-text-serif);
-        font-weight: 900;
-        font-size: 42px;
-        line-height: 1.2;
-        color: var(--rs-title-primary);
-        max-width: 900px;
-        margin-bottom: 25px;
-        text-align: left;
-    }
+                    .rs-blog-post-title {
+                        font-family: var(--rs-text-serif);
+                        font-weight: 900;
+                        font-size: 42px;
+                        line-height: 1.2;
+                        color: var(--rs-title-primary);
+                        max-width: 900px;
+                        margin-bottom: 25px;
+                        text-align: left;
+                    }
 
-    .rs-post-meta-row {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-        padding-bottom: 25px;
-        border-bottom: 1px solid #f1f5f9;
-        flex-wrap: wrap;
-    }
+                    .rs-post-meta-row {
+                        display: flex;
+                        align-items: center;
+                        gap: 24px;
+                        padding-bottom: 25px;
+                        border-bottom: 1px solid #f1f5f9;
+                        flex-wrap: wrap;
+                    }
 
-    .rs-meta-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-family: var(--rs-text-sans);
-        font-size: 14px;
-        color: #64748b;
-        font-weight: 500;
-    }
+                    .rs-meta-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        font-family: var(--rs-text-sans);
+                        font-size: 14px;
+                        color: #64748b;
+                        font-weight: 500;
+                    }
 
-    .rs-meta-item i, .rs-meta-item svg {
-        color: var(--rs-theme-primary);
-    }
+                    .rs-meta-item i,
+                    .rs-meta-item svg {
+                        color: var(--rs-theme-primary);
+                    }
 
-    .rs-meta-author-img {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
+                    .rs-meta-author-img {
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
 
-    .rs-meta-link {
-        color: var(--rs-title-primary);
-        font-weight: 700;
-        text-decoration: none;
-        transition: color 0.2s;
-    }
+                    .rs-meta-link {
+                        color: var(--rs-title-primary);
+                        font-weight: 700;
+                        text-decoration: none;
+                        transition: color 0.2s;
+                    }
 
-    .rs-meta-link:hover {
-        color: var(--rs-theme-red);
-    }
+                    .rs-meta-link:hover {
+                        color: var(--rs-theme-red);
+                    }
 
-    .rs-featured-img-container {
-        margin-bottom: 45px;
-    }
+                    .rs-featured-img-container {
+                        margin-bottom: 45px;
+                    }
 
-    .rs-featured-img-container img {
-        width: 100%;
-        border-radius: 4px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
+                    .rs-featured-img-container img {
+                        width: 100%;
+                        border-radius: 4px;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+                    }
 
-    .article-body-content {
-        font-family: var(--rs-text-serif);
-        font-size: 19px;
-        line-height: 1.8;
-        color: var(--rs-body-text);
-    }
+                    .article-body-content {
+                        font-family: var(--rs-text-serif);
+                        font-size: 19px;
+                        line-height: 1.8;
+                        color: var(--rs-body-text);
+                    }
 
-    .article-body-content p {
-        margin-bottom: 28px;
-    }
+                    .article-body-content p {
+                        margin-bottom: 18px;
+                        line-height: 25px !important;
+                    }
 
-    .article-body-content blockquote {
-        position: relative;
-        padding: 40px;
-        background: #fdf2f2;
-        border-left: 4px solid var(--rs-theme-red);
-        margin: 45px 0;
-        font-style: italic;
-        font-size: 22px;
-        color: var(--rs-title-primary);
-        border-radius: 0 8px 8px 0;
-    }
+                    .article-body-content blockquote {
+                        position: relative;
+                        padding: 40px;
+                        background: #fdf2f2;
+                        border-left: 4px solid var(--rs-theme-red);
+                        margin: 45px 0;
+                        font-style: italic;
+                        font-size: 22px;
+                        color: var(--rs-title-primary);
+                        border-radius: 0 8px 8px 0;
+                    }
 
-    .article-body-content blockquote::before {
-        content: '"';
-        position: absolute;
-        top: 10px;
-        left: 20px;
-        font-size: 100px;
-        font-family: Georgia, serif;
-        color: rgba(218, 33, 40, 0.1);
-        line-height: 1;
-    }
+                    .article-body-content blockquote::before {
+                        content: '"';
+                        position: absolute;
+                        top: 10px;
+                        left: 20px;
+                        font-size: 100px;
+                        font-family: Georgia, serif;
+                        color: rgba(218, 33, 40, 0.1);
+                        line-height: 1;
+                    }
 
-    .rs-content-list {
-        list-style: none;
-        padding-left: 0;
-        margin: 30px 0;
-    }
+                    .rs-content-list {
+                        list-style: none;
+                        padding-left: 0;
+                        margin: 30px 0;
+                    }
 
-    .rs-content-list li {
-        position: relative;
-        padding-left: 35px;
-        margin-bottom: 15px;
-        font-family: var(--rs-text-sans);
-        font-weight: 500;
-        font-size: 17px;
-    }
+                    .rs-content-list li {
+                        position: relative;
+                        padding-left: 35px;
+                        margin-bottom: 15px;
+                        font-family: var(--rs-text-sans);
+                        font-weight: 500;
+                        font-size: 17px;
+                    }
 
-    .rs-content-list li::before {
-        content: '\2713';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 24px;
-        height: 24px;
-        background: var(--rs-theme-primary);
-        color: #fff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        font-weight: bold;
-    }
+                    .rs-content-list li::before {
+                        content: '\2713';
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 24px;
+                        height: 24px;
+                        background: var(--rs-theme-primary);
+                        color: #fff;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
 
-    /* Paywall Styles */
-    .rs-paywall-preview {
-        position: relative;
-    }
+                    /* Paywall Styles */
+                    .rs-paywall-preview {
+                        position: relative;
+                    }
 
-    .rs-paywall-gradient {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 250px;
-        background: linear-gradient(to top, #fff, transparent);
-        z-index: 5;
-    }
+                    .rs-paywall-gradient {
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 250px;
+                        background: linear-gradient(to top, #fff, transparent);
+                        z-index: 5;
+                    }
 
-    .rs-subscribe-cta {
-        margin-top: -60px;
-        padding: 50px;
-        background: #111827;
-        color: #fff;
-        border-radius: 12px;
-        text-align: center;
-        position: relative;
-        z-index: 10;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
+                    .rs-subscribe-cta {
+                        margin-top: -60px;
+                        padding: 50px;
+                        background: #111827;
+                        color: #fff;
+                        border-radius: 12px;
+                        text-align: center;
+                        position: relative;
+                        z-index: 10;
+                        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+                    }
 
-    .rs-subscribe-cta h3 {
-        color: #fff;
-        font-family: var(--rs-text-serif);
-        font-size: 28px;
-        margin-bottom: 15px;
-    }
+                    .rs-subscribe-cta h3 {
+                        color: #fff;
+                        font-family: var(--rs-text-serif);
+                        font-size: 28px;
+                        margin-bottom: 15px;
+                    }
 
-    .rs-subscribe-cta p {
-        color: #9ca3af;
-        margin-bottom: 30px;
-        font-family: var(--rs-text-sans);
-    }
+                    .rs-subscribe-cta p {
+                        color: #9ca3af;
+                        margin-bottom: 30px;
+                        font-family: var(--rs-text-sans);
+                    }
 
-    .rs-subscribe-btn {
-        background: var(--rs-theme-red);
-        color: #fff;
-        padding: 14px 40px;
-        border-radius: 99px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        text-decoration: none;
-        transition: transform 0.3s, background 0.3s;
-        display: inline-block;
-    }
+                    .rs-subscribe-btn {
+                        background: var(--rs-theme-red);
+                        color: #fff;
+                        padding: 14px 40px;
+                        border-radius: 99px;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        text-decoration: none;
+                        transition: transform 0.3s, background 0.3s;
+                        display: inline-block;
+                    }
 
-    .rs-subscribe-btn:hover {
-        background: #bc1921;
-        transform: translateY(-3px);
-        color: #fff;
-    }
+                    .rs-subscribe-btn:hover {
+                        background: #bc1921;
+                        transform: translateY(-3px);
+                        color: #fff;
+                    }
 
-    /* Author Box */
-    .rs-author-box {
-        display: flex;
-        gap: 30px;
-        padding: 40px;
-        background: #f8fafc;
-        border-radius: 12px;
-        margin-top: 60px;
-        align-items: center;
-    }
+                    /* Author Box */
+                    .rs-author-box {
+                        display: flex;
+                        gap: 30px;
+                        padding: 20px;
+                        background: #f8fafc;
+                        border-radius: 12px;
+                        margin-top: 60px;
+                        align-items: center;
+                    }
 
-    .rs-author-box img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
+                    .rs-author-box img {
+                        width: 100px;
+                        height: 100px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
 
-    .rs-author-info h4 {
-        font-family: var(--rs-text-serif);
-        margin-bottom: 10px;
-        color: var(--rs-title-primary);
-    }
+                    .rs-author-info h4 {
+                        font-family: var(--rs-text-serif);
+                        margin-bottom: 10px;
+                        color: var(--rs-title-primary);
+                    }
 
-    .rs-author-info p {
-        font-family: var(--rs-text-sans);
-        color: #64748b;
-        font-size: 15px;
-        line-height: 1.6;
-        margin: 0;
-    }
+                    .rs-author-info p {
+                        font-family: var(--rs-text-sans);
+                        color: #64748b;
+                        font-size: 15px;
+                        line-height: 1.6;
+                        margin: 0;
+                    }
 
-    .rs-related-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-        margin-top: 30px;
-    }
+                    .rs-related-grid {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 30px;
+                        margin-top: 30px;
+                    }
 
-    .rs-related-card {
-        text-decoration: none;
-        group: hover;
-    }
+                    .rs-related-card {
+                        text-decoration: none;
+                        group: hover;
+                    }
 
-    .rs-related-thumb {
-        width: 100%;
-        height: 180px;
-        border-radius: 8px;
-        overflow: hidden;
-        margin-bottom: 15px;
-    }
+                    .rs-related-thumb {
+                        width: 100%;
+                        height: 180px;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        margin-bottom: 15px;
+                    }
 
-    .rs-related-thumb img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s;
-    }
+                    .rs-related-thumb img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: transform 0.5s;
+                    }
 
-    .rs-related-card:hover .rs-related-thumb img {
-        transform: scale(1.08);
-    }
+                    .rs-related-card:hover .rs-related-thumb img {
+                        transform: scale(1.08);
+                    }
 
-    .rs-related-card h6 {
-        font-family: var(--rs-text-sans);
-        font-weight: 700;
-        line-height: 1.4;
-        color: var(--rs-title-primary);
-        transition: color 0.3s;
-    }
+                    .rs-related-card h6 {
+                        font-family: var(--rs-text-sans);
+                        font-weight: 700;
+                        line-height: 1.4;
+                        color: var(--rs-title-primary);
+                        transition: color 0.3s;
+                    }
 
-    .rs-related-card:hover h6 {
-        color: var(--rs-theme-red);
-    }
+                    .rs-related-card:hover h6 {
+                        color: var(--rs-theme-red);
+                    }
 
-    @media (max-width: 768px) {
-        .rs-blog-post-title { font-size: 32px; }
-        .rs-related-grid { grid-template-columns: 1fr; }
-        .rs-author-box { flex-direction: column; text-align: center; }
-    }
-</style>
+                    @media (max-width: 768px) {
+                        .rs-blog-post-title {
+                            font-size: 32px;
+                        }
 
-<div id="rsReadingProgress"></div>
+                        .rs-related-grid {
+                            grid-template-columns: 1fr;
+                        }
 
-<!-- breadcrumb area start -->
-<div class="rs-breadcrumb-area rs-breadcrumb-two p-relative section-space">
-    <div class="container">
-        <div class="row">
-            <div class="col-xxl-12">
-                <div class="rs-breadcrumb-wrapper">
-                    <div class="rs-breadcrumb-menu">
-                        <nav>
-                            <ul>
-                                <li class="rs-breadcumb-item">
-                                    <a href="{{ route('home') }}">Home</a>
-                                </li>
-                                @if($article->category)
-                                    <li class="rs-breadcumb-item">
-                                        <a href="{{ route('category.show', $article->category->slug) }}">
-                                            {{ $article->category->name }}
-                                        </a>
-                                    </li>
-                                @endif
-                                <li class="rs-breadcumb-item">
-                                    {{ \Illuminate\Support\Str::limit($article->title, 40) }}
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- breadcrumb area end -->
+                        .rs-author-box {
+                            flex-direction: column;
+                            text-align: center;
+                        }
+                    }
+                </style>
 
-<!-- blog post area start -->
-<section class="rs-blog-post-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="rs-article-header">
-                    @if($article->category)
-                        <a href="{{ route('category.show', $article->category->slug) }}" class="rs-category-badge">
-                            {{ $article->category->name }}
-                        </a>
-                    @endif
+                <div id="rsReadingProgress"></div>
 
-                    <h1 class="rs-blog-post-title">
-                        {{ $article->title }}
-                    </h1>
-
-                    <div class="rs-post-meta-row">
-                        <div class="rs-meta-item">
-                            <img src="{{ $article->author->profile_photo_path ? asset('storage/' . $article->author->profile_photo_path) : asset('assets/images/user/user-thumb-05.webp') }}"
-                                 alt="{{ $article->author->name }}" class="rs-meta-author-img">
-                            <a href="javascript:void(0)" class="rs-meta-link">
-                                {{ $article->author->name ?? 'Editorial Team' }}
-                            </a>
-                        </div>
-
-                        <div class="rs-meta-item">
-                            <i class="ri-calendar-line"></i>
-                            <span>{{ optional($article->published_at)->format('F d, Y') }}</span>
-                        </div>
-
-                        <div class="rs-meta-item">
-                            <i class="ri-chat-3-line"></i>
-                            <span>0 Comments</span>
-                        </div>
-
-                        <div class="rs-meta-item">
-                            <i class="ri-time-line"></i>
-                            @php
-                                $wordCount = str_word_count(strip_tags($article->content));
-                                $readingTime = ceil($wordCount / 200);
-                            @endphp
-                            <span>{{ $readingTime }} min read</span>
+                <!-- breadcrumb area start -->
+                <div class="rs-breadcrumb-area rs-breadcrumb-two p-relative section-space">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xxl-8 col-xl-8 col-lg-9">
+                                <div class="rs-breadcrumb-wrapper">
+                                    <div class="rs-breadcrumb-menu">
+                                        <nav>
+                                            <ul>
+                                                <li class="rs-breadcumb-item">
+                                                    <span>
+                                                        <a href="{{ route('home') }}">
+                                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M15.4125 6.1124L9.69686 1.3249C8.71561 0.503027 7.28436 0.503027 6.30311 1.3249L0.587484 6.1124C-0.106266 6.69365 -0.196891 7.72803 0.384359 8.41865C0.671859 8.7624 1.08748 8.97178 1.53123 8.9999V13.6562C1.53123 14.5562 2.26248 15.2874 3.16561 15.2905H6.67811V11.2593C6.67811 10.5312 7.26873 9.94053 7.99686 9.94053C8.72498 9.94053 9.31561 10.5312 9.31561 11.2593V15.2937H12.8312C13.7312 15.2937 14.4625 14.5624 14.4656 13.6593V9.00303C15.3687 8.94365 16.0531 8.1624 15.9937 7.25928C15.9625 6.81553 15.7531 6.3999 15.4125 6.1124Z"
+                                                                    fill="black" />
+                                                            </svg>
+                                                            Home
+                                                        </a>
+                                                    </span>
+                                                </li>
+                                                @if($article->category)
+                                                    <li class="rs-breadcumb-item">
+                                                        <span>
+                                                            <a href="{{ route('category.show', $article->category->slug) }}">
+                                                            {{ $article->category->name }}
+                                                        </a>
+                                                        </span>
+                                                    </li>
+                                                @endif
+                                                <li class="rs-breadcumb-item">
+                                                    {{ \Illuminate\Support\Str::limit($article->title, 40) }}
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+                <!-- breadcrumb area end -->
 
-        <div class="row g-5">
-            <div class="col-xl-8 col-lg-8">
-                <div class="rs-postbox-details-content">
-                    <div class="rs-featured-img-container">
-                        <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                             alt="{{ $article->title }}">
-                    </div>
-                    @php
-                        $canRead = auth()->check() && auth()->user()->canReadFullArticles();
-                        $cleanContent = $article->content;
+                <!-- blog post area start -->
+                <section class="rs-blog-post-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="rs-article-header">
 
-                        $cleanContent = preg_replace('#\sstyle=("|\')(.*?)\1#i', '', $cleanContent);
-                        $cleanContent = preg_replace('#</?(span|font)[^>]*>#i', '', $cleanContent);
-                        $cleanContent = preg_replace('#\s(width|height|align|class)=("|\')(.*?)\2#i', '', $cleanContent);
-                    @endphp
+                                    <h1 class="rs-blog-post-title">
+                                        {{ $article->title }}
+                                    </h1>
 
-                       <div class="article-body-content">
-                            {!! $cleanContent !!}
-                        </div>
-                        
-                    <!-- @if($canRead)
-                        <div class="article-body-content">
-                            {!! $cleanContent !!}
-                        </div>
-                    @else
-                        <div class="article-body-content">
-                            {!! \Illuminate\Support\Str::limit(strip_tags($cleanContent), 550) !!}
-                        </div>
-
-                        <div class="rs-paywall-preview">
-                            <div style="filter: blur(8px); user-select: none; pointer-events: none; height: 350px; overflow: hidden; opacity: 0.6;">
-                                {!! $cleanContent !!}
-                            </div>
-                            <div class="rs-paywall-gradient"></div>
-
-                            <div class="rs-subscribe-cta">
-                                <h3>Unlock the Full Story</h3>
-                                <p>Get unlimited access to award-winning journalism, exclusive reports, and deep analysis by subscribing to Democracy Asia.</p>
-                                <a href="{{ route('frontend.plans.index') }}" class="rs-subscribe-btn">
-                                    Become a Member
-                                </a>
-                            </div>
-                        </div>
-                    @endif -->
-
-                    <!-- Tags -->
-                    <div class="rs-postbox-details-social mt-50">
-                        <div class="rs-postbox-details-tags tagcloud">
-                            @forelse($article->tags as $tag)
-                                <a href="{{ route('tag.show', $tag->slug) }}">{{ $tag->name }}</a>
-                            @empty
-                                <a href="javascript:void(0)">World News</a>
-                            @endforelse
-                        </div>
-                    </div>
-
-                    <!-- Author Box -->
-                    <div class="rs-author-box">
-                        <img src="{{ asset('assets/images/user/user-thumb-05.webp') }}" alt="author">
-                        <div class="rs-author-info">
-                            <h4>{{ $article->author->name ?? 'Editorial Staff' }}</h4>
-                            <p>Senior editor and contributor covering global politics, emerging technology, and social justice. Dedicated to delivering impartial, fact-based reporting from the heart of Asia.</p>
-                        </div>
-                    </div>
-
-                    <!-- Related News -->
-                    @if($relatedArticles->count())
-                        <div class="mt-60">
-                            <h4 class="font-serif mb-4">Related News</h4>
-                            <div class="rs-related-grid">
-                                @foreach($relatedArticles as $related)
-                                    <a href="{{ route('news.show', $related->slug) }}" class="rs-related-card">
-                                        <div class="rs-related-thumb">
-                                            <img src="{{ $related->featured_image ? asset('storage/' . $related->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                                 alt="{{ $related->title }}">
+                                    <div class="rs-post-meta-row">
+                                        <div class="rs-meta-item">
+                                            <img src="{{ $article->author->profile_photo_path ? asset('storage/' . $article->author->profile_photo_path) : asset('assets/images/user/demo-profile.webp') }}"
+                                                alt="{{ $article->author->name }}" class="rs-meta-author-img">
+                                            <a href="javascript:void(0)" class="rs-meta-link">
+                                                {{ $article->author->name ?? 'Editorial Team' }}
+                                            </a>
                                         </div>
-                                        <h6>{{ \Illuminate\Support\Str::limit($related->title, 65) }}</h6>
-                                    </a>
-                                @endforeach
+
+                                        <div class="rs-meta-item">
+                                            <i class="ri-calendar-line"></i>
+                                            <span>{{ optional($article->published_at)->format('F, Y') }}</span>
+                                        </div>
+
+                                        <div class="rs-meta-item">
+                                            <i class="ri-time-line"></i>
+                                            @php
+    $wordCount = str_word_count(strip_tags($article->content));
+    $readingTime = ceil($wordCount / 200);
+                                            @endphp
+                                            <span>{{ $readingTime }} min read</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    @endif
-                </div>
-            </div>
 
-            <!-- Sidebar -->
-            <div class="col-xl-4 col-lg-4">
-                @include('news.partials.news-sidebar')
-            </div>
-        </div>
-    </div>
-</section>
+                        <div class="row g-5" style="padding-bottom: 30px;">
+                            <div class="col-xl-8 col-lg-8">
+                                <div class="rs-postbox-details-content">
+                                    <div class="rs-featured-img-container">
+                                        <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                            alt="{{ $article->title }}">
+                                    </div>
+                                    @php
+    $canRead = auth()->check();
+    // Future logic
+    // $canRead = auth()->check() && auth()->user()->canReadFullArticles();
 
-<script>
-    window.onscroll = function() {
-        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var scrolled = (winScroll / height) * 100;
-        document.getElementById("rsReadingProgress").style.width = scrolled + "%";
-    };
-</script>
+    $cleanContent = $article->content;
+
+    $cleanContent = preg_replace('#\sstyle=("|\')(.*?)\1#i', '', $cleanContent);
+    $cleanContent = preg_replace('#</?(span|font)[^>]*>#i', '', $cleanContent);
+    $cleanContent = preg_replace('#\s(width|height|align|class)=("|\')(.*?)\2#i', '', $cleanContent);
+
+    $paragraphs = explode('</p>', $cleanContent);
+
+    $preview = collect($paragraphs)->take(2)->implode('</p>');
+    $remaining = collect($paragraphs)->slice(2)->implode('</p>');
+
+    // $preview = \Illuminate\Support\Str::limit($cleanContent, 550);
+    // $remaining = str_replace($preview, '', $cleanContent);
+                                    @endphp
+
+                                    @if($canRead)
+                                        <div class="article-body-content">
+                                            {!! $cleanContent !!}
+                                        </div>
+                                    @else
+                                        <div class="article-body-content">
+                                            {!! $preview !!}
+                                        </div>
+
+                                        <div class="rs-paywall-preview">
+                                            <div class="article-body-content"
+                                                style="filter: blur(8px); user-select: none; pointer-events: none; height: 200px; overflow: hidden; opacity: 0.6;">
+                                                {!! $remaining !!}
+                                            </div>
+
+                                            <div class="rs-paywall-gradient"></div>
+
+                                            <div class="rs-subscribe-cta">
+                                                <h3>Unlock the Full Story</h3>
+                                                <p>Get unlimited access to award-winning journalism, exclusive reports, and deep analysis by
+                                                    subscribing to Democracy Asia.</p>
+                                                <a href="{{ route('register') }}" class="rs-subscribe-btn">
+                                                    Subscribe Free
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <!-- Tags -->
+                                    <div class="rs-postbox-details-social mt-50">
+                                        <div class="rs-postbox-details-tags tagcloud">
+                                            @forelse($article->tags as $tag)
+                                                <a href="{{ route('tag.show', $tag->slug) }}">{{ $tag->name }}</a>
+                                            @empty
+                                                <a href="javascript:void(0)">World News</a>
+                                            @endforelse
+                                        </div>
+                                    </div>
+
+                                    <!-- Author Box -->
+                                    <div class="rs-author-box">
+                                        <div class="rs-author-info">
+                                            <h4>{{ $article->author->name ?? 'Editorial Staff' }}</h4>
+                                            <p>Senior editor and contributor covering global politics, emerging technology, and social
+                                                justice. Dedicated to delivering impartial, fact-based reporting from the heart of Asia.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                <!-- Related News -->
+                                @if($relatedArticles->count())
+                                    <div class="mt-60">
+                                        <h4 class="font-serif mb-4">Related News</h4>
+
+                                        <div class="row g-4">
+                                            @foreach($relatedArticles as $related)
+                                                <div class="col-xl-6 col-md-6 mb-4">
+                                                    <div class="custom-news-card"
+                                                        style="border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; background: #fff; height: 100%; display: flex; flex-direction: column; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);">
+
+                                                        <div class="card-thumb" style="aspect-ratio: 16/10; overflow: hidden; flex-shrink: 0;">
+                                                            <a href="{{ route('news.show', $related->slug) }}" class="hover-zoom-img">
+                                                                <img src="{{ $related->featured_image ? asset('storage/' . $related->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                                                    alt="{{ $related->title }}"
+                                                                    style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="card-content" style="padding: 15px; display: flex; flex-direction: column; flex-grow: 1;">
+
+                                                            <h3 class="card-title"
+                                                                style="font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 14px; line-height: 1.3;">
+                                                                <a href="{{ route('news.show', $related->slug) }}"
+                                                                    style="color: inherit; text-decoration: none;">
+                                                                    {{ \Illuminate\Support\Str::limit($related->title, 70) }}
+                                                                </a>
+                                                            </h3>
+
+                                                            <div class="card-meta"
+                                                                style="display: flex; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 14px; color: #6b7280; margin-bottom: 16px;">
+                                                                <span style="display: flex; align-items: center;">
+                                                                    By <span
+                                                                        style="color: #4b5563; margin-left: 4px;">{{ $related->author->name ?? 'Admin' }}</span>
+                                                                </span>
+
+                                                                <!-- <span style="display: flex; align-items: center; gap: 6px;">
+                                                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                                                    </svg>
+                                                                    {{ number_format($related->views) }} Views
+                                                                </span> -->
+
+                                                                <span style="display: flex; align-items: center; gap: 6px;">
+                                                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                                    </svg>
+                                                                    {{ optional($related->published_at)->format('F, Y') }}
+                                                                </span>
+                                                            </div>
+
+                                                            <p class="card-desc"
+                                                                style="font-size: 15px; color: #4b5563; line-height: 1.6; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex-grow: 1;">
+                                                                {{ $related->excerpt ?: strip_tags($related->content) }}
+                                                            </p>
+
+                                                            <div class="card-footer" style="margin-top: auto;">
+                                                                <a href="{{ route('news.show', $related->slug) }}"
+                                                                    style="color: #2563eb; font-weight: 600; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; transition: color 0.2s;">
+                                                                    See more
+                                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                                                    </svg>
+                                                                </a>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+                                </div>
+                            </div>
+
+                            <!-- Sidebar -->
+                            <div class="col-xl-4 col-lg-4">
+                                @include('news.partials.news-sidebar')
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <script>
+                    window.onscroll = function () {
+                        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                        var scrolled = (winScroll / height) * 100;
+                        document.getElementById("rsReadingProgress").style.width = scrolled + "%";
+                    };
+                </script>
 
 @endsection

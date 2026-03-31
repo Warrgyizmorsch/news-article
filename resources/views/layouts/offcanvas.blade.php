@@ -123,8 +123,8 @@
                 <!-- Logo -->
                 <div class="offcanvas-logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/images/logo/da-logo-white.png') }}" alt="logo"
-                            style="max-height: 40px;">
+                        <img src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}" alt="logo"
+                            style="max-height: 60px;">
                     </a>
                 </div>
             </div>
@@ -133,19 +133,17 @@
             <div class="offcanvas-menu d-block d-xl-none">
                 <nav>
                     <ul>
-                        <li><a href="{{ route('home') }}">Home</a></li>
-                        <li class="has-dropdown">
-                            <a href="javascript:void(0)" onclick="this.parentElement.classList.toggle('open'); $(this).next('.submenu').slideToggle();">
-                                Categories
+                        <!-- home -->
+                        @forelse($headerCategories as $category)
+                        <li class="rs-mega-menu  is-text-white" style="white-space:nowrap;">
+                            <a href="{{ route('category.show', $category->slug) }}">
+                                {{ $category->name }}
                             </a>
-                            <ul class="submenu">
-                                @foreach($headerCategories as $cat)
-                                    <li><a href="{{ route('category.show', $cat->slug) }}" style="font-size: 14px; padding: 10px 0;">{{ $cat->name }}</a></li>
-                                @endforeach
-                            </ul>
                         </li>
-                        <li><a href="/about-us">About Us</a></li>
-                        <li><a href="/contact-us">Contact</a></li>
+                        @endforeach
+                        <li>
+                            <a href="/contact-us">Contact</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

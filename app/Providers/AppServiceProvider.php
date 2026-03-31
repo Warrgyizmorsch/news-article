@@ -133,10 +133,13 @@ class AppServiceProvider extends ServiceProvider
             $headerHasActiveSubscription = false;
 
             if ($authUser && $authUser->role !== 'admin') {
-                $headerHasActiveSubscription = $authUser->subscriptions()
-                    ->where('status', 'active')
-                    ->whereDate('end_date', '>=', now())
-                    ->exists();
+                $headerHasActiveSubscription = true;
+
+                // Future subscription logic
+                // $headerHasActiveSubscription = $authUser->subscriptions()
+                //     ->where('status', 'active')
+                //     ->whereDate('end_date', '>=', now())
+                //     ->exists();
             }
 
             $view->with([

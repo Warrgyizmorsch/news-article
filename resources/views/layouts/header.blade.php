@@ -28,18 +28,18 @@
             gap: 8px;
             padding: 12px 20px;
             border-radius: 999px;
-            background: #10171e;
+            background: var(--rs-theme-primary);
             color: #fff !important;
             font-size: 14px;
             font-weight: 700;
             line-height: 1;
             transition: all 0.3s ease;
-            border: 1px solid #10171e;
+            border: 1px solid var(--rs-theme-primary);
         }
 
         .header-subscribe-btn:hover {
             background: transparent;
-            color: #10171e !important;
+            color: var(--rs-theme-primary) !important;
         }
 
         .header-user-dropdown {
@@ -205,7 +205,7 @@
 
         @media (max-width: 576px) {
             .sticky-logo img {
-                max-height: 25px !important;
+                max-height: 50px !important;
             }
 
             .rs-sticky-header .row {
@@ -313,15 +313,16 @@
                     </div>
                     <div class="header-top-content">
                         @forelse($headerBreakingNews as $index => $news)
-                        <p class="header-top-description {{ $index === 0 ? 'is-active' : '' }}">
-                            <a href="{{ route('news.show', $news->slug) }}">
-                                {{ $news->title }}
-                            </a>
-                        </p>
+                            <p style="line-height: 1.3;"
+                                class="header-top-description {{ $index === 0 ? 'is-active' : '' }}">
+                                <a href="{{ route('news.show', $news->slug) }}">
+                                    {{ $news->title }}
+                                </a>
+                            </p>
                         @empty
-                        <p class="header-top-description is-active">
-                            Stay updated with the latest headlines.
-                        </p>
+                            <p class="header-top-description is-active">
+                                Stay updated with the latest headlines.
+                            </p>
                         @endforelse
                     </div>
                 </div>
@@ -372,92 +373,93 @@
 
                     <div class="header-logo">
                         <a class="logo-black" href="{{ route('home') }}">
-                            <img src="{{ asset('assets/images/logo/da-logo-black.png') }}" alt="logo" style="max-height: 60px;">
+                            <img src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}" alt="logo"
+                                style="max-height: 60px;">
                         </a>
                     </div>
                 </div>
 
                 <div class="header-auth-actions">
                     @guest
-                    <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn">
-                        <i class="ri-vip-crown-2-line"></i>
-                        <span>Subscribe</span>
-                    </a>
+                        <a href="{{ route('register') }}" class="header-subscribe-btn">
+                            <i class="ri-vip-crown-2-line"></i>
+                            <span>Subscribe Free</span>
+                        </a>
 
-                    <a href="{{ route('login') }}" class="header-auth-link">
-                        <span> <i class="ri-login-circle-line"></i>
-                            <span>Login</span></span>
-                    </a>
+                        <a href="{{ route('login') }}" class="header-auth-link hide-on-mobile">
+                            <span> <i class="ri-login-circle-line"></i>
+                                <span>Login</span></span>
+                        </a>
                     @endguest
 
                     @auth
-                    @if(auth()->user()->role !== 'admin')
-                    @if($headerHasActiveSubscription)
-                    <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn"
-                        style="background:#c9a227; border-color:#c9a227; color:#fff !important;">
-                        <i class="ri-vip-crown-2-line"></i>
-                        <span>Premium User</span>
-                    </a>
-                    @else
-                    <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn">
-                        <i class="ri-vip-crown-2-line"></i>
-                        <span>Subscribe</span>
-                    </a>
-                    @endif
-                    @endif
-
-                    <div class="header-user-dropdown">
-                        <button type="button" class="header-user-toggle">
-                            <span class="header-user-avatar">
-                                {{ \Illuminate\Support\Str::substr(auth()->user()->name, 0, 1) }}
-                            </span>
-                            <span class="header-user-name">{{ auth()->user()->name }}</span>
-                            <i class="ri-arrow-down-s-line"></i>
-                        </button>
-
-                        <div class="header-user-menu">
-                            <a href="{{ route('profile.edit') }}">
-                                <i class="ri-user-3-line"></i>
-                                <span>My Profile</span>
-                            </a>
-
-                            @if(auth()->user()->role === 'admin')
-                            <a href="{{ route('dashboard') }}">
-                                <i class="ri-layout-grid-line"></i>
-                                <span>Dashboard</span>
-                            </a>
+                        @if(auth()->user()->role !== 'admin')
+                            @if($headerHasActiveSubscription)
+                                <a href="javascript:void(0)" class="header-subscribe-btn"
+                                    style="cursor: default; background:#c9a227; border-color:#c9a227; color:#fff !important;">
+                                    <i class="ri-vip-crown-2-line"></i>
+                                    <span>Subscriber</span>
+                                </a>
+                            @else
+                                <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn">
+                                    <i class="ri-vip-crown-2-line"></i>
+                                    <span>Subscribe Free</span>
+                                </a>
                             @endif
+                        @endif
 
-                            @if(auth()->user()->role !== 'admin')
-                            <a href="{{ route('frontend.plans.index') }}">
-                                <i class="ri-vip-crown-line"></i>
-                                <span>{{ $headerHasActiveSubscription ? 'Premium Access' : 'Manage Subscription'
-                                    }}</span>
-                            </a>
-                            @endif
+                        <div class="header-user-dropdown">
+                            <button type="button" class="header-user-toggle">
+                                <span class="header-user-avatar">
+                                    {{ \Illuminate\Support\Str::substr(auth()->user()->name, 0, 1) }}
+                                </span>
+                                <span class="header-user-name">{{ auth()->user()->name }}</span>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
 
-                            <div class="header-user-divider"></div>
+                            <div class="header-user-menu">
+                                <a href="{{ route('profile.edit') }}">
+                                    <i class="ri-user-3-line"></i>
+                                    <span>My Profile</span>
+                                </a>
 
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit">
-                                    <i class="ri-logout-box-r-line"></i>
-                                    <span>Logout</span>
-                                </button>
-                            </form>
+                                @if(auth()->user()->role === 'admin')
+                                    <a href="{{ route('dashboard') }}">
+                                        <i class="ri-layout-grid-line"></i>
+                                        <span>Dashboard</span>
+                                    </a>
+                                @endif
+
+                                <!-- @if(auth()->user()->role !== 'admin')
+                                    <a href="{{ route('frontend.plans.index') }}">
+                                        <i class="ri-vip-crown-line"></i>
+                                        <span>{{ $headerHasActiveSubscription ? 'Premium Access' : 'Manage Subscription'
+                                            }}</span>
+                                    </a>
+                                @endif -->
+
+                                <div class="header-user-divider"></div>
+
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit">
+                                        <i class="ri-logout-box-r-line"></i>
+                                        <span>Logout</span>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
                     @endauth
                 </div>
             </div>
             <!-- header bottom end -->
-            <div id="rs-sticky-header" class="header-wrapper rs-sticky-header">
+            <div id="rs-sticky-header" class="header-wrapper rs-sticky-header" style="display: flex; align-items: center; justify-content: space-between;">
                 <div class="row align-items-center flex-nowrap">
                     <div class="sticky-logo-col col-auto col-xl-2">
                         <div class="sticky-logo">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/images/logo/da-logo-white.png') }}" alt="logo"
-                                    style="max-height: 40px;">
+                                <img src="{{ asset('assets/images/logo/democracy-asia-logo.webp') }}" alt="logo"
+                                    style="max-height: 80px;">
                             </a>
                         </div>
                     </div>
@@ -466,202 +468,13 @@
                             <nav id="mobile-menu" class="main-menu">
                                 <ul class="multipage-menu">
                                     <!-- home -->
-                                      @forelse($headerCategories as $category)
-                                        <li class="rs-mega-menu  is-text-white" style="white-space:nowrap;">
-                                            <a href="{{ route('category.show', $category->slug) }}">
-                                                {{ $category->name }}
-                                            </a>
-                                        </li>
-                                     @endforeach
-                                    <!-- news menu -->
-                                    <!-- <li class="rs-mega-menu menu-item-has-children is-text-white">
-                                        <a href="javascript:void(0)">News</a>
-                                        <ul class="mega-menu mega-grid">
-                                            <li class="rs-mega-menu-left">
-                                                <h6 class="mega-menu-title">
-                                                    <a
-                                                        href="{{ $headerMegaFeaturedNews ? route('news.show', $headerMegaFeaturedNews->slug) : 'javascript:void(0)' }}">
-                                                        News
-                                                    </a>
-                                                </h6>
-
-                                                @if($headerMegaFeaturedNews)
-                                                <div class="rs-post-medium rs-post-medium-two">
-                                                    <div class="rs-post-medium-item">
-                                                        <div class="rs-post-medium-thumb">
-                                                            <a href="{{ route('news.show', $headerMegaFeaturedNews->slug) }}"
-                                                                class="image-link" style="height: 120px;">
-                                                                <img src="{{ $headerMegaFeaturedNews->featured_image ? asset('storage/' . $headerMegaFeaturedNews->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                                                    alt="{{ $headerMegaFeaturedNews->title }}"
-                                                                    style="height: 100%; width: 100%; object-fit: cover;">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rs-post-medium-content">
-                                                            <p class="rs-description">
-                                                                {{
-                                                                \Illuminate\Support\Str::limit($headerMegaFeaturedNews->excerpt
-                                                                ?: $headerMegaFeaturedNews->title, 100) }}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                @else
-                                                <div class="rs-post-medium rs-post-medium-two">
-                                                    <div class="rs-post-medium-item">
-                                                        <div class="rs-post-medium-content">
-                                                            <p class="rs-description">No featured news available right
-                                                                now.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                @endif
-                                            </li>
-                                            <li class="rs-mega-menu-right">
-                                                <div class="rs-mega-menu-list">
-                                                    <div class="rs-mega-menu-list-item">
-                                                        <h6 class="mega-menu-title">Latest News</h6>
-                                                        <div class="rs-menu-post-small">
-                                                            @forelse($headerMegaLatestNews as $post)
-                                                            <div class="rs-post-small rs-post-small-eight">
-                                                                <div class="rs-post-small-thumb">
-                                                                    <a href="{{ route('news.show', $post->slug) }}"
-                                                                        class="image-link">
-                                                                        <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                                                            alt="{{ $post->title }}">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="rs-post-small-content">
-                                                                    <div class="rs-post-tag">
-                                                                        <a href="{{ $post->category ? route('category.show', $post->category->slug) : 'javascript:void(0)' }}"
-                                                                            class="post-tag">
-                                                                            {{ $post->category->name ?? 'News' }}
-                                                                        </a>
-                                                                    </div>
-                                                                    <h6 class="rs-post-small-title underline">
-                                                                        <a href="{{ route('news.show', $post->slug) }}">
-                                                                            {{
-                                                                            \Illuminate\Support\Str::limit($post->title,
-                                                                            35) }}
-                                                                        </a>
-                                                                    </h6>
-                                                                    <div class="rs-post-meta">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    By
-                                                                                    <a href="javascript:void(0)"
-                                                                                        class="meta-author">
-                                                                                        {{ $post->author->name ??
-                                                                                        'Admin' }}
-                                                                                    </a>
-                                                                                </span>
-                                                                            </li>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    <svg width="10" height="8"
-                                                                                        viewBox="0 0 10 8" fill="none"
-                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path
-                                                                                            d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                            fill="white" />
-                                                                                    </svg>
-                                                                                    <span>{{ number_format($post->views
-                                                                                        ?? 0) }}
-                                                                                        Views</span>
-                                                                                </span>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            @empty
-                                                            <p>No latest news found.</p>
-                                                            @endforelse
-                                                        </div>
-                                                    </div>
-                                                    <div class="rs-mega-menu-list-item">
-                                                        <h6 class="mega-menu-title">Breaking News</h6>
-                                                        <div class="rs-menu-post-small">
-                                                            @forelse($headerMegaBreakingNews as $post)
-                                                            <div class="rs-post-small rs-post-small-eight">
-                                                                <div class="rs-post-small-thumb">
-                                                                    <a href="{{ route('news.show', $post->slug) }}"
-                                                                        class="image-link">
-                                                                        <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                                                            alt="{{ $post->title }}">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="rs-post-small-content">
-                                                                    <div class="rs-post-tag">
-                                                                        <a href="{{ $post->category ? route('category.show', $post->category->slug) : 'javascript:void(0)' }}"
-                                                                            class="post-tag is-pink">
-                                                                            {{ $post->category->name ?? 'Breaking' }}
-                                                                        </a>
-                                                                    </div>
-                                                                    <h6 class="rs-post-small-title underline">
-                                                                        <a href="{{ route('news.show', $post->slug) }}">
-                                                                            {{
-                                                                            \Illuminate\Support\Str::limit($post->title,
-                                                                            35) }}
-                                                                        </a>
-                                                                    </h6>
-                                                                    <div class="rs-post-meta">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    By
-                                                                                    <a href="javascript:void(0)"
-                                                                                        class="meta-author">
-                                                                                        {{ $post->author->name ??
-                                                                                        'Admin' }}
-                                                                                    </a>
-                                                                                </span>
-                                                                            </li>
-                                                                            <li>
-                                                                                <span class="rs-meta">
-                                                                                    <svg width="10" height="8"
-                                                                                        viewBox="0 0 10 8" fill="none"
-                                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                                        <path
-                                                                                            d="M6.165 8.00011H6.06C5.84838 7.97911 5.64896 7.8912 5.49071 7.74913C5.33246 7.60707 5.22362 7.41825 5.18 7.21011L3.84 1.00011L2.46 4.20011C2.42097 4.28955 2.35661 4.36561 2.27487 4.41892C2.19314 4.47223 2.09758 4.50045 2 4.50011H0.5C0.367392 4.50011 0.240215 4.44743 0.146447 4.35367C0.0526784 4.2599 0 4.13272 0 4.00011C0 3.8675 0.0526784 3.74033 0.146447 3.64656C0.240215 3.55279 0.367392 3.50011 0.5 3.50011H1.67L2.925 0.605113C3.00948 0.410844 3.15348 0.248423 3.33622 0.141268C3.51896 0.0341136 3.73102 -0.0122382 3.9418 0.0088961C4.15259 0.0300304 4.35122 0.117559 4.50905 0.258861C4.66689 0.400163 4.77577 0.587939 4.82 0.795113L6.16 7.00011L7.54 3.81011C7.57751 3.7188 7.64121 3.64064 7.72307 3.58547C7.80493 3.53031 7.90129 3.50061 8 3.50011H9.5C9.63261 3.50011 9.75979 3.55279 9.85355 3.64656C9.94732 3.74033 10 3.8675 10 4.00011C10 4.13272 9.94732 4.2599 9.85355 4.35367C9.75979 4.44743 9.63261 4.50011 9.5 4.50011H8.33L7.075 7.39511C6.99836 7.57337 6.87153 7.72548 6.70995 7.8329C6.54837 7.94033 6.35902 7.99843 6.165 8.00011Z"
-                                                                                            fill="white" />
-                                                                                    </svg>
-                                                                                    <span>{{ number_format($post->views
-                                                                                        ?? 0) }}
-                                                                                        Views</span>
-                                                                                </span>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            @empty
-                                                            <p>No breaking news found.</p>
-                                                            @endforelse
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li> -->
-                                    <!-- services menu -->
-                                    <!-- <li class="menu-item-has-children">
-                                        <a href="javascript:void(0)">Categories</a>
-                                        <ul class="submenu last-children">
-                                            @forelse($headerCategories as $category)
-                                            <li>
-                                                <a href="{{ route('category.show', $category->slug) }}">
-                                                    {{ $category->name }}
-                                                </a>
-                                            </li>
-                                            @empty
-                                            <li>
-                                                <a href="javascript:void(0)">No Categories Found</a>
-                                            </li>
-                                            @endforelse
-                                        </ul>
-                                    </li> -->
-                                    <!-- contact menu -->
+                                    @forelse($headerCategories as $category)
+                                    <li class="rs-mega-menu  is-text-white" style="white-space:nowrap;">
+                                        <a href="{{ route('category.show', $category->slug) }}">
+                                            {{ $category->name }}
+                                        </a>
+                                    </li>
+                                    @endforeach
                                     <li>
                                         <a href="/contact-us">Contact</a>
                                     </li>
@@ -671,28 +484,29 @@
                         </div>
                     </div>
 
-                            <!-- <div class="sticky-hamburger-col">
-                                <div class="sidebar-toggle" style="cursor: pointer;"
-                                    onclick="document.querySelector('.offcanvas-area').classList.add('opened'); document.querySelector('.offcanvas-overlay').classList.add('overlay-open');">
-                                    <a class="header-bar-icon" href="javascript:void(0)"
-                                        style="display: flex; align-items: center; justify-content: center; background: transparent;">
-                                        <svg width="20" height="14" viewBox="0 0 20 14" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <line x1="2" y1="1.5" x2="18" y2="1.5" stroke="#fff" stroke-width="2"
-                                                stroke-linecap="round" />
-                                            <line x1="2" y1="7" x2="18" y2="7" stroke="#fff" stroke-width="2"
-                                                stroke-linecap="round" />
-                                            <line x1="2" y1="12.5" x2="15" y2="12.5" stroke="#fff" stroke-width="2"
-                                                stroke-linecap="round" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div> -->
-                        </div>
+
+                </div>
+                <div class="sticky-hamburger-col">
+                    <div class="sidebar-toggle" style="cursor: pointer;"
+                        onclick="document.querySelector('.offcanvas-area').classList.add('opened'); document.querySelector('.offcanvas-overlay').classList.add('overlay-open');">
+                        <a class="header-bar-icon" href="javascript:void(0)"
+                            style="display: flex; align-items: center; justify-content: center; background: transparent;">
+                            <svg width="20" height="14" viewBox="0 0 20 14" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <line x1="2" y1="1.5" x2="18" y2="1.5" stroke="#fff" stroke-width="2"
+                                    stroke-linecap="round" />
+                                <line x1="2" y1="7" x2="18" y2="7" stroke="#fff" stroke-width="2"
+                                    stroke-linecap="round" />
+                                <line x1="2" y1="12.5" x2="15" y2="12.5" stroke="#fff" stroke-width="2"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 </header>
 <!-- header area end -->
@@ -706,15 +520,15 @@
                     <div class="col-xl-5">
                         <div class="header-menu">
                             <nav id="mobile-menu-two" class="main-menu">
-                               <ul class="multipage-menu">
+                                <ul class="multipage-menu">
                                     <!-- home -->
-                                      @forelse($headerCategories as $category)
-                                        <li class="rs-mega-menu  is-text-white" style="white-space:nowrap;">
-                                            <a href="{{ route('category.show', $category->slug) }}">
-                                                {{ $category->name }}
-                                            </a>
-                                        </li>
-                                     @endforeach
+                                    @forelse($headerCategories as $category)
+                                    <li class="rs-mega-menu  is-text-white" style="white-space:nowrap;">
+                                        <a href="{{ route('category.show', $category->slug) }}">
+                                            {{ $category->name }}
+                                        </a>
+                                    </li>
+                                    @endforeach
                                     <!-- news menu -->
                                     <!-- <li class="rs-mega-menu menu-item-has-children is-text-white">
                                         <a href="javascript:void(0)">News</a>

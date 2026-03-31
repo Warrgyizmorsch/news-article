@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $pageTitle . ' News')
+@section('title', $pageTitle . ' Articles')
 
 @section('content')
 
@@ -63,7 +63,7 @@
                                 </li>
                                 <li class="rs-breadcumb-item">
                                     <span>
-                                        <a href="{{ route('news.index') }}">News</a>
+                                        <a href="{{ route('news.index') }}">Articles</a>
                                     </span>
                                 </li>
                                 <li class="rs-breadcumb-item active">
