@@ -179,26 +179,24 @@ if ($bookshelfCategory) {
 }
 
 // Section: Lifestyle
-$lifestyleCategory = Category::where('slug', 'lifestyle')
-    ->where('status', 1)
-    ->whereHas('articles', function ($q) {
-        $q->where('status', 'published')
-          ->whereNotNull('published_at');
-    })
-    ->first();
+        $lifestyleCategory = Category::where('slug', 'lifestyle')->where('status', 1)
+            ->whereHas('articles', function ($q) {
+                $q->where('status', 'published');
+            })
+            ->first();
 
-$lifestyleArticles = collect();
+        $lifestyleArticles = collect();
 
-if ($lifestyleCategory) {
-    $lifestyleArticles = Article::with(['category', 'author'])
-        ->where('category_id', $lifestyleCategory->id)
-        ->where('status', 'published')
-        ->whereNotNull('published_at')
-        ->latest('published_at')
-        ->take(3)
-        ->get()
-        ->values();
-}
+        if ($lifestyleCategory) {
+            $lifestyleArticles = Article::with(['category', 'author'])
+                ->where('category_id', $lifestyleCategory->id)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->orderByDesc('published_at')
+                ->take(9)
+                ->get()
+                ->values();
+        }
 
         $ctaPlan = SubscriptionPlan::where('id', 1)
             ->where('status', 1)
