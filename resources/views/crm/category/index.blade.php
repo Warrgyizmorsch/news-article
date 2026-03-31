@@ -91,6 +91,7 @@
                             <th>Images</th>
                             <th>Status</th>
                             <th>Sort Order</th>
+                            <th>Type</th>
                             <th>Created</th>
                             <th>Action</th>
                         </tr>
@@ -113,6 +114,13 @@
                                     </span>
                                 </td>
                                 <td>{{ $category->sort_order }}</td>
+                                <td>
+                                    @if($category->main_menu === 0)
+                                    <span >Category</span>
+                                    @else
+                                    <span >Section </span>
+                                    @endif
+                                </td>
                                 <td>{{ $category->created_at?->format('d M Y') }}</td>
                                 <td>
                                     <div class="action-links">

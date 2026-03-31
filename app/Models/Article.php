@@ -26,6 +26,10 @@ class Article extends Model
         'is_hero',
         'published_at',
         'views',
+        'section_id',
+        'pdf_file',
+        'auther',
+        'auther_description',
     ];
 
     protected $casts = [
@@ -47,5 +51,10 @@ class Article extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ArticleImage::class);
     }
 }
