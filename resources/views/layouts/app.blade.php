@@ -52,7 +52,7 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
     <!-- Newsletter Modal Start -->
-    <div class="da-newsletter-modal" id="daNewsletterModal">
+    <!-- <div class="da-newsletter-modal" id="daNewsletterModal">
         <div class="da-newsletter-overlay"></div>
     
         <div class="da-newsletter-dialog">
@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Newsletter Modal End -->
 
     <script>

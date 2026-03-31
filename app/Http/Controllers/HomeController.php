@@ -408,34 +408,32 @@ class HomeController extends Controller
             'sidebarTags'
         ));
     }
-}
-
 
 public function newsletterSubscribe(\Illuminate\Http\Request $request)
-{
-    $request->validate([
-        'email' => ['required', 'email'],
-    ]);
-
-    $email = trim(strtolower($request->email));
-
-    $user = \App\Models\User::where('email', $email)->first();
-
-    if (!$user) {
-        $user = \App\Models\User::create([
-            'name' => strtok($email, '@'),
-            'email' => $email,
-            'password' => \Illuminate\Support\Facades\Hash::make('user@123'),
-            'role' => 'user',
+    {
+        $request->validate([
+            'email' => ['required', 'email'],
         ]);
+
+        $email = trim(strtolower($request->email));
+
+        $user = \App\Models\User::where('email', $email)->first();
+
+        if (!$user) {
+            $user = \App\Models\User::create([
+                'name' => strtok($email, '@'),
+                'email' => $email,
+                'password' => \Illuminate\Support\Facades\Hash::make('user@123'),
+                'role' => 'user',
+            ]);
+        }
+
+        // \App\Models\UserSubscription::firstOrCreate([
+        //     'email' => $email,
+        // ]);
+
+        \Illuminate\Support\Facades\Auth::login($user);
+
+        return redirect()->back()->with('success', 'Subscribed successfully.');
     }
-
-    // \App\Models\UserSubscription::firstOrCreate([
-    //     'email' => $email,
-    // ]);
-
-    \Illuminate\Support\Facades\Auth::login($user);
-
-    return redirect()->back()->with('success', 'Subscribed successfully.');
-}
 }
