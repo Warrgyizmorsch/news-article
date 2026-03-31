@@ -30,7 +30,7 @@
                         <label class="col-lg-3 col-form-label fw-semibold">Name</label>
                         <div class="col-lg-9">
                             <input id="nameInput" type="text" name="name" class="form-control"
-                                value="{{ old('name', $category->name) }}" required>
+                                value="{{ old('name', $category->name) }}" placeholder="Enter Category Name" required>
                             @error('name')
                                 <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror

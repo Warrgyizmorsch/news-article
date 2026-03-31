@@ -21,7 +21,7 @@ class UpdateArticleRequest extends FormRequest
             'title' => 'required|string|max:255',
             'slug' => ['nullable', 'string', 'max:255', Rule::unique('articles', 'slug')->ignore($id)],
             'excerpt' => 'nullable|string',
-            'content' => 'required|string',
+            'content' => 'nullable|string',
             'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
