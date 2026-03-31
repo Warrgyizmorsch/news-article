@@ -165,7 +165,7 @@
                                 <div class="card-tag" style="margin-bottom: 12px;">
                                     @if($article->category)
                                     <a href="{{ route('category.show', $article->category->slug) }}"
-                                        style="background: #ff3b3b; color: #fff; padding: 4px 12px; border-radius: 9999px; font-size: 13px; font-weight: 600; text-transform: uppercase; display: inline-block; letter-spacing: 0.5px;">
+                                        style="background: #ff3b3b; color: #fff; padding: 4px 12px; border-radius: 9999px; font-size: 13px; font-weight: 600;display: inline-block; letter-spacing: 0.5px;">
                                         {{ $article->category->name }}
                                     </a>
                                     @endif
