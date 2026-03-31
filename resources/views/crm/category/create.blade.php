@@ -69,6 +69,19 @@
                         </div>
                     </div>
 
+                     <div class="row g-3 mb-4">
+                        <label class="col-lg-3 col-form-label fw-semibold">Content Type</label>
+                        <div class="col-lg-9">
+                            <select name="main_menu" class="form-select" data-select2-selector="status" required>
+                                <option value="0" {{ old('main_menu') == '0' ? 'selected' : '' }}>Category</option>
+                                <option value="1" {{ old('main_menu') == '1' ? 'selected' : '' }}>Section</option>
+                            </select>
+                            @error('main_menu')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="row g-3 mb-4">
                         <label class="col-lg-3 col-form-label fw-semibold">Status</label>
                         <div class="col-lg-9">
