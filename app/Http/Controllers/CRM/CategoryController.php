@@ -34,6 +34,7 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
+        // dd($request->all());
         $data = $request->validated();
         $data['slug'] = Str::slug($data['slug'] ?: $data['name']);
 
@@ -46,7 +47,7 @@ class CategoryController extends Controller
 
             $data['images'] = 'storage/category-images/' . $filename;
         }
-
+        $data['main_menu']= $request->main_menu;
         Category::create($data);
 
         return redirect()->route('category.index')
@@ -78,6 +79,8 @@ class CategoryController extends Controller
             // old image keep
             $data['images'] = $category->images;
         }
+
+        $data['main_menu']= $request->main_menu;
 
         $category->update($data);
 

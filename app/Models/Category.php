@@ -16,6 +16,7 @@ class Category extends Model
         'images',
         'status',
         'sort_order',
+        'main_menu',
     ];
 
     public function articles()
