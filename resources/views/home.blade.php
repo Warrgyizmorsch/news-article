@@ -25,7 +25,7 @@
                                 </div>
                                 <h6 class="rs-post-small-title underline">
                                     <a href="{{ route('news.show', $article->slug) }}">
-                                        {{ \Illuminate\Support\Str::limit($article->title, 45) }}
+                                        {{ \Illuminate\Support\Str::limit($article->title, 35) }}
                                     </a>
                                 </h6>
                                 <div class="rs-post-meta">
@@ -109,7 +109,7 @@
                                 </div>
                                 <h6 class="rs-post-small-title underline">
                                     <a href="{{ route('news.show', $article->slug) }}">
-                                        {{ \Illuminate\Support\Str::limit($article->title, 45) }}
+                                        {{ \Illuminate\Support\Str::limit($article->title, 35) }}
                                     </a>
                                 </h6>
                                 <div class="rs-post-meta">
