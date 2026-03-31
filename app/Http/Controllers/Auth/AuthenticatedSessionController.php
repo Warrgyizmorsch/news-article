@@ -36,9 +36,9 @@ class AuthenticatedSessionController extends Controller
         }
 
         // Role-based redirect
-        // if ($user->role === 'admin') {
-        //     return redirect()->route('dashboard');
-        // }
+        if ($user->role === 'admin') {
+            return redirect()->route('dashboard');
+        }
 
         return redirect()->route('home');
     }

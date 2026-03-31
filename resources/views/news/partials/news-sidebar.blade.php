@@ -6,7 +6,7 @@
                 @foreach($categories as $category)
                     <li>
                         <a href="{{ route('category.show', $category->slug) }}" class="rs-categories-bg-thumb"
-                            data-background="{{ asset('assets/images/categories/categories-thumb-01.webp') }}">
+                            style="background-image: url('{{ $category->images ? asset($category->images) : asset('assets/images/categories/categories-thumb-01.webp') }}')">
                             <span class="rs-categories-name">
                                 {{ $category->name }} ({{ $category->articles_count }})
                             </span>
@@ -27,7 +27,7 @@
     <div class="rs-sidebar mb-30">
         <div class="rs-post-small rs-post-small-five">
             <h5 class="section-title is-small" style="font-size: 18px; font-weight: 700; margin-bottom: 20px; position: relative; padding-bottom: 10px;">
-                Popular News
+                Popular Articles
                 <span style="position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: #0d6efd;"></span>
             </h5>
 
@@ -48,13 +48,13 @@
 
                         <div class="rs-post-meta d-flex align-items-center gap-3" style="font-size: 12px; color: #888;">
                             <span class="rs-meta">By admin</span>
-                            <span class="rs-meta d-flex align-items-center">
+                            <!-- <span class="rs-meta d-flex align-items-center">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                     <circle cx="12" cy="12" r="3"></circle>
                                 </svg>
                                 {{ number_format($popular->views) }} Views
-                            </span>
+                            </span> -->
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                 @forelse($sidebarTags as $tag)
                     <a href="{{ route('tag.show', $tag->slug) }}" style="background: #f8f9fa; color: #444; border: 1px solid #eee; padding: 6px 15px; border-radius: 30px; font-size: 13px; text-decoration: none; transition: all 0.3s;" onmouseover="this.style.background='#0d6efd'; this.style.color='#fff'; this.style.border='1px solid #0d6efd';" onmouseout="this.style.background='#f8f9fa'; this.style.color='#444'; this.style.border='1px solid #eee';">{{ $tag->name }}</a>
                 @empty
-                    <a href="javascript:void(0)" style="background: #f8f9fa; color: #444; border: 1px solid #eee; padding: 6px 15px; border-radius: 30px; font-size: 13px;">News</a>
+                    <a href="javascript:void(0)" style="background: #f8f9fa; color: #444; border: 1px solid #eee; padding: 6px 15px; border-radius: 30px; font-size: 13px;">Articles</a>
                 @endforelse
             </div>
         </div>

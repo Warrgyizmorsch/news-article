@@ -20,7 +20,7 @@ class UpdateCategoryRequest extends FormRequest
             'name' => 'required|string|max:255',
             'slug' => ['nullable', 'string', 'max:255', Rule::unique('categories', 'slug')->ignore($id)],
             'description' => 'nullable|string',
-            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:10240',
             'status' => 'required|boolean',
             'sort_order' => 'nullable|integer',
         ];

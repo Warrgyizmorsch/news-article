@@ -69,7 +69,7 @@ class HomeController extends Controller
         $featuredArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
             ->where('is_featured', true)
-             ->where('category_id', '!=', 21)
+            ->where('category_id', '!=', 21)
             ->whereNotNull('published_at')
             ->latest('published_at')
             ->take(6)
@@ -199,6 +199,9 @@ class HomeController extends Controller
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->where('category_id', $category->id)
+                ->when($latestArticle, function ($query) use ($latestArticle) {
+                    $query->where('id', '!=', $latestArticle->id);
+                })
                 ->latest('published_at')
                 ->paginate(12)->withQueryString();
 

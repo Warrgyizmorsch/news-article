@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $pageType === 'news' ? 'News' : $pageTitle . ' News')
+@section('title', $pageType === 'news' ? 'Articles' : $pageTitle . ' Articles')
 
 @section('content')
 
@@ -49,7 +49,7 @@
                                 @elseif($pageType === 'category')
                                 <li class="rs-breadcumb-item">
                                     <span>
-                                        <a href="{{ route('news.index') }}">News</a>
+                                        <a href="{{ route('news.index') }}">Articles</a>
                                     </span>
                                 </li>
                                 <li class="rs-breadcumb-item active">
@@ -106,15 +106,7 @@
                             </div>
 
                             <div class="card-content"
-                                style="padding: 24px; display: flex; flex-direction: column; flex-grow: 1;">
-                                <div class="card-tag" style="margin-bottom: 12px;">
-                                    @if($article->category)
-                                    <a href="{{ route('category.show', $article->category->slug) }}"
-                                        style="background: #ff3b3b; color: #fff; padding: 4px 12px; border-radius: 9999px; font-size: 13px; font-weight: 600; text-transform: uppercase; display: inline-block; letter-spacing: 0.5px;">
-                                        {{ $article->category->name }}
-                                    </a>
-                                    @endif
-                                </div>
+                                style="padding: 15px; display: flex; flex-direction: column; flex-grow: 1;">
 
                                 <h3 class="card-title"
                                     style="font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 14px; line-height: 1.3;">
@@ -131,14 +123,14 @@
                                             'Admin' }}</span>
                                     </span>
 
-                                    <span style="display: flex; align-items: center; gap: 6px;">
+                                    <!-- <span style="display: flex; align-items: center; gap: 6px;">
                                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round">
                                             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                                         </svg>
                                         {{ number_format($article->views) }} Views
-                                    </span>
+                                    </span> -->
 
                                     <span style="display: flex; align-items: center; gap: 6px;">
                                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
@@ -149,7 +141,7 @@
                                             <line x1="8" y1="2" x2="8" y2="6"></line>
                                             <line x1="3" y1="10" x2="21" y2="10"></line>
                                         </svg>
-                                        {{ optional($article->published_at)->format('F j, Y') }}
+                                        {{ optional($article->published_at)->format('F, Y') }}
                                     </span>
                                 </div>
                                 @if($article->category_id == '21')

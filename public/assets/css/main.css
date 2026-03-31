@@ -13139,6 +13139,14 @@ html.lenis body {
   height: 70px;
 }
 
+.hide-on-mobile {
+  display: block !important;
+}
+
+.hide-on-desktop {
+  display: none !important;
+}
+
 @media only screen and (max-width: 768px) {
   .image-link {
     height: 100%;
@@ -13146,6 +13154,14 @@ html.lenis body {
 
   .header-ad-banner {
     height: 100%;
+  }
+
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .hide-on-desktop {
+    display: block !important;
   }
 }
 

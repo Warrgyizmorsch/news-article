@@ -39,7 +39,7 @@
                     @endif
 
                     {{-- Subscription Card --}}
-                    <div class="card border-0 shadow-sm mb-4" style="border-radius: 16px;">
+                    <!-- <div class="card border-0 shadow-sm mb-4" style="border-radius: 16px;">
                         <div class="card-body p-4 p-md-5">
                             <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
                                 <div>
@@ -119,7 +119,7 @@
                                 </div>
                             @endif
                         </div>
-                    </div>
+                    </div> -->
 
 
                     {{-- Profile Info --}}

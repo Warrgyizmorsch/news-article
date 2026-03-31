@@ -6,7 +6,12 @@
             <div class="row gx-0 gy-0 justify-content-center">
                 <div class="col-xl-5 col-lg-6">
                     <div class="rs-login-wrapper text-center">
-                        <h3 class="rs-login-title mb-30">Sign Up</h3>
+                        <h3 class="rs-login-title mb-10">Subscribe Free</h3>
+
+                        <p class="mb-15" style="line-height: 1.5;">
+                            Create your free subscription account to receive timely alerts, featured stories,
+                            and key updates from <strong>Democracy Asia</strong> delivered directly to your inbox.
+                        </p>
 
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
@@ -41,7 +46,7 @@
                             </div>
 
                             <div class="rs-login-btn">
-                                <button type="submit" class="rs-btn hover-white">Sign Up</button>
+                                <button type="submit" class="rs-btn hover-white">Subscribe</button>
                             </div>
                         </form>
 
