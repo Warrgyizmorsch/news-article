@@ -28,11 +28,14 @@
                                         {{ \Illuminate\Support\Str::limit($article->title, 35) }}
                                     </a>
                                 </h6>
+
+                                @if(!empty($article->auther))
                                 <div class="rs-post-meta">
                                     <ul>
                                         <li><span class="rs-meta">By <a href="#" class="meta-author">{{ $article->auther ?? 'Admin' }}</a></span></li>
                                     </ul>
                                 </div>
+                                @endif
                             </div>
                         </div>
                         @empty
@@ -68,7 +71,9 @@
                                     </h3>
                                     <div class="rs-post-meta meta-white">
                                         <ul>
+                                            @if(!empty($heroCenter->auther))
                                             <li>By {{ $heroCenter->auther ?? 'Admin' }}</li>
+                                            @endif
                                             <li>{{ $heroCenter->published_at?->format('M d, Y') }}</li>
                                         </ul>
                                     </div>
@@ -112,11 +117,13 @@
                                         {{ \Illuminate\Support\Str::limit($article->title, 35) }}
                                     </a>
                                 </h6>
+                                @if(!empty($article->auther))
                                 <div class="rs-post-meta">
                                     <ul>
                                         <li><span class="rs-meta">By <a href="#" class="meta-author">{{ $article->auther ?? 'Admin' }}</a></span></li>
                                     </ul>
                                 </div>
+                                @endif
                             </div>
                         </div>
                         @empty
@@ -465,6 +472,7 @@ $featuredVideos = [
                             <div class="rs-post-medium-bottom">
                                 <div class="rs-post-meta">
                                     <ul>
+                                        @if(!empty($article->auther))
                                         <li>
                                             <span class="rs-meta">
                                                 By <a href="javascript:void(0)" class="meta-author">
@@ -472,6 +480,7 @@ $featuredVideos = [
                                                 </a>
                                             </span>
                                         </li>
+                                        @endif
                                         <li>
                                             <span class="rs-meta">
                                                 <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
@@ -741,11 +750,13 @@ $featuredVideos = [
 
                         <div class="rs-post-meta meta-white">
                             <ul>
+                                @if(!empty($article->auther))
                                 <li>
                                     <span class="rs-meta">
                                         By <a href="javascript:void(0)" class="meta-author">{{ $article->auther ?? 'Admin' }}</a>
                                     </span>
                                 </li>
+                                @endif
                                 <li>
                                     <span class="rs-meta">
                                         <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -819,11 +830,13 @@ $featuredVideos = [
 
                         <div class="rs-post-meta meta-white">
                             <ul>
+                                @if(!empty($lifestyleArticles[0]->auther))
                                 <li>
                                     <span class="rs-meta">
                                         By <a href="javascript:void(0)" class="meta-author">{{ $lifestyleArticles[0]->auther ?? 'Admin' }}</a>
                                     </span>
                                 </li>
+                                @endif
                                 <li>
                                     <span class="rs-meta">
                                         <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -862,6 +875,7 @@ $featuredVideos = [
                                         {{ \Illuminate\Support\Str::limit($article->title, 55) }}
                                     </a>
                                 </h6>
+                                @if(!empty($article->auther))
                                 <div class="rs-post-meta">
                                     <ul>
                                         <li>
@@ -871,6 +885,7 @@ $featuredVideos = [
                                         </li>
                                     </ul>
                                 </div>
+                                @endif
                             </div>
                         </div>
                         @endforeach
@@ -939,6 +954,7 @@ $featuredVideos = [
                                 {{ \Illuminate\Support\Str::limit($article->title, 35) }}
                             </a>
                         </h6>
+                        @if(!empty($article->auther))
                         <div class="rs-post-meta meta-white">
                             <ul>
                                 <li>
@@ -949,6 +965,7 @@ $featuredVideos = [
                                 </li>
                             </ul>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -978,6 +995,7 @@ $featuredVideos = [
                         </h3>
                         <div class="rs-post-meta meta-white">
                             <ul>
+                                @if(!empty($breakingBottom[0]->auther))
                                 <li>
                                     <span class="rs-meta">
                                         By <a href="javascript:void(0)" class="meta-author">
@@ -985,6 +1003,7 @@ $featuredVideos = [
                                         </a>
                                     </span>
                                 </li>
+                                @endif
                                 <li>
                                     <span class="rs-meta">
                                         <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
@@ -1027,6 +1046,7 @@ $featuredVideos = [
                         </h5>
                         <div class="rs-post-meta meta-white">
                             <ul>
+                                @if(!empty($breakingBottom[1]->auther))
                                 <li>
                                     <span class="rs-meta">
                                         By <a href="javascript:void(0)" class="meta-author">
@@ -1034,6 +1054,7 @@ $featuredVideos = [
                                         </a>
                                     </span>
                                 </li>
+                                @endif
                                 <li>
                                     <span class="rs-meta">
                                         <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
@@ -1194,11 +1215,13 @@ $featuredVideos = [
 
                         <div class="rs-post-meta meta-white">
                             <ul>
+                                @if(!empty($article->auther))
                                 <li>
                                     <span class="rs-meta">
                                         By <a href="javascript:void(0)" class="meta-author">{{ $article->auther ?? 'Admin' }}</a>
                                     </span>
                                 </li>
+                                @endif
                                 <li>
                                     <span class="rs-meta">
                                         <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1331,6 +1354,7 @@ $featuredVideos = [
 
                         <div class="rs-post-meta meta-white">
                             <ul>
+                                @if(!empty($categoryArticles[0]->auther))
                                 <li>
                                     <span class="rs-meta">
                                         By <a href="javascript:void(0)" class="meta-author">
@@ -1338,6 +1362,7 @@ $featuredVideos = [
                                         </a>
                                     </span>
                                 </li>
+                                @endif
                                 <li>
                                     <span class="rs-meta">
                                         <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
@@ -1385,6 +1410,7 @@ $featuredVideos = [
                                         {{ \Illuminate\Support\Str::limit($article->title, 55) }}
                                     </a>
                                 </h6>
+                                @if(!empty($article->auther))
                                 <div class="rs-post-meta">
                                     <ul>
                                         <li>
@@ -1396,6 +1422,7 @@ $featuredVideos = [
                                         </li>
                                     </ul>
                                 </div>
+                                @endif
                             </div>
                     </div>
                     @endif
