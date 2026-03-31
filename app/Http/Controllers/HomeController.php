@@ -307,7 +307,7 @@ if ($lifestyleCategory) {
             $pageType = 'category';
             $pageObject = $category;
 
-            return view('news.monthy-edition', compact(
+            return view('news.monthy-editions', compact(
                 'latestArticle',
                 'otherArticles',
                 'pageTitle',
