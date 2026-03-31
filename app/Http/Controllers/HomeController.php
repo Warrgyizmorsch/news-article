@@ -19,34 +19,31 @@ class HomeController extends Controller
         // Section 1: Hero News
 
         // Center Hero Article (latest published article)
-        $heroCenter = Article::with(['category', 'author'])
+        $heroCenter = Article::with(['category','images', 'author'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
-            ->where('category_id', '!=', 21)
-            ->where('is_hero',1)
-            ->latest('published_at')
-            ->get();
+            ->where('section_id', 21)
+            ->latest('created_at')
+            ->first();
 
         // Left Side: Most Viewed Articles
         $heroLeft = Article::with(['category', 'author'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
-            ->where('category_id', '!=', 21)
-            ->when($heroCenter->count(), function ($query) use ($heroCenter) {
-                $query->whereNotIn('id', $heroCenter->pluck('id'));
+            ->where('is_hero',1)
+            ->when($heroCenter, function ($query) use ($heroCenter) {
+                $query->where('id', '!=', $heroCenter->id);
             })
             ->orderByDesc('views')
             ->orderByDesc('published_at')
             ->take(3)
             ->get();
-        // dd($heroLeft);
         // Right Side: Recent Articles
         $heroRight = Article::with(['category', 'author'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
-            ->where('category_id', '!=', 21)
-            ->when($heroCenter->count(), function ($query) use ($heroCenter) {
-                $query->whereNotIn('id', $heroCenter->pluck('id'));
+            ->when($heroCenter, function ($query) use ($heroCenter) {
+                $query->where('id', '!=', $heroCenter->id);
             })
             ->when($heroLeft->count(), function ($query) use ($heroLeft) {
                 $query->whereNotIn('id', $heroLeft->pluck('id'));
@@ -89,7 +86,7 @@ class HomeController extends Controller
         // Sidebar popular news
         $popularArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
-             ->where('category_id', '!=', 21)
+            ->where('category_id', '!=', 21)
             ->whereNotNull('published_at')
             ->orderByDesc('views')
             ->take(3)
@@ -115,6 +112,28 @@ class HomeController extends Controller
                 ->values();
         }
 
+        // Section 6: Asia In Brief
+        $asiaInBriefCategory = Category::where('slug', 'asia-in-brief')
+            ->where('status', 1)
+            ->whereHas('articles', function ($q) {
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            })
+            ->first();
+
+        $asiaInBriefArticles = collect();
+
+        if ($asiaInBriefCategory) {
+            $asiaInBriefArticles = Article::with(['category', 'author'])
+                ->where('category_id', $asiaInBriefCategory->id)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->latest('published_at')
+                ->take(3)
+                ->get()
+                ->values();
+        }
+
         $ctaPlan = SubscriptionPlan::where('id', 1)
             ->where('status', 1)
             ->first();
@@ -130,7 +149,9 @@ class HomeController extends Controller
             'popularArticles',
             'selectedCategory',
             'categoryArticles',
-            'ctaPlan'
+            'ctaPlan',
+            'asiaInBriefCategory',
+            'asiaInBriefArticles',
         ));
     }
 
@@ -387,6 +408,7 @@ class HomeController extends Controller
             'sidebarTags'
         ));
     }
+}
 
 
 public function newsletterSubscribe(\Illuminate\Http\Request $request)

@@ -11,3 +11,5 @@ ALTER TABLE `articles` ADD `auther` VARCHAR(255) NULL DEFAULT NULL AFTER `pdf_fi
 ALTER TABLE `articles` ADD `auther_description` TEXT NULL DEFAULT NULL AFTER `auther`;
 
 ALTER TABLE `articles` CHANGE `category_id` `category_id` BIGINT(20) UNSIGNED NULL DEFAULT NULL;
+
+ALTER TABLE `articles` ADD `country` VARCHAR(255) NULL DEFAULT NULL AFTER `pdf_file`;

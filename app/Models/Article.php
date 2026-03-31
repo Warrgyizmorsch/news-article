@@ -30,6 +30,7 @@ class Article extends Model
         'pdf_file',
         'auther',
         'auther_description',
+        'country',
     ];
 
     protected $casts = [
@@ -40,7 +41,12 @@ class Article extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+     public function section()
+    {
+        return $this->belongsTo(Category::class, 'section_id');
     }
 
     public function author()
