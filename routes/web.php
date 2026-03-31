@@ -12,6 +12,8 @@ Route::get('/contact-us', function () {
     return view('contact.index');
 })->name('contact.index');
 
+Route::post('newsletter/subscribe', [HomeController::class, 'newsletterSubscribe'])->name('newsletter.subscribe');
+
 Route::get('/articles', [HomeController::class, 'newsIndex'])->name('news.index');
 Route::get('/articles/{slug}', [HomeController::class, 'newsDetailSlug'])->name('news.show');
 

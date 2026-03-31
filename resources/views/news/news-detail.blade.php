@@ -481,13 +481,169 @@
 
                                             <div class="rs-paywall-gradient"></div>
 
-                                            <div class="rs-subscribe-cta">
-                                                <h3>Unlock the Full Story</h3>
-                                                <p>Get unlimited access to award-winning journalism, exclusive reports, and deep analysis by
-                                                    subscribing to Democracy Asia.</p>
-                                                <a href="{{ route('register') }}" class="rs-subscribe-btn">
-                                                    Subscribe Free
-                                                </a>
+                                          <div class="rs-subscribe-cta" style="
+                                                background: linear-gradient(135deg, #0f172a 0%, #1e293b 45%, #334155 100%);
+                                                padding: 40px 30px;
+                                                border-radius: 24px;
+                                                box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+                                                border: 1px solid rgba(255,255,255,0.08);
+                                                position: relative;
+                                                overflow: hidden;
+                                            ">
+
+                                                <div style="
+                                                    position: absolute;
+                                                    top: -60px;
+                                                    right: -60px;
+                                                    width: 180px;
+                                                    height: 180px;
+                                                    background: rgba(255,255,255,0.05);
+                                                    border-radius: 50%;
+                                                "></div>
+
+                                                <div style="
+                                                    position: absolute;
+                                                    bottom: -50px;
+                                                    left: -50px;
+                                                    width: 140px;
+                                                    height: 140px;
+                                                    background: rgba(59,130,246,0.12);
+                                                    border-radius: 50%;
+                                                "></div>
+
+                                                <div style="position: relative; z-index: 2;">
+                                                    <span style="
+                                                        display: inline-block;
+                                                        background: rgba(255,255,255,0.1);
+                                                        color: #cbd5e1;
+                                                        font-size: 12px;
+                                                        font-weight: 600;
+                                                        letter-spacing: 1px;
+                                                        text-transform: uppercase;
+                                                        padding: 8px 14px;
+                                                        border-radius: 999px;
+                                                        margin-bottom: 16px;
+                                                    ">
+                                                        Premium Access
+                                                    </span>
+
+                                                    <h3 style="
+                                                        color: #ffffff;
+                                                        font-size: 34px;
+                                                        line-height: 1.2;
+                                                        font-weight: 700;
+                                                        margin-bottom: 14px;
+                                                    ">
+                                                        Unlock the Full Story
+                                                    </h3>
+
+                                                    <p style="
+                                                        color: #cbd5e1;
+                                                        font-size: 16px;
+                                                        line-height: 1.8;
+                                                        margin-bottom: 26px;
+                                                        max-width: 650px;
+                                                    ">
+                                                        Get unlimited access to exclusive reports, sharp analysis, and the stories shaping Asia.
+                                                        Enter your email to continue reading with Democracy Asia.
+                                                    </p>
+
+                                                    <form method="POST" action="{{ route('newsletter.subscribe') }}" style="margin: 0;">
+                                                        @csrf
+
+                                                        <div style="
+                                                            display: flex;
+                                                            flex-wrap: wrap;
+                                                            gap: 12px;
+                                                            align-items: center;
+                                                        ">
+                                                            <input 
+                                                                type="email" 
+                                                                name="email" 
+                                                                placeholder="Enter your email address"
+                                                                value="{{ old('email') }}"
+                                                                required
+                                                                style="
+                                                                    flex: 1 1 320px;
+                                                                    height: 56px;
+                                                                    border: 1px solid rgba(255,255,255,0.12);
+                                                                    background: rgba(255,255,255,0.08);
+                                                                    color: #ffffff;
+                                                                    padding: 0 18px;
+                                                                    border-radius: 14px;
+                                                                    outline: none;
+                                                                    font-size: 15px;
+                                                                    box-shadow: none;
+                                                                "
+                                                            >
+
+                                                            <button 
+                                                                type="submit"
+                                                                style="
+                                                                    height: 56px;
+                                                                    padding: 0 28px;
+                                                                    border: none;
+                                                                    border-radius: 14px;
+                                                                    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+                                                                    color: #ffffff;
+                                                                    font-size: 15px;
+                                                                    font-weight: 600;
+                                                                    cursor: pointer;
+                                                                    transition: all 0.3s ease;
+                                                                    box-shadow: 0 10px 25px rgba(37,99,235,0.35);
+                                                                    white-space: nowrap;
+                                                                "
+                                                            >
+                                                                Subscribe Free
+                                                            </button>
+                                                        </div>
+                                                    </form>
+
+                                                    @if(session('success'))
+                                                        <div style="
+                                                            margin-top: 16px;
+                                                            padding: 14px 16px;
+                                                            border-radius: 12px;
+                                                            background: rgba(34,197,94,0.14);
+                                                            border: 1px solid rgba(34,197,94,0.28);
+                                                            color: #dcfce7;
+                                                            font-size: 14px;
+                                                            font-weight: 500;
+                                                        ">
+                                                            {{ session('success') }}
+                                                        </div>
+                                                    @endif
+
+                                                    @if(session('error'))
+                                                        <div style="
+                                                            margin-top: 16px;
+                                                            padding: 14px 16px;
+                                                            border-radius: 12px;
+                                                            background: rgba(239,68,68,0.14);
+                                                            border: 1px solid rgba(239,68,68,0.28);
+                                                            color: #fee2e2;
+                                                            font-size: 14px;
+                                                            font-weight: 500;
+                                                        ">
+                                                            {{ session('error') }}
+                                                        </div>
+                                                    @endif
+
+                                                    @error('email')
+                                                        <div style="
+                                                            margin-top: 16px;
+                                                            padding: 14px 16px;
+                                                            border-radius: 12px;
+                                                            background: rgba(239,68,68,0.14);
+                                                            border: 1px solid rgba(239,68,68,0.28);
+                                                            color: #fee2e2;
+                                                            font-size: 14px;
+                                                            font-weight: 500;
+                                                        ">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                     @endif
