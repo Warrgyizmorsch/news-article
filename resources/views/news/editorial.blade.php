@@ -88,7 +88,7 @@
                     <button class="nav-link active" id="current-tab" data-bs-toggle="tab" data-bs-target="#current" type="button" role="tab" aria-controls="current" aria-selected="true">Current edition</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="browse-tab" data-bs-toggle="tab" data-bs-target="#browse" type="button" role="tab" aria-controls="browse" aria-selected="false">Browse all editions</button>
+                    <button class="nav-link" id="browse-tab" data-bs-toggle="tab" data-bs-target="#browse" type="button" role="tab" aria-controls="browse" aria-selected="false">Previous editions</button>
                 </li>
             </ul>
         </div>
@@ -105,12 +105,12 @@
                                 </span>
                             </div>
                             <h1 style="font-size: 56px; font-weight: 700; color: #111827; line-height: 1.1; font-family: 'Playfair Display', serif; margin-bottom: 24px;">
-                                <a href="{{ asset('assets/video/'.$latestArticle->excerpt)}}" style="color: inherit; text-decoration: none;">
+                                <a href="{{ route('news.show', $article->slug) }}" style="color: inherit; text-decoration: none;">
                                     {{ $latestArticle->title }}
                                 </a>
                             </h1>
                             <div class="mt-4">
-                                <a href="{{ asset('assets/video/'.$latestArticle->excerpt)}}" class="rs-btn bg-primary is-white has-icon">
+                                <a href="{{ route('news.show', $article->slug) }}" class="rs-btn bg-primary is-white has-icon">
                                     Read Edition
                                     <span class="icon-box">
                                         <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
@@ -131,7 +131,7 @@
                         </div>
                         <div class="col-lg-8 col-xl-7">
                             <div style="aspect-ratio: 16/9; overflow: hidden; border: 1px solid #e5e7eb;">
-                                <a href="{{ asset('assets/video/'.$latestArticle->excerpt)}}" class="hover-zoom-img">
+                                <a href="{{ route('news.show', $article->slug) }}" class="hover-zoom-img">
                                     <img src="{{ $latestArticle->featured_image ? asset('storage/' . $latestArticle->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                         alt="{{ $latestArticle->title }}" style="width: 100%; height: 100%; object-fit: contain;">
                                 </a>

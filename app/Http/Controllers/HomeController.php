@@ -285,7 +285,7 @@ if ($lifestyleCategory) {
             ->where('status', 1)
             ->firstOrFail();
 
-        if ($slug === 'monthy-editions') {
+        if ($slug === 'monthly-editions') {
             $latestArticle = Article::with(['category', 'author', 'tags'])
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
