@@ -78,12 +78,12 @@
                 class="accordion-collapse collapse page-header-collapse {{ request('title') || request('status') || request('category_id') ? 'show' : '' }}">
                 <div class="accordion-body pb-2">
                     <form method="GET" action="{{ url()->current() }}" class="mb-3 row g-2">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <input type="text" name="title" class="form-control" placeholder="Search by Title"
                                 value="{{ request('title') }}">
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <select name="status" class="form-select" data-select2-selector="tag">
                                 <option value="">All Status</option>
                                 <option value="draft" {{ request('status') === 'draft' ? 'selected' : '' }}>Draft</option>
@@ -94,7 +94,7 @@
                             </select>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <select name="category_id" class="form-select" data-select2-selector="tag">
                                 <option value="">All Categories</option>
                                 @foreach($allCategories ?? [] as $cat)
@@ -105,7 +105,18 @@
                             </select>
                         </div>
 
-                        <div class="col-md-4 d-flex">
+                        <div class="col-md-3">
+                            <select name="section_id" class="form-select" data-select2-selector="tag">
+                                <option value="">All Section</option>
+                                @foreach($allSection ?? [] as $section)
+                                    <option value="{{ $section->id }}" {{ request('section_id') == $section->id ? 'selected' : '' }}>
+                                        {{ $section->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 d-flex">
                             <button class="btn btn-primary me-2" type="submit">Filter</button>
                             <a href="{{ url()->current() }}" class="btn btn-secondary">Reset</a>
                         </div>
@@ -124,6 +135,8 @@
                             <th>Image</th>
                             <th>Title</th>
                             <th>Category</th>
+                            <th>Section</th>
+                            <th>Country</th>
                             <th>Flags</th>
                             <th>Status</th>
                             <th>Views</th>
@@ -148,6 +161,8 @@
                                     <small class="text-muted">{{ $article->slug }}</small>
                                 </td>
                                 <td>{{ $article->category->name ?? '-' }}</td>
+                                <td>{{ $article->section->name ?? '-' }}</td>
+                                <td>{{$article->country ?? '-'}}</td>
                                 <td>
                                     @if($article->is_featured)
                                         <span class="badge bg-primary">Featured</span>

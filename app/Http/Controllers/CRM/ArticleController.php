@@ -19,7 +19,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $query = Article::with(['category', 'author']);
+        $query = Article::with(['category','section', 'author']);
 
         if (request('title')) {
             $query->where('title', 'like', '%' . request('title') . '%');
@@ -33,10 +33,16 @@ class ArticleController extends Controller
             $query->where('category_id', request('category_id'));
         }
 
-        $articles = $query->orderBy('id', 'desc')->latest()->paginate(10);
-        $allCategories = Category::where('status', 1)->orderBy('name')->get();
+        if(request('section_id')){
+            $query->where('section_id', request('section_id'));
+        }
 
-        return view('crm.article.index', compact('articles', 'allCategories'));
+        $articles = $query->orderBy('id', 'desc')->latest()->paginate(10);
+        $allCategories = Category::where('status', 1)->where('main_menu',0)->orderBy('name')->get();
+        $allSection = Category::where('status', 1)->where('main_menu',1)->orderBy('name')->get();
+
+
+        return view('crm.article.index', compact('articles', 'allCategories','allSection'));
     }
 
     public function create()
@@ -62,6 +68,7 @@ class ArticleController extends Controller
             $data['is_hero'] = $request->boolean('is_hero');
             $data['auther'] = $request->auther;
             $data['auther_description']= $request->auther_description;
+            $data['country']= $request->country;
 
             if ($request->hasFile('featured_image')) {
                 $data['featured_image'] = $request->file('featured_image')->store('articles', 'public');
@@ -126,6 +133,7 @@ class ArticleController extends Controller
             $data['section_id'] = $request->section_id;
             $data['auther'] = $request->auther;
             $data['auther_description']= $request->auther_description;
+            $data['country']= $request->country;
 
             if ($request->hasFile('featured_image')) {
                 if ($article->featured_image && Storage::disk('public')->exists($article->featured_image)) {

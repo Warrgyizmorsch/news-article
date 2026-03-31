@@ -253,6 +253,16 @@
                         </div>
                     </div>
 
+                    <div class="row g-3 mb-4">
+                        <label class="col-lg-3 col-form-label fw-semibold">Country</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control" name="country" placeholder="Enter Country Name" value="{{ old('country, $article->country') }}">
+                            @error('country')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                      <div class="row g-3 mb-4">
                         <label class="col-lg-3 col-form-label fw-semibold">Auther</label>
                         <div class="col-lg-9">
@@ -293,10 +303,10 @@
                         </div>
                     </div>
 
-                    <!-- <div class="row g-3 mb-4">
+                    <div class="row g-3 mb-4">
                         <label class="col-lg-3 col-form-label fw-semibold">Options</label>
                         <div class="col-lg-9 d-flex flex-column gap-2">
-                            <div class="form-check">
+                            <!-- <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="is_featured" value="1"
                                     id="isFeatured" {{ old('is_featured', $article->is_featured) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="isFeatured">Featured Article</label>
@@ -306,7 +316,7 @@
                                 <input class="form-check-input" type="checkbox" name="is_breaking" value="1"
                                     id="isBreaking" {{ old('is_breaking', $article->is_breaking) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="isBreaking">Breaking News</label>
-                            </div>
+                            </div> -->
 
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="is_hero" value="1"
@@ -314,7 +324,7 @@
                                 <label class="form-check-label" for="isHero">Hero Slider</label>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="d-flex justify-content-end gap-2">
                         <a href="{{ route('articles.index') }}" class="btn btn-secondary">Cancel</a>
