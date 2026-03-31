@@ -413,9 +413,9 @@
                                     <div class="rs-post-meta-row">
                                         <div class="rs-meta-item">
                                             <img src="{{ $article->author->profile_photo_path ? asset('storage/' . $article->author->profile_photo_path) : asset('assets/images/user/demo-profile.webp') }}"
-                                                alt="{{ $article->author->name }}" class="rs-meta-author-img">
+                                                alt="{{ $article->auther }}" class="rs-meta-author-img">
                                             <a href="javascript:void(0)" class="rs-meta-link">
-                                                {{ $article->author->name ?? 'Editorial Team' }}
+                                                {{ $article->auther ?? 'Editorial Team' }}
                                             </a>
                                         </div>
 
@@ -662,9 +662,8 @@
                                     <!-- Author Box -->
                                     <div class="rs-author-box">
                                         <div class="rs-author-info">
-                                            <h4>{{ $article->author->name ?? 'Editorial Staff' }}</h4>
-                                            <p>Senior editor and contributor covering global politics, emerging technology, and social
-                                                justice. Dedicated to delivering impartial, fact-based reporting from the heart of Asia.
+                                            <h4>{{ $article->auther ?? 'Editorial Staff' }}</h4>
+                                            <p>{{ $article->auther_description ?? 'Our dedicated team of journalists and editors work tirelessly to bring you the most accurate and insightful news coverage. With a passion for storytelling and a commitment to journalistic integrity, our team strives to keep you informed about the latest developments shaping our world.' }}
                                             </p>
                                         </div>
                                     </div>
