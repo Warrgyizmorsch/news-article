@@ -3,208 +3,169 @@
 <!-- feature area start -->
 <section class="rs-banner-area rs-banner-six section-space-top">
     <div class="container">
-        <div class="row">
-            <div class="col-xl-12">
-                {{-- <div class="section-title-wrapper">
-                    <h2 class="section-title rs-split-text-enable split-in-left is-black mb-30">Latest Articles</h2>
-                </div> --}}
-                <div class="rs-banner-wrapper">
-                    {{-- Left Side 3 News --}}
-                    <div>
+        <div class="row g-4">
+            {{-- Left Side: 3 News (25% Width) --}}
+            <div class="col-xl-3 col-lg-3">
+                <div class="rs-banner-small-post">
+                    <div class="rs-post-small rs-post-small-seventeen">
+                        @forelse($heroLeft as $article)
+                        <div class="rs-post-small-item mb-20">
+                            <div class="rs-post-small-thumb">
+                                <a href="{{ route('news.show', $article->slug) }}" class="image-link">
+                                    <img style="height: 100px; width: 100%; object-fit: cover; border-radius: 4px;"
+                                        src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                        alt="{{ $article->title }}">
+                                </a>
+                            </div>
+                            <div class="rs-post-small-content">
+                                <div class="rs-post-tag-two">
+                                    <a href="javascript:void(0)" class="post-tag is-green">
+                                        {{ $article->category->name ?? 'News' }}
+                                    </a>
+                                </div>
+                                <h6 class="rs-post-small-title underline">
+                                    <a href="{{ route('news.show', $article->slug) }}">
+                                        {{ \Illuminate\Support\Str::limit($article->title, 45) }}
+                                    </a>
+                                </h6>
+                                <div class="rs-post-meta">
+                                    <ul>
+                                        <li><span class="rs-meta">By <a href="#" class="meta-author">{{ $article->auther ?? 'Admin' }}</a></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @empty
+                        <div class="text-center py-4">
+                            <p>No articles found</p>
+                        </div>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
 
-                        <div class="rs-banner-small-post">
-                            <div class="rs-post-small rs-post-small-seventeen">
-                                @forelse($heroLeft as $article)
-                                <div class="rs-post-small-item">
-                                    <div class="rs-post-small-thumb">
-                                        <a href="{{ route('news.show', $article->slug) }}" class="image-link">
-                                            <img style="height: 100%; width: 100%; object-fit: cover;"
-                                                src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                                alt="{{ $article->title }}">
+            {{-- Center Main News: Carousel (50% Width) --}}
+            <div class="col-xl-6 col-lg-6">
+                @if($heroCenter && $heroCenter->images->count() > 0)
+                <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                    <div class="carousel-inner">
+                        @foreach($heroCenter->images as $index => $img)
+                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                            <div class="rs-post-overlay rs-post-overlay-one">
+                                <a href="{{ route('news.show', $heroCenter->slug) }}">
+                                    <div class="rs-post-overlay-bg-thumb"
+                                         style="background-image: url('{{ asset('storage/'.$img->image) }}'); background-size: cover; background-position: center; height: 400px; border-radius: 8px;">
+                                    </div>
+                                </a>
+                                <div class="rs-post-overlay-content">
+                                    <div class="rs-post-tag-two">
+                                        <a href="#" class="post-tag is-white">{{ $heroCenter->category->name ?? 'News' }}</a>
+                                    </div>
+                                    <h3 class="rs-post-overlay-title is-white underline">
+                                        <a href="{{ route('news.show', $heroCenter->slug) }}">
+                                            {{ \Str::limit($heroCenter->title, 60) }}
                                         </a>
-                                    </div>
-                                    <div class="rs-post-small-content">
-                                        <div class="rs-post-tag-two">
-                                            <a href="javascript:void(0)" class="post-tag is-green">
-                                                {{ $article->category->name ?? 'News' }}
-                                            </a>
-                                        </div>
-                                        <h6 class="rs-post-small-title underline">
-                                            <a href="{{ route('news.show', $article->slug) }}">
-                                                {{ \Illuminate\Support\Str::limit($article->title, 55) }}
-                                            </a>
-                                        </h6>
-                                        <div class="rs-post-meta">
-                                            <ul>
-                                                <li>
-                                                    <span class="rs-meta">
-                                                        By
-                                                        <a href="javascript:void(0)" class="meta-author">
-                                                            {{ $article->auther ?? 'Admin' }}
-                                                        </a>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                    </h3>
+                                    <div class="rs-post-meta meta-white">
+                                        <ul>
+                                            <li>By {{ $heroCenter->auther ?? 'Admin' }}</li>
+                                            <li>{{ $heroCenter->published_at?->format('M d, Y') }}</li>
+                                        </ul>
                                     </div>
                                 </div>
-                                @empty
-                                <div class="rs-post-small-item">
-                                    <div class="rs-post-small-content text-center py-4">
-                                        <h6 class="rs-post-small-title">No articles found</h6>
-                                        <p class="mb-0">Latest stories will appear here soon.</p>
-                                    </div>
-                                </div>
-                                @endforelse
                             </div>
                         </div>
+                        @endforeach
                     </div>
-
-                    {{-- Center Main News --}}
-                 @if($heroCenter && $heroCenter->images->count() > 0)
-
-<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-    <div class="carousel-inner">
-
-        @foreach($heroCenter->images as $index => $img)
-            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-
+                </div>
+                @else
                 <div class="rs-post-overlay rs-post-overlay-one">
-
-                    <a href="{{ route('news.show', $heroCenter->slug) }}">
-                        <div class="rs-post-overlay-bg-thumb"
-                             style="
-                                background-image: url('{{ asset('storage/'.$img->image) }}');
-                                background-size: cover;
-                                background-position: center;
-                                height: 400px;
-                             ">
-                        </div>
-                    </a>
-
-                    <div class="rs-post-overlay-content">
-                        <div class="rs-post-tag-two">
-                            <a href="#" class="post-tag is-white">
-                                {{ $heroCenter->category->name ?? 'News' }}
-                            </a>
-                        </div>
-
-                        <h3 class="rs-post-overlay-title is-white underline">
-                            <a href="{{ route('news.show', $heroCenter->slug) }}">
-                                {{ \Str::limit($heroCenter->title, 50) }}
-                            </a>
-                        </h3>
-
-                        <div class="rs-post-meta meta-white">
-                            <ul>
-                                <li>By {{ $heroCenter->auther ?? 'Admin' }}</li>
-                                <li>{{ $heroCenter->published_at?->format('M, Y') }}</li>
-                            </ul>
-                        </div>
+                    <div class="rs-post-overlay-bg-thumb" style="background-image: url('{{ asset('assets/images/default/news-placeholder.webp') }}'); height: 400px; border-radius: 8px;"></div>
+                    <div class="rs-post-overlay-content text-center">
+                        <h3 class="rs-post-overlay-title is-white">No Featured Story</h3>
                     </div>
-
                 </div>
-
+                @endif
             </div>
-        @endforeach
 
-    </div>
-</div>
-
-@else
-
-{{-- ✅ Default image --}}
-<div class="rs-post-overlay rs-post-overlay-one">
-    <div class="rs-post-overlay-bg-thumb"
-         style="
-            background-image: url('{{ asset('assets/images/default/news-placeholder.webp') }}');
-            background-size: cover;
-            background-position: center;
-            height: 400px;
-         ">
-    </div>
-
-    <div class="rs-post-overlay-content text-center">
-        <div class="rs-post-tag-two">
-            <a href="javascript:void(0)" class="post-tag is-white">News</a>
-        </div>
-
-        <h3 class="rs-post-overlay-title is-white">
-            No Image Available
-        </h3>
-    </div>
-</div>
-
-@endif
-
-                            {{-- Right Side 3 News --}}
-                            <div>
-                                <!-- <div class="section-title-wrapper mb-15">
-                                <h3 class="section-title rs-split-text-enable split-in-left" style="font-size: 30px;">Recent Articles</h3>
-                                <hr>
-                            </div> -->
-
-                                <div class="rs-banner-small-post">
-                                    <div class="rs-post-small rs-post-small-seventeen">
-                                        @forelse($heroRight as $article)
-                                        <div class="rs-post-small-item">
-                                            <div class="rs-post-small-content">
-                                                <div class="rs-post-tag-two">
-                                                    <a href="javascript:void(0)" class="post-tag is-green">
-                                                        {{ $article->category->name ?? 'News' }}
-                                                    </a>
-                                                </div>
-                                                <h6 class="rs-post-small-title underline">
-                                                    <a href="{{ route('news.show', $article->slug) }}">
-                                                        {{ \Illuminate\Support\Str::limit($article->title, 55) }}
-                                                    </a>
-                                                </h6>
-                                                <div class="rs-post-meta">
-                                                    <ul>
-                                                        <li>
-                                                            <span class="rs-meta">
-                                                                By
-                                                                <a href="javascript:void(0)" class="meta-author">
-                                                                    {{ $article->auther ?? 'Admin' }}
-                                                                </a>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @empty
-                                        <div class="rs-post-small-item">
-                                            <div class="rs-post-small-content text-center py-4">
-                                                <h6 class="rs-post-small-title">No articles found</h6>
-                                                <p class="mb-0">More stories will appear here soon.</p>
-                                            </div>
-                                        </div>
-                                        @endforelse
-                                    </div>
+            {{-- Right Side: 3 News (25% Width) --}}
+            <div class="col-xl-3 col-lg-3">
+                <div class="rs-banner-small-post">
+                    <div class="rs-post-small rs-post-small-seventeen">
+                        @forelse($heroRight as $article)
+                        <div class="rs-post-small-item mb-20">
+                            <div class="rs-post-small-thumb">
+                                <a href="{{ route('news.show', $article->slug) }}" class="image-link">
+                                    <img style="height: 100px; width: 100%; object-fit: cover; border-radius: 4px;"
+                                        src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                        alt="{{ $article->title }}">
+                                </a>
+                            </div>
+                            <div class="rs-post-small-content">
+                                <div class="rs-post-tag-two">
+                                    <a href="javascript:void(0)" class="post-tag is-green">
+                                        {{ $article->category->name ?? 'News' }}
+                                    </a>
+                                </div>
+                                <h6 class="rs-post-small-title underline">
+                                    <a href="{{ route('news.show', $article->slug) }}">
+                                        {{ \Illuminate\Support\Str::limit($article->title, 45) }}
+                                    </a>
+                                </h6>
+                                <div class="rs-post-meta">
+                                    <ul>
+                                        <li><span class="rs-meta">By <a href="#" class="meta-author">{{ $article->auther ?? 'Admin' }}</a></span></li>
+                                    </ul>
                                 </div>
                             </div>
-
                         </div>
+                        @empty
+                        <div class="text-center py-4">
+                            <p>No articles found</p>
+                        </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
-            <style>
-                .rs-post-overlay-one {
-                    position: relative;
-                    height: 400px;
-                    /* important */
-                }
+        </div>
+    </div>
 
-                .rs-post-overlay-one .rs-post-overlay-bg-thumb {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    /* important */
-                }
-            </style>
+    <style>
+        .rs-post-overlay-one {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+        .rs-post-overlay-one .rs-post-overlay-bg-thumb {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .rs-post-overlay-content {
+            position: relative;
+            z-index: 2;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%);
+        }
+        .rs-post-small-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        .rs-post-small-thumb {
+            flex: 0 0 100px; /* Fixed width for sidebar thumbs */
+        }
+        .rs-post-small-content {
+            flex: 1;
+        }
+    </style>
 </section>
 <!-- feature area end -->
 
@@ -448,7 +409,7 @@ $featuredVideos = [
             <div class="col-xl-6 col-lg-6">
                 <div class="section-btn">
                     <a class="rs-btn has-text has-icon is-text-white"
-                        href="{{ route('category.show', 'monthly-edition') }}">View All <span class="icon-box">
+                        href="{{ route('category.show', 'monthly-editions') }}">View All <span class="icon-box">
                             <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -625,8 +586,9 @@ $featuredVideos = [
     <div class="container">
         <div class="row section-title-space align-items-center g-5">
             <div class="col-xl-6 col-lg-6">
+                
                 <div class="section-title-wrapper">
-                    {{ $politicsCategory->name ?? 'Politics' }}
+                    <h2 class="section-title rs-split-text-enable split-in-left is-black"> {{ $politicsCategory->name ?? 'Politics' }}</h2>
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6">
@@ -733,30 +695,30 @@ $featuredVideos = [
                     <div class="rs-categories rs-categories-one">
                         <h5 class="section-title is-small">Explore Categories</h5>
                         <ul>
-                            @foreach($categories->where('slug', '!=', 'politics') as $category)
-                            <li>
-                                <a href="{{ route('category.show', $category->slug) }}" class="rs-categories-bg-thumb"
-                                    style="background-image: url('{{ $category->images ? asset($category->images) : asset('assets/images/categories/categories-thumb-01.webp') }}')">
-                                    <span class="rs-categories-name">
-                                        {{ $category->name }}
-                                        ({{ $category->articles_count ?? $category->articles()->where('status', 'published')->count() }})
-                                    </span>
-                                    <span class="rs-categories-btn">
-                                        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M12.7628 4.24925C10.9324 4.24925 9.26427 2.58258 9.26427 0.750751V0H7.76276V0.750751C7.76276 2.08258 8.34685 3.33183 9.26351 4.24925H0V5.75075H9.26351C8.34685 6.66817 7.76276 7.91742 7.76276 9.24925V10H9.26427V9.24925C9.26427 7.41817 10.9324 5.75075 12.7628 5.75075H13.5135V4.24925H12.7628Z"
-                                                fill="white" />
-                                        </svg>
-                                    </span>
-                                </a>
-                            </li>
-                            @endforeach
+                            @foreach($categories->where('slug', '!=', 'politics')->filter(fn($cat) => $cat->articles()->where('status', 'published')->count() > 0) as $category)
+    <li>
+        <a href="{{ route('category.show', $category->slug) }}" class="rs-categories-bg-thumb"
+            style="background-image: url('{{ $category->images ? asset($category->images) : asset('assets/images/categories/categories-thumb-01.webp') }}')">
+            
+            <span class="rs-categories-name">
+                {{ $category->name }}
+                {{-- Use the count from withCount or the manual query --}}
+                ({{ $category->articles_count ?? $category->articles()->where('status', 'published')->count() }})
+            </span>
+
+            <span class="rs-categories-btn">
+                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7628 4.24925C10.9324 4.24925 9.26427 2.58258 9.26427 0.750751V0H7.76276V0.750751C7.76276 2.08258 8.34685 3.33183 9.26351 4.24925H0V5.75075H9.26351C8.34685 6.66817 7.76276 7.91742 7.76276 9.24925V10H9.26427V9.24925C9.26427 7.41817 10.9324 5.75075 12.7628 5.75075H13.5135V4.24925H12.7628Z" fill="white" />
+                </svg>
+            </span>
+        </a>
+    </li>
+@endforeach
                         </ul>
                     </div>
                 </div>
 
-                <div class="rs-sidebar mb-30">
+                {{-- <div class="rs-sidebar mb-30">
                     <div class="rs-post-small rs-post-small-five">
                         <h5 class="section-title is-small">Latest Stories</h5>
 
@@ -795,7 +757,7 @@ $featuredVideos = [
                         @endforeach
 
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- <div class="rs-sidebar">
                             <div class="rs-social rs-social-one">

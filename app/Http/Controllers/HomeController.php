@@ -79,9 +79,13 @@ class HomeController extends Controller
 
         // Sidebar categories
         $categories = Category::where('status', 1)
-            ->orderBy('sort_order')
-            ->orderBy('name')
-            ->get();
+    ->has('articles') // Only get categories that have at least 1 article
+    ->withCount(['articles' => function ($query) {
+        $query->where('status', 'published'); // Count only published ones
+    }])
+    ->orderBy('sort_order')
+    ->orderBy('name')
+    ->get();
 
         // Sidebar popular news
         $popularArticles = Article::with(['category', 'author'])
