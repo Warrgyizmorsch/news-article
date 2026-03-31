@@ -1,137 +1,152 @@
 @extends('layouts.app')
 @section('content')
-    <!-- feature area start -->
-    <section class="rs-banner-area rs-banner-six section-space-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="section-title-wrapper">
-                        <h2 class="section-title rs-split-text-enable split-in-left is-black mb-30">Latest Articles</h2>
-                    </div>
-                    <div class="rs-banner-wrapper">
-                        {{-- Left Side 3 News --}}
-                        <div>
+<!-- feature area start -->
+<section class="rs-banner-area rs-banner-six section-space-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="section-title-wrapper">
+                    <h2 class="section-title rs-split-text-enable split-in-left is-black mb-30">Latest Articles</h2>
+                </div>
+                <div class="rs-banner-wrapper">
+                    {{-- Left Side 3 News --}}
+                    <div>
 
-                            <div class="rs-banner-small-post">
-                                <div class="rs-post-small rs-post-small-seventeen">
-                                    @forelse($heroLeft as $article)
-                                        <div class="rs-post-small-item">
-                                            <div class="rs-post-small-thumb">
-                                                <a href="{{ route('news.show', $article->slug) }}" class="image-link">
-                                                    <img style="height: 100%; width: 100%; object-fit: cover;"
-                                                        src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                                        alt="{{ $article->title }}">
-                                                </a>
-                                            </div>
-                                            <div class="rs-post-small-content">
-                                                <div class="rs-post-tag-two">
-                                                    <a href="javascript:void(0)" class="post-tag is-green">
-                                                        {{ $article->category->name ?? 'News' }}
-                                                    </a>
-                                                </div>
-                                                <h6 class="rs-post-small-title underline">
-                                                    <a href="{{ route('news.show', $article->slug) }}">
-                                                        {{ \Illuminate\Support\Str::limit($article->title, 55) }}
-                                                    </a>
-                                                </h6>
-                                                <div class="rs-post-meta">
-                                                    <ul>
-                                                        <li>
-                                                            <span class="rs-meta">
-                                                                By
-                                                                <a href="javascript:void(0)" class="meta-author">
-                                                                    {{ $article->author->name ?? 'Admin' }}
-                                                                </a>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @empty
-                                        <div class="rs-post-small-item">
-                                            <div class="rs-post-small-content text-center py-4">
-                                                <h6 class="rs-post-small-title">No articles found</h6>
-                                                <p class="mb-0">Latest stories will appear here soon.</p>
-                                            </div>
-                                        </div>
-                                    @endforelse
-                                </div>
-                            </div>
-                        </div>
-
-                    {{-- Center Main News --}}
-                    @if($heroCenter && $heroCenter->images->count())
-                    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-
-                                <div class="carousel-inner">
-
-                            @foreach($heroCenter->images as $index => $img)
-                            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-
-                                                <div class="rs-post-overlay rs-post-overlay-one">
-
-                                    <a href="{{ route('news.show', $heroCenter->slug) }}">
-                                        <div class="rs-post-overlay-bg-thumb"
-                                            style="
-                        background-image: url('{{ asset('storage/'.$img->image) }}');
-                        background-size: cover;
-                        background-position: center;
-                        height: 400px;
-                    ">
-                                        </div>
-                                    </a>
-
-                                    <div class="rs-post-overlay-content">
+                        <div class="rs-banner-small-post">
+                            <div class="rs-post-small rs-post-small-seventeen">
+                                @forelse($heroLeft as $article)
+                                <div class="rs-post-small-item">
+                                    <div class="rs-post-small-thumb">
+                                        <a href="{{ route('news.show', $article->slug) }}" class="image-link">
+                                            <img style="height: 100%; width: 100%; object-fit: cover;"
+                                                src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                                alt="{{ $article->title }}">
+                                        </a>
+                                    </div>
+                                    <div class="rs-post-small-content">
                                         <div class="rs-post-tag-two">
-                                            <a href="#" class="post-tag is-white">
-                                                {{ $heroCenter->category->name ?? 'News' }}
+                                            <a href="javascript:void(0)" class="post-tag is-green">
+                                                {{ $article->category->name ?? 'News' }}
                                             </a>
                                         </div>
-
-                                        <h3 class="rs-post-overlay-title is-white underline">
-                                            <a href="{{ route('news.show', $heroCenter->slug) }}">
-                                                {{ \Str::limit($heroCenter->title, 50) }}
+                                        <h6 class="rs-post-small-title underline">
+                                            <a href="{{ route('news.show', $article->slug) }}">
+                                                {{ \Illuminate\Support\Str::limit($article->title, 55) }}
                                             </a>
-                                        </h3>
-
-                                        <div class="rs-post-meta meta-white">
+                                        </h6>
+                                        <div class="rs-post-meta">
                                             <ul>
-                                                <li>By {{ $heroCenter->author->name ?? 'Admin' }}</li>
-                                                <li>{{ $heroCenter->published_at?->format('M, Y') }}</li>
+                                                <li>
+                                                    <span class="rs-meta">
+                                                        By
+                                                        <a href="javascript:void(0)" class="meta-author">
+                                                            {{ $article->author->name ?? 'Admin' }}
+                                                        </a>
+                                                    </span>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
-
-                                                </div>
-
-                                            </div>
-                                    @endforeach
-
                                 </div>
-
-                    </div>
-                    @else
-                    <div class="rs-post-overlay rs-post-overlay-one">
-                        <div class="rs-post-overlay-bg-thumb"
-                            data-background="{{ asset('assets/images/default/news-placeholder.webp') }}">
-                        </div>
-                        <div class="rs-post-overlay-content text-center">
-                            <div class="rs-post-tag-two">
-                                <a href="javascript:void(0)" class="post-tag is-white">News</a>
+                                @empty
+                                <div class="rs-post-small-item">
+                                    <div class="rs-post-small-content text-center py-4">
+                                        <h6 class="rs-post-small-title">No articles found</h6>
+                                        <p class="mb-0">Latest stories will appear here soon.</p>
+                                    </div>
+                                </div>
+                                @endforelse
                             </div>
-                        @endif
+                        </div>
+                    </div>
 
-                        {{-- Right Side 3 News --}}
-                        <div>
-                            <!-- <div class="section-title-wrapper mb-15">
+                    {{-- Center Main News --}}
+                 @if($heroCenter && $heroCenter->images->count() > 0)
+
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+
+        @foreach($heroCenter->images as $index => $img)
+            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+
+                <div class="rs-post-overlay rs-post-overlay-one">
+
+                    <a href="{{ route('news.show', $heroCenter->slug) }}">
+                        <div class="rs-post-overlay-bg-thumb"
+                             style="
+                                background-image: url('{{ asset('storage/'.$img->image) }}');
+                                background-size: cover;
+                                background-position: center;
+                                height: 400px;
+                             ">
+                        </div>
+                    </a>
+
+                    <div class="rs-post-overlay-content">
+                        <div class="rs-post-tag-two">
+                            <a href="#" class="post-tag is-white">
+                                {{ $heroCenter->category->name ?? 'News' }}
+                            </a>
+                        </div>
+
+                        <h3 class="rs-post-overlay-title is-white underline">
+                            <a href="{{ route('news.show', $heroCenter->slug) }}">
+                                {{ \Str::limit($heroCenter->title, 50) }}
+                            </a>
+                        </h3>
+
+                        <div class="rs-post-meta meta-white">
+                            <ul>
+                                <li>By {{ $heroCenter->author->name ?? 'Admin' }}</li>
+                                <li>{{ $heroCenter->published_at?->format('M, Y') }}</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        @endforeach
+
+    </div>
+</div>
+
+@else
+
+{{-- ✅ Default image --}}
+<div class="rs-post-overlay rs-post-overlay-one">
+    <div class="rs-post-overlay-bg-thumb"
+         style="
+            background-image: url('{{ asset('assets/images/default/news-placeholder.webp') }}');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+         ">
+    </div>
+
+    <div class="rs-post-overlay-content text-center">
+        <div class="rs-post-tag-two">
+            <a href="javascript:void(0)" class="post-tag is-white">News</a>
+        </div>
+
+        <h3 class="rs-post-overlay-title is-white">
+            No Image Available
+        </h3>
+    </div>
+</div>
+
+@endif
+
+                            {{-- Right Side 3 News --}}
+                            <div>
+                                <!-- <div class="section-title-wrapper mb-15">
                                 <h3 class="section-title rs-split-text-enable split-in-left" style="font-size: 30px;">Recent Articles</h3>
                                 <hr>
                             </div> -->
 
-                            <div class="rs-banner-small-post">
-                                <div class="rs-post-small rs-post-small-seventeen">
-                                    @forelse($heroRight as $article)
+                                <div class="rs-banner-small-post">
+                                    <div class="rs-post-small rs-post-small-seventeen">
+                                        @forelse($heroRight as $article)
                                         <div class="rs-post-small-item">
                                             <div class="rs-post-small-content">
                                                 <div class="rs-post-tag-two">
@@ -158,75 +173,75 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @empty
+                                        @empty
                                         <div class="rs-post-small-item">
                                             <div class="rs-post-small-content text-center py-4">
                                                 <h6 class="rs-post-small-title">No articles found</h6>
                                                 <p class="mb-0">More stories will appear here soon.</p>
                                             </div>
                                         </div>
-                                    @endforelse
+                                        @endforelse
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <style>
-            .rs-post-overlay-one {
-                position: relative;
-                height: 400px;
-                /* important */
-            }
+            <style>
+                .rs-post-overlay-one {
+                    position: relative;
+                    height: 400px;
+                    /* important */
+                }
 
-            .rs-post-overlay-one .rs-post-overlay-bg-thumb {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                /* important */
-            }
-        </style>
-    </section>
-    <!-- feature area end -->
+                .rs-post-overlay-one .rs-post-overlay-bg-thumb {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    /* important */
+                }
+            </style>
+</section>
+<!-- feature area end -->
 
 <!-- DA Video section  -->
 @php
-    $featuredVideos = [
-        [
-            'title' => 'Asia Geopolitics Explained',
-            'youtube_url' => 'https://www.youtube.com/watch?v=UztPrVTRp6o',
-            'thumbnail' => 'https://img.youtube.com/vi/UztPrVTRp6o/hqdefault.jpg',
-            'meta' => 'Democracy Asia',
-        ],
-        [
-            'title' => 'Bangladesh Political Shift',
-            'youtube_url' => 'https://www.youtube.com/watch?v=nJOH06Qq-UA',
-            'thumbnail' => 'https://img.youtube.com/vi/nJOH06Qq-UA/hqdefault.jpg',
-            'meta' => 'Latest Analysis',
-        ],
-        [
-            'title' => 'Thailand and Regional Power Balance',
-            'youtube_url' => 'https://www.youtube.com/watch?v=PVztwMeOwSs',
-            'thumbnail' => 'https://img.youtube.com/vi/PVztwMeOwSs/hqdefault.jpg',
-            'meta' => 'Featured Video',
-        ],
-        [
-            'title' => 'North Korea Leadership Signals',
-            'youtube_url' => 'https://www.youtube.com/watch?v=ICywxeIHEhM',
-            'thumbnail' => 'https://img.youtube.com/vi/ICywxeIHEhM/hqdefault.jpg',
-            'meta' => 'Editorial Video',
-        ],
-        [
-            'title' => 'Iran-US Talks and Gulf Tensions',
-            'youtube_url' => 'https://www.youtube.com/watch?v=BhkcRR6eq-8',
-            'thumbnail' => 'https://img.youtube.com/vi/BhkcRR6eq-8/hqdefault.jpg',
-            'meta' => 'Top Story',
-        ],
-    ];
+$featuredVideos = [
+[
+'title' => 'Asia Geopolitics Explained',
+'youtube_url' => 'https://www.youtube.com/watch?v=UztPrVTRp6o',
+'thumbnail' => 'https://img.youtube.com/vi/UztPrVTRp6o/hqdefault.jpg',
+'meta' => 'Democracy Asia',
+],
+[
+'title' => 'Bangladesh Political Shift',
+'youtube_url' => 'https://www.youtube.com/watch?v=nJOH06Qq-UA',
+'thumbnail' => 'https://img.youtube.com/vi/nJOH06Qq-UA/hqdefault.jpg',
+'meta' => 'Latest Analysis',
+],
+[
+'title' => 'Thailand and Regional Power Balance',
+'youtube_url' => 'https://www.youtube.com/watch?v=PVztwMeOwSs',
+'thumbnail' => 'https://img.youtube.com/vi/PVztwMeOwSs/hqdefault.jpg',
+'meta' => 'Featured Video',
+],
+[
+'title' => 'North Korea Leadership Signals',
+'youtube_url' => 'https://www.youtube.com/watch?v=ICywxeIHEhM',
+'thumbnail' => 'https://img.youtube.com/vi/ICywxeIHEhM/hqdefault.jpg',
+'meta' => 'Editorial Video',
+],
+[
+'title' => 'Iran-US Talks and Gulf Tensions',
+'youtube_url' => 'https://www.youtube.com/watch?v=BhkcRR6eq-8',
+'thumbnail' => 'https://img.youtube.com/vi/BhkcRR6eq-8/hqdefault.jpg',
+'meta' => 'Top Story',
+],
+];
 @endphp
 <section class="rs-categories-area section-space-bottom rs-ptop secondary-bg rs-categories-three">
     <div class="container">
@@ -264,55 +279,55 @@
                 <div class="swiper rs-featured-video-slider">
                     <div class="swiper-wrapper">
                         @foreach($featuredVideos as $video)
-                            <div class="swiper-slide">
-                                <div class="rs-categories-item">
-                                    <div class="rs-categories-thumb position-relative">
-                                        <a href="{{ $video['youtube_url'] }}" target="_blank" rel="noopener noreferrer">
-                                            <img src="{{ $video['thumbnail'] }}" alt="{{ $video['title'] }}">
-                                        </a>
+                        <div class="swiper-slide">
+                            <div class="rs-categories-item">
+                                <div class="rs-categories-thumb position-relative">
+                                    <a href="{{ $video['youtube_url'] }}" target="_blank" rel="noopener noreferrer">
+                                        <img src="{{ $video['thumbnail'] }}" alt="{{ $video['title'] }}">
+                                    </a>
 
-                                        <a href="{{ $video['youtube_url'] }}"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="rs-video-play-btn">
-                                            <i class="ri-play-fill"></i>
-                                        </a>
+                                    <a href="{{ $video['youtube_url'] }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="rs-video-play-btn">
+                                        <i class="ri-play-fill"></i>
+                                    </a>
+                                </div>
+
+                                <div class="rs-categories-info">
+                                    <div class="rs-categories-title-wrap">
+                                        <h6 class="rs-categories-title underline">
+                                            <a href="{{ $video['youtube_url'] }}" target="_blank" rel="noopener noreferrer">
+                                                {{ $video['title'] }}
+                                            </a>
+                                        </h6>
+                                        <span class="rs-categories-meta">{{ $video['meta'] }}</span>
                                     </div>
 
-                                    <div class="rs-categories-info">
-                                        <div class="rs-categories-title-wrap">
-                                            <h6 class="rs-categories-title underline">
-                                                <a href="{{ $video['youtube_url'] }}" target="_blank" rel="noopener noreferrer">
-                                                    {{ $video['title'] }}
-                                                </a>
-                                            </h6>
-                                            <span class="rs-categories-meta">{{ $video['meta'] }}</span>
-                                        </div>
-
-                                        <div class="rs-categories-btn">
-                                            <a class="rs-square-btn has-icon has-transparent"
-                                                href="{{ $video['youtube_url'] }}"
-                                                target="_blank"
-                                                rel="noopener noreferrer">
-                                                <span class="icon-box">
-                                                    <svg class="icon-first" width="14" height="10" viewBox="0 0 14 10"
-                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M12.7628 4.24925C10.9324 4.24925 9.26427 2.58258 9.26427 0.750751V0H7.76276V0.750751C7.76276 2.08258 8.34685 3.33183 9.26351 4.24925H0V5.75075H9.26351C8.34685 6.66817 7.76276 7.91742 7.76276 9.24925V10H9.26427V9.24925C9.26427 7.41817 10.9324 5.75075 12.7628 5.75075H13.5135V4.24925H12.7628Z"
-                                                            fill="white"></path>
-                                                    </svg>
-                                                    <svg class="icon-second" width="14" height="10" viewBox="0 0 14 10"
-                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M12.7628 4.24925C10.9324 4.24925 9.26427 2.58258 9.26427 0.750751V0H7.76276V0.750751C7.76276 2.08258 8.34685 3.33183 9.26351 4.24925H0V5.75075H9.26351C8.34685 6.66817 7.76276 7.91742 7.76276 9.24925V10H9.26427V9.24925C9.26427 7.41817 10.9324 5.75075 12.7628 5.75075H13.5135V4.24925H12.7628Z"
-                                                            fill="white"></path>
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                        </div>
+                                    <div class="rs-categories-btn">
+                                        <a class="rs-square-btn has-icon has-transparent"
+                                            href="{{ $video['youtube_url'] }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            <span class="icon-box">
+                                                <svg class="icon-first" width="14" height="10" viewBox="0 0 14 10"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M12.7628 4.24925C10.9324 4.24925 9.26427 2.58258 9.26427 0.750751V0H7.76276V0.750751C7.76276 2.08258 8.34685 3.33183 9.26351 4.24925H0V5.75075H9.26351C8.34685 6.66817 7.76276 7.91742 7.76276 9.24925V10H9.26427V9.24925C9.26427 7.41817 10.9324 5.75075 12.7628 5.75075H13.5135V4.24925H12.7628Z"
+                                                        fill="white"></path>
+                                                </svg>
+                                                <svg class="icon-second" width="14" height="10" viewBox="0 0 14 10"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M12.7628 4.24925C10.9324 4.24925 9.26427 2.58258 9.26427 0.750751V0H7.76276V0.750751C7.76276 2.08258 8.34685 3.33183 9.26351 4.24925H0V5.75075H9.26351C8.34685 6.66817 7.76276 7.91742 7.76276 9.24925V10H9.26427V9.24925C9.26427 7.41817 10.9324 5.75075 12.7628 5.75075H13.5135V4.24925H12.7628Z"
+                                                        fill="white"></path>
+                                                </svg>
+                                            </span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         @endforeach
                     </div>
 
@@ -378,7 +393,7 @@
     }
 </style>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         new Swiper('.rs-featured-video-slider', {
             slidesPerView: 1,
             spaceBetween: 24,
@@ -421,192 +436,192 @@
 </div> -->
 <!-- ad banner area end -->
 
-    <!-- Monthly Edition area start -->
-    <section class="rs-trending-news-area section-space-bottom rs-ptop rs-trending-news-one bg-primary">
-        <div class="container">
-            <div class="row section-title-space align-items-center g-5">
-                <div class="col-xl-6 col-lg-6">
-                    <div class="section-title-wrapper">
-                        <h2 class="section-title rs-split-text-enable split-in-left is-white">Monthly Edition</h2>
-                    </div>
+<!-- Monthly Edition area start -->
+<section class="rs-trending-news-area section-space-bottom rs-ptop rs-trending-news-one bg-primary">
+    <div class="container">
+        <div class="row section-title-space align-items-center g-5">
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-title-wrapper">
+                    <h2 class="section-title rs-split-text-enable split-in-left is-white">Monthly Edition</h2>
                 </div>
-                <div class="col-xl-6 col-lg-6">
-                    <div class="section-btn">
-                        <a class="rs-btn has-text has-icon is-text-white"
-                            href="{{ route('category.show', 'monthly-edition') }}">View All <span class="icon-box">
-                                <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                        fill="#121213" />
-                                </svg>
-                                <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                        fill="#121213" />
-                                </svg>
-                            </span>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-btn">
+                    <a class="rs-btn has-text has-icon is-text-white"
+                        href="{{ route('category.show', 'monthly-edition') }}">View All <span class="icon-box">
+                            <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                    fill="#121213" />
+                            </svg>
+                            <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                    fill="#121213" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        @if(($breakingTop && count($breakingTop)) || (isset($breakingBottom[0]) || isset($breakingBottom[1])))
+        {{-- Top 3 Breaking News --}}
+        <div class="row g-5">
+            @forelse($breakingTop as $article)
+            <div class="col-xl-4 col-lg-6">
+                <div class="rs-post-small rs-post-small-six">
+                    <div class="rs-post-small-thumb">
+                        <a href="{{ route('news.show', $article->slug) }}" class="image-link">
+                            <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                alt="{{ $article->title }}">
                         </a>
+                    </div>
+                    <div class="rs-post-small-content">
+                        <div class="rs-post-tag">
+                            <a href="javascript:void(0)" class="post-tag is-yellow">
+                                {{ $article->category->name ?? 'News' }}
+                            </a>
+                        </div>
+                        <h6 class="rs-post-small-title underline is-white">
+                            <a href="{{ route('news.show', $article->slug) }}">
+                                {{ \Illuminate\Support\Str::limit($article->title, 35) }}
+                            </a>
+                        </h6>
+                        <div class="rs-post-meta meta-white">
+                            <ul>
+                                <li>
+                                    <span class="rs-meta">
+                                        By <a href="javascript:void(0)"
+                                            class="meta-author">{{ $article->author->name ?? 'Admin' }}</a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+            @empty
+            @endforelse
+        </div>
 
-            @if(($breakingTop && count($breakingTop)) || (isset($breakingBottom[0]) || isset($breakingBottom[1])))
-                {{-- Top 3 Breaking News --}}
-                <div class="row g-5">
-                    @forelse($breakingTop as $article)
-                        <div class="col-xl-4 col-lg-6">
-                            <div class="rs-post-small rs-post-small-six">
-                                <div class="rs-post-small-thumb">
-                                    <a href="{{ route('news.show', $article->slug) }}" class="image-link">
-                                        <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                            alt="{{ $article->title }}">
-                                    </a>
-                                </div>
-                                <div class="rs-post-small-content">
-                                    <div class="rs-post-tag">
-                                        <a href="javascript:void(0)" class="post-tag is-yellow">
-                                            {{ $article->category->name ?? 'News' }}
-                                        </a>
-                                    </div>
-                                    <h6 class="rs-post-small-title underline is-white">
-                                        <a href="{{ route('news.show', $article->slug) }}">
-                                            {{ \Illuminate\Support\Str::limit($article->title, 35) }}
-                                        </a>
-                                    </h6>
-                                    <div class="rs-post-meta meta-white">
-                                        <ul>
-                                            <li>
-                                                <span class="rs-meta">
-                                                    By <a href="javascript:void(0)"
-                                                        class="meta-author">{{ $article->author->name ?? 'Admin' }}</a>
-                                                </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="row mt-30 g-5">
+            @if(isset($breakingBottom[0]))
+            <div class="col-xl-8 col-lg-7">
+                <div class="rs-post-overlay rs-post-overlay-two">
+                    <a href="{{ route('news.show', $breakingBottom[0]->slug) }}">
+                        <div class="rs-post-overlay-bg-thumb"
+                            data-background="{{ $breakingBottom[0]->featured_image ? asset('storage/' . $breakingBottom[0]->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
                         </div>
-                    @empty
-                    @endforelse
-                </div>
-
-                <div class="row mt-30 g-5">
-                    @if(isset($breakingBottom[0]))
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="rs-post-overlay rs-post-overlay-two">
-                                <a href="{{ route('news.show', $breakingBottom[0]->slug) }}">
-                                    <div class="rs-post-overlay-bg-thumb"
-                                        data-background="{{ $breakingBottom[0]->featured_image ? asset('storage/' . $breakingBottom[0]->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
-                                    </div>
-                                </a>
-                                <div class="rs-post-overlay-content">
-                                    <div class="rs-post-tag">
-                                        <a href="javascript:void(0)" class="post-tag">
-                                            {{ $breakingBottom[0]->category->name ?? 'News' }}
-                                        </a>
-                                    </div>
-                                    <h3 class="rs-post-overlay-title is-white underline">
-                                        <a href="{{ route('news.show', $breakingBottom[0]->slug) }}">
-                                            {{ \Illuminate\Support\Str::limit($breakingBottom[0]->title, 50) }}
-                                        </a>
-                                    </h3>
-                                    <div class="rs-post-meta meta-white">
-                                        <ul>
-                                            <li>
-                                                <span class="rs-meta">
-                                                    By <a href="javascript:void(0)" class="meta-author">
-                                                        {{ $breakingBottom[0]->author->name ?? 'Admin' }}
-                                                    </a>
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span class="rs-meta">
-                                                    <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M4.33447 3.8335C4.06114 3.8335 3.83447 3.60683 3.83447 3.3335V1.3335C3.83447 1.06016 4.06114 0.833496 4.33447 0.833496C4.60781 0.833496 4.83447 1.06016 4.83447 1.3335V3.3335C4.83447 3.60683 4.60781 3.8335 4.33447 3.8335ZM9.66781 3.8335C9.39447 3.8335 9.16781 3.60683 9.16781 3.3335V1.3335C9.16781 1.06016 9.39447 0.833496 9.66781 0.833496C9.94114 0.833496 10.1678 1.06016 10.1678 1.3335V3.3335C10.1678 3.60683 9.94114 3.8335 9.66781 3.8335ZM12.6678 6.56016H1.33447C1.06114 6.56016 0.834473 6.3335 0.834473 6.06016C0.834473 5.78683 1.06114 5.56016 1.33447 5.56016H12.6678C12.9411 5.56016 13.1678 5.78683 13.1678 6.06016C13.1678 6.3335 12.9411 6.56016 12.6678 6.56016Z"
-                                                            fill="white"></path>
-                                                        <path
-                                                            d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
-                                                            fill="white"></path>
-                                                    </svg>
-                                                    <span>{{ $breakingBottom[0]->published_at ? $breakingBottom[0]->published_at->format('M, Y') : '' }}</span>
-                                                </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                    </a>
+                    <div class="rs-post-overlay-content">
+                        <div class="rs-post-tag">
+                            <a href="javascript:void(0)" class="post-tag">
+                                {{ $breakingBottom[0]->category->name ?? 'News' }}
+                            </a>
                         </div>
-                    @endif
-
-                    @if(isset($breakingBottom[1]))
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="rs-post-overlay rs-post-overlay-two">
-                                <a href="{{ route('news.show', $breakingBottom[1]->slug) }}">
-                                    <div class="rs-post-overlay-bg-thumb"
-                                        data-background="{{ $breakingBottom[1]->featured_image ? asset('storage/' . $breakingBottom[1]->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
-                                    </div>
-                                </a>
-                                <div class="rs-post-overlay-content">
-                                    <div class="rs-post-tag">
-                                        <a href="javascript:void(0)" class="post-tag is-pink">
-                                            {{ $breakingBottom[1]->category->name ?? 'News' }}
+                        <h3 class="rs-post-overlay-title is-white underline">
+                            <a href="{{ route('news.show', $breakingBottom[0]->slug) }}">
+                                {{ \Illuminate\Support\Str::limit($breakingBottom[0]->title, 50) }}
+                            </a>
+                        </h3>
+                        <div class="rs-post-meta meta-white">
+                            <ul>
+                                <li>
+                                    <span class="rs-meta">
+                                        By <a href="javascript:void(0)" class="meta-author">
+                                            {{ $breakingBottom[0]->author->name ?? 'Admin' }}
                                         </a>
-                                    </div>
-                                    <h5 class="rs-post-overlay-title is-white underline">
-                                        <a href="{{ route('news.show', $breakingBottom[1]->slug) }}">
-                                            {{ \Illuminate\Support\Str::limit($breakingBottom[1]->title, 65) }}
-                                        </a>
-                                    </h5>
-                                    <div class="rs-post-meta meta-white">
-                                        <ul>
-                                            <li>
-                                                <span class="rs-meta">
-                                                    By <a href="javascript:void(0)" class="meta-author">
-                                                        {{ $breakingBottom[1]->author->name ?? 'Admin' }}
-                                                    </a>
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span class="rs-meta">
-                                                    <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M4.33447 3.8335C4.06114 3.8335 3.83447 3.60683 3.83447 3.3335V1.3335C3.83447 1.06016 4.06114 0.833496 4.33447 0.833496C4.60781 0.833496 4.83447 1.06016 4.83447 1.3335V3.3335C4.83447 3.60683 4.60781 3.8335 4.33447 3.8335ZM9.66781 3.8335C9.39447 3.8335 9.16781 3.60683 9.16781 3.3335V1.3335C9.16781 1.06016 9.39447 0.833496 9.66781 0.833496C9.94114 0.833496 10.1678 1.06016 10.1678 1.3335V3.3335C10.1678 3.60683 9.94114 3.8335 9.66781 3.8335ZM12.6678 6.56016H1.33447C1.06114 6.56016 0.834473 6.3335 0.834473 6.06016C0.834473 5.78683 1.06114 5.56016 1.33447 5.56016H12.6678C12.9411 5.56016 13.1678 5.78683 13.1678 6.06016C13.1678 6.3335 12.9411 6.56016 12.6678 6.56016Z"
-                                                            fill="white"></path>
-                                                        <path
-                                                            d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
-                                                            fill="white"></path>
-                                                    </svg>
-                                                    <span>{{ $breakingBottom[1]->published_at ? $breakingBottom[1]->published_at->format('M, Y') : '' }}</span>
-                                                </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-            @else
-                <div class="row">
-                    <div class="col-12">
-                        <div class="text-center py-5 text-white">
-                            <h4 class="mb-2">Trending news not available</h4>
-                            <p class="mb-0">No trending articles found at the moment. Please check back later.</p>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="rs-meta">
+                                        <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M4.33447 3.8335C4.06114 3.8335 3.83447 3.60683 3.83447 3.3335V1.3335C3.83447 1.06016 4.06114 0.833496 4.33447 0.833496C4.60781 0.833496 4.83447 1.06016 4.83447 1.3335V3.3335C4.83447 3.60683 4.60781 3.8335 4.33447 3.8335ZM9.66781 3.8335C9.39447 3.8335 9.16781 3.60683 9.16781 3.3335V1.3335C9.16781 1.06016 9.39447 0.833496 9.66781 0.833496C9.94114 0.833496 10.1678 1.06016 10.1678 1.3335V3.3335C10.1678 3.60683 9.94114 3.8335 9.66781 3.8335ZM12.6678 6.56016H1.33447C1.06114 6.56016 0.834473 6.3335 0.834473 6.06016C0.834473 5.78683 1.06114 5.56016 1.33447 5.56016H12.6678C12.9411 5.56016 13.1678 5.78683 13.1678 6.06016C13.1678 6.3335 12.9411 6.56016 12.6678 6.56016Z"
+                                                fill="white"></path>
+                                            <path
+                                                d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
+                                                fill="white"></path>
+                                        </svg>
+                                        <span>{{ $breakingBottom[0]->published_at ? $breakingBottom[0]->published_at->format('M, Y') : '' }}</span>
+                                    </span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+            </div>
+            @endif
+
+            @if(isset($breakingBottom[1]))
+            <div class="col-xl-4 col-lg-5">
+                <div class="rs-post-overlay rs-post-overlay-two">
+                    <a href="{{ route('news.show', $breakingBottom[1]->slug) }}">
+                        <div class="rs-post-overlay-bg-thumb"
+                            data-background="{{ $breakingBottom[1]->featured_image ? asset('storage/' . $breakingBottom[1]->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
+                        </div>
+                    </a>
+                    <div class="rs-post-overlay-content">
+                        <div class="rs-post-tag">
+                            <a href="javascript:void(0)" class="post-tag is-pink">
+                                {{ $breakingBottom[1]->category->name ?? 'News' }}
+                            </a>
+                        </div>
+                        <h5 class="rs-post-overlay-title is-white underline">
+                            <a href="{{ route('news.show', $breakingBottom[1]->slug) }}">
+                                {{ \Illuminate\Support\Str::limit($breakingBottom[1]->title, 65) }}
+                            </a>
+                        </h5>
+                        <div class="rs-post-meta meta-white">
+                            <ul>
+                                <li>
+                                    <span class="rs-meta">
+                                        By <a href="javascript:void(0)" class="meta-author">
+                                            {{ $breakingBottom[1]->author->name ?? 'Admin' }}
+                                        </a>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="rs-meta">
+                                        <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M4.33447 3.8335C4.06114 3.8335 3.83447 3.60683 3.83447 3.3335V1.3335C3.83447 1.06016 4.06114 0.833496 4.33447 0.833496C4.60781 0.833496 4.83447 1.06016 4.83447 1.3335V3.3335C4.83447 3.60683 4.60781 3.8335 4.33447 3.8335ZM9.66781 3.8335C9.39447 3.8335 9.16781 3.60683 9.16781 3.3335V1.3335C9.16781 1.06016 9.39447 0.833496 9.66781 0.833496C9.94114 0.833496 10.1678 1.06016 10.1678 1.3335V3.3335C10.1678 3.60683 9.94114 3.8335 9.66781 3.8335ZM12.6678 6.56016H1.33447C1.06114 6.56016 0.834473 6.3335 0.834473 6.06016C0.834473 5.78683 1.06114 5.56016 1.33447 5.56016H12.6678C12.9411 5.56016 13.1678 5.78683 13.1678 6.06016C13.1678 6.3335 12.9411 6.56016 12.6678 6.56016Z"
+                                                fill="white"></path>
+                                            <path
+                                                d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
+                                                fill="white"></path>
+                                        </svg>
+                                        <span>{{ $breakingBottom[1]->published_at ? $breakingBottom[1]->published_at->format('M, Y') : '' }}</span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @endif
         </div>
-    </section>
-    <!-- Monthly Edition area start -->
+        @else
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center py-5 text-white">
+                    <h4 class="mb-2">Trending news not available</h4>
+                    <p class="mb-0">No trending articles found at the moment. Please check back later.</p>
+                </div>
+            </div>
+        </div>
+        @endif
+    </div>
+</section>
+<!-- Monthly Edition area start -->
 
-    <!-- featured news area start -->
-    <section class="rs-trending-stories-area section-space-bottom rs-ptop rs-trending-stories-one secondary-bg">
+<!-- featured news area start -->
+<section class="rs-trending-stories-area section-space-bottom rs-ptop rs-trending-stories-one secondary-bg">
     <div class="container">
         <div class="row section-title-space align-items-center g-5">
             <div class="col-xl-6 col-lg-6">
@@ -720,7 +735,7 @@
                             @foreach($categories as $category)
                             <li>
                                 <a href="{{ route('category.show', $category->slug) }}" class="rs-categories-bg-thumb"
-                            style="background-image: url('{{ $category->images ? asset($category->images) : asset('assets/images/categories/categories-thumb-01.webp') }}')">
+                                    style="background-image: url('{{ $category->images ? asset($category->images) : asset('assets/images/categories/categories-thumb-01.webp') }}')">
                                     <span class="rs-categories-name">
                                         {{ $category->name }}
                                         ({{ $category->articles_count ?? $category->articles()->where('status', 'published')->count() }})
@@ -892,7 +907,7 @@
     </div>
     </div>
 </section>
-    <!-- featured nes area end -->
+<!-- featured nes area end -->
 
 <!-- Asia In Brief area start -->
 @if($asiaInBriefCategory && $asiaInBriefArticles->count())
@@ -932,58 +947,58 @@
 
         <div class="row g-5">
             @foreach($asiaInBriefArticles as $article)
-                <div class="col-xl-4 col-lg-4 col-md-6">
-                    <div class="rs-post-overlay rs-post-overlay-four">
-                        <a href="{{ route('news.show', $article->slug) }}">
-                            <div class="rs-post-overlay-bg-thumb"
-                                data-background="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
-                            </div>
-                        </a>
+            <div class="col-xl-4 col-lg-4 col-md-6">
+                <div class="rs-post-overlay rs-post-overlay-four">
+                    <a href="{{ route('news.show', $article->slug) }}">
+                        <div class="rs-post-overlay-bg-thumb"
+                            data-background="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
+                        </div>
+                    </a>
 
-                        <div class="rs-post-overlay-content">
-                            <div class="rs-post-tag-two">
-                                <a href="{{ route('category.show', $article->category->slug) }}" class="post-tag is-white">
-                                    {{ $article->category->name ?? 'News' }}
-                                </a>
-                            </div>
+                    <div class="rs-post-overlay-content">
+                        <div class="rs-post-tag-two">
+                            <a href="{{ route('category.show', $article->category->slug) }}" class="post-tag is-white">
+                                {{ $article->category->name ?? 'News' }}
+                            </a>
+                        </div>
 
-                            <h5 class="rs-post-overlay-title is-white underline">
-                                <a href="{{ route('news.show', $article->slug) }}">
-                                    {{ \Illuminate\Support\Str::limit($article->title, 70) }}
-                                </a>
-                            </h5>
+                        <h5 class="rs-post-overlay-title is-white underline">
+                            <a href="{{ route('news.show', $article->slug) }}">
+                                {{ \Illuminate\Support\Str::limit($article->title, 70) }}
+                            </a>
+                        </h5>
 
-                            <div class="rs-post-meta meta-white">
-                                <ul>
-                                    <li>
-                                        <span class="rs-meta">
-                                            By
-                                            <a href="javascript:void(0)" class="meta-author">
-                                                {{ $article->author->name ?? 'Admin' }}
-                                            </a>
-                                        </span>
-                                    </li>
+                        <div class="rs-post-meta meta-white">
+                            <ul>
+                                <li>
+                                    <span class="rs-meta">
+                                        By
+                                        <a href="javascript:void(0)" class="meta-author">
+                                            {{ $article->author->name ?? 'Admin' }}
+                                        </a>
+                                    </span>
+                                </li>
 
 
-                                    <li>
-                                        <span class="rs-meta">
-                                            <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M4.33447 3.8335C4.06114 3.8335 3.83447 3.60683 3.83447 3.3335V1.3335C3.83447 1.06016 4.06114 0.833496 4.33447 0.833496C4.60781 0.833496 4.83447 1.06016 4.83447 1.3335V3.3335C4.83447 3.60683 4.60781 3.8335 4.33447 3.8335ZM9.66781 3.8335C9.39447 3.8335 9.16781 3.60683 9.16781 3.3335V1.3335C9.16781 1.06016 9.39447 0.833496 9.66781 0.833496C9.94114 0.833496 10.1678 1.06016 10.1678 1.3335V3.3335C10.1678 3.60683 9.94114 3.8335 9.66781 3.8335ZM12.6678 6.56016H1.33447C1.06114 6.56016 0.834473 6.3335 0.834473 6.06016C0.834473 5.78683 1.06114 5.56016 1.33447 5.56016H12.6678C12.9411 5.56016 13.1678 5.78683 13.1678 6.06016C13.1678 6.3335 12.9411 6.56016 12.6678 6.56016Z"
-                                                    fill="white"></path>
-                                                <path
-                                                    d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668Z"
-                                                    fill="white"></path>
-                                            </svg>
-                                            <span>{{ optional($article->published_at)->format('M, Y') }}</span>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
+                                <li>
+                                    <span class="rs-meta">
+                                        <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M4.33447 3.8335C4.06114 3.8335 3.83447 3.60683 3.83447 3.3335V1.3335C3.83447 1.06016 4.06114 0.833496 4.33447 0.833496C4.60781 0.833496 4.83447 1.06016 4.83447 1.3335V3.3335C4.83447 3.60683 4.60781 3.8335 4.33447 3.8335ZM9.66781 3.8335C9.39447 3.8335 9.16781 3.60683 9.16781 3.3335V1.3335C9.16781 1.06016 9.39447 0.833496 9.66781 0.833496C9.94114 0.833496 10.1678 1.06016 10.1678 1.3335V3.3335C10.1678 3.60683 9.94114 3.8335 9.66781 3.8335ZM12.6678 6.56016H1.33447C1.06114 6.56016 0.834473 6.3335 0.834473 6.06016C0.834473 5.78683 1.06114 5.56016 1.33447 5.56016H12.6678C12.9411 5.56016 13.1678 5.78683 13.1678 6.06016C13.1678 6.3335 12.9411 6.56016 12.6678 6.56016Z"
+                                                fill="white"></path>
+                                            <path
+                                                d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668Z"
+                                                fill="white"></path>
+                                        </svg>
+                                        <span>{{ optional($article->published_at)->format('M, Y') }}</span>
+                                    </span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+            </div>
             @endforeach
         </div>
     </div>
@@ -991,278 +1006,278 @@
 @endif
 <!-- Asia In Brief area end -->
 
-    <!-- cta area start -->
-     @if(!auth()->user())
-    <section class="rs-cta-area rs-cta-one section-space">
-        <div class="container">
-            <div class="rs-cta-wrapper"
-                style="background: linear-gradient(90deg, #0b1d4d 0%, #173f88 45%, #2d83e6 100%); border-radius: 12px;">
-                <div class="cta-shape-one">
-                    <img src="{{ asset('assets/images/cta/cta-thumb-01.webp') }}" alt="image">
-                </div>
-                <div class="cta-shape-two">
-                    <img src="{{ asset('assets/images/cta/cta-thumb-02.webp') }}" alt="image">
-                </div>
-                <div class="cta-shape-three">
-                    <img src="{{ asset('assets/images/cta/cta-thumb-03.webp') }}" alt="image">
-                </div>
-                <div class="cta-shape-four">
-                    <img src="{{ asset('assets/images/cta/cta-thumb-04.webp') }}" alt="image">
-                </div>
-                <div class="cta-shape-five">
-                    <img src="{{ asset('assets/images/shape/multi-dot-shape.webp') }}" alt="image">
-                </div>
-                <div class="rs-cta-bg-thumb" data-background="{{ asset('assets/images/bg/cta-bg-thumb-01.webp') }}"></div>
+<!-- cta area start -->
+@if(!auth()->user())
+<section class="rs-cta-area rs-cta-one section-space">
+    <div class="container">
+        <div class="rs-cta-wrapper"
+            style="background: linear-gradient(90deg, #0b1d4d 0%, #173f88 45%, #2d83e6 100%); border-radius: 12px;">
+            <div class="cta-shape-one">
+                <img src="{{ asset('assets/images/cta/cta-thumb-01.webp') }}" alt="image">
+            </div>
+            <div class="cta-shape-two">
+                <img src="{{ asset('assets/images/cta/cta-thumb-02.webp') }}" alt="image">
+            </div>
+            <div class="cta-shape-three">
+                <img src="{{ asset('assets/images/cta/cta-thumb-03.webp') }}" alt="image">
+            </div>
+            <div class="cta-shape-four">
+                <img src="{{ asset('assets/images/cta/cta-thumb-04.webp') }}" alt="image">
+            </div>
+            <div class="cta-shape-five">
+                <img src="{{ asset('assets/images/shape/multi-dot-shape.webp') }}" alt="image">
+            </div>
+            <div class="rs-cta-bg-thumb" data-background="{{ asset('assets/images/bg/cta-bg-thumb-01.webp') }}"></div>
 
-                <div class="row">
-                    <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-10">
-                        <div class="rs-cta-content-wrapper">
-                            <h3 class="section-title rs-split-text-enable split-in-left is-white">
-                                Subscribe to our new updates!
-                            </h3>
+            <div class="row">
+                <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-10">
+                    <div class="rs-cta-content-wrapper">
+                        <h3 class="section-title rs-split-text-enable split-in-left is-white">
+                            Subscribe to our new updates!
+                        </h3>
 
-                            <div class="rs-cta-form">
-                                <form method="POST" action="{{ route('newsletter.subscribe') }}" id="newsletterForm">
-                                    @csrf
+                        <div class="rs-cta-form">
+                            <form method="POST" action="{{ route('newsletter.subscribe') }}" id="newsletterForm">
+                                @csrf
 
-                                    <div class="rs-cta-input">
-                                        <input id="cta_email" name="email" type="email" placeholder="Enter your email"
-                                            value="{{ old('email') }}" required>
+                                <div class="rs-cta-input">
+                                    <input id="cta_email" name="email" type="email" placeholder="Enter your email"
+                                        value="{{ old('email') }}" required>
 
-                                        <button type="submit" class="rs-btn has-icon hover-black">
-                                            Subscribe
-                                            <span class="icon-box">
-                                                <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                        fill="white" />
-                                                </svg>
+                                    <button type="submit" class="rs-btn has-icon hover-black">
+                                        Subscribe
+                                        <span class="icon-box">
+                                            <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                                    fill="white" />
+                                            </svg>
 
-                                                <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                        fill="white" />
-                                                </svg>
-                                            </span>
-                                        </button>
-                                    </div>
-                                </form>
+                                            <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                                    fill="white" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+                            </form>
 
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    @endif
-    <!-- cta area end -->
+    </div>
+</section>
+@endif
+<!-- cta area end -->
 
-    <!-- video area start -->
-    <section class="rs-video-area bg-primary section-space-bottom rs-ptop rs-video-one">
-        <div class="container">
-            <div class="row section-title-space align-items-center g-5">
-                <div class="col-xl-6 col-lg-6">
-                    <div class="section-title-wrapper">
-                        <h2 class="section-title rs-split-text-enable split-in-left is-white">Highlight Stories</h2>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6">
-                    <div class="section-btn">
-                        <a class="rs-btn has-text has-icon is-text-white"
-                            href="https://www.youtube.com/watch?v=fyUmW3JFuAA&t=2s">View Channel
-                            <span class="icon-box">
-                                <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                        fill="#121213" />
-                                </svg>
-                                <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                        fill="#121213" />
-                                </svg>
-                            </span>
-                        </a>
-                    </div>
+<!-- video area start -->
+<section class="rs-video-area bg-primary section-space-bottom rs-ptop rs-video-one">
+    <div class="container">
+        <div class="row section-title-space align-items-center g-5">
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-title-wrapper">
+                    <h2 class="section-title rs-split-text-enable split-in-left is-white">Highlight Stories</h2>
                 </div>
             </div>
-            <div class="row g-5">
-                <div class="col-xl-8 col-lg-7">
-                    <div class="rs-post-video rs-post-video-one">
-                        <div class="rs-post-video-item">
-                            <div class="rs-post-video">
-                                <!-- <video loop="" muted="" autoplay="" playsinline="">
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-btn">
+                    <a class="rs-btn has-text has-icon is-text-white"
+                        href="https://www.youtube.com/watch?v=fyUmW3JFuAA&t=2s">View Channel
+                        <span class="icon-box">
+                            <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                    fill="#121213" />
+                            </svg>
+                            <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                    fill="#121213" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row g-5">
+            <div class="col-xl-8 col-lg-7">
+                <div class="rs-post-video rs-post-video-one">
+                    <div class="rs-post-video-item">
+                        <div class="rs-post-video">
+                            <!-- <video loop="" muted="" autoplay="" playsinline="">
                                         <source src="{{ asset('assets/video/Democrecy Asia (Bangladesh).mov') }}" type="video/mp4">
                                     </video> -->
-                                <iframe width="100%" height="400" src="https://www.youtube.com/embed/fyUmW3JFuAA"
-                                    title="YouTube Shorts" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen style="border-radius:12px;">
-                                </iframe>
-                            </div>
+                            <iframe width="100%" height="400" src="https://www.youtube.com/embed/fyUmW3JFuAA"
+                                title="YouTube Shorts" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen style="border-radius:12px;">
+                            </iframe>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- video area end -->
+    </div>
+</section>
+<!-- video area end -->
 
-    <!-- category news start -->
-    <section class="rs-trending-news-area section-space-bottom rs-ptop rs-trending-news-three">
-        <div class="container">
-            <div class="row section-title-space align-items-center g-5">
-                <div class="col-xl-6 col-lg-6">
-                    <div class="section-title-wrapper">
-                        <h2 class="section-title rs-split-text-enable split-in-left">
-                            {{ $selectedCategory->name ?? 'Business' }}
-                        </h2>
-                    </div>
+<!-- category news start -->
+<section class="rs-trending-news-area section-space-bottom rs-ptop rs-trending-news-three">
+    <div class="container">
+        <div class="row section-title-space align-items-center g-5">
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-title-wrapper">
+                    <h2 class="section-title rs-split-text-enable split-in-left">
+                        {{ $selectedCategory->name ?? 'Business' }}
+                    </h2>
                 </div>
-                <div class="col-xl-6 col-lg-6">
-                    <div class="section-btn d-flex justify-content-lg-end">
-                        <a class="rs-btn has-text has-icon" href="{{ route('category.show', 'business') }}">View All
-                            <span class="icon-box">
-                                <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                        fill="#121213" />
-                                </svg>
-                                <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                        fill="#121213" />
-                                </svg>
-                            </span>
-                        </a>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-btn d-flex justify-content-lg-end">
+                    <a class="rs-btn has-text has-icon" href="{{ route('category.show', 'business') }}">View All
+                        <span class="icon-box">
+                            <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                    fill="#121213" />
+                            </svg>
+                            <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                    fill="#121213" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        @if(isset($categoryArticles[0]))
+        <div class="row g-5">
+            <div class="{{ count($categoryArticles) > 1 ? 'col-xl-4' : 'col-xl-12' }}">
+                <div class="rs-post-overlay rs-post-overlay-one featured-category-post">
+                    <a href="{{ route('news.show', $categoryArticles[0]->slug) }}">
+                        <div class="rs-post-overlay-bg-thumb"
+                            data-background="{{ $categoryArticles[0]->featured_image ? asset('storage/' . $categoryArticles[0]->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
+                        </div>
+                    </a>
+
+                    <div class="rs-post-overlay-content">
+                        <div class="rs-post-tag-two">
+                            <a href="javascript:void(0)" class="post-tag is-white">
+                                {{ $categoryArticles[0]->category->name ?? ($selectedCategory->name ?? 'News') }}
+                            </a>
+                        </div>
+
+                        <h5 class="rs-post-overlay-title is-white underline">
+                            <a href="{{ route('news.show', $categoryArticles[0]->slug) }}">
+                                {{ \Illuminate\Support\Str::limit($categoryArticles[0]->title, 55) }}
+                            </a>
+                        </h5>
+
+                        <div class="rs-post-meta meta-white">
+                            <ul>
+                                <li>
+                                    <span class="rs-meta">
+                                        By <a href="javascript:void(0)" class="meta-author">
+                                            {{ $categoryArticles[0]->author->name ?? 'Admin' }}
+                                        </a>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="rs-meta">
+                                        <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M4.33447 3.8335C4.06114 3.8335 3.83447 3.60683 3.83447 3.3335V1.3335C3.83447 1.06016 4.06114 0.833496 4.33447 0.833496C4.60781 0.833496 4.83447 1.06016 4.83447 1.3335V3.3335C4.83447 3.60683 4.60781 3.8335 4.33447 3.8335ZM9.66781 3.8335C9.39447 3.8335 9.16781 3.60683 9.16781 3.3335V1.3335C9.16781 1.06016 9.39447 0.833496 9.66781 0.833496C9.94114 0.833496 10.1678 1.06016 10.1678 1.3335V3.3335C10.1678 3.60683 9.94114 3.8335 9.66781 3.8335ZM12.6678 6.56016H1.33447C1.06114 6.56016 0.834473 6.3335 0.834473 6.06016C0.834473 5.78683 1.06114 5.56016 1.33447 5.56016H12.6678C12.9411 5.56016 13.1678 5.78683 13.1678 6.06016C13.1678 6.3335 12.9411 6.56016 12.6678 6.56016Z"
+                                                fill="white"></path>
+                                            <path
+                                                d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
+                                                fill="white"></path>
+                                        </svg>
+                                        <span>
+                                            {{ $categoryArticles[0]->published_at ? $categoryArticles[0]->published_at->format('M, Y') : '' }}
+                                        </span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            @if(isset($categoryArticles[0]))
-                <div class="row g-5">
-                    <div class="{{ count($categoryArticles) > 1 ? 'col-xl-4' : 'col-xl-12' }}">
-                        <div class="rs-post-overlay rs-post-overlay-one featured-category-post">
-                            <a href="{{ route('news.show', $categoryArticles[0]->slug) }}">
-                                <div class="rs-post-overlay-bg-thumb"
-                                    data-background="{{ $categoryArticles[0]->featured_image ? asset('storage/' . $categoryArticles[0]->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
-                                </div>
-                            </a>
-
-                            <div class="rs-post-overlay-content">
+            @if(count($categoryArticles) > 1)
+            <div class="col-xl-8">
+                <div class="rs-post-small-nineteen">
+                    <div class="rs-post-small-wrapper">
+                        @for($i = 1; $i < 9; $i++)
+                            @if(isset($categoryArticles[$i]))
+                            @php $article=$categoryArticles[$i]; @endphp
+                            <div class="rs-post-small">
+                            <div class="rs-post-small-thumb">
+                                <a href="{{ route('news.show', $article->slug) }}" class="image-link">
+                                    <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                        alt="{{ $article->title }}">
+                                </a>
+                            </div>
+                            <div class="rs-post-small-content">
                                 <div class="rs-post-tag-two">
-                                    <a href="javascript:void(0)" class="post-tag is-white">
-                                        {{ $categoryArticles[0]->category->name ?? ($selectedCategory->name ?? 'News') }}
+                                    <a href="javascript:void(0)" class="post-tag">
+                                        {{ $article->category->name ?? ($selectedCategory->name ?? 'News') }}
                                     </a>
                                 </div>
-
-                                <h5 class="rs-post-overlay-title is-white underline">
-                                    <a href="{{ route('news.show', $categoryArticles[0]->slug) }}">
-                                        {{ \Illuminate\Support\Str::limit($categoryArticles[0]->title, 55) }}
+                                <h6 class="rs-post-small-title underline">
+                                    <a href="{{ route('news.show', $article->slug) }}">
+                                        {{ \Illuminate\Support\Str::limit($article->title, 55) }}
                                     </a>
-                                </h5>
-
-                                <div class="rs-post-meta meta-white">
+                                </h6>
+                                <div class="rs-post-meta">
                                     <ul>
                                         <li>
                                             <span class="rs-meta">
                                                 By <a href="javascript:void(0)" class="meta-author">
-                                                    {{ $categoryArticles[0]->author->name ?? 'Admin' }}
+                                                    {{ $article->author->name ?? 'Admin' }}
                                                 </a>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="rs-meta">
-                                                <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M4.33447 3.8335C4.06114 3.8335 3.83447 3.60683 3.83447 3.3335V1.3335C3.83447 1.06016 4.06114 0.833496 4.33447 0.833496C4.60781 0.833496 4.83447 1.06016 4.83447 1.3335V3.3335C4.83447 3.60683 4.60781 3.8335 4.33447 3.8335ZM9.66781 3.8335C9.39447 3.8335 9.16781 3.60683 9.16781 3.3335V1.3335C9.16781 1.06016 9.39447 0.833496 9.66781 0.833496C9.94114 0.833496 10.1678 1.06016 10.1678 1.3335V3.3335C10.1678 3.60683 9.94114 3.8335 9.66781 3.8335ZM12.6678 6.56016H1.33447C1.06114 6.56016 0.834473 6.3335 0.834473 6.06016C0.834473 5.78683 1.06114 5.56016 1.33447 5.56016H12.6678C12.9411 5.56016 13.1678 5.78683 13.1678 6.06016C13.1678 6.3335 12.9411 6.56016 12.6678 6.56016Z"
-                                                        fill="white"></path>
-                                                    <path
-                                                        d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
-                                                        fill="white"></path>
-                                                </svg>
-                                                <span>
-                                                    {{ $categoryArticles[0]->published_at ? $categoryArticles[0]->published_at->format('M, Y') : '' }}
-                                                </span>
                                             </span>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                        </div>
                     </div>
-
-                    @if(count($categoryArticles) > 1)
-                        <div class="col-xl-8">
-                            <div class="rs-post-small-nineteen">
-                                <div class="rs-post-small-wrapper">
-                                    @for($i = 1; $i < 9; $i++)
-                                        @if(isset($categoryArticles[$i]))
-                                            @php $article = $categoryArticles[$i]; @endphp
-                                            <div class="rs-post-small">
-                                                <div class="rs-post-small-thumb">
-                                                    <a href="{{ route('news.show', $article->slug) }}" class="image-link">
-                                                        <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                                            alt="{{ $article->title }}">
-                                                    </a>
-                                                </div>
-                                                <div class="rs-post-small-content">
-                                                    <div class="rs-post-tag-two">
-                                                        <a href="javascript:void(0)" class="post-tag">
-                                                            {{ $article->category->name ?? ($selectedCategory->name ?? 'News') }}
-                                                        </a>
-                                                    </div>
-                                                    <h6 class="rs-post-small-title underline">
-                                                        <a href="{{ route('news.show', $article->slug) }}">
-                                                            {{ \Illuminate\Support\Str::limit($article->title, 55) }}
-                                                        </a>
-                                                    </h6>
-                                                    <div class="rs-post-meta">
-                                                        <ul>
-                                                            <li>
-                                                                <span class="rs-meta">
-                                                                    By <a href="javascript:void(0)" class="meta-author">
-                                                                        {{ $article->author->name ?? 'Admin' }}
-                                                                    </a>
-                                                                </span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    @endfor
-                                </div>
-                            </div>
-                        </div>
                     @endif
-                </div>
-            @endif
-        </div>
-    </section>
-    <!-- category news end -->
-
-    <!-- ad banner area start -->
-    <div class="ad-banner-area rs-ad-banner-one section-space-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <!-- <div class="rs-ad-banner-thumb">
-                            <a href="/plans"><img src="{{ asset('assets/images/ad/ad-2.webp') }}"
-                                    alt="image"></a>
-                        </div> -->
+                    @endfor
                 </div>
             </div>
         </div>
+        @endif
     </div>
-    <!-- ad banner area end -->
+    @endif
+    </div>
+</section>
+<!-- category news end -->
+
+<!-- ad banner area start -->
+<div class="ad-banner-area rs-ad-banner-one section-space-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- <div class="rs-ad-banner-thumb">
+                            <a href="/plans"><img src="{{ asset('assets/images/ad/ad-2.webp') }}"
+                                    alt="image"></a>
+                        </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ad banner area end -->
 
 @endsection
