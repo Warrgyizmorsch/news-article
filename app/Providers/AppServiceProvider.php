@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
             }
             ])
                 ->where('status', 1)
-                ->having('articles_count', '>', 0)
+                // ->having('articles_count', '>', 0)
                 ->orderBy('sort_order')
                 ->orderBy('name')
                 ->take(8)
@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
                     ->whereNotNull('published_at');
             }
             ])
-                ->having('articles_count', '>', 0)
+                // ->having('articles_count', '>', 0)
                 ->orderByDesc('articles_count')
                 ->take(14)
                 ->get();
