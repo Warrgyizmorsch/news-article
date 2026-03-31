@@ -61,6 +61,6 @@ class Article extends Model
 
     public function images()
     {
-        return $this->hasMany(ArticleImage::class);
+        return $this->hasMany(ArticleImage::class,'article_id');
     }
 }
