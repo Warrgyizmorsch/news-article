@@ -88,7 +88,7 @@
                     <button class="nav-link active" id="current-tab" data-bs-toggle="tab" data-bs-target="#current" type="button" role="tab" aria-controls="current" aria-selected="true">Current edition</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="browse-tab" data-bs-toggle="tab" data-bs-target="#browse" type="button" role="tab" aria-controls="browse" aria-selected="false">Browse all editions</button>
+                    <button class="nav-link" id="browse-tab" data-bs-toggle="tab" data-bs-target="#browse" type="button" role="tab" aria-controls="browse" aria-selected="false">Previous editions</button>
                 </li>
             </ul>
         </div>
