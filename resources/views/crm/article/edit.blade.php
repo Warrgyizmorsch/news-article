@@ -91,10 +91,10 @@
                         </div>
                     </div>
 
-                    <div class="row g-3 mb-4">
+                    <div class="row g-3 mb-4" id="categorySection">
                         <label class="col-lg-3 col-form-label fw-semibold">Category</label>
                         <div class="col-lg-9">
-                            <select name="category_id" class="form-select" data-select2-selector="tag" required>
+                            <select name="category_id" class="form-select" data-select2-selector="tag">
                                 <option value="">Select Category</option>
                                 @foreach($categories as $category)
                                 <option value="{{ $category->id }}"
@@ -395,10 +395,12 @@
 
                 if (selectedText.includes('monthly edition')) {
                     $('#contentSection').addClass('d-none');
+                     $('#categorySection').addClass('d-none');
                     $('#pdfUploadSection').removeClass('d-none');
                     $('#imageUploadSection').removeClass('d-none');
                 } else {
                     $('#contentSection').removeClass('d-none');
+                    $('#categorySection').removeClass('d-none');
                     $('#pdfUploadSection').addClass('d-none');
                     $('#imageUploadSection').addClass('d-none');
                 }

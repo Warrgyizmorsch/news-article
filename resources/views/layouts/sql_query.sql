@@ -9,4 +9,5 @@ ALTER TABLE `articles` ADD `section_id` INT NULL AFTER `category_id`;
 ALTER TABLE `articles` CHANGE `content` `content` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
 ALTER TABLE `articles` ADD `auther` VARCHAR(255) NULL DEFAULT NULL AFTER `pdf_file`;
 ALTER TABLE `articles` ADD `auther_description` TEXT NULL DEFAULT NULL AFTER `auther`;
-a
+
+ALTER TABLE `articles` CHANGE `category_id` `category_id` BIGINT(20) UNSIGNED NULL DEFAULT NULL;

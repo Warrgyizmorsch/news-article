@@ -17,7 +17,7 @@ class UpdateArticleRequest extends FormRequest
         $id = $this->route('id');
 
         return [
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
             'title' => 'required|string|max:255',
             'slug' => ['nullable', 'string', 'max:255', Rule::unique('articles', 'slug')->ignore($id)],
             'excerpt' => 'nullable|string',

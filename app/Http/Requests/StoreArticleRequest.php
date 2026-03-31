@@ -14,7 +14,7 @@ class StoreArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
             'title' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:articles,slug',
             'excerpt' => 'nullable|string',

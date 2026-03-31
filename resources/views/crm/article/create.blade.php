@@ -70,7 +70,7 @@
                         </div>
                     </div>
 
-                    <div class="row g-3 mb-4">
+                    <div class="row g-3 mb-4" >
                         <label class="col-lg-3 col-form-label fw-semibold">Section</label>
                         <div class="col-lg-9">
                             <select name="section_id" id="sectionSelect" class="form-select" data-select2-selector="tag" required>
@@ -86,10 +86,10 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="row g-3 mb-4">
+                    <div class="row g-3 mb-4" id="categorySection">
                         <label class="col-lg-3 col-form-label fw-semibold">Category</label>
                         <div class="col-lg-9">
-                            <select name="category_id" class="form-select" data-select2-selector="tag" required>
+                            <select name="category_id" class="form-select" data-select2-selector="tag">
                                 <option value="">Select Category</option>
                                 @foreach($categories as $category)
                                 <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
@@ -357,13 +357,12 @@
 
             $('#sectionSelect').on('change select2:select', function() {
 
-                console.log('hello');
-
                 const selectedText = $(this).find(':selected').text().toLowerCase();
 
                 if (selectedText.includes('monthly edition')) {
                     // Hide editor
                     $('#contentSection').addClass('d-none');
+                    $('#categorySection').addClass('d-none');
 
                     // Show PDF + Images
                     $('#pdfUploadSection').removeClass('d-none');
@@ -371,6 +370,7 @@
                 } else {
                     // Show editor
                     $('#contentSection').removeClass('d-none');
+                    $('#categorySection').removeClass('d-none');
 
                     // Hide PDF + Images
                     $('#pdfUploadSection').addClass('d-none');
