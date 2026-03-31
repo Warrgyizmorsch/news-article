@@ -105,12 +105,12 @@
                                 </span>
                             </div>
                             <h1 style="font-size: 56px; font-weight: 700; color: #111827; line-height: 1.1; font-family: 'Playfair Display', serif; margin-bottom: 24px;">
-                                <a href="{{ route('news.show', $article->slug) }}" style="color: inherit; text-decoration: none;">
+                                <a href="{{ route('news.show', $latestArticle->slug) }}" style="color: inherit; text-decoration: none;">
                                     {{ $latestArticle->title }}
                                 </a>
                             </h1>
                             <div class="mt-4">
-                                <a href="{{ route('news.show', $article->slug) }}" class="rs-btn bg-primary is-white has-icon">
+                                <a href="{{ route('news.show', $latestArticle->slug) }}" class="rs-btn bg-primary is-white has-icon">
                                     Read Edition
                                     <span class="icon-box">
                                         <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
@@ -131,7 +131,7 @@
                         </div>
                         <div class="col-lg-8 col-xl-7">
                             <div style="aspect-ratio: 16/9; overflow: hidden; border: 1px solid #e5e7eb;">
-                                <a href="{{ route('news.show', $article->slug) }}" class="hover-zoom-img">
+                                <a href="{{ route('news.show', $latestArticle->slug) }}" class="hover-zoom-img">
                                     <img src="{{ $latestArticle->featured_image ? asset('storage/' . $latestArticle->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                         alt="{{ $latestArticle->title }}" style="width: 100%; height: 100%; object-fit: contain;">
                                 </a>
@@ -190,7 +190,7 @@
                                             <line x1="8" y1="2" x2="8" y2="6"></line>
                                             <line x1="3" y1="10" x2="21" y2="10"></line>
                                         </svg>
-                                        {{ optional($article->published_at)->format('M j, Y') }}
+                                        {{ optional($article->published_at)->format('M Y') }}
                                     </span>
                                 </div>
                                 
