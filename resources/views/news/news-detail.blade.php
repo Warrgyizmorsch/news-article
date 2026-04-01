@@ -337,6 +337,10 @@
                     .rs-related-card:hover h6 {
                         color: var(--rs-theme-red);
                     }
+                    .right-text {
+                     margin-left: auto; 
+                      margin-right: 340px; 
+                    }
 
                     @media (max-width: 768px) {
                         .rs-blog-post-title {
@@ -427,11 +431,21 @@
                                         <div class="rs-meta-item">
                                             <i class="ri-time-line"></i>
                                             @php
-    $wordCount = str_word_count(strip_tags($article->content));
-    $readingTime = ceil($wordCount / 200);
+                                                 $wordCount = str_word_count(strip_tags($article->content));
+                                                  $readingTime = ceil($wordCount / 200);
                                             @endphp
                                             <span>{{ $readingTime }} min read</span>
                                         </div>
+                                          
+                                          <p class="right-text">
+                                              <span class="fs-4 fw-bold"> Source: </span>
+                                              @if($article->pdf_file)
+                                              <a href="{{ asset('storage/'.$article->pdf_file) }}" target="_blank">view</a>
+                                              @else
+                                              <span>-</span>
+                                               @endif
+                                          </p>
+                                         
                                     </div>
                                 </div>
                             </div>

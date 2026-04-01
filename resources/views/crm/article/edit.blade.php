@@ -151,7 +151,7 @@
                         </div>
                     </div>
 
-                    <div class="row g-3 mb-4 d-none" id="pdfUploadSection">
+                    <div class="row g-3 mb-4">
                         <label class="col-lg-3 col-form-label fw-semibold">Upload PDF</label>
                         <div class="col-lg-9">
                             <input type="file" name="pdf_file" class="form-control" accept=".pdf">
@@ -406,12 +406,10 @@
                 if (selectedText.includes('monthly edition')) {
                     $('#contentSection').addClass('d-none');
                      $('#categorySection').addClass('d-none');
-                    $('#pdfUploadSection').removeClass('d-none');
                     $('#imageUploadSection').removeClass('d-none');
                 } else {
                     $('#contentSection').removeClass('d-none');
                     $('#categorySection').removeClass('d-none');
-                    $('#pdfUploadSection').addClass('d-none');
                     $('#imageUploadSection').addClass('d-none');
                 }
             }
