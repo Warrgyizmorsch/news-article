@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Request;
+use App\Models\DaVideo;
 
 class HomeController extends Controller
 {
@@ -229,6 +230,8 @@ if ($bookshelfCategory) {
             ->where('status', 1)
             ->first();
 
+        $featuredVideos = DaVideo::latest()->limit(10)->get();
+
         return view('home', compact(
             'heroCenter',
             'heroLeft',
@@ -250,7 +253,8 @@ if ($bookshelfCategory) {
             'politicsCategory',
             'politicsArticles',
             'monthlyEditionCategory',
-            'monthlyEditionArticles'
+            'monthlyEditionArticles',
+            'featuredVideos'
         ));
     }
 

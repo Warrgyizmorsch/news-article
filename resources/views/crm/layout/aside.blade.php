@@ -102,6 +102,38 @@
                     </ul>
                 </li>
 
+                <li class="nxl-item nxl-hasmenu {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                    <a href="javascript:void(0);" class="nxl-link">
+                        <span class="nxl-micon"><i class="feather-user"></i></span>
+                        <span class="nxl-mtext">Users</span>
+                        <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                    </a>
+                    <ul class="nxl-submenu">
+                        <li class="nxl-item">
+                            <a href="{{ route('users.create') }}" class="nxl-link">Add User</a>
+                        </li>
+                        <li class="nxl-item">
+                            <a href="{{ route('users.index') }}" class="nxl-link">User List</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nxl-item nxl-hasmenu {{ request()->routeIs('videos.*') ? 'active' : '' }}">
+                    <a href="javascript:void(0);" class="nxl-link">
+                        <span class="nxl-micon"><i class="feather-video"></i></span>
+                        <span class="nxl-mtext">Videos</span>
+                        <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
+                    </a>
+                    <ul class="nxl-submenu">
+                        <li class="nxl-item">
+                            <a href="{{ route('videos.create') }}" class="nxl-link">Add Video</a>
+                        </li>
+                        <li class="nxl-item">
+                            <a href="{{ route('videos.index') }}" class="nxl-link">Video List</a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </div>
     </div>
