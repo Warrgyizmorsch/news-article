@@ -174,14 +174,14 @@ $politicsCategory = Category::where('slug', 'politics')
 $politicsArticles = collect();
 
 if ($politicsCategory) {
-            // Politics Section Articles
-            $politicsArticles = Article::with(['category', 'author'])
-                ->where('section', 'politics')
-                ->where('status', 'published')
-                ->whereNotNull('published_at')
-                ->latest('published_at')
-                ->take(6)
-                ->get();
+    $politicsArticles = Article::with(['category', 'author'])
+        ->where('section_id', 22)
+        ->where('status', 'published')
+        ->whereNotNull('published_at')
+        ->latest('published_at')
+        ->take(6) // same as featured count
+        ->get()
+        ->values();
 }
 
         // Section: Bookshelf

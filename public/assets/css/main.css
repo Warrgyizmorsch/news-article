@@ -13167,6 +13167,7 @@ html.lenis body {
 
 .featured-category-post {
   min-height: 350px;
+  height: 100%;
   position: relative;
   overflow: hidden;
   border-radius: inherit;
@@ -13676,4 +13677,8 @@ html.lenis body {
     height: 36px;
     font-size: 16px;
   }
+}
+
+.rs-post-overlay-one{
+  height: 100% !important;
 }
