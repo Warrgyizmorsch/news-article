@@ -175,7 +175,7 @@ $politicsArticles = collect();
 
 if ($politicsCategory) {
     $politicsArticles = Article::with(['category', 'author'])
-        ->where('category_id', $politicsCategory->id)
+        ->where('section_id', $politicsCategory->id)
         ->where('status', 'published')
         ->whereNotNull('published_at')
         ->latest('published_at')
