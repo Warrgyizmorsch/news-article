@@ -557,7 +557,7 @@ if ($bookshelfCategory) {
             ->orderBy('name')
             ->get();
 
-        $sidebarTags = \App\Models\Tag::withCount([
+        $sidebarTags = Tag::withCount([
             'articles' => function ($q) {
                 $q->where('status', 'published')
                     ->whereNotNull('published_at');
@@ -577,7 +577,7 @@ if ($bookshelfCategory) {
         ));
     }
 
-public function newsletterSubscribe(\Illuminate\Http\Request $request)
+public function newsletterSubscribe(Request $request)
     {
         $request->validate([
             'email' => ['required', 'email'],
@@ -585,13 +585,13 @@ public function newsletterSubscribe(\Illuminate\Http\Request $request)
 
         $email = trim(strtolower($request->email));
 
-        $user = \App\Models\User::where('email', $email)->first();
+        $user = User::where('email', $email)->first();
 
         if (!$user) {
-            $user = \App\Models\User::create([
+            $user = User::create([
                 'name' => strtok($email, '@'),
                 'email' => $email,
-                'password' => \Illuminate\Support\Facades\Hash::make('user@123'),
+                'password' => Hash::make('user@123'),
                 'role' => 'user',
             ]);
         }
@@ -600,7 +600,7 @@ public function newsletterSubscribe(\Illuminate\Http\Request $request)
         //     'email' => $email,
         // ]);
 
-        \Illuminate\Support\Facades\Auth::login($user);
+        Auth::login($user);
 
         return redirect()->back()->with('success', 'Subscribed successfully.');
     }
