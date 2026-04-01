@@ -775,7 +775,7 @@
                 {{-- Added justify-content-center here --}}
                 <div class="row g-5 justify-content-center">
                     @foreach($asiaInBriefArticles as $article)
-                        <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="col-xl-6 col-lg-6 col-md-6">
                             <div class="rs-post-overlay rs-post-overlay-four">
                                 <a href="{{ route('news.show', $article->slug) }}">
                                     <div class="rs-post-overlay-bg-thumb" style="background-image: url('{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}'); 
