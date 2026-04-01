@@ -900,8 +900,91 @@ $featuredVideos = [
 @endif
 <!-- Lifestyle category end -->
 
-<!-- Monthly Edition area start -->
-<section class="rs-trending-news-area section-space-bottom rs-ptop rs-trending-news-one bg-primary">
+<!-- Monthly Edition category start -->
+ @if($monthlyEditionCategory && $monthlyEditionArticles->count())
+ <section class="rs-latest-post-area section-space-bottom rs-ptop has-bg">
+    <div class="container">
+        <div class="row section-title-space align-items-center g-5">
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-title-wrapper">
+                    <h2 class="section-title rs-split-text-enable split-in-left">
+                        {{ $monthlyEditionCategory->name ?? 'Latest Stories' }}
+                    </h2>
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-btn d-flex justify-content-lg-end">
+                    <a class="rs-btn has-text has-icon"
+                       href="{{ route('category.show', $monthlyEditionCategory->slug ?? '') }}">
+                        View All
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-5">
+
+            @foreach($monthlyEditionArticles as $article)
+
+            <div class="col-xl-4 col-lg-4 col-md-6">
+                <div class="rs-post-medium rs-post-medium-two">
+                    <div class="rs-post-medium-item">
+
+                        <div class="rs-post-medium-thumb">
+                            <a href="{{ route('article.show', $article->slug) }}" class="image-link">
+                                <img src="{{ asset('storage/'.$article->image) }}"
+                                     alt="{{ $article->title }}">
+                            </a>
+                        </div>
+
+                        <div class="rs-post-medium-content">y
+
+                            <h5 class="rs-post-medium-title underline">
+                                <a href="{{ route('article.show', $article->slug) }}">
+                                    {{ $article->title }}
+                                </a>
+                            </h5>
+
+                            <div class="rs-post-meta">
+                                <ul>
+
+                                    <li>
+                                        <span class="rs-meta">
+                                            By
+                                            <a href="#" class="meta-author">
+                                                {{ $article->auther ?? 'Admin' }}
+                                            </a>
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <span class="rs-meta">
+                                            <span>
+                                                {{ $article->created_at->format('M, Y') }}
+                                            </span>
+                                        </span>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @endforeach
+
+        </div>
+    </div>
+</section>
+@endif
+<!-- Monthly Edition category end  -->
+
+
+<!-- Breaking articles area start -->
+<!-- <section class="rs-trending-news-area section-space-bottom rs-ptop rs-trending-news-one bg-primary">
     <div class="container">
         <div class="row section-title-space align-items-center g-5">
             <div class="col-xl-6 col-lg-6">
@@ -1087,8 +1170,8 @@ $featuredVideos = [
         </div>
         @endif
     </div>
-</section>
-<!-- Monthly Edition area start -->
+</section> -->
+<!-- Breaking articles area start -->
 
 <!-- cta area start -->
 @if(!auth()->user())

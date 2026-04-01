@@ -53,19 +53,37 @@ class HomeController extends Controller
             ->get();
 
         // Section 3: Monthly Edition News
-        $monthlyEditionCategory = Category::where('slug', 'monthy-editions')->first();
-        $monthlyEditionCategoryId = $monthlyEditionCategory ? $monthlyEditionCategory->id : 21;
+        $monthlyEditionCategory = Category::where('slug', 'monthly-editions')
+            ->where('status', 1)
+            ->whereHas('articles', function ($q) {
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            })
+            ->first();
 
-        $breakingArticles = Article::with(['category', 'author'])
-            ->where('status', 'published')
-            ->where('category_id', $monthlyEditionCategoryId)
-            ->whereNotNull('published_at')
-            ->latest('published_at')
-            ->take(5)
-            ->get();
+        $monthlyEditionArticles = collect();
 
-        $breakingTop = $breakingArticles->slice(0, 3);
-        $breakingBottom = $breakingArticles->slice(3, 2)->values();
+        if ($monthlyEditionCategory) {
+            $monthlyEditionArticles = Article::with(['category', 'author'])
+                ->where('category_id', $monthlyEditionCategory->id)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->latest('published_at')
+                ->take(3)
+                ->get()
+                ->values();
+        }
+
+        // $breakingArticles = Article::with(['category', 'author'])
+        //     ->where('status', 'published')
+        //     ->where('category_id', $monthlyEditionCategoryId)
+        //     ->whereNotNull('published_at')
+        //     ->latest('published_at')
+        //     ->take(5)
+        //     ->get();
+
+        // $breakingTop = $breakingArticles->slice(0, 3);
+        // $breakingBottom = $breakingArticles->slice(3, 2)->values();
 
         // Section 4: Featured / Trending Stories
         $featuredArticles = Article::with(['category', 'author'])
@@ -210,8 +228,8 @@ if ($bookshelfCategory) {
             'heroCenter',
             'heroLeft',
             'heroRight',
-            'breakingTop',
-            'breakingBottom',
+            // 'breakingTop',
+            // 'breakingBottom',
             'featuredArticles',
             'categories',
             'popularArticles',
@@ -226,6 +244,8 @@ if ($bookshelfCategory) {
             'lifestyleArticles',
             'politicsCategory',
             'politicsArticles',
+            'monthlyEditionCategory',
+            'monthlyEditionArticles'
         ));
     }
 
