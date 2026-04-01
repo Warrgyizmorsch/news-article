@@ -145,7 +145,7 @@
                         </div>
                     </div>
 
-                    <div class="row g-3 mb-4 d-none" id="pdfUploadSection">
+                    <div class="row g-3 mb-4" >
                         <label class="col-lg-3 col-form-label fw-semibold">Upload PDF</label>
                         <div class="col-lg-9">
                             <input type="file" name="pdf_file" class="form-control" accept=".pdf">
@@ -375,7 +375,6 @@
                     $('#categorySection').addClass('d-none');
 
                     // Show PDF + Images
-                    $('#pdfUploadSection').removeClass('d-none');
                     $('#imageUploadSection').removeClass('d-none');
                 } else {
                     // Show editor
@@ -383,7 +382,6 @@
                     $('#categorySection').removeClass('d-none');
 
                     // Hide PDF + Images
-                    $('#pdfUploadSection').addClass('d-none');
                     $('#imageUploadSection').addClass('d-none');
                 }
 
