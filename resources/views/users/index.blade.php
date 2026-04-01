@@ -83,9 +83,9 @@
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-end-0"><i class="feather feather-shield text-muted"></i></span>
                                 <select name="role" class="form-select border-start-0 ps-0">
-                                    <option value="user" {{ (isset($user) && $user->role == 'user') ? 'selected' : '' }}>User</option>
                                     <option value="admin" {{ (isset($user) && $user->role == 'admin') ? 'selected' : '' }}>Admin</option>
                                     <option value="author" {{ (isset($user) && $user->role == 'aurhor') ? 'selected' : '' }}>Author</option>
+                                    <option value="user" {{ (isset($user) && $user->role == 'user') ? 'selected' : '' }}>User</option>
                                 </select>
                             </div>
                         </div>
@@ -149,9 +149,9 @@
                             <span class="input-group-text bg-light border-end-0"><i class="feather feather-shield text-muted"></i></span>
                             <select name="filter_role" class="form-select border-start-0 ps-0">
                                 <option value="">All Roles</option>
-                                <option value="user" {{ request('filter_role') == 'user' ? 'selected' : '' }}>User</option>
                                 <option value="admin" {{ request('filter_role') == 'admin' ? 'selected' : '' }}>Admin</option>
                                 <option value="author" {{ request('filter_role') == 'author' ? 'selected' : '' }}>Author</option>
+                                <option value="user" {{ request('filter_role') == 'user' ? 'selected' : '' }}>User</option>
                             </select>
                         </div>
                     </div>
