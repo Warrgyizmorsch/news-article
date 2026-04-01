@@ -235,12 +235,12 @@
                             @foreach($featuredVideos as $video)
 
                                 @php
-                                    preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\&\?\/]+)/', $video->url, $matches);
-                                    $youtubeId = $matches[1] ?? null;
+    preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\&\?\/]+)/', $video->url, $matches);
+    $youtubeId = $matches[1] ?? null;
 
-                                    $thumbnail = $video->thumbnail
-                                        ? asset('uploads/thumbnails/' . $video->thumbnail)
-                                        : "https://img.youtube.com/vi/" . $youtubeId . "/hqdefault.jpg";
+    $thumbnail = $video->thumbnail
+        ? asset('uploads/thumbnails/' . $video->thumbnail)
+        : "https://img.youtube.com/vi/" . $youtubeId . "/hqdefault.jpg";
                                 @endphp
 
                                 <div class="swiper-slide">
@@ -997,7 +997,7 @@
 
                                         <h5 class="rs-post-medium-title is-white underline" style="color: white;">
                                             <a href="{{ route('news.show', $article->slug) }}">
-                                                {{ $article->title }}
+                                                {{ \Illuminate\Support\Str::limit($article->title, 30) }}
                                             </a>
                                         </h5>
 
