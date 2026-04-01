@@ -4,54 +4,6 @@
     <section class="rs-banner-area rs-banner-six section-space-top">
         <div class="container">
             <div class="row g-4">
-                <!-- Mobile top slider  -->
-                <div class="col-xl-6 col-lg-6 hide-on-desktop">
-                    @if($heroCenter && $heroCenter->images->count() > 0)
-                        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-                            <div class="carousel-inner">
-                                @foreach($heroCenter->images as $index => $img)
-                                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                        <div class="rs-post-overlay rs-post-overlay-one">
-                                            <a href="{{ route('news.show', $heroCenter->slug) }}">
-                                                <div class="rs-post-overlay-bg-thumb"
-                                                    style="background-image: url('{{ asset('storage/' . $img->image) }}'); background-size: cover; background-position: center; height: 400px; border-radius: 8px;">
-                                                </div>
-                                            </a>
-                                            <div class="rs-post-overlay-content">
-                                                <div class="rs-post-tag-two">
-                                                    <a href="#"
-                                                        class="post-tag is-white">{{ $heroCenter->category->name ?? 'Articles' }}</a>
-                                                </div>
-                                                <h3 class="rs-post-overlay-title is-white underline">
-                                                    <a href="{{ route('news.show', $heroCenter->slug) }}">
-                                                        {{ \Str::limit($heroCenter->title, 60) }}
-                                                    </a>
-                                                </h3>
-                                                <div class="rs-post-meta meta-white">
-                                                    <ul>
-                                                        @if(!empty($heroCenter->auther))
-                                                            <li>By {{ $heroCenter->auther ?? 'Admin' }}</li>
-                                                        @endif
-                                                        <li>{{ $heroCenter->published_at?->format('M d, Y') }}</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @else
-                        <div class="rs-post-overlay rs-post-overlay-one">
-                            <div class="rs-post-overlay-bg-thumb"
-                                style="background-image: url('{{ asset('assets/images/default/news-placeholder.webp') }}'); height: 400px; border-radius: 8px;">
-                            </div>
-                            <div class="rs-post-overlay-content text-center">
-                                <h3 class="rs-post-overlay-title is-white">No Featured Story</h3>
-                            </div>
-                        </div>
-                    @endif
-                </div>
 
                 {{-- Left Side: 3 News (25% Width) --}}
                 <div class="col-xl-3 col-lg-3">
@@ -99,7 +51,7 @@
                 </div>
 
                 {{-- Center Main News: Carousel (50% Width) --}}
-                <div class="col-xl-6 col-lg-6 hide-on-mobile">
+                <div class="col-xl-6 col-lg-6">
                     @if($heroCenter && $heroCenter->images->count() > 0)
                         <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                             <div class="carousel-inner">
@@ -1034,9 +986,9 @@
                             <div class="rs-post-medium rs-post-medium-two">
                                 <div class="rs-post-medium-item" style="padding-bottom: 12px;">
 
-                                    <div class="rs-post-medium-thumb">
+                                    <div class="rs-post-medium-thumb" style="height: 500px;">
                                         <a href="{{ route('news.show', $article->slug) }}" class="image-link">
-                                            <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                            <img style="height: 100%; width: 100%; object-fit: fill;" src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                                 alt="{{ $article->title }}">
                                         </a>
                                     </div>
