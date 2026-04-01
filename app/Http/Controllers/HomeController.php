@@ -165,10 +165,6 @@ class HomeController extends Controller
         // Politics Category
 $politicsCategory = Category::where('slug', 'politics')
     ->where('status', 1)
-    ->whereHas('articles', function ($q) {
-        $q->where('status', 'published')
-          ->whereNotNull('published_at');
-    })
     ->first();
 
 $politicsArticles = collect();
