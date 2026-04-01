@@ -987,7 +987,7 @@
                                 <div class="rs-post-medium-item" style="padding-bottom: 12px;">
 
                                     <div class="rs-post-medium-thumb" style="height: 500px;">
-                                        <a href="{{ route('news.show', $article->slug) }}" class="image-link">
+                                        <a href="{{ asset('assets/video/'.$article->excerpt)}}" class="image-link">
                                             <img style="height: 100%; width: 100%; object-fit: fill;" src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                                 alt="{{ $article->title }}">
                                         </a>
@@ -995,9 +995,9 @@
 
                                     <div class="rs-post-medium-content" style="padding-left: 2px; padding-top: 5px;">
 
-                                        <h5 class="rs-post-medium-title is-white underline" style="color: white;">
-                                            <a href="{{ route('news.show', $article->slug) }}">
-                                                {{ \Illuminate\Support\Str::limit($article->title, 30) }}
+                                        <h5 class="rs-post-medium-title is-white underline" style="color: white;font-size:16px;">
+                                            <a href="{{ asset('assets/video/'.$article->excerpt)}}">
+                                                {{ \Illuminate\Support\Str::limit($article->title, 60) }}
                                             </a>
                                         </h5>
 
