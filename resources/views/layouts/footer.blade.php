@@ -145,18 +145,43 @@
                     </div>
                 </div>
 
-                {{-- Column 4: Tags --}}
+                {{-- Column 4: Contact Details --}}
                 <div class="col-xxl-4 col-xl-3 col-lg-3 col-md-6">
                     <div class="footer-widget footer-1-col-4">
-                        <h5 class="footer-widget-title">Tags</h5>
-                        <div class="footer-widget-tags">
-                            <div class="sidebar-widget-content tagcloud has-bg-transparent">
-                                @forelse($footerTags as $tag)
-                                    <a href="{{ route('tag.show', $tag->slug) }}">{{ $tag->name }}</a>
-                                @empty
-                                    <a href="javascript:void(0)">No tags found</a>
-                                @endforelse
-                            </div>
+                        <h5 class="footer-widget-title">Contact Us</h5>
+                        <div class="rs-footer-widget-content">
+                            <ul class="rs-footer-contact-list" style="list-style: none; padding: 0; margin: 0;">
+                                <li
+                                    style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px; color: rgba(255,255,255,0.8);">
+                                    <i class="ri-map-pin-2-line" style="color: #0d6efd; font-size: 20px; line-height: 1;"></i>
+                                    <span style="font-size: 15px; line-height: 1.5;">
+                                        123 Democracy Plaza, <br>
+                                        Central District, Hong Kong
+                                    </span>
+                                </li>
+                
+                                <li
+                                    style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px; color: rgba(255,255,255,0.8);">
+                                    <i class="ri-phone-line" style="color: #0d6efd; font-size: 20px; line-height: 1;"></i>
+                                    <a href="tel:+85212345678" style="color: inherit; font-size: 15px; text-decoration: none;">
+                                        +852 1234 5678
+                                    </a>
+                                </li>
+                
+                                <li
+                                    style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px; color: rgba(255,255,255,0.8);">
+                                    <i class="ri-mail-send-line" style="color: #0d6efd; font-size: 20px; line-height: 1;"></i>
+                                    <a href="mailto:info@democracyasia.com"
+                                        style="color: inherit; font-size: 15px; text-decoration: none;">
+                                        info@democracyasia.com
+                                    </a>
+                                </li>
+                
+                                <!-- <li style="display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,0.8);">
+                                    <i class="ri-time-line" style="color: #0d6efd; font-size: 20px; line-height: 1;"></i>
+                                    <span style="font-size: 15px;">Mon - Fri: 9:00 AM - 6:00 PM</span>
+                                </li> -->
+                            </ul>
                         </div>
                     </div>
                 </div>

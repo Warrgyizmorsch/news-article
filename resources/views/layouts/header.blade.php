@@ -306,7 +306,7 @@
             <!-- top start -->
             <div class="rs-header-top rs-header-top-one">
                 <div class="header-top-left">
-                    <div class="header-top-item">
+                    <!-- <div class="header-top-item">
                         <span class="popup-circle">
                         </span>
                         <p class="header-top-title">Latest Articles</p>
@@ -324,10 +324,10 @@
                                 Stay updated with the latest headlines.
                             </p>
                         @endforelse
-                    </div>
+                    </div> -->
                 </div>
                 <div class="header-top-right">
-                    <div class="header-top-meta">
+                    <!-- <div class="header-top-meta">
                         <span class="header-top-meta-icon">
                             <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -340,7 +340,7 @@
                             </svg>
                         </span>
                         <p class="header-top-meta-title">{{ strtoupper(now()->format('F d, Y')) }}</p>
-                    </div>
+                    </div> -->
                     <div class="header-top-social-wrapper">
                         <h6 class="header-top-social-title"> Follow Us:</h6>
                         <div class="header-top-social theme-social has-transparent">
@@ -381,17 +381,16 @@
 
                 <div class="header-auth-actions">
                     @guest
-                        <a href="{{ route('register') }}" class="header-subscribe-btn">
+                        <a href="javascript:void(0)" class="header-subscribe-btn" onclick="openNewsletterModal()">
                             <i class="ri-vip-crown-2-line"></i>
                             <span>Subscribe Free</span>
                         </a>
 
                         <a href="{{ route('login') }}" class="header-auth-link hide-on-mobile">
-                            <span> <i class="ri-login-circle-line"></i>
-                                <span>Login</span></span>
+                            <span><i class="ri-login-circle-line"></i><span>Login</span></span>
                         </a>
                     @endguest
-
+                    
                     @auth
                         @if(auth()->user()->role !== 'admin')
                             @if($headerHasActiveSubscription)
@@ -401,54 +400,54 @@
                                     <span>Subscriber</span>
                                 </a>
                             @else
-                                <a href="{{ route('frontend.plans.index') }}" class="header-subscribe-btn">
+                                <a href="javascript:void(0)" class="header-subscribe-btn" onclick="openNewsletterModal()">
                                     <i class="ri-vip-crown-2-line"></i>
                                     <span>Subscribe Free</span>
                                 </a>
                             @endif
                         @endif
 
-                        <div class="header-user-dropdown">
-                            <button type="button" class="header-user-toggle">
-                                <span class="header-user-avatar">
-                                    {{ \Illuminate\Support\Str::substr(auth()->user()->name, 0, 1) }}
-                                </span>
-                                <span class="header-user-name">{{ auth()->user()->name }}</span>
-                                <i class="ri-arrow-down-s-line"></i>
-                            </button>
+                            <div class="header-user-dropdown">
+                                <button type="button" class="header-user-toggle">
+                                    <span class="header-user-avatar">
+                                        {{ \Illuminate\Support\Str::substr(auth()->user()->name, 0, 1) }}
+                                    </span>
+                                    <span class="header-user-name">{{ auth()->user()->name }}</span>
+                                    <i class="ri-arrow-down-s-line"></i>
+                                </button>
 
-                            <div class="header-user-menu">
-                                <a href="{{ route('profile.edit') }}">
-                                    <i class="ri-user-3-line"></i>
-                                    <span>My Profile</span>
-                                </a>
-
-                                @if(auth()->user()->role === 'admin')
-                                    <a href="{{ route('dashboard') }}">
-                                        <i class="ri-layout-grid-line"></i>
-                                        <span>Dashboard</span>
+                                <div class="header-user-menu">
+                                    <a href="{{ route('profile.edit') }}">
+                                        <i class="ri-user-3-line"></i>
+                                        <span>My Profile</span>
                                     </a>
-                                @endif
 
-                                <!-- @if(auth()->user()->role !== 'admin')
-                                    <a href="{{ route('frontend.plans.index') }}">
-                                        <i class="ri-vip-crown-line"></i>
-                                        <span>{{ $headerHasActiveSubscription ? 'Premium Access' : 'Manage Subscription'
-                                            }}</span>
-                                    </a>
-                                @endif -->
+                                    @if(auth()->user()->role === 'admin')
+                                        <a href="{{ route('dashboard') }}">
+                                            <i class="ri-layout-grid-line"></i>
+                                            <span>Dashboard</span>
+                                        </a>
+                                    @endif
 
-                                <div class="header-user-divider"></div>
+                                    <!-- @if(auth()->user()->role !== 'admin')
+                                        <a href="{{ route('frontend.plans.index') }}">
+                                            <i class="ri-vip-crown-line"></i>
+                                            <span>{{ $headerHasActiveSubscription ? 'Premium Access' : 'Manage Subscription'
+                                                }}</span>
+                                        </a>
+                                    @endif -->
 
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit">
-                                        <i class="ri-logout-box-r-line"></i>
-                                        <span>Logout</span>
-                                    </button>
-                                </form>
+                                    <div class="header-user-divider"></div>
+
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit">
+                                            <i class="ri-logout-box-r-line"></i>
+                                            <span>Logout</span>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
                     @endauth
                 </div>
             </div>

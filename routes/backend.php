@@ -7,6 +7,7 @@ use App\Http\Controllers\CRM\ArticleController;
 use App\Http\Controllers\CRM\TagController;
 use App\Http\Controllers\CRM\PlanController;
 use App\Http\Controllers\CRM\UserSubscriptionController;
+use App\Http\Controllers\CRM\EnquiryController;
 
 Route::prefix('admin')->middleware(['auth', 'verified', 'admin'])->group(function () {
 
@@ -58,4 +59,8 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'admin'])->group(functio
     Route::post('/user-subscriptions/approve/{id}', [UserSubscriptionController::class, 'approve'])->name('user-subscriptions.approve');
 
     Route::post('/user-subscriptions/reject/{id}', [UserSubscriptionController::class, 'reject'])->name('user-subscriptions.reject');
+
+    // Enquiries (Contact Leads)
+    Route::get('/enquiries', [EnquiryController::class, 'index'])->name('enquiries.index');
+    Route::delete('/enquiries/delete/{id}', [EnquiryController::class, 'destroy'])->name('enquiries.delete');
 });

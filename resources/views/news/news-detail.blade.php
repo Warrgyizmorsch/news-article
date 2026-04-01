@@ -625,7 +625,7 @@
                                                                 </div>
                                                             </form>
 
-                                                            @if(session('success'))
+                                                            @if(session('newsletter_success'))
                                                                 <div style="
                                                                     margin-top: 16px;
                                                                     padding: 14px 16px;
@@ -636,7 +636,7 @@
                                                                     font-size: 14px;
                                                                     font-weight: 500;
                                                                 ">
-                                                                    {{ session('success') }}
+                                                                    {{ session('newsletter_success') }}
                                                                 </div>
                                                             @endif
 

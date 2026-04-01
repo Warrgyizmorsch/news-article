@@ -134,6 +134,13 @@
                     </ul>
                 </li>
 
+                <li class="nxl-item {{ request()->routeIs('enquiries.*') ? 'active' : '' }}">
+                    <a href="{{ route('enquiries.index') }}" class="nxl-link">
+                        <span class="nxl-micon"><i class="feather-mail"></i></span>
+                        <span class="nxl-mtext">Enquiries</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>

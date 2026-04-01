@@ -6,6 +6,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DaVideoController;
+use App\Http\Controllers\CRM\EnquiryController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -36,6 +37,8 @@ Route::post('users/bulk-delete', [App\Http\Controllers\UserController::class, 'b
 Route::resource('users', UserController::class);
 
 Route::resource('videos', DaVideoController::class);
+
+Route::post('/contact-us/send', [EnquiryController::class, 'store'])->name('contact.send');
 
 require __DIR__.'/auth.php';
 require __DIR__ . '/backend.php';

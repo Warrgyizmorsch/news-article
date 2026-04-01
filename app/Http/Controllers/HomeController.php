@@ -10,7 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Request;
+use Illuminate\Http\Request;
 use App\Models\DaVideo;
 
 class HomeController extends Controller
@@ -610,6 +610,6 @@ public function newsletterSubscribe(Request $request)
 
         Auth::login($user);
 
-        return redirect()->back()->with('success', 'Subscribed successfully.');
+        return redirect()->back()->with('newsletter_success', 'Subscribed successfully.');
     }
 }
