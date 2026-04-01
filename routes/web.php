@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DaVideoController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -33,6 +34,8 @@ Route::middleware('auth')->group(function () {
 
 Route::post('users/bulk-delete', [App\Http\Controllers\UserController::class, 'bulkDelete'])->name('users.bulkDelete');
 Route::resource('users', UserController::class);
+
+Route::resource('videos', DaVideoController::class);
 
 require __DIR__.'/auth.php';
 require __DIR__ . '/backend.php';
