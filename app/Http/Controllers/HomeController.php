@@ -314,6 +314,16 @@ if ($bookshelfCategory) {
             ->where('status', 1)
             ->firstOrFail();
 
+        $articleQuery = Article::with(['category', 'author', 'tags'])
+            ->where('status', 'published')
+            ->whereNotNull('published_at');
+
+        if ($slug === 'politics') {
+            $articleQuery->where('section_id', 22);
+        } else {
+            $articleQuery->where('category_id', $category->id);
+        }
+
         if ($slug === 'monthly-editions') {
             $latestArticle = Article::with(['category', 'author', 'tags'])
                 ->where('status', 'published')
@@ -406,12 +416,10 @@ if ($bookshelfCategory) {
             ));
         }
 
-        $articles = Article::with(['category', 'author', 'tags'])
-            ->where('status', 'published')
-            ->whereNotNull('published_at')
-            ->where('category_id', $category->id)
+        $articles = $articleQuery
             ->latest('published_at')
-            ->paginate(12)->withQueryString();
+            ->paginate(12)
+            ->withQueryString();
 
         $popularArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
