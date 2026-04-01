@@ -97,13 +97,18 @@ class HomeController extends Controller
 
         // Sidebar categories
         $categories = Category::where('status', 1)
-    ->has('articles') // Only get categories that have at least 1 article
-    ->withCount(['articles' => function ($query) {
-        $query->where('status', 'published'); // Count only published ones
-    }])
-    ->orderBy('sort_order')
-    ->orderBy('name')
-    ->get();
+            ->where('slug', '!=', 'politics') // exclude politics here
+            ->whereHas('articles', function ($query) {
+                $query->where('status', 'published'); // only categories having published articles
+            })
+            ->withCount([
+                'articles as articles_count' => function ($query) {
+                    $query->where('status', 'published');
+                }
+            ])
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
 
         // Sidebar popular news
         $popularArticles = Article::with(['category', 'author'])
@@ -264,13 +269,15 @@ if ($bookshelfCategory) {
             ->take(3)
             ->get();
 
-        $categories = Category::withCount([
-            'articles' => function ($q) {
-                $q->where('status', 'published')
-                    ->whereNotNull('published_at');
-            }
-        ])
-            ->where('status', 1)
+        $categories = Category::where('status', 1)
+            ->whereHas('articles', function ($query) {
+                $query->where('status', 'published'); // only categories having published articles
+            })
+            ->withCount([
+                'articles as articles_count' => function ($query) {
+                    $query->where('status', 'published');
+                }
+            ])
             ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
@@ -413,13 +420,15 @@ if ($bookshelfCategory) {
             ->take(3)
             ->get();
 
-        $categories = Category::withCount([
-            'articles' => function ($q) {
-                $q->where('status', 'published')
-                    ->whereNotNull('published_at');
-            }
-        ])
-            ->where('status', 1)
+        $categories = Category::where('status', 1)
+            ->whereHas('articles', function ($query) {
+                $query->where('status', 'published'); // only categories having published articles
+            })
+            ->withCount([
+                'articles as articles_count' => function ($query) {
+                    $query->where('status', 'published');
+                }
+            ])
             ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
@@ -470,13 +479,15 @@ if ($bookshelfCategory) {
             ->take(3)
             ->get();
 
-        $categories = Category::withCount([
-            'articles' => function ($q) {
-                $q->where('status', 'published')
-                    ->whereNotNull('published_at');
-            }
-        ])
-            ->where('status', 1)
+        $categories = Category::where('status', 1)
+            ->whereHas('articles', function ($query) {
+                $query->where('status', 'published'); // only categories having published articles
+            })
+            ->withCount([
+                'articles as articles_count' => function ($query) {
+                    $query->where('status', 'published');
+                }
+            ])
             ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
@@ -533,13 +544,15 @@ if ($bookshelfCategory) {
             ->take(4)
             ->get();
 
-        $categories = Category::withCount([
-            'articles' => function ($q) {
-                $q->where('status', 'published')
-                    ->whereNotNull('published_at');
-            }
-        ])
-            ->where('status', 1)
+        $categories = Category::where('status', 1)
+            ->whereHas('articles', function ($query) {
+                $query->where('status', 'published'); // only categories having published articles
+            })
+            ->withCount([
+                'articles as articles_count' => function ($query) {
+                    $query->where('status', 'published');
+                }
+            ])
             ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
