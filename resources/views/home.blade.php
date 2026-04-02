@@ -187,9 +187,6 @@
                 flex: 1;
             }
 
-            .rs-post-overlay-one{
-                height: 100% !important;
-            }
         </style>
     </section>
     <!-- feature area end -->
@@ -630,7 +627,7 @@
                 @if(isset($lifestyleArticles[0]))
                     <div class="row g-5">
                         <div class="{{ count($lifestyleArticles) > 1 ? 'col-xl-4' : 'col-xl-12' }}">
-                            <div class="rs-post-overlay rs-post-overlay-one featured-category-post">
+                            <div style="height: 100%;" class="rs-post-overlay rs-post-overlay-one featured-category-post">
                                 <a href="{{ route('news.show', $lifestyleArticles[0]->slug) }}">
                                     <div class="rs-post-overlay-bg-thumb"
                                         data-background="{{ $lifestyleArticles[0]->featured_image ? asset('storage/' . $lifestyleArticles[0]->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
@@ -750,7 +747,7 @@
                             <div class="rs-post-medium rs-post-medium-two">
                                 <div class="rs-post-medium-item" style="padding-bottom: 12px;">
 
-                                    <div class="rs-post-medium-thumb" style="height: 500px;">
+                                    <div class="rs-post-medium-thumb" style="height: 480px;">
                                         <a href="{{ asset('assets/video/'.$article->excerpt)}}" class="image-link">
                                             <img style="height: 100%; width: 100%; object-fit: fill;" src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                                 alt="{{ $article->title }}">
@@ -1047,7 +1044,7 @@
             @if(isset($categoryArticles[0]))
                 <div class="row g-5">
                     <div class="{{ count($categoryArticles) > 1 ? 'col-xl-4' : 'col-xl-12' }}">
-                        <div class="rs-post-overlay rs-post-overlay-one featured-category-post">
+                        <div style="height: 100%;" class="rs-post-overlay rs-post-overlay-one featured-category-post">
                             <a href="{{ route('news.show', $categoryArticles[0]->slug) }}">
                                 <div class="rs-post-overlay-bg-thumb"
                                     data-background="{{ $categoryArticles[0]->featured_image ? asset('storage/' . $categoryArticles[0]->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
