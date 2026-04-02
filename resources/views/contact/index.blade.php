@@ -53,7 +53,7 @@
                                 </div>
                                 <div>
                                     <strong>Phone</strong><br>
-                                    +852 1234 5678
+                                    07974960666
                                 </div>
                             </div>
 
@@ -63,8 +63,8 @@
                                 </div>
                                 <div>
                                     <strong>Location</strong><br>
-                                    123 Democracy Plaza,<br>
-                                    Central District, Hong Kong
+                                   35 Bow Road, London, England, E3 2AD
+
                                 </div>
                             </div>
 

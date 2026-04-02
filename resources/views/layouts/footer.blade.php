@@ -155,8 +155,8 @@
                                     style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px; color: rgba(255,255,255,0.8);">
                                     <i class="ri-map-pin-2-line" style="color: #0d6efd; font-size: 20px; line-height: 1;"></i>
                                     <span style="font-size: 15px; line-height: 1.5;">
-                                        123 Democracy Plaza, <br>
-                                        Central District, Hong Kong
+                                        35 Bow Road, London, England, E3 2AD
+
                                     </span>
                                 </li>
                 
@@ -164,7 +164,7 @@
                                     style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px; color: rgba(255,255,255,0.8);">
                                     <i class="ri-phone-line" style="color: #0d6efd; font-size: 20px; line-height: 1;"></i>
                                     <a href="tel:+85212345678" style="color: inherit; font-size: 15px; text-decoration: none;">
-                                        +852 1234 5678
+                                        07974960666
                                     </a>
                                 </li>
                 
