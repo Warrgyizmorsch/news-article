@@ -27,7 +27,7 @@
     <div class="rs-sidebar mb-30">
         <div class="rs-post-small rs-post-small-five">
             <h5 class="section-title is-small" style="font-size: 18px; font-weight: 700; margin-bottom: 20px; position: relative; padding-bottom: 10px;">
-                Popular Articles
+                Most Viewed Articles
                 <span style="position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: #0d6efd;"></span>
             </h5>
 
@@ -47,7 +47,20 @@
                         </h6>
 
                         <div class="rs-post-meta d-flex align-items-center gap-3" style="font-size: 12px; color: #888;">
-                            <span class="rs-meta">By admin</span>
+                            @if(!empty($popular->auther))
+                            <span class="rs-meta">By {{$popular->auther}}</span>
+                            @endif
+
+                            <!-- <span style="display: flex; align-items: center; gap: 6px;">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                {{ optional($popular->published_at)->format('F, Y') }}
+                            </span> -->
                             <!-- <span class="rs-meta d-flex align-items-center">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -116,7 +129,7 @@
             </ul>
         </div>
     </div>
-    <div class="rs-sidebar mb-30">
+    <!-- <div class="rs-sidebar mb-30">
         <div class="sidebar-widget">
             <h5 class="sidebar-widget-title" style="font-size: 18px; font-weight: 700; margin-bottom: 20px; position: relative; padding-bottom: 10px;">
                 Tags
@@ -130,7 +143,7 @@
                 @endforelse
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- <div class="rs-sidebar rs-ad-banner-one">
         <div class="rs-ad-banner-thumb">
             <a href="contact.html"><img src="{{ asset('assets/images/ad/ad-banner-thumb-03.webp') }}" alt="image"></a>

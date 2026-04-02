@@ -549,7 +549,7 @@ if ($bookshelfCategory) {
             ->whereNotNull('published_at')
             ->where('id', '!=', $article->id)
             ->orderByDesc('views')
-            ->take(4)
+            ->take(3)
             ->get();
 
         $categories = Category::where('status', 1)

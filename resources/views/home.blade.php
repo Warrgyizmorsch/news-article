@@ -34,7 +34,7 @@
                                             <div class="rs-post-meta">
                                                 <ul>
                                                     <li><span class="rs-meta">By <a href="#"
-                                                                class="meta-author">{{ $article->auther ?? 'Admin' }}</a></span>
+                                                                class="meta-author">{{ $article->auther }}</a></span>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -76,7 +76,7 @@
                                                 <div class="rs-post-meta meta-white">
                                                     <ul>
                                                         @if(!empty($heroCenter->auther))
-                                                            <li>By {{ $heroCenter->auther ?? 'Admin' }}</li>
+                                                            <li>By {{ $heroCenter->auther }}</li>
                                                         @endif
                                                         <li>{{ $heroCenter->published_at?->format('M, Y') }}</li>
                                                     </ul>
@@ -127,7 +127,7 @@
                                             <div class="rs-post-meta">
                                                 <ul>
                                                     <li><span class="rs-meta">By <a href="#"
-                                                                class="meta-author">{{ $article->auther ?? 'Admin' }}</a></span>
+                                                                class="meta-author">{{ $article->auther }}</a></span>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -283,7 +283,7 @@
                                                         <li>
                                                             <span class="rs-meta">
                                                                 By <a href="javascript:void(0)" class="meta-author">
-                                                                    {{ $article->auther ?? 'Admin' }}
+                                                                    {{ $article->auther }}
                                                                 </a>
                                                             </span>
                                                         </li>
@@ -648,7 +648,7 @@
                                                 <li>
                                                     <span class="rs-meta">
                                                         By <a href="javascript:void(0)"
-                                                            class="meta-author">{{ $lifestyleArticles[0]->auther ?? 'Admin' }}</a>
+                                                            class="meta-author">{{ $lifestyleArticles[0]->auther }}</a>
                                                     </span>
                                                 </li>
                                             @endif
@@ -696,7 +696,7 @@
                                                                 <li>
                                                                     <span class="rs-meta">
                                                                         By <a href="javascript:void(0)"
-                                                                            class="meta-author">{{ $article->auther ?? 'Admin' }}</a>
+                                                                            class="meta-author">{{ $article->auther ?? }}</a>
                                                                     </span>
                                                                 </li>
                                                             </ul>
@@ -765,14 +765,16 @@
                                         <div class="rs-post-meta">
                                             <ul>
 
+                                                @if(!empty($article->auther))
                                                 <li>
                                                     <span class="rs-meta">
                                                         By
                                                         <a href="#" class="meta-author">
-                                                            {{ $article->auther ?? 'Admin' }}
+                                                            {{ $article->auther }}
                                                         </a>
                                                     </span>
                                                 </li>
+                                                @endif
 
                                                 <li>
                                                     <span class="rs-meta">
@@ -928,7 +930,7 @@
                                                 <li>
                                                     <span class="rs-meta">
                                                         By <a href="javascript:void(0)"
-                                                            class="meta-author">{{ $article->auther ?? 'Admin' }}</a>
+                                                            class="meta-author">{{ $article->auther }}</a>
                                                     </span>
                                                 </li>
                                             @endif
@@ -1065,7 +1067,7 @@
                                             <li>
                                                 <span class="rs-meta">
                                                     By <a href="javascript:void(0)" class="meta-author">
-                                                        {{ $categoryArticles[0]->auther ?? 'Admin' }}
+                                                        {{ $categoryArticles[0]->auther }}
                                                     </a>
                                                 </span>
                                             </li>
@@ -1118,7 +1120,7 @@
                                                                 <li>
                                                                     <span class="rs-meta">
                                                                         By <a href="javascript:void(0)" class="meta-author">
-                                                                            {{ $article->auther ?? 'Admin' }}
+                                                                            {{ $article->auther }}
                                                                         </a>
                                                                     </span>
                                                                 </li>

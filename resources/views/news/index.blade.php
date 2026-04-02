@@ -118,10 +118,11 @@
 
                                 <div class="card-meta"
                                     style="display: flex; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 14px; color: #6b7280; margin-bottom: 16px;">
-                                    <span style="display: flex; align-items: center;">
-                                        By <span style="color: #4b5563; margin-left: 4px;">{{ $article->auther ??
-                                            'Admin' }}</span>
-                                    </span>
+                                    @if(!empty($article->auther))
+                                        <span style="display: flex; align-items: center;">
+                                            By <span style="color: #4b5563; margin-left: 4px;">{{ $article->auther }}</span>
+                                        </span>
+                                    @endif
 
                                     <!-- <span style="display: flex; align-items: center; gap: 6px;">
                                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
