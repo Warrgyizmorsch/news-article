@@ -191,14 +191,14 @@
 
                                     <div class="card-content"
                                         style="padding: 24px; display: flex; flex-direction: column; flex-grow: 1;">
-                                        <div class="card-tag" style="margin-bottom: 12px;">
+                                        <!-- <div class="card-tag" style="margin-bottom: 12px;">
                                             @if($article->category)
                                             <a href="{{ route('category.show', $article->category->slug) }}"
                                                 style="background: #ff3b3b; color: #fff; padding: 4px 12px; border-radius: 9999px; font-size: 13px; font-weight: 600;display: inline-block; letter-spacing: 0.5px;">
                                                 {{ $article->category->name }}
                                             </a>
                                             @endif
-                                        </div>
+                                        </div> -->
 
                                         <h3 class="card-title"
                                             style="font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 14px; line-height: 1.3;">
