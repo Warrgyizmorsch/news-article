@@ -197,7 +197,7 @@
                                     <div class="edition-content">
 
                                         <span class="edition-date">
-                                            {{ optional($article->published_at)->format('M j, Y') }}
+                                            {{ optional($article->published_at)->format('M, Y') }}
                                         </span>
 
                                         <h4 class="edition-title">
