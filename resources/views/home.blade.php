@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <!-- feature area start -->
+    <!-- hero area start -->
     <section class="rs-banner-area rs-banner-six section-space-top section-space-bottom">
         <div class="container">
             <div class="row g-4">
@@ -189,7 +189,7 @@
 
         </style>
     </section>
-    <!-- feature area end -->
+    <!-- hero area end -->
 
     <!-- DA Video section  -->
     <!-- @include('components.da-video-section') -->
@@ -696,7 +696,7 @@
                                                                 <li>
                                                                     <span class="rs-meta">
                                                                         By <a href="javascript:void(0)"
-                                                                            class="meta-author">{{ $article->auther ?? }}</a>
+                                                                            class="meta-author">{{ $article->auther }}</a>
                                                                     </span>
                                                                 </li>
                                                             </ul>
