@@ -381,13 +381,16 @@
 
                 <div class="header-auth-actions">
                     @guest
-                        <a href="javascript:void(0)" class="header-subscribe-btn" onclick="openNewsletterModal()">
+                        <a href="javascript:void(0)" class="header-subscribe-btn" onclick="openNewsletterModal('subscribe')">
                             <i class="ri-vip-crown-2-line"></i>
                             <span>Subscribe Free</span>
                         </a>
 
-                        <a href="{{ route('login') }}" class="header-auth-link hide-on-mobile">
-                            <span><i class="ri-login-circle-line"></i><span>Login</span></span>
+                        <a href="javascript:void(0)" class="header-auth-link hide-on-mobile" onclick="openNewsletterModal('login')">
+                            <span>
+                                <i class="ri-login-circle-line"></i>
+                                <span>Login</span>
+                            </span>
                         </a>
                     @endguest
                     
@@ -400,7 +403,7 @@
                                     <span>Subscriber</span>
                                 </a>
                             @else
-                                <a href="javascript:void(0)" class="header-subscribe-btn" onclick="openNewsletterModal()">
+                                <a href="javascript:void(0)" class="header-subscribe-btn" onclick="openNewsletterModal('subscribe')">
                                     <i class="ri-vip-crown-2-line"></i>
                                     <span>Subscribe Free</span>
                                 </a>

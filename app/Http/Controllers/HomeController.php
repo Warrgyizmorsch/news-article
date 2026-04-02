@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\DaVideo;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -20,38 +21,56 @@ class HomeController extends Controller
         // Section 1: Hero News
 
         // Center Hero Article (latest published article)
-        $heroCenter = Article::with(['category','images', 'author'])
+        $heroCenter = Article::with(['category', 'images', 'author'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
             ->where('section_id', 21)
             ->latest('created_at')
             ->first();
 
+        $currentMonthArticles = Article::with(['category', 'images', 'author'])
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->whereMonth('published_at', Carbon::now()->month)
+            ->whereYear('published_at', Carbon::now()->year)
+            ->when($heroCenter, function ($q) use ($heroCenter) {
+                $q->where('id', '!=', $heroCenter->id);
+            })
+            ->inRandomOrder()
+            ->take(12)
+            ->get();
+
+        $heroPool = $currentMonthArticles->values();
+
+        $heroLeft = $heroPool->slice(0, 3);
+        $heroRight = $heroPool->slice(3, 3);
+        $heroExtra = $heroPool->slice(6);
+
         // Left Side: Most Viewed Articles
-        $heroLeft = Article::with(['category', 'author'])
-            ->where('status', 'published')
-            ->whereNotNull('published_at')
-            ->where('is_hero',1)
-            ->when($heroCenter, function ($query) use ($heroCenter) {
-                $query->where('id', '!=', $heroCenter->id);
-            })
-            ->orderByDesc('views')
-            ->orderByDesc('published_at')
-            ->take(3)
-            ->get();
+        // $heroLeft = Article::with(['category', 'author'])
+        //     ->where('status', 'published')
+        //     ->whereNotNull('published_at')
+        //     ->where('is_hero',1)
+        //     ->when($heroCenter, function ($query) use ($heroCenter) {
+        //         $query->where('id', '!=', $heroCenter->id);
+        //     })
+        //     ->orderByDesc('views')
+        //     ->orderByDesc('published_at')
+        //     ->take(3)
+        //     ->get();
         // Right Side: Recent Articles
-        $heroRight = Article::with(['category', 'author'])
-            ->where('status', 'published')
-            ->whereNotNull('published_at')
-            ->when($heroCenter, function ($query) use ($heroCenter) {
-                $query->where('id', '!=', $heroCenter->id);
-            })
-            ->when($heroLeft->count(), function ($query) use ($heroLeft) {
-                $query->whereNotIn('id', $heroLeft->pluck('id'));
-            })
-            ->latest('published_at')
-            ->take(3)
-            ->get();
+        // $heroRight = Article::with(['category', 'author'])
+        //     ->where('status', 'published')
+        //     ->whereNotNull('published_at')
+        //     ->when($heroCenter, function ($query) use ($heroCenter) {
+        //         $query->where('id', '!=', $heroCenter->id);
+        //     })
+        //     ->when($heroLeft->count(), function ($query) use ($heroLeft) {
+        //         $query->whereNotIn('id', $heroLeft->pluck('id'));
+        //     })
+        //     ->latest('published_at')
+        //     ->take(3)
+        //     ->get();
 
         // Section 3: Monthly Edition News
         $monthlyEditionCategory = Category::where('slug', 'monthly-editions')
@@ -163,46 +182,46 @@ class HomeController extends Controller
         }
 
         // Politics Category
-$politicsCategory = Category::where('slug', 'politics')
-    ->where('status', 1)
-    ->first();
+        $politicsCategory = Category::where('slug', 'politics')
+            ->where('status', 1)
+            ->first();
 
-$politicsArticles = collect();
+        $politicsArticles = collect();
 
-if ($politicsCategory) {
-    $politicsArticles = Article::with(['category', 'author'])
-        ->where('section_id', 22)
-        ->where('status', 'published')
-        ->whereNotNull('published_at')
-        ->latest('published_at')
-        ->take(6) // same as featured count
-        ->get()
-        ->values();
-}
+        if ($politicsCategory) {
+            $politicsArticles = Article::with(['category', 'author'])
+                ->where('section_id', 22)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->latest('published_at')
+                ->take(6) // same as featured count
+                ->get()
+                ->values();
+        }
 
         // Section: Bookshelf
-$bookshelfCategory = Category::where('slug', 'bookshelf')
-    ->where('status', 1)
-    ->whereHas('articles', function ($q) {
-        $q->where('status', 'published')
-          ->whereNotNull('published_at');
-    })
-    ->first();
+        $bookshelfCategory = Category::where('slug', 'bookshelf')
+            ->where('status', 1)
+            ->whereHas('articles', function ($q) {
+                $q->where('status', 'published')
+                    ->whereNotNull('published_at');
+            })
+            ->first();
 
-$bookshelfArticles = collect();
+        $bookshelfArticles = collect();
 
-if ($bookshelfCategory) {
-    $bookshelfArticles = Article::with(['category', 'author'])
-        ->where('category_id', $bookshelfCategory->id)
-        ->where('status', 'published')
-        ->whereNotNull('published_at')
-        ->latest('published_at')
-        ->take(3)
-        ->get()
-        ->values();
-}
+        if ($bookshelfCategory) {
+            $bookshelfArticles = Article::with(['category', 'author'])
+                ->where('category_id', $bookshelfCategory->id)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->latest('published_at')
+                ->take(3)
+                ->get()
+                ->values();
+        }
 
-// Section: Lifestyle
+        // Section: Lifestyle
         $lifestyleCategory = Category::where('slug', 'lifestyle')->where('status', 1)
             ->whereHas('articles', function ($q) {
                 $q->where('status', 'published');
@@ -232,6 +251,7 @@ if ($bookshelfCategory) {
             'heroCenter',
             'heroLeft',
             'heroRight',
+            'heroExtra',
             // 'breakingTop',
             // 'breakingBottom',
             'featuredArticles',
@@ -264,6 +284,7 @@ if ($bookshelfCategory) {
 
         $popularArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
+            ->where('category_id', '!=', 21)
             ->whereNotNull('published_at')
             ->orderByDesc('views')
             ->take(3)
@@ -355,7 +376,7 @@ if ($bookshelfCategory) {
             ));
         }
 
-         if ($slug === 'asia-in-brief') {
+        if ($slug === 'asia-in-brief') {
             $latestArticle = Article::with(['category', 'author', 'tags'])
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
@@ -385,7 +406,7 @@ if ($bookshelfCategory) {
                 'pageObject'
             ));
         }
-         if ($slug === 'editorial') {
+        if ($slug === 'editorial') {
             $latestArticle = Article::with(['category', 'author', 'tags'])
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
@@ -423,6 +444,7 @@ if ($bookshelfCategory) {
 
         $popularArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
+            ->where('category_id', '!=', 21)
             ->whereNotNull('published_at')
             ->orderByDesc('views')
             ->take(3)
@@ -482,6 +504,7 @@ if ($bookshelfCategory) {
 
         $popularArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
+            ->where('category_id', '!=', 21)
             ->whereNotNull('published_at')
             ->orderByDesc('views')
             ->take(3)
@@ -546,6 +569,7 @@ if ($bookshelfCategory) {
 
         $popularArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
+            ->where('category_id', '!=', 21)
             ->whereNotNull('published_at')
             ->where('id', '!=', $article->id)
             ->orderByDesc('views')
@@ -585,7 +609,7 @@ if ($bookshelfCategory) {
         ));
     }
 
-public function newsletterSubscribe(Request $request)
+    public function newsletterSubscribe(Request $request)
     {
         $request->validate([
             'email' => ['required', 'email'],
@@ -604,12 +628,15 @@ public function newsletterSubscribe(Request $request)
             ]);
         }
 
-        // \App\Models\UserSubscription::firstOrCreate([
-        //     'email' => $email,
-        // ]);
-
         Auth::login($user);
 
-        return redirect()->back()->with('newsletter_success', 'Subscribed successfully.');
+        $message = $request->mode === 'login'
+            ? 'Login successful.'
+            : 'Subscribed successfully.';
+
+        return redirect()->back()->with([
+            'newsletter_success' => $message,
+            'newsletter_mode' => $request->mode // 👈 ADD THIS
+        ]);
     }
 }

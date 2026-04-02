@@ -56,11 +56,33 @@
 
     <script>
         // Define the function globally
-        function openNewsletterModal() {
-            const modal = document.getElementById('daNewsletterModal');
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
+        function openNewsletterModal(mode = 'subscribe') {
+                const modal = document.getElementById('daNewsletterModal');
+
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+
+                    modal.setAttribute('data-mode', mode);
+
+                    document.getElementById('modalMode').value = mode;
+
+                    updateModalContent(mode);
+                }
+            }
+
+        function updateModalContent(mode) {
+            const title = document.querySelector('.da-newsletter-right h3');
+            const button = document.querySelector('.da-newsletter-btn');
+
+            if (!title || !button) return;
+
+            if (mode === 'login') {
+                title.innerText = 'Login to Continue';
+                button.innerText = 'Login';
+            } else {
+                title.innerText = 'Unlock Your Daily Briefing';
+                button.innerText = 'Subscribe';
             }
         }
 
