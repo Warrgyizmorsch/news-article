@@ -788,8 +788,8 @@ button:focus {
   text-transform: uppercase;
 }
 
-.capitalize {
-  text-transform: capitalize;
+.none {
+  text-transform: none;
 }
 
 hr:not([size]) {
@@ -1342,7 +1342,7 @@ textarea:focus {
 /*----------------------------------------*/
 .rs-btn {
   font-size: 17px;
-  text-transform: capitalize;
+  text-transform: none;
   color: var(--rs-white);
   display: inline-flex;
   align-items: center;
@@ -2220,7 +2220,7 @@ textarea:focus {
   font-size: 17px;
   font-weight: 600;
   line-height: 25px;
-  text-transform: capitalize;
+  text-transform: none;
   color: var(--rs-title-primary);
   display: inline-flex;
   align-items: center;
@@ -2248,11 +2248,11 @@ textarea:focus {
   text-transform: uppercase;
 }
 
-.section-subtitle.text-purple-capitalize {
+.section-subtitle.text-purple-none {
   color: var(--rs-theme-purple);
   font-size: 20px;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .section-subtitle.has-text-primary {
@@ -6446,7 +6446,7 @@ html.lenis body {
   padding: 37px 0px;
   display: flex;
   align-items: center;
-  text-transform: capitalize;
+  text-transform: none;
   position: relative;
   transition: all 0.3s linear;
 }
@@ -7463,7 +7463,7 @@ html.lenis body {
 .rs-postbox-tag a {
   color: var(--rs-title-primary);
   font-size: 16px;
-  text-transform: capitalize;
+  text-transform: none;
   padding: 5px 20px 5px 20px;
   border-radius: 4px;
   background: var(--rs-theme-primary);
@@ -8332,7 +8332,7 @@ html.lenis body {
 .sidebar-widget.widget-contact .sidebar-call-content .title {
   font-size: 14px;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: none;
   color: var(--rs-white);
   margin-bottom: 2px;
   display: flex;
@@ -9812,7 +9812,7 @@ html.lenis body {
 .rs-post-overlay-one .rs-post-overlay-title {
   margin-top: 15px;
   margin-bottom: 12px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-overlay-one .rs-post-overlay-title.is-white {
@@ -9906,7 +9906,7 @@ html.lenis body {
 .rs-post-overlay-two .rs-post-overlay-title {
   margin-top: 15px;
   margin-bottom: 12px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-overlay-two .rs-post-overlay-title.is-white {
@@ -9987,7 +9987,7 @@ html.lenis body {
 .rs-post-overlay-three .rs-post-overlay-title {
   margin-top: 15px;
   margin-bottom: 12px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-overlay-three .rs-post-overlay-title.is-white {
@@ -10060,7 +10060,7 @@ html.lenis body {
 .rs-post-overlay-four .rs-post-overlay-title {
   margin-top: 15px;
   margin-bottom: 12px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-overlay-four .rs-post-overlay-title.is-white {
@@ -10121,7 +10121,7 @@ html.lenis body {
 .rs-post-small-one .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-one .rs-post-small-title a {
@@ -10198,7 +10198,7 @@ html.lenis body {
 .rs-post-small-two .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-two .rs-post-small-title a {
@@ -10239,7 +10239,7 @@ html.lenis body {
 .rs-post-small-three .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-three .rs-post-small-title a {
@@ -10309,7 +10309,7 @@ html.lenis body {
 .rs-post-small-four .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-four .rs-post-small-title a {
@@ -10417,7 +10417,7 @@ html.lenis body {
 .rs-post-small-five .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-five .rs-post-small-title a {
@@ -10511,7 +10511,7 @@ html.lenis body {
 .rs-post-small-six .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
   color: var(--rs-white);
 }
 
@@ -10552,7 +10552,7 @@ html.lenis body {
 
 .rs-post-small-seven .rs-post-small-title {
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
   color: var(--rs-white);
   font-size: 16px;
 }
@@ -10653,7 +10653,7 @@ html.lenis body {
 .rs-post-small-eight .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-eight .rs-post-small-title a {
@@ -10724,7 +10724,7 @@ html.lenis body {
 .rs-post-small-nine .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-nine .rs-post-small-title a {
@@ -10823,7 +10823,7 @@ html.lenis body {
 .rs-post-small-ten .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
   color: var(--rs-white);
 }
 
@@ -10911,7 +10911,7 @@ html.lenis body {
 .rs-post-small-eleven .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-eleven .rs-post-small-title a {
@@ -10973,7 +10973,7 @@ html.lenis body {
 .rs-post-small-twelve .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-twelve .rs-post-small-title a {
@@ -11013,7 +11013,7 @@ html.lenis body {
 .rs-post-small-thirteen .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-thirteen .rs-post-small-title a {
@@ -11113,7 +11113,7 @@ html.lenis body {
 .rs-post-small-fourteen .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-fourteen .rs-post-small-title a {
@@ -11226,7 +11226,7 @@ html.lenis body {
 .rs-post-small-fifteen .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
   color: var(--rs-white);
 }
 
@@ -11338,7 +11338,7 @@ html.lenis body {
 .rs-post-small-sixteen .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-sixteen .rs-post-small-title a {
@@ -11383,7 +11383,7 @@ html.lenis body {
 .rs-post-small-seventeen .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
   color: var(--rs-title-primary);
 }
 
@@ -11433,7 +11433,7 @@ html.lenis body {
 .rs-post-small-eighteen .rs-post-small-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
   color: var(--rs-title-primary);
 }
 
@@ -11561,7 +11561,7 @@ html.lenis body {
 .rs-post-small-nineteen .rs-post-small-title {
   margin-top: 5px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-small-nineteen .rs-post-small-title a {
@@ -11673,7 +11673,7 @@ html.lenis body {
 .rs-post-medium-one .rs-post-medium-title {
   margin-top: 12px;
   margin-bottom: 8px;
-  text-transform: capitalize;
+  text-transform: none;
   max-width: 400px;
 }
 
@@ -11723,7 +11723,7 @@ html.lenis body {
 .rs-post-medium-two .rs-post-medium-title {
   margin-top: 12px;
   margin-bottom: 15px;
-  text-transform: capitalize;
+  text-transform: none;
   max-width: 400px;
 }
 
@@ -11822,7 +11822,7 @@ html.lenis body {
 .rs-post-video-two .rs-post-video-title {
   margin-top: 8px;
   margin-bottom: 4px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-post-video-two .rs-post-video-title a {
@@ -11889,7 +11889,7 @@ html.lenis body {
 .rs-post-video-three .rs-post-video-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
   color: var(--rs-white);
 }
 
@@ -11964,7 +11964,7 @@ html.lenis body {
 .rs-post-video-four .rs-post-video-title {
   margin-top: 9px;
   margin-bottom: 7px;
-  text-transform: capitalize;
+  text-transform: none;
   color: var(--rs-white);
 }
 
@@ -12719,14 +12719,14 @@ html.lenis body {
   font-size: 14px;
   font-weight: 400;
   color: var(--rs-white);
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-sports-score-one .rs-sports-score-meta {
   font-size: 14px;
   font-weight: 400;
   color: var(--rs-white);
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .rs-sports-score-one .rs-sports-team-icon {
@@ -12892,7 +12892,7 @@ html.lenis body {
 
 .rs-login-wrapper .form-input-title label {
   margin-bottom: 5px;
-  text-transform: capitalize;
+  text-transform: none;
   font-size: 16px;
   text-align: left;
   display: block;

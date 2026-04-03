@@ -18,6 +18,14 @@
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/remixicon.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <style>
+        .rs-post-overlay-title {
+            text-transform: none !important;
+        }
+        .rs-post-medium-title {
+            text-transform: none !important;
+        }
+    </style>
 </head>
 
 <body class="rs-smoother-yes">
