@@ -70,6 +70,18 @@
                         </div>
                     </div>
 
+                    <div class="row g-3 mb-4">
+                        <label class="col-lg-3 col-form-label fw-semibold">Featured Image Description</label>
+                        <div class="col-lg-9">
+                            <textarea class="form-control" name="featured_image_description" rows="2"
+                                placeholder="Enter featured image description">{{ old('featured_image_description') }}</textarea>
+                    
+                            @error('featured_image_description')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="row g-3 mb-4" >
                         <label class="col-lg-3 col-form-label fw-semibold">Section</label>
                         <div class="col-lg-9">

@@ -75,6 +75,18 @@
                     </div>
 
                     <div class="row g-3 mb-4">
+                        <label class="col-lg-3 col-form-label fw-semibold">Featured Image Description</label>
+                        <div class="col-lg-9">
+                            <textarea class="form-control" name="featured_image_description" rows="2"
+                                placeholder="Enter featured image description">{{ old('featured_image_description', $article->featured_image_description) }}</textarea>
+                    
+                            @error('featured_image_description')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
                         <label class="col-lg-3 col-form-label fw-semibold">Section</label>
                         <div class="col-lg-9">
                             <select name="section_id" id="sectionSelect" class="form-select" data-select2-selector="tag" required>
@@ -159,7 +171,7 @@
                             @if($article->pdf_file)
                             <p class="mt-2">
                                 Current:
-                                <a href="{{ asset('storage/'.$article->pdf_file) }}" target="_blank">View PDF</a>
+                                <a href="{{ asset('storage/' . $article->pdf_file) }}" target="_blank">View PDF</a>
                             </p>
                             @endif
                         </div>
@@ -174,7 +186,7 @@
                             <div id="existingImages" class="d-flex flex-wrap gap-2 mt-3">
                                 @foreach($article->images as $img)
                                 <div class="preview-wrapper existing-image" data-id="{{ $img->id }}">
-                                    <img src="{{ asset('storage/'.$img->image) }}" class="preview-img">
+                                    <img src="{{ asset('storage/' . $img->image) }}" class="preview-img">
                                     <button type="button" class="remove-btn remove-existing">&times;</button>
                                 </div>
                                 @endforeach
@@ -213,7 +225,7 @@
                         <label class="col-lg-3 col-form-label fw-semibold">Tags</label>
                         <div class="col-lg-9">
                             @php
-                            $selectedTags = old('tags', $article->tags->pluck('id')->toArray());
+$selectedTags = old('tags', $article->tags->pluck('id')->toArray());
                             @endphp
 
                             <select name="tags[]" class="form-select" data-select2-selector="language" multiple>

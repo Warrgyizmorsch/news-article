@@ -74,7 +74,7 @@
                                                         @if(!empty($heroCenter->auther))
                                                             <li>By {{ $heroCenter->auther }}</li>
                                                         @endif
-                                                        <li>{{ $heroCenter->published_at?->format('M, Y') }}</li>
+                                                        <li>{{ $heroCenter->published_at?->format('F Y') }}</li>
                                                     </ul>
                                                 </div> -->
                                             </div>
@@ -373,7 +373,7 @@
                                                                     d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
                                                                     fill="white"></path>
                                                             </svg>
-                                                            <span>{{ $article->published_at ? $article->published_at->format('M, Y') : '' }}</span>
+                                                            <span>{{ $article->published_at ? $article->published_at->format('F Y') : '' }}</span>
                                                         </span>
                                                     </li>
                                                 </ul>
@@ -737,7 +737,7 @@
                                                             d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
                                                             fill="white"></path>
                                                     </svg>
-                                                    <span>{{ $lifestyleArticles[0]->published_at ? $lifestyleArticles[0]->published_at->format('M, Y') : '' }}</span>
+                                                    <span>{{ $lifestyleArticles[0]->published_at ? $lifestyleArticles[0]->published_at->format('F Y') : '' }}</span>
                                                 </span>
                                             </li>
                                         </ul>
@@ -854,7 +854,7 @@
                                                 <li>
                                                     <span class="rs-meta">
                                                         <span>
-                                                            {{ $article->created_at->format('M, Y') }}
+                                                            {{ $article->created_at->format('F Y') }}
                                                         </span>
                                                     </span>
                                                 </li>
@@ -1019,7 +1019,7 @@
                                                             d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
                                                             fill="white"></path>
                                                     </svg>
-                                                    <span>{{ optional($article->published_at)->format('M, Y') }}</span>
+                                                    <span>{{ optional($article->published_at)->format('F Y') }}</span>
                                                 </span>
                                             </li>
                                         </ul>
@@ -1158,7 +1158,7 @@
                                                         fill="white"></path>
                                                 </svg>
                                                 <span>
-                                                    {{ $categoryArticles[0]->published_at ? $categoryArticles[0]->published_at->format('M, Y') : '' }}
+                                                    {{ $categoryArticles[0]->published_at ? $categoryArticles[0]->published_at->format('F Y') : '' }}
                                                 </span>
                                             </span>
                                         </li>

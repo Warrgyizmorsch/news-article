@@ -28,6 +28,7 @@ class StoreArticleRequest extends FormRequest
             'published_at' => 'nullable|date',
             'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id',
+            'featured_image_description' => ['nullable', 'string', 'max:500'],
         ];
     }
 }

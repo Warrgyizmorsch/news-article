@@ -101,7 +101,7 @@
                             <div class="col-lg-4 col-xl-5">
                                 <div class="mb-3">
                                     <span style="font-weight: 700; color: #111827; font-size: 14px; letter-spacing: 0.5px; text-transform: uppercase;">
-                                        {{ optional($latestArticle->published_at)->format('M  Y') }}
+                                        {{ optional($latestArticle->published_at)->format('F Y') }}
                                     </span>
                                 </div>
                                 <h1 style="font-size: 56px; font-weight: 700; color: #111827; line-height: 1.1; font-family: 'Playfair Display', serif; margin-bottom: 24px;">
@@ -216,7 +216,7 @@
                                                 <line x1="8" y1="2" x2="8" y2="6"></line>
                                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                                             </svg>
-                                            {{ optional($article->published_at)->format('M j, Y') }}
+                                            {{ optional($article->published_at)->format('F Y') }}
                                         </span>
                                     </div>
 

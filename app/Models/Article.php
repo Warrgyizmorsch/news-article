@@ -18,6 +18,7 @@ class Article extends Model
         'excerpt',
         'content',
         'featured_image',
+        'featured_image_description',
         'meta_title',
         'meta_description',
         'status',

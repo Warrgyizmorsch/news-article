@@ -108,7 +108,7 @@
                                 <div class="mb-3">
                                     <span
                                         style="font-weight: 700; color: #111827; font-size: 14px; letter-spacing: 0.5px; text-transform: uppercase;">
-                                        {{ optional($latestArticle->published_at)->format('M  Y') }}
+                                        {{ optional($latestArticle->published_at)->format('F Y') }}
                                     </span>
                                 </div>
                                 <h1
@@ -197,7 +197,7 @@
                                     <div class="edition-content">
 
                                         <span class="edition-date">
-                                            {{ optional($article->published_at)->format('M, Y') }}
+                                            {{ optional($article->published_at)->format('F Y') }}
                                         </span>
 
                                         <h4 class="edition-title">
@@ -246,7 +246,7 @@
 
         .edition-image img {
             width: 100%;
-            height: 360px;
+            height: 415px;
             object-fit: fill;
             transition: transform .4s ease;
         }

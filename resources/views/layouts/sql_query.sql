@@ -13,3 +13,7 @@ ALTER TABLE `articles` ADD `auther_description` TEXT NULL DEFAULT NULL AFTER `au
 ALTER TABLE `articles` CHANGE `category_id` `category_id` BIGINT(20) UNSIGNED NULL DEFAULT NULL;
 
 ALTER TABLE `articles` ADD `country` VARCHAR(255) NULL DEFAULT NULL AFTER `pdf_file`;
+
+--Jay 1-4-26
+ALTER TABLE articles 
+ADD COLUMN featured_image_description TEXT NULL AFTER featured_image;
