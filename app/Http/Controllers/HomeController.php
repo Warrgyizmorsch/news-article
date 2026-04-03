@@ -191,12 +191,12 @@ class HomeController extends Controller
         if ($politicsCategory) {
             $politicsArticles = Article::with(['category', 'author'])
                 ->where('section_id', 22)
-                ->orderBy('sort_order')
-                ->orderByDesc('published_at')
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
-                ->latest('published_at')
-                ->take(6) // same as featured count
+                ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
+                ->orderBy('sort_order')
+                ->orderByDesc('published_at')
+                ->take(6)
                 ->get()
                 ->values();
         }
@@ -339,11 +339,13 @@ class HomeController extends Controller
 
         $articleQuery = Article::with(['category', 'author', 'tags'])
             ->where('status', 'published')
-            ->whereNotNull('published_at');
+            ->whereNotNull('published_at')
+            ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('published_at', 'desc');
 
         if ($slug === 'politics') {
-            $articleQuery->where('section_id', 22)->orderBy('sort_order')
-                ->orderByDesc('published_at');;
+            $articleQuery->where('section_id', 22);
         } else {
             $articleQuery->where('category_id', $category->id);
         }
@@ -441,8 +443,6 @@ class HomeController extends Controller
         }
 
         $articles = $articleQuery
-            ->orderBy('sort_order', 'asc')
-            ->orderBy('published_at', 'desc')
             ->paginate(12)
             ->withQueryString();
 
