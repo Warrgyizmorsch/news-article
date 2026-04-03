@@ -97,38 +97,38 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const modal = document.getElementById('daNewsletterModal');
-            const closeBtn = document.getElementById('daNewsletterClose');
-            const overlay = modal ? modal.querySelector('.da-newsletter-overlay') : null;
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     const modal = document.getElementById('daNewsletterModal');
+        //     const closeBtn = document.getElementById('daNewsletterClose');
+        //     const overlay = modal ? modal.querySelector('.da-newsletter-overlay') : null;
 
-            if (!modal) return;
+        //     if (!modal) return;
 
-            // 1. Check if we should auto-show (Timer)
-            const now = Date.now();
-            const closedUntil = localStorage.getItem('da_newsletter_closed_until');
-            const isSuccess = modal.classList.contains('active'); // Checks if Laravel 'active' class is present from session
+        //     // 1. Check if we should auto-show (Timer)
+        //     const now = Date.now();
+        //     const closedUntil = localStorage.getItem('da_newsletter_closed_until');
+        //     const isSuccess = modal.classList.contains('active'); // Checks if Laravel 'active' class is present from session
 
-            if (!isSuccess && (!closedUntil || now > parseInt(closedUntil))) {
-                setTimeout(() => {
-                    openNewsletterModal();
-                }, 4000);
-            }
+        //     if (!isSuccess && (!closedUntil || now > parseInt(closedUntil))) {
+        //         setTimeout(() => {
+        //             openNewsletterModal();
+        //         }, 4000);
+        //     }
 
-            // 2. Close Logic
-            function closeModal() {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
+        //     // 2. Close Logic
+        //     function closeModal() {
+        //         modal.classList.remove('active');
+        //         document.body.style.overflow = '';
 
-                // Set lockout for 24 hours only if NOT a success message
-                // We don't want to nag them again tomorrow if they just subscribed
-                const nextShowTime = Date.now() + (24 * 60 * 60 * 1000);
-                localStorage.setItem('da_newsletter_closed_until', nextShowTime);
-            }
+        //         // Set lockout for 24 hours only if NOT a success message
+        //         // We don't want to nag them again tomorrow if they just subscribed
+        //         const nextShowTime = Date.now() + (24 * 60 * 60 * 1000);
+        //         localStorage.setItem('da_newsletter_closed_until', nextShowTime);
+        //     }
 
-            closeBtn?.addEventListener('click', closeModal);
-            overlay?.addEventListener('click', closeModal);
-        });
+        //     closeBtn?.addEventListener('click', closeModal);
+        //     overlay?.addEventListener('click', closeModal);
+        // });
     </script>
 </body>
 

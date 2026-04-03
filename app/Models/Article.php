@@ -19,6 +19,7 @@ class Article extends Model
         'content',
         'featured_image',
         'featured_image_description',
+        'sort_order',
         'meta_title',
         'meta_description',
         'status',

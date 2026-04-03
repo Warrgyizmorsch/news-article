@@ -29,6 +29,7 @@ class StoreArticleRequest extends FormRequest
             'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id',
             'featured_image_description' => ['nullable', 'string', 'max:500'],
+            'sort_order' => ['nullable', 'integer'],
         ];
     }
 }

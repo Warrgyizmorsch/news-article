@@ -82,6 +82,15 @@
                         </div>
                     </div>
 
+                    <div class="row g-3 mb-4">
+                        <label class="col-lg-3 col-form-label fw-semibold">Sort Order</label>
+                        <div class="col-lg-9">
+                            <input type="number" class="form-control" name="sort_order"
+                                value="{{ old('sort_order', $article->sort_order ?? 0) }}"
+                                placeholder="Enter sort order (lower number shows first)">
+                        </div>
+                    </div>
+
                     <div class="row g-3 mb-4" >
                         <label class="col-lg-3 col-form-label fw-semibold">Section</label>
                         <div class="col-lg-9">
