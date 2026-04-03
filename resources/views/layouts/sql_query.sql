@@ -17,3 +17,6 @@ ALTER TABLE `articles` ADD `country` VARCHAR(255) NULL DEFAULT NULL AFTER `pdf_f
 --Jay 1-4-26
 ALTER TABLE articles 
 ADD COLUMN featured_image_description TEXT NULL AFTER featured_image;
+
+ALTER TABLE articles 
+ADD COLUMN sort_order INT DEFAULT 0 AFTER category_id;
