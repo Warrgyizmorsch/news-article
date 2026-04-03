@@ -58,25 +58,25 @@
                                 @foreach($heroCenter->images as $index => $img)
                                     <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                         <div class="rs-post-overlay rs-post-overlay-one">
-                                            <a href="{{ route('news.show', $heroCenter->slug) }}">
+                                            <a href="{{ asset('storage/' . $heroCenter->pdf_file) }}" target="_blank">
                                                 <div class="rs-post-overlay-bg-thumb"
                                                     style="background-image: url('{{ asset('storage/' . $img->image) }}'); background-size: cover; background-position: center; height: 400px; border-radius: 8px;">
                                                 </div>
                                             </a>
                                             <div class="rs-post-overlay-content">
                                                 <h3 class="rs-post-overlay-title is-white underline">
-                                                    <a href="{{ route('news.show', $heroCenter->slug) }}">
+                                                    <a href="{{ asset('storage/' . $heroCenter->pdf_file) }}" target="_blank">
                                                         {{ \Str::limit($heroCenter->title, 60) }}
                                                     </a>
                                                 </h3>
-                                                <div class="rs-post-meta meta-white">
+                                                <!-- <div class="rs-post-meta meta-white">
                                                     <ul>
                                                         @if(!empty($heroCenter->auther))
                                                             <li>By {{ $heroCenter->auther }}</li>
                                                         @endif
-                                                        <!-- <li>{{ $heroCenter->published_at?->format('M, Y') }}</li> -->
+                                                        <li>{{ $heroCenter->published_at?->format('M, Y') }}</li>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
