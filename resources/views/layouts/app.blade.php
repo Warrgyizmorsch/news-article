@@ -25,6 +25,9 @@
         .rs-post-medium-title {
             text-transform: none !important;
         }
+        a {
+            text-transform: none !important;
+        }
     </style>
 </head>
 

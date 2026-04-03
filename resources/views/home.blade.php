@@ -840,7 +840,7 @@
                                         <div class="rs-post-meta">
                                             <ul>
 
-                                                @if(!empty($article->auther))
+                                                <!-- @if(!empty($article->auther))
                                                     <li>
                                                         <span class="rs-meta">
                                                             By
@@ -849,7 +849,7 @@
                                                             </a>
                                                         </span>
                                                     </li>
-                                                @endif
+                                                @endif -->
 
                                                 <li>
                                                     <span class="rs-meta">
