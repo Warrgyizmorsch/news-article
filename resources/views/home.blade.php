@@ -343,7 +343,7 @@
                 <div class="col-xl-8 col-lg-7">
                     <div class="rs-post-medium rs-post-medium-one">
 
-                        @for($i = 0; $i < 6; $i++)
+                        @for($i = 0; $i < 7; $i++)
                             @if(isset($politicsArticles[$i]))
                                 @php $article = $politicsArticles[$i]; @endphp
                                 <div class="rs-post-medium-item">
