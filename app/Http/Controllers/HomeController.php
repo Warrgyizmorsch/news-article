@@ -44,7 +44,25 @@ class HomeController extends Controller
 
         $heroLeft = $heroPool->slice(0, 3);
         $heroRight = $heroPool->slice(3, 3);
-        $heroExtra = $heroPool->slice(6);
+        $heroExtra = $heroPool->slice(6)->values()->map(function ($article) {
+            return [
+                'slug' => $article->slug,
+                'title' => $article->title,
+                'featured_image' => $article->featured_image,
+                'category' => $article->category->name ?? 'News',
+                'author' => $article->auther ?? '',
+            ];
+        });
+
+        $heroAll = $heroPool->values()->map(function ($article) {
+            return [
+                'slug' => $article->slug,
+                'title' => $article->title,
+                'featured_image' => $article->featured_image,
+                'category' => $article->category->name ?? 'News',
+                'author' => $article->auther ?? '',
+            ];
+        });
 
         // Left Side: Most Viewed Articles
         // $heroLeft = Article::with(['category', 'author'])
@@ -196,7 +214,7 @@ class HomeController extends Controller
                 ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
                 ->orderBy('sort_order')
                 ->orderByDesc('published_at')
-                ->take(6)
+                ->take(7)
                 ->get()
                 ->values();
         }
@@ -254,6 +272,7 @@ class HomeController extends Controller
             'heroLeft',
             'heroRight',
             'heroExtra',
+            'heroAll',
             // 'breakingTop',
             // 'breakingBottom',
             'featuredArticles',
