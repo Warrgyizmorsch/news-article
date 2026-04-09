@@ -14,7 +14,7 @@
     <title>@yield('title', 'News Article || CRM')</title>
 
     {{-- Favicon --}}
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon-d.webp') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon-final.jpeg') }}">
 
     {{-- Vendors CSS --}}
     <link rel="stylesheet" href="{{ asset('crm-assets/assets/css/bootstrap.min.css') }}">

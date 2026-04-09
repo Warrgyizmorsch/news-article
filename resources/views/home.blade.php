@@ -70,13 +70,13 @@
                                                     </a>
                                                 </h3>
                                                 <!-- <div class="rs-post-meta meta-white">
-                                                                                                <ul>
-                                                                                                    @if(!empty($heroCenter->auther))
-                                                                                                        <li>By {{ $heroCenter->auther }}</li>
-                                                                                                    @endif
-                                                                                                    <li>{{ $heroCenter->published_at?->format('F Y') }}</li>
-                                                                                                </ul>
-                                                                                            </div> -->
+                                                                                                                                        <ul>
+                                                                                                                                            @if(!empty($heroCenter->auther))
+                                                                                                                                                <li>By {{ $heroCenter->auther }}</li>
+                                                                                                                                            @endif
+                                                                                                                                            <li>{{ $heroCenter->published_at?->format('F Y') }}</li>
+                                                                                                                                        </ul>
+                                                                                                                                    </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -227,33 +227,33 @@
                 const url = newsRoute.replace('__slug__', article.slug);
 
                 return `
-        <div class="rs-post-small-item mb-20 fade-item">
+                        <div class="rs-post-small-item mb-20 fade-item">
 
-            <div class="rs-post-small-thumb">
-                <a href="${url}" class="image-link">
-                    <img class="hero-side-image"
-                        src="${img}"
-                        alt="${article.title}">
-                </a>
-            </div>
+                            <div class="rs-post-small-thumb">
+                                <a href="${url}" class="image-link">
+                                    <img class="hero-side-image"
+                                        src="${img}"
+                                        alt="${article.title}">
+                                </a>
+                            </div>
 
-            <div class="rs-post-small-content">
+                            <div class="rs-post-small-content">
 
-                <div class="rs-post-tag-two">
-                    <a href="#" class="post-tag is-green">
-                        ${article.category}
-                    </a>
-                </div>
+                                <div class="rs-post-tag-two">
+                                    <a href="#" class="post-tag is-green">
+                                        ${article.category}
+                                    </a>
+                                </div>
 
-                <h6 class="rs-post-small-title underline">
-                    <a href="${url}">
-                        ${article.title.length > 25 ? article.title.substring(0, 25) + '...' : article.title}
-                    </a>
-                </h6>
+                                <h6 class="rs-post-small-title underline">
+                                    <a href="${url}">
+                                        ${article.title.length > 25 ? article.title.substring(0, 25) + '...' : article.title}
+                                    </a>
+                                </h6>
 
-            </div>
+                            </div>
 
-        </div>`;
+                        </div>`;
             }
 
             let index = 6; // first 6 already visible
@@ -285,22 +285,203 @@
     </script>
     <!-- hero area end -->
 
+    <!-- video area start -->
+    @php
+        $videoNews = [
+
+            [
+                "title" => "Family Travel: Fun and Safe Destinations",
+                "url" => "https://youtu.be/p8Dgc0rgpeM?si=HrA4LnqDEo8J8sal",
+            ],
+
+            // [
+            //     "title" => "Top Strategies to Dominate Multiplayer Games",
+            //     "url" => "https://www.youtube.com/watch?v=p8Dhe4SRvOs",
+            // ],
+
+            // [
+            //     "title" => "Vintage Fashion Styles Making Comeback",
+            //     "url" => "https://www.youtube.com/watch?v=SYQShy6ZwCw",
+            // ],
+
+        ];
+
+        function youtubeId($url)
+        {
+            preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\&\?\/]+)/', $url, $m);
+            return $m[1] ?? null;
+        }
+
+        $mainVideo = $videoNews[0];
+        $mainId = youtubeId($mainVideo['url']);
+
+    @endphp
+    <section class="rs-video-area bg-primary section-space-bottom rs-ptop rs-video-one">
+        <div class="container">
+
+            <div class="row section-title-space align-items-center g-5">
+                <div class="col-xl-6">
+                    <div class="section-title-wrapper">
+                        <h2 class="section-title is-white">
+                            Highlight Stories
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-5">
+                <!-- FEATURED VIDEO -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="rs-post-video rs-post-video-one">
+                        <div class="rs-post-video-item">
+                            <div class="rs-post-video-thumb" id="featuredVideo">
+                                <img src="https://img.youtube.com/vi/{{ $mainId }}/maxresdefault.jpg"
+                                    style="width:100%;border-radius:6px" id="featuredThumbnail">
+                                <a href="javascript:void(0)" onclick="playFeaturedVideo('{{ $mainId }}')"
+                                    class="rs-play-btn is-red"
+                                    style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
+                                    <i class="ri-play-large-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT VIDEO LIST -->
+                <div class="col-xl-4 col-lg-5">
+                    <!-- @if(count($videoNews) > 1) -->
+                    {{-- SHOW VIDEO LIST --}}
+                    <div class="rs-post-video rs-post-video-three">
+                        @foreach(array_slice($videoNews, 1) as $video)
+                            @php
+                                $id = youtubeId($video['url']);
+                            @endphp
+                            <div class="rs-post-video-item">
+                                <div class="rs-post-video-thumb">
+                                    <a href="javascript:void(0)" onclick="playVideo('{{ $id }}')">
+                                        <img src="https://img.youtube.com/vi/{{ $id }}/hqdefault.jpg"
+                                            alt="{{ $video['title'] }}">
+                                    </a>
+                                    <a href="javascript:void(0)" onclick="playVideo('{{ $id }}')"
+                                        class="rs-play-btn is-small is-red">
+                                        <i class="ri-play-large-fill"></i>
+                                    </a>
+                                </div>
+
+                                <div class="rs-post-video-content">
+                                    <h6 class="rs-post-video-title underline is-white">
+                                        <a href="javascript:void(0)" onclick="playVideo('{{ $id }}')">
+                                            {{ \Illuminate\Support\Str::limit($video['title'], 60) }}
+                                        </a>
+                                    </h6>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <!-- @else
+
+                            {{-- SHOW POPULAR ARTICLES --}}
+                            @foreach($popularArticles as $popular)
+                                <div class="rs-post-small-item d-flex align-items-center mb-20 pb-20"
+                                    style="border-bottom: 1px solid #f1f1f1;">
+                                    <div class="rs-post-small-thumb"
+                                        style="flex: 0 0 80px;height:80px;border-radius:8px;overflow:hidden;margin-right:15px;">
+                                        <a href="{{ route('news.show', $popular->slug) }}" class="image-link h-100">
+                                            <img src="{{ $popular->featured_image ? asset('storage/' . $popular->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                                alt="{{ $popular->title }}" class="w-100 h-100 object-fit-cover">
+                                        </a>
+                                    </div>
+
+                                    <div class="rs-post-small-content">
+                                        <h6 class="rs-post-small-title"
+                                            style="font-size:15px;font-weight:700;line-height:1.4;margin-bottom:8px;">
+                                            <a href="{{ route('news.show', $popular->slug) }}"
+                                                class="text-dark text-decoration-none transition-all"
+                                                style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;"
+                                                onmouseover="this.style.color='#0d6efd';" onmouseout="this.style.color='#000';">
+                                                {{ $popular->title }}
+                                            </a>
+                                        </h6>
+
+                                        <div class="rs-post-meta d-flex align-items-center gap-3" style="font-size:12px;color:#888;">
+                                            @if(!empty($popular->auther))
+                                                <span class="rs-meta">By {{ $popular->auther }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                        @endif -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="videoModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+            background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;">
+        <div style="width:80%;max-width:900px;position:relative">
+            <span onclick="closeVideo()"
+                style="position:absolute;right:-10px;top:-40px;font-size:35px;color:white;cursor:pointer">
+                ✕
+            </span>
+            <iframe id="videoFrame" width="100%" height="500" frameborder="0" allow="autoplay; encrypted-media"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+    <script>
+        /* LEFT VIDEO PLAY */
+        function playFeaturedVideo(videoId) {
+            const container = document.getElementById("featuredVideo");
+            container.innerHTML =
+                `<iframe width="100%" height="420"
+            src="https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen></iframe>`;
+        }
+
+        /* RIGHT VIDEOS MODAL */
+        function playVideo(videoId) {
+            const modal = document.getElementById("videoModal");
+            const iframe = document.getElementById("videoFrame");
+            iframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&modestbranding=1&rel=0";
+            modal.style.display = "flex";
+        }
+
+        function closeVideo() {
+            const modal = document.getElementById("videoModal");
+            const iframe = document.getElementById("videoFrame");
+            iframe.src = "";
+            modal.style.display = "none";
+        }
+
+        /* click outside modal */
+        document.getElementById("videoModal").addEventListener("click", function (e) {
+            if (e.target.id === "videoModal") {
+                closeVideo();
+            }
+        });
+    </script>
+    <!-- video area end -->
+
     <!-- DA Video section  -->
     <!-- @include('components.da-video-section') -->
 
     <!-- ad banner area start -->
     <!-- <div class="ad-banner-area rs-ad-banner-one section-space">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="rs-ad-banner-thumb">
-                                                                    <a href="/plans"><img src="{{ asset('assets/images/ad/ad-1.webp') }}"
-                                                                            alt="image"></a>
+                                                                <div class="container">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <div class="rs-ad-banner-thumb">
+                                                                                    <a href="/plans"><img src="{{ asset('assets/images/ad/ad-1.webp') }}"
+                                                                                            alt="image"></a>
+                                                                                </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
+                                                            </div> -->
     <!-- ad banner area end -->
 
 
@@ -492,111 +673,111 @@
                         </div> --}}
 
                         <!-- <div class="rs-sidebar">
-                                                                        <div class="rs-social rs-social-one">
-                                                                            <h5 class="section-title is-small">Follow Us</h5>
-                                                                            <ul class="rs-social-wrapper">
-                                                                                <li class="rs-social-item">
-                                                                                    <a href="#">
-                                                                                        <span class="rs-social-label">
-                                                                                            <span class="rs-social-icon">
-                                                                                                <svg width="14" height="22" viewBox="0 0 14 22" fill="none"
-                                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                                    <path
-                                                                                                        d="M11.624 11.9541L12.193 8.54137L8.63572 8.54137V6.32676C8.63572 5.39311 9.13264 4.48303 10.7258 4.48303H12.343V1.57748C12.343 1.57748 10.8755 1.34692 9.47233 1.34692C6.54282 1.34692 4.62796 2.98146 4.62796 5.94041L4.62796 8.54137H1.37158L1.37158 11.9541H4.62796L4.62796 20.2041H8.63572L8.63572 11.9541H11.624Z"
-                                                                                                        fill="white" />
-                                                                                                </svg>
-                                                                                            </span>
-                                                                                            <span class="rs-social-name">Facebook</span>
-                                                                                        </span>
-                                                                                        <span class="rs-social-count">88.2k Followers</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="rs-social-item">
-                                                                                    <a href="#">
-                                                                                        <span class="rs-social-label">
-                                                                                            <span class="rs-social-icon">
-                                                                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                                    <path
-                                                                                                        d="M9.35332 6.88729L14.6472 0.733521H13.3928L8.79603 6.07675L5.12465 0.733521H0.890137L6.44199 8.81343L0.890137 15.2666H2.1447L6.99896 9.62397L10.8762 15.2666H15.1107L9.35332 6.88729ZM7.63502 8.88462L7.0725 8.08004L2.59674 1.67793H4.52367L8.13567 6.84464L8.69818 7.64922L13.3933 14.3651H11.4664L7.63502 8.88462Z"
-                                                                                                        fill="white" />
-                                                                                                </svg>
-                                                                                            </span>
-                                                                                            <span class="rs-social-name">Twitter - X</span>
-                                                                                        </span>
-                                                                                        <span class="rs-social-count">48.6k Followers</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="rs-social-item">
-                                                                                    <a href="#">
-                                                                                        <span class="rs-social-label">
-                                                                                            <span class="rs-social-icon">
-                                                                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                                    <path
-                                                                                                        d="M13.6283 19.3083C13.645 19.3033 13.6608 19.2967 13.6775 19.2908C23.8567 15.2467 21.0408 0 10 0C4.45917 0 0 4.51667 0 10C0 16.9392 7.02833 21.8908 13.6283 19.3083ZM4.40083 16.7158C5.11083 15.5225 7.40833 12.1558 11.33 10.9942C12.2429 13.3207 12.7345 15.7912 12.7817 18.29C11.3672 18.7696 9.85294 18.8767 8.385 18.601C6.91706 18.3253 5.54491 17.676 4.40083 16.7158ZM14.0108 17.7683C13.9187 15.355 13.4375 12.9724 12.5858 10.7125C14.3208 10.4417 16.3292 10.6225 18.6067 11.535C18.3689 12.8565 17.8309 14.1057 17.0341 15.1864C16.2373 16.2672 15.2029 17.1505 14.0108 17.7683ZM18.7375 10.2425C16.2292 9.3 14.0183 9.1825 12.105 9.5475C11.8092 8.88083 11.4983 8.24 11.1692 7.65C14.105 6.4775 15.84 5.04833 16.6167 4.29167C18.0497 5.93631 18.8073 8.06225 18.7375 10.2425ZM15.7292 3.40167C15.0225 4.07417 13.3583 5.4325 10.5125 6.54333C9.1175 4.33667 7.62583 2.78 6.68083 1.90833C8.17845 1.28978 9.81908 1.10183 11.4178 1.36568C13.0165 1.62953 14.5097 2.33469 15.7292 3.40167ZM5.48583 2.51917C6.19917 3.14667 7.765 4.65333 9.27583 6.98333C7.20083 7.65167 4.59917 8.1425 1.435 8.21167C1.93833 5.8 3.44167 3.75667 5.48583 2.51917ZM1.27667 9.46667C4.81833 9.40917 7.685 8.85 9.95083 8.09333C10.2642 8.6425 10.5617 9.24083 10.8475 9.8625C6.90167 11.1192 4.43583 14.3633 3.49167 15.8283C2.71507 14.9704 2.11881 13.9652 1.7383 12.8724C1.3578 11.7795 1.20081 10.6214 1.27667 9.46667Z"
-                                                                                                        fill="white" />
-                                                                                                </svg>
-                                                                                            </span>
-                                                                                            <span class="rs-social-name">Dribbble</span>
-                                                                                        </span>
-                                                                                        <span class="rs-social-count">39.5k Followers</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="rs-social-item">
-                                                                                    <a href="#">
-                                                                                        <span class="rs-social-label">
-                                                                                            <span class="rs-social-icon">
-                                                                                                <svg width="16" height="20" viewBox="0 0 16 20" fill="none"
-                                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                                    <path
-                                                                                                        d="M6.61654 13.2282C6.09154 15.9813 5.45013 18.6212 3.55013 20.0001C2.9638 15.8384 4.41146 12.713 5.08334 9.39502C3.93724 7.46533 5.22123 3.58252 7.6388 4.53955C10.6134 5.71611 5.06302 11.7126 8.7892 12.4614C12.6798 13.2431 14.2677 5.71104 11.8556 3.26182C8.36966 -0.275292 1.70873 3.18096 2.52787 8.24502C2.72709 9.48291 4.00638 9.85869 3.03919 11.5669C0.807945 11.0724 0.142319 9.31299 0.227866 6.96729C0.365757 3.12744 3.67787 0.439161 7.00013 0.0672862C11.2013 -0.403026 15.1443 1.60947 15.6888 5.56182C16.3021 10.0224 13.7923 14.8532 9.30013 14.506C8.08216 14.4114 7.57123 13.8079 6.61654 13.2282Z"
-                                                                                                        fill="white" />
-                                                                                                </svg>
-                                                                                            </span>
-                                                                                            <span class="rs-social-name">Pinterest</span>
-                                                                                        </span>
-                                                                                        <span class="rs-social-count">28.2k Followers</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="rs-social-item">
-                                                                                    <a href="#">
-                                                                                        <span class="rs-social-label">
-                                                                                            <span class="rs-social-icon">
-                                                                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                                    <path
-                                                                                                        d="M17.7973 17.7992V11.3532C17.7973 8.18522 17.1153 5.76522 13.4193 5.76522C11.6373 5.76522 10.4493 6.73322 9.96527 7.65722H9.92126V6.05122H6.42326V17.7992H10.0753V11.9692C10.0753 10.4292 10.3613 8.95522 12.2533 8.95522C14.1233 8.95522 14.1453 10.6932 14.1453 12.0572V17.7772H17.7973V17.7992ZM0.483266 6.05122H4.13527V17.7992H0.483266V6.05122ZM2.30927 0.199219C1.14327 0.199219 0.197266 1.14522 0.197266 2.31122C0.197266 3.47722 1.14327 4.44522 2.30927 4.44522C3.47527 4.44522 4.42127 3.47722 4.42127 2.31122C4.42127 1.14522 3.47527 0.199219 2.30927 0.199219Z"
-                                                                                                        fill="white" />
-                                                                                                </svg>
-                                                                                            </span>
-                                                                                            <span class="rs-social-name">LinkedIn</span>
-                                                                                        </span>
-                                                                                        <span class="rs-social-count">30.3k Followers</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="rs-social-item">
-                                                                                    <a href="#">
-                                                                                        <span class="rs-social-label">
-                                                                                            <span class="rs-social-icon">
-                                                                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                                                    <path
-                                                                                                        d="M17.6045 5.45036C17.5641 4.53485 17.4161 3.9055 17.204 3.3601C16.9852 2.78121 16.6486 2.26294 16.2077 1.83208C15.7768 1.39452 15.2551 1.0545 14.6829 0.839154C14.1344 0.627106 13.5083 0.479009 12.5928 0.438686C11.6705 0.394863 11.3777 0.384766 9.03843 0.384766C6.69917 0.384766 6.40637 0.394863 5.48747 0.435253C4.57199 0.475643 3.94261 0.623808 3.39738 0.835721C2.81832 1.0545 2.30005 1.39108 1.86919 1.83208C1.43163 2.26291 1.09178 2.78461 0.876264 3.3568C0.664216 3.9055 0.516152 4.53148 0.475796 5.44692C0.432006 6.36927 0.421875 6.66206 0.421875 9.00132C0.421875 11.3406 0.432006 11.6334 0.472363 12.5523C0.512753 13.4678 0.660917 14.0971 0.872999 14.6425C1.09178 15.2214 1.43163 15.7397 1.86919 16.1706C2.30005 16.6081 2.82175 16.9481 3.39395 17.1635C3.94258 17.3755 4.56856 17.5236 5.4842 17.564C6.40294 17.6045 6.6959 17.6144 9.03516 17.6144C11.3744 17.6144 11.6672 17.6045 12.5861 17.564C13.5016 17.5236 14.131 17.3756 14.6762 17.1635C15.2489 16.9421 15.7689 16.6035 16.2031 16.1693C16.6372 15.7352 16.9759 15.2152 17.1973 14.6425C17.4092 14.0939 17.5574 13.4678 17.5978 12.5523C17.6382 11.6334 17.6483 11.3406 17.6483 9.00132C17.6483 6.66206 17.6449 6.36923 17.6045 5.45036ZM16.0529 12.485C16.0159 13.3264 15.8745 13.7808 15.7567 14.0837C15.4672 14.8343 14.8715 15.4301 14.1208 15.7196C13.8179 15.8374 13.3603 15.9787 12.5221 16.0157C11.6133 16.0562 11.3408 16.0662 9.04186 16.0662C6.74296 16.0662 6.46699 16.0562 5.56148 16.0157C4.72002 15.9787 4.26563 15.8374 3.96271 15.7196C3.5892 15.5815 3.24922 15.3628 2.97322 15.0767C2.68712 14.7973 2.46834 14.4607 2.33027 14.0872C2.21247 13.7842 2.07114 13.3264 2.03421 12.4884C1.99369 11.5796 1.98373 11.3069 1.98373 9.00802C1.98373 6.70911 1.99369 6.43315 2.03421 5.5278C2.07114 4.68634 2.21247 4.23196 2.33027 3.92903C2.46834 3.55535 2.68712 3.21544 2.97665 2.93937C3.25588 2.65328 3.59246 2.4345 3.96614 2.2966C4.26907 2.17879 4.72689 2.03743 5.56491 2.00037C6.47369 1.95998 6.74639 1.94988 9.04513 1.94988C11.3475 1.94988 11.62 1.95998 12.5255 2.00037C13.367 2.03746 13.8214 2.17876 14.1243 2.29656C14.4978 2.4345 14.8378 2.65328 15.1138 2.93937C15.3999 3.21877 15.6186 3.55535 15.7567 3.92903C15.8745 4.23196 16.0159 4.68961 16.0529 5.5278C16.0933 6.43658 16.1034 6.70911 16.1034 9.00802C16.1034 11.3069 16.0933 11.5762 16.0529 12.485Z"
-                                                                                                        fill="white" />
-                                                                                                    <path
-                                                                                                        d="M9.0335 4.57741C6.58997 4.57741 4.60742 6.55982 4.60742 9.00349C4.60742 11.4472 6.58997 13.4296 9.0335 13.4296C11.4771 13.4296 13.4596 11.4472 13.4596 9.00349C13.4596 6.55982 11.4771 4.57741 9.0335 4.57741ZM9.0335 11.8746C7.44826 11.8746 6.16237 10.5889 6.16237 9.00349C6.16237 7.41811 7.44826 6.13243 9.03347 6.13243C10.6188 6.13243 11.9046 7.41811 11.9046 9.00349C11.9046 10.5889 10.6188 11.8746 9.0335 11.8746ZM14.668 4.40239C14.668 4.97303 14.2053 5.4357 13.6345 5.4357C13.0639 5.4357 12.6013 4.97303 12.6013 4.40239C12.6013 3.83167 13.0639 3.36914 13.6346 3.36914C14.2053 3.36914 14.668 3.83164 14.668 4.40239Z"
-                                                                                                        fill="white" />
-                                                                                                </svg>
-                                                                                            </span>
-                                                                                            <span class="rs-social-name">Instagram</span>
-                                                                                        </span>
-                                                                                        <span class="rs-social-count">24.5k Followers</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div> -->
+                                                                                        <div class="rs-social rs-social-one">
+                                                                                            <h5 class="section-title is-small">Follow Us</h5>
+                                                                                            <ul class="rs-social-wrapper">
+                                                                                                <li class="rs-social-item">
+                                                                                                    <a href="#">
+                                                                                                        <span class="rs-social-label">
+                                                                                                            <span class="rs-social-icon">
+                                                                                                                <svg width="14" height="22" viewBox="0 0 14 22" fill="none"
+                                                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                                                    <path
+                                                                                                                        d="M11.624 11.9541L12.193 8.54137L8.63572 8.54137V6.32676C8.63572 5.39311 9.13264 4.48303 10.7258 4.48303H12.343V1.57748C12.343 1.57748 10.8755 1.34692 9.47233 1.34692C6.54282 1.34692 4.62796 2.98146 4.62796 5.94041L4.62796 8.54137H1.37158L1.37158 11.9541H4.62796L4.62796 20.2041H8.63572L8.63572 11.9541H11.624Z"
+                                                                                                                        fill="white" />
+                                                                                                                </svg>
+                                                                                                            </span>
+                                                                                                            <span class="rs-social-name">Facebook</span>
+                                                                                                        </span>
+                                                                                                        <span class="rs-social-count">88.2k Followers</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li class="rs-social-item">
+                                                                                                    <a href="#">
+                                                                                                        <span class="rs-social-label">
+                                                                                                            <span class="rs-social-icon">
+                                                                                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                                                    <path
+                                                                                                                        d="M9.35332 6.88729L14.6472 0.733521H13.3928L8.79603 6.07675L5.12465 0.733521H0.890137L6.44199 8.81343L0.890137 15.2666H2.1447L6.99896 9.62397L10.8762 15.2666H15.1107L9.35332 6.88729ZM7.63502 8.88462L7.0725 8.08004L2.59674 1.67793H4.52367L8.13567 6.84464L8.69818 7.64922L13.3933 14.3651H11.4664L7.63502 8.88462Z"
+                                                                                                                        fill="white" />
+                                                                                                                </svg>
+                                                                                                            </span>
+                                                                                                            <span class="rs-social-name">Twitter - X</span>
+                                                                                                        </span>
+                                                                                                        <span class="rs-social-count">48.6k Followers</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li class="rs-social-item">
+                                                                                                    <a href="#">
+                                                                                                        <span class="rs-social-label">
+                                                                                                            <span class="rs-social-icon">
+                                                                                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                                                    <path
+                                                                                                                        d="M13.6283 19.3083C13.645 19.3033 13.6608 19.2967 13.6775 19.2908C23.8567 15.2467 21.0408 0 10 0C4.45917 0 0 4.51667 0 10C0 16.9392 7.02833 21.8908 13.6283 19.3083ZM4.40083 16.7158C5.11083 15.5225 7.40833 12.1558 11.33 10.9942C12.2429 13.3207 12.7345 15.7912 12.7817 18.29C11.3672 18.7696 9.85294 18.8767 8.385 18.601C6.91706 18.3253 5.54491 17.676 4.40083 16.7158ZM14.0108 17.7683C13.9187 15.355 13.4375 12.9724 12.5858 10.7125C14.3208 10.4417 16.3292 10.6225 18.6067 11.535C18.3689 12.8565 17.8309 14.1057 17.0341 15.1864C16.2373 16.2672 15.2029 17.1505 14.0108 17.7683ZM18.7375 10.2425C16.2292 9.3 14.0183 9.1825 12.105 9.5475C11.8092 8.88083 11.4983 8.24 11.1692 7.65C14.105 6.4775 15.84 5.04833 16.6167 4.29167C18.0497 5.93631 18.8073 8.06225 18.7375 10.2425ZM15.7292 3.40167C15.0225 4.07417 13.3583 5.4325 10.5125 6.54333C9.1175 4.33667 7.62583 2.78 6.68083 1.90833C8.17845 1.28978 9.81908 1.10183 11.4178 1.36568C13.0165 1.62953 14.5097 2.33469 15.7292 3.40167ZM5.48583 2.51917C6.19917 3.14667 7.765 4.65333 9.27583 6.98333C7.20083 7.65167 4.59917 8.1425 1.435 8.21167C1.93833 5.8 3.44167 3.75667 5.48583 2.51917ZM1.27667 9.46667C4.81833 9.40917 7.685 8.85 9.95083 8.09333C10.2642 8.6425 10.5617 9.24083 10.8475 9.8625C6.90167 11.1192 4.43583 14.3633 3.49167 15.8283C2.71507 14.9704 2.11881 13.9652 1.7383 12.8724C1.3578 11.7795 1.20081 10.6214 1.27667 9.46667Z"
+                                                                                                                        fill="white" />
+                                                                                                                </svg>
+                                                                                                            </span>
+                                                                                                            <span class="rs-social-name">Dribbble</span>
+                                                                                                        </span>
+                                                                                                        <span class="rs-social-count">39.5k Followers</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li class="rs-social-item">
+                                                                                                    <a href="#">
+                                                                                                        <span class="rs-social-label">
+                                                                                                            <span class="rs-social-icon">
+                                                                                                                <svg width="16" height="20" viewBox="0 0 16 20" fill="none"
+                                                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                                                    <path
+                                                                                                                        d="M6.61654 13.2282C6.09154 15.9813 5.45013 18.6212 3.55013 20.0001C2.9638 15.8384 4.41146 12.713 5.08334 9.39502C3.93724 7.46533 5.22123 3.58252 7.6388 4.53955C10.6134 5.71611 5.06302 11.7126 8.7892 12.4614C12.6798 13.2431 14.2677 5.71104 11.8556 3.26182C8.36966 -0.275292 1.70873 3.18096 2.52787 8.24502C2.72709 9.48291 4.00638 9.85869 3.03919 11.5669C0.807945 11.0724 0.142319 9.31299 0.227866 6.96729C0.365757 3.12744 3.67787 0.439161 7.00013 0.0672862C11.2013 -0.403026 15.1443 1.60947 15.6888 5.56182C16.3021 10.0224 13.7923 14.8532 9.30013 14.506C8.08216 14.4114 7.57123 13.8079 6.61654 13.2282Z"
+                                                                                                                        fill="white" />
+                                                                                                                </svg>
+                                                                                                            </span>
+                                                                                                            <span class="rs-social-name">Pinterest</span>
+                                                                                                        </span>
+                                                                                                        <span class="rs-social-count">28.2k Followers</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li class="rs-social-item">
+                                                                                                    <a href="#">
+                                                                                                        <span class="rs-social-label">
+                                                                                                            <span class="rs-social-icon">
+                                                                                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                                                    <path
+                                                                                                                        d="M17.7973 17.7992V11.3532C17.7973 8.18522 17.1153 5.76522 13.4193 5.76522C11.6373 5.76522 10.4493 6.73322 9.96527 7.65722H9.92126V6.05122H6.42326V17.7992H10.0753V11.9692C10.0753 10.4292 10.3613 8.95522 12.2533 8.95522C14.1233 8.95522 14.1453 10.6932 14.1453 12.0572V17.7772H17.7973V17.7992ZM0.483266 6.05122H4.13527V17.7992H0.483266V6.05122ZM2.30927 0.199219C1.14327 0.199219 0.197266 1.14522 0.197266 2.31122C0.197266 3.47722 1.14327 4.44522 2.30927 4.44522C3.47527 4.44522 4.42127 3.47722 4.42127 2.31122C4.42127 1.14522 3.47527 0.199219 2.30927 0.199219Z"
+                                                                                                                        fill="white" />
+                                                                                                                </svg>
+                                                                                                            </span>
+                                                                                                            <span class="rs-social-name">LinkedIn</span>
+                                                                                                        </span>
+                                                                                                        <span class="rs-social-count">30.3k Followers</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li class="rs-social-item">
+                                                                                                    <a href="#">
+                                                                                                        <span class="rs-social-label">
+                                                                                                            <span class="rs-social-icon">
+                                                                                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                                                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                                                                    <path
+                                                                                                                        d="M17.6045 5.45036C17.5641 4.53485 17.4161 3.9055 17.204 3.3601C16.9852 2.78121 16.6486 2.26294 16.2077 1.83208C15.7768 1.39452 15.2551 1.0545 14.6829 0.839154C14.1344 0.627106 13.5083 0.479009 12.5928 0.438686C11.6705 0.394863 11.3777 0.384766 9.03843 0.384766C6.69917 0.384766 6.40637 0.394863 5.48747 0.435253C4.57199 0.475643 3.94261 0.623808 3.39738 0.835721C2.81832 1.0545 2.30005 1.39108 1.86919 1.83208C1.43163 2.26291 1.09178 2.78461 0.876264 3.3568C0.664216 3.9055 0.516152 4.53148 0.475796 5.44692C0.432006 6.36927 0.421875 6.66206 0.421875 9.00132C0.421875 11.3406 0.432006 11.6334 0.472363 12.5523C0.512753 13.4678 0.660917 14.0971 0.872999 14.6425C1.09178 15.2214 1.43163 15.7397 1.86919 16.1706C2.30005 16.6081 2.82175 16.9481 3.39395 17.1635C3.94258 17.3755 4.56856 17.5236 5.4842 17.564C6.40294 17.6045 6.6959 17.6144 9.03516 17.6144C11.3744 17.6144 11.6672 17.6045 12.5861 17.564C13.5016 17.5236 14.131 17.3756 14.6762 17.1635C15.2489 16.9421 15.7689 16.6035 16.2031 16.1693C16.6372 15.7352 16.9759 15.2152 17.1973 14.6425C17.4092 14.0939 17.5574 13.4678 17.5978 12.5523C17.6382 11.6334 17.6483 11.3406 17.6483 9.00132C17.6483 6.66206 17.6449 6.36923 17.6045 5.45036ZM16.0529 12.485C16.0159 13.3264 15.8745 13.7808 15.7567 14.0837C15.4672 14.8343 14.8715 15.4301 14.1208 15.7196C13.8179 15.8374 13.3603 15.9787 12.5221 16.0157C11.6133 16.0562 11.3408 16.0662 9.04186 16.0662C6.74296 16.0662 6.46699 16.0562 5.56148 16.0157C4.72002 15.9787 4.26563 15.8374 3.96271 15.7196C3.5892 15.5815 3.24922 15.3628 2.97322 15.0767C2.68712 14.7973 2.46834 14.4607 2.33027 14.0872C2.21247 13.7842 2.07114 13.3264 2.03421 12.4884C1.99369 11.5796 1.98373 11.3069 1.98373 9.00802C1.98373 6.70911 1.99369 6.43315 2.03421 5.5278C2.07114 4.68634 2.21247 4.23196 2.33027 3.92903C2.46834 3.55535 2.68712 3.21544 2.97665 2.93937C3.25588 2.65328 3.59246 2.4345 3.96614 2.2966C4.26907 2.17879 4.72689 2.03743 5.56491 2.00037C6.47369 1.95998 6.74639 1.94988 9.04513 1.94988C11.3475 1.94988 11.62 1.95998 12.5255 2.00037C13.367 2.03746 13.8214 2.17876 14.1243 2.29656C14.4978 2.4345 14.8378 2.65328 15.1138 2.93937C15.3999 3.21877 15.6186 3.55535 15.7567 3.92903C15.8745 4.23196 16.0159 4.68961 16.0529 5.5278C16.0933 6.43658 16.1034 6.70911 16.1034 9.00802C16.1034 11.3069 16.0933 11.5762 16.0529 12.485Z"
+                                                                                                                        fill="white" />
+                                                                                                                    <path
+                                                                                                                        d="M9.0335 4.57741C6.58997 4.57741 4.60742 6.55982 4.60742 9.00349C4.60742 11.4472 6.58997 13.4296 9.0335 13.4296C11.4771 13.4296 13.4596 11.4472 13.4596 9.00349C13.4596 6.55982 11.4771 4.57741 9.0335 4.57741ZM9.0335 11.8746C7.44826 11.8746 6.16237 10.5889 6.16237 9.00349C6.16237 7.41811 7.44826 6.13243 9.03347 6.13243C10.6188 6.13243 11.9046 7.41811 11.9046 9.00349C11.9046 10.5889 10.6188 11.8746 9.0335 11.8746ZM14.668 4.40239C14.668 4.97303 14.2053 5.4357 13.6345 5.4357C13.0639 5.4357 12.6013 4.97303 12.6013 4.40239C12.6013 3.83167 13.0639 3.36914 13.6346 3.36914C14.2053 3.36914 14.668 3.83164 14.668 4.40239Z"
+                                                                                                                        fill="white" />
+                                                                                                                </svg>
+                                                                                                            </span>
+                                                                                                            <span class="rs-social-name">Instagram</span>
+                                                                                                        </span>
+                                                                                                        <span class="rs-social-count">24.5k Followers</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </div> -->
                     </div>
                 </div>
             </div>
@@ -606,82 +787,82 @@
 
     <!-- Asia In Brief area start -->
     <!-- @if($asiaInBriefCategory && $asiaInBriefArticles->count())
-                                <section class="rs-popular-news-area section-space-bottom rs-ptop bg-primary">
-                                    <div class="container">
-                                        <div class="row section-title-space align-items-center g-5">
-                                            <div class="col-xl-6 col-lg-6">
-                                                <div class="section-title-wrapper">
-                                                    <h2 class="section-title rs-split-text-enable split-in-left is-white">
-                                                        {{ $asiaInBriefCategory->name }}
-                                                    </h2>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6">
-                                                <div class="section-btn d-flex justify-content-lg-end">
-                                                    <a class="rs-btn has-text has-icon is-text-white"
-                                                        href="{{ route('category.show', $asiaInBriefCategory->slug) }}">
-                                                        View All
-                                                        <span class="icon-box">
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- Added justify-content-center here --}}
-                                        <div class="row g-5 justify-content-center">
-                                            @foreach($asiaInBriefArticles as $article)
-                                                <div class="col-xl-6 col-lg-6 col-md-6">
-                                                    <div class="rs-post-overlay rs-post-overlay-four">
-                                                        <a href="{{ route('news.show', $article->slug) }}">
-                                                            <div class="rs-post-overlay-bg-thumb" style="background-image: url('{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}'); 
-                                                                                                               background-size: cover; 
-                                                                                                               background-position: center;">
+                                                <section class="rs-popular-news-area section-space-bottom rs-ptop bg-primary">
+                                                    <div class="container">
+                                                        <div class="row section-title-space align-items-center g-5">
+                                                            <div class="col-xl-6 col-lg-6">
+                                                                <div class="section-title-wrapper">
+                                                                    <h2 class="section-title rs-split-text-enable split-in-left is-white">
+                                                                        {{ $asiaInBriefCategory->name }}
+                                                                    </h2>
+                                                                </div>
                                                             </div>
-                                                        </a>
-
-                                                        <div class="rs-post-overlay-content">
-
-                                                            <h5 class="rs-post-overlay-title is-white underline">
-                                                                <a href="{{ route('news.show', $article->slug) }}">
-                                                                    {{ \Illuminate\Support\Str::limit($article->title, 40) }}
-                                                                </a>
-                                                            </h5>
-
-                                                            <div class="rs-post-meta meta-white">
-                                                                <ul>
-                                                                    @if(!empty($article->auther))
-                                                                        <li>
-                                                                            <span class="rs-meta">
-                                                                                By <a href="javascript:void(0)"
-                                                                                    class="meta-author">{{ $article->auther ?? 'Admin' }}</a>
-                                                                            </span>
-                                                                        </li>
-                                                                    @endif
-                                                                    <li>
-                                                                        <span class="rs-meta">
-                                                                            <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
-                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                <path
-                                                                                    d="M4.33447 3.8335C4.06114 3.8335 3.83447 3.60683 3.83447 3.3335V1.3335C3.83447 1.06016 4.06114 0.833496 4.33447 0.833496C4.60781 0.833496 4.83447 1.06016 4.83447 1.3335V3.3335C4.83447 3.60683 4.60781 3.8335 4.33447 3.8335ZM9.66781 3.8335C9.39447 3.8335 9.16781 3.60683 9.16781 3.3335V1.3335C9.16781 1.06016 9.39447 0.833496 9.66781 0.833496C9.94114 0.833496 10.1678 1.06016 10.1678 1.3335V3.3335C10.1678 3.60683 9.94114 3.8335 9.66781 3.8335ZM12.6678 6.56016H1.33447C1.06114 6.56016 0.834473 6.3335 0.834473 6.06016C0.834473 5.78683 1.06114 5.56016 1.33447 5.56016H12.6678C12.9411 5.56016 13.1678 5.78683 13.1678 6.06016C13.1678 6.3335 12.9411 6.56016 12.6678 6.56016Z"
-                                                                                    fill="white"></path>
-                                                                                <path
-                                                                                    d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
-                                                                                    fill="white"></path>
-                                                                            </svg>
-                                                                            <span>{{ optional($article->published_at)->format('M, Y') }}</span>
+                                                            <div class="col-xl-6 col-lg-6">
+                                                                <div class="section-btn d-flex justify-content-lg-end">
+                                                                    <a class="rs-btn has-text has-icon is-text-white"
+                                                                        href="{{ route('category.show', $asiaInBriefCategory->slug) }}">
+                                                                        View All
+                                                                        <span class="icon-box">
                                                                         </span>
-                                                                    </li>
-                                                                </ul>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
+
+                                                        {{-- Added justify-content-center here --}}
+                                                        <div class="row g-5 justify-content-center">
+                                                            @foreach($asiaInBriefArticles as $article)
+                                                                <div class="col-xl-6 col-lg-6 col-md-6">
+                                                                    <div class="rs-post-overlay rs-post-overlay-four">
+                                                                        <a href="{{ route('news.show', $article->slug) }}">
+                                                                            <div class="rs-post-overlay-bg-thumb" style="background-image: url('{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}'); 
+                                                                                                                               background-size: cover; 
+                                                                                                                               background-position: center;">
+                                                                            </div>
+                                                                        </a>
+
+                                                                        <div class="rs-post-overlay-content">
+
+                                                                            <h5 class="rs-post-overlay-title is-white underline">
+                                                                                <a href="{{ route('news.show', $article->slug) }}">
+                                                                                    {{ \Illuminate\Support\Str::limit($article->title, 40) }}
+                                                                                </a>
+                                                                            </h5>
+
+                                                                            <div class="rs-post-meta meta-white">
+                                                                                <ul>
+                                                                                    @if(!empty($article->auther))
+                                                                                        <li>
+                                                                                            <span class="rs-meta">
+                                                                                                By <a href="javascript:void(0)"
+                                                                                                    class="meta-author">{{ $article->auther ?? 'Admin' }}</a>
+                                                                                            </span>
+                                                                                        </li>
+                                                                                    @endif
+                                                                                    <li>
+                                                                                        <span class="rs-meta">
+                                                                                            <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
+                                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                                <path
+                                                                                                    d="M4.33447 3.8335C4.06114 3.8335 3.83447 3.60683 3.83447 3.3335V1.3335C3.83447 1.06016 4.06114 0.833496 4.33447 0.833496C4.60781 0.833496 4.83447 1.06016 4.83447 1.3335V3.3335C4.83447 3.60683 4.60781 3.8335 4.33447 3.8335ZM9.66781 3.8335C9.39447 3.8335 9.16781 3.60683 9.16781 3.3335V1.3335C9.16781 1.06016 9.39447 0.833496 9.66781 0.833496C9.94114 0.833496 10.1678 1.06016 10.1678 1.3335V3.3335C10.1678 3.60683 9.94114 3.8335 9.66781 3.8335ZM12.6678 6.56016H1.33447C1.06114 6.56016 0.834473 6.3335 0.834473 6.06016C0.834473 5.78683 1.06114 5.56016 1.33447 5.56016H12.6678C12.9411 5.56016 13.1678 5.78683 13.1678 6.06016C13.1678 6.3335 12.9411 6.56016 12.6678 6.56016Z"
+                                                                                                    fill="white"></path>
+                                                                                                <path
+                                                                                                    d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
+                                                                                                    fill="white"></path>
+                                                                                            </svg>
+                                                                                            <span>{{ optional($article->published_at)->format('M, Y') }}</span>
+                                                                                        </span>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </section>
-                            @endif -->
+                                                </section>
+                                            @endif -->
     <!-- Asia In Brief area end -->
 
     <!-- Lifestyle category start -->
@@ -843,7 +1024,7 @@
                                 <div class="rs-post-medium-item" style="padding-bottom: 12px;">
 
                                     <div class="rs-post-medium-thumb" style="height: 480px;">
-                                        <a href="{{ asset('assets/video/' . $article->excerpt)}}" class="image-link">
+                                        <a href="{{ asset('storage/' . $article->pdf_file) }}" target="_blank" class="image-link">
                                             <img style="height: 100%; width: 100%; object-fit: fill;"
                                                 src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                                 alt="{{ $article->title }}">
@@ -853,7 +1034,7 @@
                                     <div class="rs-post-medium-content" style="padding-left: 2px; padding-top: 5px;">
 
                                         <h5 class="rs-post-medium-title is-white underline" style="color: white;font-size:16px;">
-                                            <a href="{{ asset('assets/video/' . $article->excerpt)}}">
+                                            <a href="{{ asset('storage/' . $article->pdf_file) }}" target="_blank">
                                                 {{ \Illuminate\Support\Str::limit($article->title, 60) }}
                                             </a>
                                         </h5>
@@ -862,15 +1043,15 @@
                                             <ul>
 
                                                 <!-- @if(!empty($article->auther))
-                                                                                                <li>
-                                                                                                    <span class="rs-meta">
-                                                                                                        By
-                                                                                                        <a href="#" class="meta-author">
-                                                                                                            {{ $article->auther }}
-                                                                                                        </a>
-                                                                                                    </span>
-                                                                                                </li>
-                                                                                            @endif -->
+                                                                                                                                        <li>
+                                                                                                                                            <span class="rs-meta">
+                                                                                                                                                By
+                                                                                                                                                <a href="#" class="meta-author">
+                                                                                                                                                    {{ $article->auther }}
+                                                                                                                                                </a>
+                                                                                                                                            </span>
+                                                                                                                                        </li>
+                                                                                                                                    @endif -->
 
                                                 <li>
                                                     <span class="rs-meta">
@@ -1008,8 +1189,8 @@
                                 <a href="{{ route('news.show', $article->slug) }}">
                                     <div class="rs-post-overlay-bg-thumb"
                                         style="background-image: url('{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}'); 
-                                                                                                                                               background-size: cover; 
-                                                                                                                                               background-position: center;">
+                                                                                                                                                                                       background-size: cover; 
+                                                                                                                                                                                       background-position: center;">
                                     </div>
                                 </a>
 
@@ -1055,56 +1236,6 @@
         </section>
     @endif
     <!-- Bookshelf area end -->
-
-    <!-- video area start -->
-    <!-- <section class="rs-video-area bg-primary section-space-bottom rs-ptop rs-video-one">
-                                <div class="container">
-                                    <div class="row section-title-space align-items-center g-5">
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div class="section-title-wrapper">
-                                                <h2 class="section-title rs-split-text-enable split-in-left is-white">Highlight Stories</h2>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div class="section-btn">
-                                                <a class="rs-btn has-text has-icon is-text-white"
-                                                    href="https://www.youtube.com/watch?v=fyUmW3JFuAA&t=2s">View Channel
-                                                    <span class="icon-box">
-                                                        <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                                fill="#121213" />
-                                                        </svg>
-                                                        <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                                fill="#121213" />
-                                                        </svg>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row g-5">
-                                        <div class="col-xl-8 col-lg-7">
-                                            <div class="rs-post-video rs-post-video-one">
-                                                <div class="rs-post-video-item">
-                                                    <div class="rs-post-video">
-                                                        <iframe width="100%" height="400" src="https://www.youtube.com/embed/fyUmW3JFuAA"
-                                                            title="YouTube Shorts" frameborder="0"
-                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                            allowfullscreen style="border-radius:12px;">
-                                                        </iframe>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section> -->
-    <!-- video area end -->
 
     <!-- category news start -->
     <section class="rs-trending-news-area section-space-bottom rs-ptop rs-trending-news-three">
@@ -1239,17 +1370,17 @@
 
     <!-- ad banner area start -->
     <!-- <div class="ad-banner-area rs-ad-banner-one section-space-bottom">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="rs-ad-banner-thumb">
-                                                                        <a href="/plans"><img src="{{ asset('assets/images/ad/ad-2.webp') }}"
-                                                                                alt="image"></a>
-                                                                    </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="rs-ad-banner-thumb">
+                                                                                        <a href="/plans"><img src="{{ asset('assets/images/ad/ad-2.webp') }}"
+                                                                                                alt="image"></a>
+                                                                                    </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
     <!-- ad banner area end -->
 
 @endsection
