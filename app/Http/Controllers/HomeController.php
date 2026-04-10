@@ -154,7 +154,7 @@ class HomeController extends Controller
             ->where('category_id', '!=', 21)
             ->whereNotNull('published_at')
             ->orderByDesc('views')
-            ->take(3)
+            ->take(2)
             ->get();
 
         // Section 5: One category section
