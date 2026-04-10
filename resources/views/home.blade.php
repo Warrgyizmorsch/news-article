@@ -6,7 +6,7 @@
             <div class="row g-4 align-items-stretch">
 
                 {{-- Left Side: 3 News (25% Width) --}}
-                <div class="col-xl-4 col-lg-4 d-flex">
+                <div class="col-xl-3 col-lg-4 d-flex">
                     <div class="rs-banner-small-post">
                         <div class="rs-post-small rs-post-small-seventeen" id="hero-left">
                             @forelse($heroLeft as $article)
@@ -52,7 +52,7 @@
                 </div>
 
                 {{-- Center Main News: Carousel (50% Width) --}}
-                <div class="col-xl-5 col-lg-5 d-flex">
+                <div class="col-xl-6 col-lg-5 d-flex">
                     @if($heroCenter && $heroCenter->images->count() > 0)
                         <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                             <div class="carousel-inner">
