@@ -393,7 +393,7 @@
                                     <img src="{{ !empty($mainVideo['image'])
         ? $mainVideo['image']
         : 'https://img.youtube.com/vi/' . $mainId . '/maxresdefault.jpg' }}" id="featuredThumbnail"
-                                        style="width:100%;height:100%;object-fit:cover;">
+                                        style="width:100%;height:100%;object-fit:fill;">
 
                                     <a href="javascript:void(0)" onclick="playFeaturedVideo('{{ $mainId }}')"
                                         class="rs-play-btn is-red" id="featuredPlayBtn"
