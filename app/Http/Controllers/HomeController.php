@@ -42,9 +42,9 @@ class HomeController extends Controller
 
         $heroPool = $currentMonthArticles->values();
 
-        $heroLeft = $heroPool->slice(0, 3);
-        $heroRight = $heroPool->slice(3, 3);
-        $heroExtra = $heroPool->slice(6)->values()->map(function ($article) {
+        $heroLeft = $heroPool->slice(0, 4);
+        $heroRight = $heroPool->slice(4, 4);
+        $heroExtra = $heroPool->slice(8)->values()->map(function ($article) {
             return [
                 'slug' => $article->slug,
                 'title' => $article->title,

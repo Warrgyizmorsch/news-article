@@ -3,10 +3,10 @@
     <!-- hero area start -->
     <section class="rs-banner-area rs-banner-six section-space-top section-space-bottom">
         <div class="container">
-            <div class="row g-4">
+            <div class="row g-4 align-items-stretch">
 
                 {{-- Left Side: 3 News (25% Width) --}}
-                <div class="col-xl-3 col-lg-3">
+                <div class="col-xl-4 col-lg-4 d-flex">
                     <div class="rs-banner-small-post">
                         <div class="rs-post-small rs-post-small-seventeen" id="hero-left">
                             @forelse($heroLeft as $article)
@@ -26,7 +26,7 @@
                                         </div>
                                         <h6 class="rs-post-small-title underline">
                                             <a href="{{ route('news.show', $article->slug) }}">
-                                                {{ \Illuminate\Support\Str::limit($article->title, 25) }}
+                                                {{ \Illuminate\Support\Str::limit($article->title, 40) }}
                                             </a>
                                         </h6>
 
@@ -51,7 +51,7 @@
                 </div>
 
                 {{-- Center Main News: Carousel (50% Width) --}}
-                <div class="col-xl-6 col-lg-6">
+                <div class="col-xl-5 col-lg-5 d-flex">
                     @if($heroCenter && $heroCenter->images->count() > 0)
                         <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                             <div class="carousel-inner">
@@ -60,7 +60,7 @@
                                         <div class="rs-post-overlay rs-post-overlay-one">
                                             <a href="{{ asset('storage/' . $heroCenter->pdf_file) }}" target="_blank">
                                                 <div class="rs-post-overlay-bg-thumb"
-                                                    style="background-image: url('{{ asset('storage/' . $img->image) }}'); background-size: cover; background-position: center; height: 400px; border-radius: 8px;">
+                                                    style="background-image: url('{{ asset('storage/' . $img->image) }}'); background-size: cover; background-position: center; height: 100%; border-radius: 8px;">
                                                 </div>
                                             </a>
                                             <div class="rs-post-overlay-content">
@@ -96,7 +96,7 @@
                 </div>
 
                 {{-- Right Side: 3 News (25% Width) --}}
-                <div class="col-xl-3 col-lg-3">
+                <div class="col-xl-3 col-lg-3 d-flex">
                     <div class="rs-banner-small-post">
                         <div class="rs-post-small rs-post-small-seventeen" id="hero-right">
                             @forelse($heroRight as $article)
@@ -144,8 +144,10 @@
         <style>
             .rs-post-overlay-one {
                 position: relative;
-                height: 400px;
-                overflow: hidden;
+                height: 100%;
+                min-height: 400px;
+                display:flex;
+                flex-direction:column;
             }
 
             .rs-post-overlay-one .rs-post-overlay-bg-thumb {
@@ -172,6 +174,7 @@
                 display: flex;
                 gap: 15px;
                 align-items: flex-start;
+                flex: 1;
             }
 
             .rs-post-small-thumb {
@@ -181,6 +184,36 @@
 
             .rs-post-small-content {
                 flex: 1;
+            }
+
+            .rs-banner-small-post {
+                width: 100%;
+                height: 100%;
+            }
+
+            .rs-post-small-seventeen {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+            .hero-side-image {
+                width: 100%;
+                height: 80px;
+                object-fit: cover;
+                border-radius: 6px;
+            }
+
+            #heroCarousel {
+                width: 100%;
+                height: 100%;
+            }
+
+            #heroCarousel .carousel-inner {
+                height: 100%;
+            }
+
+            #heroCarousel .carousel-item {
+                height: 100%;
             }
 
             #hero-left,
