@@ -8,6 +8,23 @@
     <title>@yield('title', 'Democracy Asia')</title>
     <meta name="description" content="@yield('meta_description', '')">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    {{-- Open Graph --}}
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:title" content="@yield('og_title', 'Democracy Asia')">
+    <meta property="og:description" content="@yield('og_description', 'Latest news and insights from Democracy Asia')">
+    <meta property="og:url" content="@yield('og_url', url()->current())">
+    <meta property="og:site_name" content="Democracy Asia">
+    <meta property="og:image" content="@yield('og_image', asset('assets/images/default/news-placeholder.webp'))">
+    
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    {{-- Twitter --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('og_title', 'Democracy Asia')">
+    <meta name="twitter:description" content="@yield('og_description', 'Latest news and insights from Democracy Asia')">
+    <meta name="twitter:image" content="@yield('og_image', asset('assets/images/default/news-placeholder.webp'))">
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon-final.jpeg') }}">
 

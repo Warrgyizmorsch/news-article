@@ -3,6 +3,24 @@
 @section('title', $article->meta_title ?: $article->title)
 @section('meta_description', $article->meta_description ?: $article->excerpt)
 
+@section('og_type', 'article')
+
+@section('og_title', $article->title)
+
+@section(
+    'og_description',
+    $article->excerpt ?? \Illuminate\Support\Str::limit(strip_tags($article->content), 150)
+)
+
+@section('og_url', url()->current())
+
+@section(
+    'og_image',
+    $article->featured_image
+    ? asset('storage/' . $article->featured_image)
+    : asset('assets/images/default/news-placeholder.webp')
+)
+
 @section('content')
 
         <style>
@@ -501,26 +519,26 @@
                         <div class="rs-postbox-details-content">
 
                             @php
-                                $shareUrl = urlencode(url()->current());
-                                $shareTitle = urlencode($article->title);
+$shareUrl = urlencode(url()->current());
+$shareTitle = urlencode($article->title);
 
-                                $canRead = auth()->check();
-                                // Future logic
-                                // $canRead = auth()->check() && auth()->user()->canReadFullArticles();
+$canRead = auth()->check();
+// Future logic
+// $canRead = auth()->check() && auth()->user()->canReadFullArticles();
 
-                                $cleanContent = $article->content;
+$cleanContent = $article->content;
 
-                                $cleanContent = preg_replace('#\sstyle=("|\')(.*?)\1#i', '', $cleanContent);
-                                $cleanContent = preg_replace('#</?(span|font)[^>]*>#i', '', $cleanContent);
-                                $cleanContent = preg_replace('#\s(width|height|align|class)=("|\')(.*?)\2#i', '', $cleanContent);
+$cleanContent = preg_replace('#\sstyle=("|\')(.*?)\1#i', '', $cleanContent);
+$cleanContent = preg_replace('#</?(span|font)[^>]*>#i', '', $cleanContent);
+$cleanContent = preg_replace('#\s(width|height|align|class)=("|\')(.*?)\2#i', '', $cleanContent);
 
-                                $paragraphs = explode('</p>', $cleanContent);
+$paragraphs = explode('</p>', $cleanContent);
 
-                                $preview = collect($paragraphs)->take(2)->implode('</p>');
-                                $remaining = collect($paragraphs)->slice(2)->implode('</p>');
+$preview = collect($paragraphs)->take(2)->implode('</p>');
+$remaining = collect($paragraphs)->slice(2)->implode('</p>');
 
-                                // $preview = \Illuminate\Support\Str::limit($cleanContent, 550);
-                                // $remaining = str_replace($preview, '', $cleanContent);
+// $preview = \Illuminate\Support\Str::limit($cleanContent, 550);
+// $remaining = str_replace($preview, '', $cleanContent);
                             @endphp
                             <div class="rs-article-header">
 
@@ -609,8 +627,8 @@
                                 <div class="rs-meta-item" style="margin-bottom: 18px;">
                                     <i class="ri-time-line"></i>
                                     @php
-    $wordCount = str_word_count(strip_tags($article->content));
-    $readingTime = ceil($wordCount / 200);
+$wordCount = str_word_count(strip_tags($article->content));
+$readingTime = ceil($wordCount / 200);
                                     @endphp
                                     <span>{{ $readingTime }}-minute read</span>
                                 </div>
