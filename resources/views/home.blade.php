@@ -344,7 +344,7 @@
                 "url" => "https://youtu.be/p8Dgc0rgpeM?si=HrA4LnqDEo8J8sal",
                 "excerpt" => "India-born Karan Bilimoria, founder of Cobra Beer, has spent his career promoting links between Britain and India.",
                 "duration" => "30 min",
-                "image" => "/assets/images/video.webp",
+                "image" => "/assets/images/video3.webp",
             ],
             // [
             //     "title" => "Top Strategies to Dominate Multiplayer Games",
