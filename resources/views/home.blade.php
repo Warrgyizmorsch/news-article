@@ -339,7 +339,7 @@
     @php
         $videoNews = [
             [
-                "subtitle" => "The Insider",
+                "subtitle" => "",
                 "title" => "From beer baron to real baron – an interview with Lord Bilimoria",
                 "url" => "https://youtu.be/p8Dgc0rgpeM?si=HrA4LnqDEo8J8sal",
                 "excerpt" => "India-born Karan Bilimoria, founder of Cobra Beer, has spent his career promoting links between Britain and India.",
@@ -410,7 +410,7 @@
                                 style="padding-top:35px;padding-bottom:35px;">
 
                                 <span style="font-size:15px;letter-spacing:1px;color:#aaa; text-align: center;">
-                                    {{ $mainVideo['subtitle'] ?? 'The Insider' }}
+                                    {{ $mainVideo['subtitle'] ?? '' }}
                                 </span>
 
                                 <h3 class="section-title is-white"

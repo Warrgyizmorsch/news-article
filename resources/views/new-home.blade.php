@@ -50,7 +50,7 @@
                                     </div>
 
                                     {{-- CENTER: 1 Main Political Article (50% Width) --}}
-                                    <div class="col-xl-4 col-lg-5 d-flex">
+                                    <div class="col-xl-5 col-lg-5 d-flex">
                                         @if($heroCenter)
                                             <div class="rs-post-overlay rs-post-overlay-one" style="width: 100%;">
                                                 <a href="{{ route('news.show', $heroCenter->slug) }}">
@@ -91,7 +91,7 @@
                                     </div>
 
                                     {{-- RIGHT: 1 Bookshelf Article + Advertisement (25% Width) --}}
-                                    <div class="col-xl-4 col-lg-3 d-flex flex-column gap-4">
+                                    <div class="col-xl-3 col-lg-3 d-flex flex-column gap-4">
                                         <div class="rs-banner-small-post">
                                             <div class="rs-post-small rs-post-small-seventeen">
                                                 @forelse($heroRightArticle as $article)
