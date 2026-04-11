@@ -65,14 +65,14 @@
         display: none;
     }
 
-    .offcanvas-menu ul li.has-dropdown > a::after {
+    .offcanvas-menu ul li.has-dropdown>a::after {
         content: '\ea4e';
         font-family: 'remixicon';
         font-size: 18px;
         transition: transform 0.3s;
     }
 
-    .offcanvas-menu ul li.has-dropdown.open > a::after {
+    .offcanvas-menu ul li.has-dropdown.open>a::after {
         transform: rotate(180deg);
     }
 
@@ -130,16 +130,40 @@
             </div>
 
             <!-- Mobile Navigation Menu -->
+
             <div class="offcanvas-menu d-block d-xl-none">
                 <nav>
                     <ul>
                         <!-- home -->
                         @forelse($headerCategories as $category)
-                        <li class="rs-mega-menu  is-text-white" style="white-space:nowrap;">
-                            <a href="{{ route('category.show', $category->slug) }}">
-                                {{ $category->name }}
-                            </a>
-                        </li>
+                        @if(strtolower($category->slug) === 'politics')
+                            <!-- Politics category with dropdown showing all subcategories -->
+                            <li class="menu-item-has-children">
+                                <a href="{{ route('category.show', $category->slug) }}">
+                                    {{ $category->name }}
+                                </a>
+                                <ul class="submenu last-children">
+                                    @forelse($headerSubCategories as $subcat)
+                                        <li>
+                                            <a href="{{ route('category.show', $subcat->slug) }}">
+                                                {{ $subcat->name }}
+                                            </a>
+                                        </li>
+                                    @empty
+                                        <li>
+                                            <a href="javascript:void(0)">No subcategories</a>
+                                        </li>
+                                    @endforelse
+                                </ul>
+                            </li>
+                        @else
+                            <!-- Regular categories without dropdown -->
+                            <li class="rs-mega-menu is-text-white" style="white-space:nowrap;">
+                                <a href="{{ route('category.show', $category->slug) }}">
+                                    {{ $category->name }}
+                                </a>
+                            </li>
+                        @endif
                         @endforeach
                         <li>
                             <a href="/contact-us">Contact</a>
@@ -198,7 +222,7 @@
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                         <circle cx="12" cy="10" r="3"></circle>
                     </svg>
-                   35 Bow Road, London, England, E3 2AD
+                    35 Bow Road, London, England, E3 2AD
                 </li>
             </ul>
 
@@ -207,7 +231,7 @@
                 <a href="#" class="custom-social-btn">
                     <i class="ri-facebook-fill" style="font-size: 18px;"></i>
                 </a>
-                <a href="#" class="custom-social-btn text-white"> 
+                <a href="#" class="custom-social-btn text-white">
                     <i class="ri-twitter-x-fill" style="font-size: 18px;"></i>
                 </a>
                 <a href="#" class="custom-social-btn text-white">
@@ -219,13 +243,22 @@
             </div>
 
             <!-- Get in touch -->
-            <a href="/contact-us" style="background: #0d6efd; color: #fff; padding: 12px 24px; border: 1px solid #0d6efd; border-radius: 8px; font-weight: 500; font-size: 16px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; width: max-content; transition: all 0.3s;" onmouseover="this.style.background='transparent'; this.style.borderColor='#27272a';" onmouseout="this.style.background='#0d6efd'; this.style.borderColor='#0d6efd';">
-                Get In Touch 
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            <a href="/contact-us"
+                style="background: #0d6efd; color: #fff; padding: 12px 24px; border: 1px solid #0d6efd; border-radius: 8px; font-weight: 500; font-size: 16px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; width: max-content; transition: all 0.3s;"
+                onmouseover="this.style.background='transparent'; this.style.borderColor='#27272a';"
+                onmouseout="this.style.background='#0d6efd'; this.style.borderColor='#0d6efd';">
+                Get In Touch
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
             </a>
         </div>
     </div>
 </div>
-<div class="offcanvas-overlay custom-overlay" onclick="document.querySelector('.offcanvas-area').classList.remove('opened'); document.querySelector('.offcanvas-overlay').classList.remove('overlay-open');"></div>
+<div class="offcanvas-overlay custom-overlay"
+    onclick="document.querySelector('.offcanvas-area').classList.remove('opened'); document.querySelector('.offcanvas-overlay').classList.remove('overlay-open');">
+</div>
 <div class="offcanvas-overlay-white"></div>
 <!-- Offcanvas area end -->

@@ -75,6 +75,19 @@ class AppServiceProvider extends ServiceProvider
                 ->take(8)
                 ->get();
 
+            $headerSubCategories = Category::withCount([
+                'articles' => function ($q) {
+                    $q->where('status', 'published')
+                        ->whereNotNull('published_at');
+                }
+            ])
+                ->where('status', 1)
+                ->where('main_menu', 0)
+                // ->having('articles_count', '>', 0)
+                ->orderBy('sort_order')
+                ->orderBy('name')
+                ->get();
+
             $headerBreakingNews = Article::select('id', 'title', 'slug')
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
@@ -148,6 +161,7 @@ class AppServiceProvider extends ServiceProvider
                 'footerTags' => $footerTags,
 
                 'headerCategories' => $headerCategories,
+                'headerSubCategories' => $headerSubCategories,
                 'headerBreakingNews' => $headerBreakingNews,
                 'headerTrendingTags' => $headerTrendingTags,
 

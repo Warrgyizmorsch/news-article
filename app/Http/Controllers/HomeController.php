@@ -295,6 +295,151 @@ class HomeController extends Controller
         ));
     }
 
+    public function newHome()
+    {
+        // Get current and previous month dates
+        $currentMonth = Carbon::now();
+        $previousMonth = Carbon::now()->subMonth();
+
+        // ===== SECTION 1: Hero Section =====
+        // Get Political Articles (Center + Left: 2 + 1)
+        $politicsCategory = Category::where('slug', 'politics')->where('status', 1)->first();
+
+        $politicsArticles = collect();
+        if ($politicsCategory) {
+            $politicsArticles = Article::with(['category', 'author'])
+                ->where('section_id', 22)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
+                ->orderBy('sort_order')
+                ->orderByDesc('published_at')
+                ->take(3)
+                ->get()
+                ->values();
+        }
+
+        $heroCenter = $politicsArticles->first(); // 1 political article for center
+        $heroLeft = $politicsArticles->slice(1, 2)->values(); // 2 political articles for left
+
+        // Get Bookshelf Article for right side (latest from current month)
+        $bookshelfCategory = Category::where('slug', 'bookshelf')->where('status', 1)->first();
+
+        $heroRightArticle = collect();
+        if ($bookshelfCategory) {
+            $heroRightArticle = Article::with(['category', 'author'])
+                ->where('category_id', $bookshelfCategory->id)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->whereMonth('published_at', $currentMonth->month)
+                ->whereYear('published_at', $currentMonth->year)
+                ->latest('published_at')
+                ->take(1)
+                ->get()
+                ->values();
+        }
+
+        // ===== SECTION 2: Grid Section (8 articles, 4 per row, current month) =====
+        // Get 8 articles from current month but NOT from section 1
+        $heroArticleIds = collect()
+            ->push($heroCenter?->id)
+            ->merge($heroLeft->pluck('id'))
+            ->merge($heroRightArticle->pluck('id'))
+            ->filter();
+
+        $gridArticles = Article::with(['category', 'author'])
+            ->where('section_id', 22) // Only political articles
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->whereMonth('published_at', $currentMonth->month)
+            ->whereYear('published_at', $currentMonth->year)
+            ->whereNotIn('id', $heroArticleIds) // exclude hero articles
+            ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
+            ->orderBy('sort_order')
+            ->orderByDesc('published_at')
+            ->take(9)
+            ->get()
+            ->values();
+
+        $popularArticles = Article::with(['category', 'author'])
+            ->where('status', 'published')
+            ->where('category_id', '!=', 21)
+            ->whereNotNull('published_at')
+            ->orderByDesc('views')
+            ->take(2)
+            ->get();
+
+        // ===== SECTION 4: Previous Month Articles (2x2 grid: 1 politics, 1 business, 1 lifestyle, 1 bookshelf) =====
+        $previousMonthArticles = [];
+
+        // Get 1 Politics article from previous month
+        $politicsArticle = Article::with(['category', 'author'])
+            ->where('section_id', 22)
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->whereMonth('published_at', $previousMonth->month)
+            ->whereYear('published_at', $previousMonth->year)
+            ->latest('published_at')
+            ->first();
+
+        if ($politicsArticle) {
+            $previousMonthArticles['politics'] = $politicsArticle;
+        }
+
+        // Get 1 Business article from previous month
+        $businessCategory = Category::where('slug', 'business')->where('status', 1)->first();
+        $businessArticle = Article::with(['category', 'author'])
+            ->where('category_id', $businessCategory?->id)
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->whereMonth('published_at', $previousMonth->month)
+            ->whereYear('published_at', $previousMonth->year)
+            ->latest('published_at')
+            ->first();
+
+        if ($businessArticle) {
+            $previousMonthArticles['business'] = $businessArticle;
+        }
+
+        // Get 1 Lifestyle article from previous month
+        $lifestyleCategory = Category::where('slug', 'lifestyle')->where('status', 1)->first();
+        $lifestyleArticle = Article::with(['category', 'author'])
+            ->where('category_id', $lifestyleCategory?->id)
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->whereMonth('published_at', $previousMonth->month)
+            ->whereYear('published_at', $previousMonth->year)
+            ->latest('published_at')
+            ->first();
+
+        if ($lifestyleArticle) {
+            $previousMonthArticles['lifestyle'] = $lifestyleArticle;
+        }
+
+        // Get 1 Bookshelf article from previous month
+        $bookshelfArticle = Article::with(['category', 'author'])
+            ->where('category_id', $bookshelfCategory?->id)
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->whereMonth('published_at', $previousMonth->month)
+            ->whereYear('published_at', $previousMonth->year)
+            ->latest('published_at')
+            ->first();
+
+        if ($bookshelfArticle) {
+            $previousMonthArticles['bookshelf'] = $bookshelfArticle;
+        }
+
+        return view('new-home', compact(
+            'heroCenter',
+            'heroLeft',
+            'heroRightArticle',
+            'gridArticles',
+            'previousMonthArticles',
+            'popularArticles'
+        ));
+    }
+
     public function newsIndex()
     {
         $articles = Article::with(['category', 'author', 'tags'])

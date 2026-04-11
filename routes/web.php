@@ -9,6 +9,7 @@ use App\Http\Controllers\DaVideoController;
 use App\Http\Controllers\CRM\EnquiryController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/new-home', [HomeController::class, 'newHome'])->name('home.new');
 
 Route::get('/contact-us', function () {
     return view('contact.index');
@@ -40,5 +41,5 @@ Route::resource('videos', DaVideoController::class);
 
 Route::post('/contact-us/send', [EnquiryController::class, 'store'])->name('contact.send');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 require __DIR__ . '/backend.php';
