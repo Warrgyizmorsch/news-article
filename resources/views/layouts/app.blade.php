@@ -50,10 +50,10 @@
 
 <body class="rs-smoother-yes">
 
-    <!-- @include('components.advertisement-box', [
+    @include('components.advertisement-box', [
         'width' => '100%',
         'height' => '200px'
-    ]) -->
+    ])
 
     @include('layouts.header')
 

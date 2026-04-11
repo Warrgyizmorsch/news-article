@@ -83,7 +83,7 @@ class AppServiceProvider extends ServiceProvider
             ])
                 ->where('status', 1)
                 ->where('main_menu', 0)
-                // ->having('articles_count', '>', 0)
+                ->having('articles_count', '>', 0)
                 ->orderBy('sort_order')
                 ->orderBy('name')
                 ->get();
