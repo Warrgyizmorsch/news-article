@@ -430,13 +430,16 @@ class HomeController extends Controller
             $previousMonthArticles['bookshelf'] = $bookshelfArticle;
         }
 
+        $featuredVideos = DaVideo::latest()->limit(10)->get();
+
         return view('new-home', compact(
             'heroCenter',
             'heroLeft',
             'heroRightArticle',
             'gridArticles',
             'previousMonthArticles',
-            'popularArticles'
+            'popularArticles',
+            'featuredVideos'
         ));
     }
 

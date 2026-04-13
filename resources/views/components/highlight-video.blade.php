@@ -28,7 +28,7 @@
     $mainId = youtubeId($mainVideo['url']);
 
 @endphp
-<section class="rs-video-area bg-primary section-space-bottom rs-ptop rs-video-one">
+<section class="rs-video-area bg-primary rs-video-one" style="padding: 30px 0;">
     <div class="container">
 
         <div class="row section-title-space align-items-center g-5">

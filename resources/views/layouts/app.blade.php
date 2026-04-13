@@ -48,6 +48,28 @@
         :root {
             --rs-border-primary: #a09494;
         }
+        .hide-on-mobile {
+            display: block !important;
+        }
+
+        .hide-on-desktop {
+            display: none !important;
+        }
+        .gap-on-mobile {
+            gap:0;
+        }
+        @media only screen and (max-width: 768px) {
+            .hide-on-mobile {
+                display: none !important;
+            }
+
+            .hide-on-desktop {
+                display: block !important;
+            }
+            .gap-on-mobile {
+                gap: 15px;
+            }
+        }
     </style>
 </head>
 

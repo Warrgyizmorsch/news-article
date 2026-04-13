@@ -1,4 +1,4 @@
-<section class="rs-categories-area section-space-bottom rs-ptop secondary-bg rs-categories-three">
+<section class="rs-categories-area secondary-bg rs-categories-three" style="padding: 20px 0;">
         <div class="container">
 
             <div class="row section-title-space align-items-center g-5">
@@ -10,7 +10,7 @@
 
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-btn">
-                        <a class="rs-btn has-text has-icon" href="https://www.youtube.com/" target="_blank">
+                        <a class="rs-btn has-text has-icon" href="https://www.youtube.com/@democracyasiaofficial" target="_blank">
                             View All
                             <span class="icon-box">
                                 <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
@@ -34,11 +34,9 @@
 
             <div class="row">
                 <div class="col-12">
-
                     <div class="swiper rs-featured-video-slider">
-
                         <div class="swiper-wrapper">
-
+                    
                             @foreach($featuredVideos as $video)
 
                                 @php
@@ -52,57 +50,24 @@
 
                                 <div class="swiper-slide">
 
-                                    <div class="rs-categories-item">
+                                    {{-- FULL CARD CLICKABLE --}}
+                                    <div class="da-video-card" onclick="playVideo('{{ $youtubeId }}')">
 
-                                        <div class="rs-categories-thumb position-relative">
+                                        <div class="da-video-thumb">
 
-                                            <a href="javascript:void(0)" onclick="playVideo('{{ $youtubeId }}')">
-                                                <img src="{{ $thumbnail }}" alt="{{ $video->title }}">
-                                            </a>
+                                            <img src="{{ $thumbnail }}" alt="{{ $video->title }}">
 
-                                            <a href="javascript:void(0)" onclick="playVideo('{{ $youtubeId }}')"
-                                                class="rs-video-play-btn">
-                                                <i class="ri-play-fill"></i>
-                                            </a>
+                                            {{-- Overlay --}}
+                                            <div class="da-video-overlay"></div>
 
-                                        </div>
-
-
-                                        <div class="rs-categories-info">
-
-                                            <div class="rs-categories-title-wrap">
-
-                                                <h6 class="rs-categories-title underline">
-                                                    <a href="javascript:void(0)" onclick="playVideo('{{ $youtubeId }}')">
-                                                        {{ \Illuminate\Support\Str::limit($video->title, 30) }}
-                                                    </a>
-                                                </h6>
-
-                                                <span class="rs-categories-meta">DA Video</span>
-
+                                            {{-- TITLE (BOTTOM LEFT) --}}
+                                            <div class="da-video-content">
+                                                <h4>{{ \Illuminate\Support\Str::limit($video->title, 60) }}</h4>
                                             </div>
 
-
-                                            <div class="rs-categories-btn">
-                                                <a class="rs-square-btn has-icon has-transparent" href="javascript:void(0)"
-                                                    onclick="playVideo('{{ $youtubeId }}')">
-
-                                                    <span class="icon-box">
-                                                        <svg class="icon-first" width="14" height="10" viewBox="0 0 14 10"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M12.7628 4.24925C10.9324 4.24925 9.26427 2.58258 9.26427 0.750751V0H7.76276V0.750751C7.76276 2.08258 8.34685 3.33183 9.26351 4.24925H0V5.75075H9.26351C8.34685 6.66817 7.76276 7.91742 7.76276 9.24925V10H9.26427V9.24925C9.26427 7.41817 10.9324 5.75075 12.7628 5.75075H13.5135V4.24925H12.7628Z"
-                                                                fill="white"></path>
-                                                        </svg>
-                                                        <svg class="icon-second" width="14" height="10" viewBox="0 0 14 10"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M12.7628 4.24925C10.9324 4.24925 9.26427 2.58258 9.26427 0.750751V0H7.76276V0.750751C7.76276 2.08258 8.34685 3.33183 9.26351 4.24925H0V5.75075H9.26351C8.34685 6.66817 7.76276 7.91742 7.76276 9.24925V10H9.26427V9.24925C9.26427 7.41817 10.9324 5.75075 12.7628 5.75075H13.5135V4.24925H12.7628Z"
-                                                                fill="white"></path>
-                                                        </svg>
-                                                    </span>
-
-                                                </a>
+                                            {{-- PLAY BUTTON --}}
+                                            <div class="da-video-play">
+                                                <i class="ri-play-fill"></i>
                                             </div>
 
                                         </div>
@@ -112,13 +77,11 @@
                                 </div>
 
                             @endforeach
-
+                    
                         </div>
-
+                    
                         <div class="rs-featured-video-pagination mt-30"></div>
-
                     </div>
-
                 </div>
             </div>
 
@@ -142,100 +105,166 @@
 
     </div>
     <style>
-        .rs-featured-video-slider .swiper-slide {
-            height: auto;
-        }
+        /* CARD */
+.da-video-card {
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+}
 
-        .rs-video-play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            background: rgba(220, 38, 38, 0.92);
-            color: #fff;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            text-decoration: none;
-            z-index: 2;
-            transition: 0.3s ease;
-        }
+/* IMAGE */
+.da-video-thumb {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+}
 
-        .rs-video-play-btn:hover {
-            transform: translate(-50%, -50%) scale(1.08);
-            color: #fff;
-        }
+.da-video-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
 
-        .rs-categories-thumb {
-            position: relative;
-            overflow: hidden;
-        }
+.da-video-card:hover img {
+    transform: scale(1.05);
+}
 
-        .rs-categories-thumb img {
-            width: 100%;
-            display: block;
-            object-fit: cover;
-        }
+/* OVERLAY */
+.da-video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
+    z-index: 1;
+}
 
-        .rs-featured-video-pagination {
-            text-align: center;
-        }
+/* CONTENT (BOTTOM LEFT) */
+.da-video-content {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    z-index: 2;
+}
 
-        .rs-featured-video-pagination .swiper-pagination-bullet {
-            width: 10px;
-            height: 10px;
-            opacity: 1;
-            background: #d1d5db;
-        }
+.da-video-content h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
 
-        .rs-featured-video-pagination .swiper-pagination-bullet-active {
-            background: #121213;
-        }
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* PLAY BUTTON (CENTER) */
+.da-video-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff;
+    font-size: 22px;
+
+    transition: 0.3s ease;
+}
+
+.da-video-card:hover .da-video-play {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: rgba(227, 18, 11, 0.9);
+    border-color: rgba(227, 18, 11, 0.9);
+}
+
+.rs-featured-video-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.rs-featured-video-pagination .swiper-pagination-bullet {
+    margin: 0 4px !important;
+}
     </style>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        let videoSwiper;
 
-            let videoCount = {{ $featuredVideos->count() }};
+            document.addEventListener('DOMContentLoaded', function () {
 
-            new Swiper('.rs-featured-video-slider', {
-                slidesPerView: 1,
-                spaceBetween: 24,
-                loop: videoCount > 4, // enable loop only if enough videos
-                autoplay: {
-                    delay: 3000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: '.rs-featured-video-pagination',
-                    clickable: true,
-                },
-                breakpoints: {
-                    576: { slidesPerView: 2 },
-                    992: { slidesPerView: 3 },
-                    1200: { slidesPerView: 4 }
-                }
+                let videoCount = {{ $featuredVideos->count() }};
+
+                videoSwiper = new Swiper('.rs-featured-video-slider', {
+                    slidesPerView: 1,
+                    spaceBetween: 24,
+                    loop: videoCount > 4,
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: '.rs-featured-video-pagination',
+                        clickable: true,
+                    },
+                    breakpoints: {
+                        576: { slidesPerView: 2 },
+                        768: { slidesPerView: 2.5 },
+                        992: { slidesPerView: 3 },
+                        1200: { slidesPerView: 4 }
+                    }
+                });
+
+                /* ✅ STOP ON HOVER */
+                const slider = document.querySelector('.rs-featured-video-slider');
+
+                slider.addEventListener('mouseenter', () => {
+                    videoSwiper.autoplay.stop();
+                });
+
+                slider.addEventListener('mouseleave', () => {
+                    videoSwiper.autoplay.start();
+                });
+
             });
 
-        });
-
         function playVideo(videoId) {
-            let modal = document.getElementById("videoModal");
-            let iframe = document.getElementById("videoFrame");
+                let modal = document.getElementById("videoModal");
+                let iframe = document.getElementById("videoFrame");
 
-            iframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+                iframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
 
-            modal.style.display = "flex";
-        }
+                modal.style.display = "flex";
+
+                // ✅ STOP SLIDER
+                if (videoSwiper) {
+                    videoSwiper.autoplay.stop();
+                }
+            }
 
         function closeVideo() {
-            let modal = document.getElementById("videoModal");
-            let iframe = document.getElementById("videoFrame");
+                let modal = document.getElementById("videoModal");
+                let iframe = document.getElementById("videoFrame");
 
-            iframe.src = "";
-            modal.style.display = "none";
-        }
+                iframe.src = "";
+                modal.style.display = "none";
+
+                // ✅ START SLIDER AGAIN
+                if (videoSwiper) {
+                    videoSwiper.autoplay.start();
+                }
+            }
     </script>
