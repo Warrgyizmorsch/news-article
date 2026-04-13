@@ -1,4 +1,4 @@
-aa@extends('layouts.app')
+@extends('layouts.app')
 @section('content')
     <!-- SECTION 1: Hero Area -->
     <section class="rs-banner-area rs-banner-six section-space-top">
