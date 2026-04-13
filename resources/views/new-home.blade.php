@@ -19,7 +19,7 @@
                             </div>
 
                             {{-- CONTENT --}}
-                            <div class="hero-card-content">
+                            <div class="hero-card-content" style="padding: 15px 0 10px 0; border-bottom: 1px solid var(--rs-border-primary);">
 
                                 {{-- CATEGORY --}}
                                 <div class="news-category">
@@ -29,7 +29,7 @@
                                 </div>
 
                                 {{-- TITLE --}}
-                                <h3 class="rs-post-small-title underline">
+                                <h3 class="rs-post-small-title underline news-title">
                                     <a href="{{ route('news.show', $heroCenter->slug) }}">
                                         {{ \Illuminate\Support\Str::limit($heroCenter->title, 80) }}
                                     </a>
@@ -148,13 +148,15 @@
                         @endif
                     </div>
 
+                    <div class="hide-on-desktop" style="height: 1px; border: 1px solid var(--rs-border-primary);"></div>
+
                     {{-- RIGHT: 1 Bookshelf Article + Advertisement (25% Width) --}}
                     <div class="col-xl-3 col-lg-3 d-flex flex-column gap-4">
                         <div class="rs-banner-small-post">
                             <div class="rs-post-small rs-post-small-seventeen">
                                 @forelse($heroRightArticle as $article)
                                     <div class="rs-post-small-item mb-20">
-                                        <div class="rs-post-small-thumb" style="min-width: 110px; border-radius: 5px">
+                                        <div class="rs-post-small-thumb right-article-image" style="min-width: 110px; border-radius: 5px;">
                                             <a href="{{ route('news.show', $article->slug) }}" class="image-link">
                                                 <img class="hero-side-image"
                                                     src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
@@ -167,7 +169,7 @@
                                                     {{ $article->category->name ?? 'News' }}
                                                 </a>
                                             </div>
-                                            <h6 class="rs-post-small-title underline">
+                                            <h6 class="rs-post-small-title underline news-title">
                                                 <a href="{{ route('news.show', $article->slug) }}">
                                                     {{ \Illuminate\Support\Str::limit($article->title, 45) }}
                                                 </a>
@@ -325,7 +327,12 @@
                         aspect-ratio: auto;
                     }
                     .big-font-size {
-                        font-size: 13px !important;
+                        font-size: 19px !important;
+                    }
+                    .right-article-image {
+                        flex: 0 0 140px !important;
+                        min-height: 130px !important;
+                        height: 100% !important;
                     }
                 }
             </style>
@@ -362,6 +369,16 @@
                                                     {{ \Illuminate\Support\Str::limit($article->title, 70) }}
                                                 </a>
                                             </h6>
+
+                                            @if(!empty($article->auther))
+                                                <div class="rs-post-meta">
+                                                    <ul>
+                                                        <li><span class="rs-meta">By<a href="#"
+                                                                    class="meta-author">{{ $article->auther }}</a></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endif
 
                                         </div>
 

@@ -151,60 +151,11 @@
                         @endforeach
                     </div>
 
-                    {{-- CASE 2: SHOW POPULAR ARTICLES --}}
-                @elseif(isset($popularArticles) && count($popularArticles))
-
-                    @foreach($popularArticles as $popular)
-
-                            <div class="rs-post-small-item d-flex align-items-center mb-20 pb-20"
-                                style="border-bottom:1px solid #f1f1f1;">
-
-                                <div class="rs-post-small-thumb"
-                                    style="flex:0 0 80px;height:80px;border-radius:8px;overflow:hidden;margin-right:15px;">
-
-                                    <a href="{{ route('news.show', $popular->slug) }}" class="image-link h-100">
-
-                                        <img src="{{ $popular->featured_image
-                        ? asset('storage/' . $popular->featured_image)
-                        : asset('assets/images/default/news-placeholder.webp') }}" alt="{{ $popular->title }}"
-                                            class="w-100 h-100 object-fit-cover">
-
-                                    </a>
-                                </div>
-
-                                <div class="rs-post-small-content">
-
-                                    <h6 class="rs-post-small-title"
-                                        style="font-size:15px;font-weight:700;line-height:1.4;margin-bottom:8px;">
-
-                                        <a href="{{ route('news.show', $popular->slug) }}"
-                                            class="text-decoration-none transition-all"
-                                            style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:white;">
-
-                                            {{ $popular->title }}
-
-                                        </a>
-
-                                    </h6>
-
-                                    <div class="rs-post-meta d-flex align-items-center gap-3" style="font-size:12px;color:#888;">
-
-                                        @if(!empty($popular->auther))
-                                            <span class="rs-meta">By {{ $popular->auther }}</span>
-                                        @endif
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                    @endforeach
-
-                    {{-- CASE 3: SHOW ADVERTISEMENT --}}
+                    {{-- CASE 2: SHOW ADVERTISEMENT --}}
                 @else
 
                     <div class="mt-auto">
-                        <x-advertisement-box width="100%" height="400px" />
+                        <x-advertisement-box width="100%" height="100%" class="dark" style="min-height: 450px;" />
                     </div>
 
                 @endif

@@ -347,18 +347,89 @@ class HomeController extends Controller
             ->merge($heroRightArticle->pluck('id'))
             ->filter();
 
-        $gridArticles = Article::with(['category', 'author'])
-            ->where('section_id', 22) // Only political articles
+        $remainingLimit = 8;
+
+        /*
+        |--------------------------------------------------------------------------
+        | 1. POLITICS ARTICLES
+        |--------------------------------------------------------------------------
+        */
+        $politicsArticles = Article::with(['category', 'author'])
+            ->where('section_id', 22)
             ->where('status', 'published')
             ->whereNotNull('published_at')
             ->whereMonth('published_at', $currentMonth->month)
             ->whereYear('published_at', $currentMonth->year)
-            ->whereNotIn('id', $heroArticleIds) // exclude hero articles
+            ->whereNotIn('id', $heroArticleIds)
             ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
             ->orderBy('sort_order')
             ->orderByDesc('published_at')
-            ->take(9)
-            ->get()
+            ->take($remainingLimit)
+            ->get();
+
+        $remainingLimit -= $politicsArticles->count();
+
+        /*
+        |--------------------------------------------------------------------------
+        | 2. BUSINESS ARTICLES (if needed)
+        |--------------------------------------------------------------------------
+        */
+        $businessArticles = collect();
+
+        if ($remainingLimit > 0) {
+            $businessCategory = Category::where('slug', 'business')->where('status', 1)->first();
+
+            if ($businessCategory) {
+                $businessArticles = Article::with(['category', 'author'])
+                    ->where('category_id', $businessCategory->id)
+                    ->where('status', 'published')
+                    ->whereNotNull('published_at')
+                    ->whereMonth('published_at', $currentMonth->month)
+                    ->whereYear('published_at', $currentMonth->year)
+                    ->whereNotIn('id', $heroArticleIds)
+                    ->whereNotIn('id', $politicsArticles->pluck('id'))
+                    ->orderByDesc('published_at')
+                    ->take($remainingLimit)
+                    ->get();
+
+                $remainingLimit -= $businessArticles->count();
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | 3. LIFESTYLE ARTICLES (if still needed)
+        |--------------------------------------------------------------------------
+        */
+        $lifestyleArticles = collect();
+
+        if ($remainingLimit > 0) {
+            $lifestyleCategory = Category::where('slug', 'lifestyle')->where('status', 1)->first();
+
+            if ($lifestyleCategory) {
+                $lifestyleArticles = Article::with(['category', 'author'])
+                    ->where('category_id', $lifestyleCategory->id)
+                    ->where('status', 'published')
+                    ->whereNotNull('published_at')
+                    ->whereMonth('published_at', $currentMonth->month)
+                    ->whereYear('published_at', $currentMonth->year)
+                    ->whereNotIn('id', $heroArticleIds)
+                    ->whereNotIn('id', $politicsArticles->pluck('id'))
+                    ->whereNotIn('id', $businessArticles->pluck('id'))
+                    ->orderByDesc('published_at')
+                    ->take($remainingLimit)
+                    ->get();
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | FINAL MERGE
+        |--------------------------------------------------------------------------
+        */
+        $gridArticles = $politicsArticles
+            ->merge($businessArticles)
+            ->merge($lifestyleArticles)
             ->values();
 
         $popularArticles = Article::with(['category', 'author'])

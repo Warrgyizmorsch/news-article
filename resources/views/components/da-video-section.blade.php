@@ -40,12 +40,12 @@
                             @foreach($featuredVideos as $video)
 
                                 @php
-    preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\&\?\/]+)/', $video->url, $matches);
-    $youtubeId = $matches[1] ?? null;
+                                    preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^\&\?\/]+)/', $video->url, $matches);
+                                    $youtubeId = $matches[1] ?? null;
 
-    $thumbnail = $video->thumbnail
-        ? asset('uploads/thumbnails/' . $video->thumbnail)
-        : "https://img.youtube.com/vi/" . $youtubeId . "/hqdefault.jpg";
+                                    $thumbnail = $video->thumbnail
+                                        ? asset('uploads/thumbnails/' . $video->thumbnail)
+                                        : "https://img.youtube.com/vi/" . $youtubeId . "/hqdefault.jpg";
                                 @endphp
 
                                 <div class="swiper-slide">
@@ -107,7 +107,7 @@
     <style>
         /* CARD */
 .da-video-card {
-    border-radius: 12px;
+    border-radius: 5px;
     overflow: hidden;
     cursor: pointer;
 }
@@ -209,8 +209,8 @@
                 let videoCount = {{ $featuredVideos->count() }};
 
                 videoSwiper = new Swiper('.rs-featured-video-slider', {
-                    slidesPerView: 1,
-                    spaceBetween: 24,
+                    slidesPerView: 2,
+                    spaceBetween: 18,
                     loop: videoCount > 4,
                     autoplay: {
                         delay: 3000,
