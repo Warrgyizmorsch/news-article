@@ -155,7 +155,7 @@
                 @else
 
                     <div class="mt-auto">
-                        <x-advertisement-box width="100%" height="100%" class="dark" style="min-height: 450px;" />
+                        <x-advertisement-box width="100%" height="100%" class="dark" style="min-height: 500px;" />
                     </div>
 
                 @endif

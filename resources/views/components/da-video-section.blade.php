@@ -1,51 +1,52 @@
 <section class="rs-categories-area secondary-bg rs-categories-three" style="padding: 20px 0;">
         <div class="container">
 
-            <div class="row section-title-space align-items-center g-5">
-                <div class="col-xl-6 col-lg-6">
-                    <div class="section-title-wrapper">
-                        <h2 class="section-title rs-split-text-enable split-in-left">DA Videos</h2>
-                    </div>
-                </div>
-
-                <div class="col-xl-6 col-lg-6">
-                    <div class="section-btn">
-                        <a class="rs-btn has-text has-icon" href="https://www.youtube.com/@democracyasiaofficial" target="_blank">
-                            View All
-                            <span class="icon-box">
-                                <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                        fill="#121213" />
-                                </svg>
-                                <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                        fill="#121213" />
-                                </svg>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-
             <div class="row">
-                <div class="col-12">
+                <div class="col-xl-9 col-lg-9">
+                    <!-- Section heading  -->
+                    <div class="row section-title-space align-items-center g-5">
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="section-title-wrapper">
+                                <h2 class="section-title rs-split-text-enable split-in-left">DA Videos</h2>
+                            </div>
+                        </div>
+                    
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="section-btn">
+                                <a class="rs-btn has-text has-icon" href="https://www.youtube.com/@democracyasiaofficial" target="_blank">
+                                    View All
+                                    <span class="icon-box">
+                                        <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                                fill="#121213" />
+                                        </svg>
+                                        <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                                fill="#121213" />
+                                        </svg>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Videos  -->
                     <div class="swiper rs-featured-video-slider">
                         <div class="swiper-wrapper">
                     
                             @foreach($featuredVideos as $video)
 
                                 @php
-                                    preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^\&\?\/]+)/', $video->url, $matches);
-                                    $youtubeId = $matches[1] ?? null;
+    preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^\&\?\/]+)/', $video->url, $matches);
+    $youtubeId = $matches[1] ?? null;
 
-                                    $thumbnail = $video->thumbnail
-                                        ? asset('uploads/thumbnails/' . $video->thumbnail)
-                                        : "https://img.youtube.com/vi/" . $youtubeId . "/hqdefault.jpg";
+    $thumbnail = $video->thumbnail
+        ? asset('uploads/thumbnails/' . $video->thumbnail)
+        : "https://img.youtube.com/vi/" . $youtubeId . "/hqdefault.jpg";
                                 @endphp
 
                                 <div class="swiper-slide">
@@ -82,6 +83,9 @@
                     
                         <div class="rs-featured-video-pagination mt-30"></div>
                     </div>
+                </div>
+                <div class="col-xl-3 col-lg-3">
+                    <x-advertisement-box width="100%" height="100%" style="min-height: 350px;" />
                 </div>
             </div>
 
