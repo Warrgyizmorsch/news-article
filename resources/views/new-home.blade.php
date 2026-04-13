@@ -11,7 +11,7 @@
                         <div class="rs-post-small rs-post-small-seventeen">
                             @forelse($heroLeft as $article)
                                 <div class="rs-post-small-item mb-20">
-                                    <div class="rs-post-small-thumb">
+                                    <div class="rs-post-small-thumb" style="border-radius: 5px;">
                                         <a href="{{ route('news.show', $article->slug) }}" class="image-link">
                                             <img class="hero-side-image"
                                                 src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
@@ -101,7 +101,7 @@
                         <div class="rs-post-small rs-post-small-seventeen">
                             @forelse($heroRightArticle as $article)
                                 <div class="rs-post-small-item mb-20">
-                                    <div class="rs-post-small-thumb">
+                                    <div class="rs-post-small-thumb" style="min-width: 110px; border-radius: 5px">
                                         <a href="{{ route('news.show', $article->slug) }}" class="image-link">
                                             <img class="hero-side-image"
                                                 src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
@@ -116,7 +116,7 @@
                                         </div>
                                         <h6 class="rs-post-small-title underline">
                                             <a href="{{ route('news.show', $article->slug) }}">
-                                                {{ \Illuminate\Support\Str::limit($article->title, 65) }}
+                                                {{ \Illuminate\Support\Str::limit($article->title, 45) }}
                                             </a>
                                         </h6>
                                         @if(!empty($article->auther))
@@ -211,7 +211,7 @@
             .custom-hero-card {
                 width: 100%;
                 background: #fff;
-                border-radius: 12px;
+                border-radius: 5px;
                 overflow: hidden;
                 display: flex;
                 flex-direction: column;
