@@ -43,7 +43,7 @@
 
         <div class="row g-5">
             <!-- FEATURED VIDEO -->
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-9 col-lg-9">
                 <div class="rs-post-video-one">
 
                     <div class="row g-0 align-items-stretch" style="background:#000;border-radius:6px;overflow:hidden;">
@@ -113,8 +113,7 @@
             </div>
 
             <!-- RIGHT VIDEO LIST -->
-            <!-- RIGHT VIDEO LIST -->
-            <div class="col-xl-4 col-lg-5">
+            <div class="col-xl-3 col-lg-3">
 
                 {{-- CASE 1: SHOW VIDEO LIST --}}
                 @if(count($videoNews) > 1)

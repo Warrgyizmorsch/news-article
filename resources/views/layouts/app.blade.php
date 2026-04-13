@@ -45,15 +45,18 @@
         a {
             text-transform: none !important;
         }
+        :root {
+            --rs-border-primary: #a09494;
+        }
     </style>
 </head>
 
 <body class="rs-smoother-yes">
 
     @include('components.advertisement-box', [
-        'width' => '100%',
-        'height' => '200px'
-    ])
+    'width' => '100%',
+    'height' => '200px'
+])
 
     @include('layouts.header')
 

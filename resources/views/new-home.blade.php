@@ -32,7 +32,7 @@
                                         @if(!empty($article->auther))
                                             <div class="rs-post-meta">
                                                 <ul>
-                                                    <li><span class="rs-meta">By <a href="#"
+                                                    <li><span class="rs-meta">By<a href="#"
                                                                 class="meta-author">{{ $article->auther }}</a></span>
                                                     </li>
                                                 </ul>
@@ -73,7 +73,7 @@
                                 </div>
 
                                 {{-- TITLE --}}
-                                <h3 class="hero-card-title">
+                                <h3 class="rs-post-small-title underline">
                                     <a href="{{ route('news.show', $heroCenter->slug) }}">
                                         {{ \Illuminate\Support\Str::limit($heroCenter->title, 80) }}
                                     </a>
@@ -81,8 +81,12 @@
 
                                 {{-- META --}}
                                 @if(!empty($heroCenter->auther))
-                                    <div class="hero-card-meta">
-                                        By <span>{{ $heroCenter->auther }}</span>
+                                    <div class="rs-post-meta">
+                                        <ul>
+                                            <li><span class="rs-meta">By<a href="#"
+                                                        class="meta-author">{{ $heroCenter->auther }}</a></span>
+                                            </li>
+                                        </ul>
                                     </div>
                                 @endif
 
@@ -268,39 +272,39 @@
     </section>
 
     <!-- SECTION 2: Grid Articles (3 Per Row) -->
-    <section class="rs-trending-news-area section-space-bottom rs-ptop">
+    <section class="rs-trending-news-area section-space-bottom" style="padding-top:60px;">
         <div class="container">
-            <div class="row g-5">
+            <div class="row g-5" style="border-top: 1px solid var(--rs-border-primary);">
                 {{-- Left: Articles Grid (3 per row) --}}
-                <div class="col-xl-9 col-lg-8">
-                    <div class="row g-3">
+                <div class="col-xl-9 col-lg-9">
+                    <div class="row g-0 rs-grid-divider-2">
                         @forelse($gridArticles as $article)
-                            <div class="col-xl-4 col-lg-6 col-md-6">
-                                <div class="rs-post-horizontal-card">
-                                    <div class="rs-post-h-thumb">
-                                        <a href="{{ route('news.show', $article->slug) }}" class="image-link">
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                <div class="rs-post-vertical-card">
+
+                                    {{-- IMAGE --}}
+                                    <div class="rs-post-v-thumb">
+                                        <a href="{{ route('news.show', $article->slug) }}">
                                             <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                                 alt="{{ $article->title }}">
                                         </a>
                                     </div>
-                                    <div class="rs-post-h-content">
+
+                                    {{-- CONTENT --}}
+                                    <div class="rs-post-v-content">
+
                                         <div class="news-category">
                                             {{ $article->category->name ?? 'News' }}
                                         </div>
-                                        <h6 class="rs-post-h-title">
+
+                                        <h6 class="rs-post-small-title underline">
                                             <a href="{{ route('news.show', $article->slug) }}">
-                                                {{ $article->title }}
+                                                {{ \Illuminate\Support\Str::limit($article->title, 70) }}
                                             </a>
                                         </h6>
-                                        <div class="rs-post-h-meta">
-                                            @if(!empty($article->auther))
-                                                <span class="rs-meta-author">{{ $article->auther }}</span>
-                                            @endif
-                                            @if($article->published_at)
-                                                <span class="rs-meta-date">{{ $article->published_at->format('M d, Y') }}</span>
-                                            @endif
-                                        </div>
+
                                     </div>
+
                                 </div>
                             </div>
                         @empty
@@ -314,7 +318,7 @@
                 </div>
 
                 {{-- Right: Advertisement --}}
-                <div class="col-xl-3 col-lg-4">
+                <div class="col-xl-3 col-lg-3">
                     <div class="rs-sidebar-wrapper">
                         <div class="rs-sidebar mb-30">
                             <x-advertisement-box width="100%" height="450px" />
@@ -359,103 +363,92 @@
                 background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
             }
 
-            /* Horizontal Card Styles - Image Left, Content Right */
-            .rs-post-horizontal-card {
-                display: flex;
-                gap: 5px;
-                padding: 20px 2px;
-                background: #fff;
-                overflow: hidden;
-                transition: all 0.3s ease;
+            /* Vertical Card */
+            .rs-post-vertical-card {
+                padding: 15px;
                 height: 100%;
-                align-items: center;
+                background: #fff;
+                transition: all 0.3s ease;
             }
 
-            .rs-post-horizontal-card:hover {
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            /* GRID BASE */
+            .rs-grid-divider-2>div {
+                position: relative;
             }
 
-            .rs-post-h-thumb {
-                flex: 0 0 150px;
-                width: 160px;
-                height: 130px;
-                min-height: 120px;
-                overflow: hidden;
+            /* ✅ Y-axis (Horizontal line) */
+            .rs-grid-divider-2>div {
+                border-bottom: 1px solid var(--rs-border-primary);
             }
 
-            .rs-post-h-thumb .image-link {
-                display: block;
+            /* remove bottom border from last row (4 items per row) */
+            .rs-grid-divider-2>div:nth-last-child(-n+4) {
+                border-bottom: none;
+            }
+
+            /* ✅ X-axis (Short vertical divider) */
+            .rs-grid-divider-2>div:not(:nth-child(4n))::after {
+                content: "";
+                position: absolute;
+                top: 25px;
+                /* spacing from top */
+                bottom: 25px;
+                /* spacing from bottom (important) */
+                right: 0;
+                width: 1px;
+                background: var(--rs-border-primary);
+            }
+
+            .rs-post-vertical-card:hover {
+                background: #fafafa;
+            }
+
+            /* IMAGE */
+            .rs-post-v-thumb {
                 width: 100%;
-                height: 130px;
+                aspect-ratio: 16/10;
                 overflow: hidden;
+                margin-bottom: 10px;
             }
 
-            .rs-post-h-thumb img {
+            .rs-post-v-thumb img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
                 transition: transform 0.4s ease;
             }
 
-            .rs-post-horizontal-card:hover .rs-post-h-thumb img {
-                transform: scale(1.06);
+            .rs-post-vertical-card:hover img {
+                transform: scale(1.05);
             }
 
-            .rs-post-h-content {
-                padding: 10px 5px;
+            /* CONTENT */
+            .rs-post-v-content {
                 display: flex;
                 flex-direction: column;
-                flex-grow: 1;
-                justify-content: space-between;
             }
 
-            .rs-post-tag-simple {
-                font-size: 11px;
-                color: #666;
+            .rs-post-v-title {
+                font-size: 16px;
                 font-weight: 600;
-                text-transform: capitalize;
-                margin-bottom: 6px;
+                line-height: 1.2;
+                margin: 0;
             }
 
-            .rs-post-h-title {
-                margin: 0 0 8px 0;
-                font-size: 18px;
-                font-weight: 700;
-                line-height: 1.25;
-            }
-
-            .rs-post-h-title a {
-                color: #1a1a1a;
+            .rs-post-v-title a {
+                color: #111;
                 text-decoration: none;
-                transition: color 0.3s ease;
-                /* display: -webkit-box;
-                                                                                        -webkit-line-clamp: 2;
-                                                                                        -webkit-box-orient: vertical; */
-                overflow: hidden;
             }
 
-            .rs-post-h-title a:hover {
+            .rs-post-v-title a:hover {
                 text-decoration: underline;
             }
 
-            .rs-post-h-meta {
-                display: flex;
-                gap: 10px;
-                font-size: 11px;
-                color: #999;
-                align-items: center;
-                flex-wrap: wrap;
-            }
-
-            .rs-meta-author {
-                color: #1a1a1a;
-                font-weight: 600;
-                font-size: 11px;
-            }
-
-            .rs-meta-date {
-                color: #999;
-                font-size: 11px;
+            @media (max-width: 768px) {
+                .rs-post-vertical-card {
+                    border-right: none;
+                    border-bottom: 1px solid var(--rs-border-primary);
+                }
             }
         </style>
     </section>
@@ -478,8 +471,8 @@
 
             <div class="row g-5">
                 {{-- Left: Previous Month Articles (2 per row) --}}
-                <div class="col-xl-8 col-lg-8">
-                    <div class="row g-4">
+                <div class="col-xl-9 col-lg-9">
+                    <div class="row g-4 rs-grid-divider-4">
                         @php
                             $categoryOrder = ['politics', 'business', 'lifestyle', 'bookshelf'];
                         @endphp
@@ -487,7 +480,7 @@
                         @forelse($categoryOrder as $category)
                             @if(isset($previousMonthArticles[$category]) && $previousMonthArticles[$category])
                                 @php $article = $previousMonthArticles[$category]; @endphp
-                                <div class="col-xl-6 col-lg-6 col-md-6">
+                                <div class="col-xl-6 col-lg-6 col-md-6" style="margin-top: 0;">
                                     <div class="news-clean-item">
 
                                         <div class="news-clean-content">
@@ -495,23 +488,21 @@
                                                 {{ $article->category->name ?? 'News' }}
                                             </div>
 
-                                            <h3 class="news-title">
+                                            <h3 class="news-title rs-post-small-title underline">
                                                 <a href="{{ route('news.show', $article->slug) }}">
                                                     {{$article->title}}
                                                 </a>
                                             </h3>
 
-                                            <div class="news-meta">
-                                                @if(!empty($article->auther))
-                                                    <div class="rs-post-meta">
-                                                        <ul>
-                                                            <li><span class="rs-meta">By <a href="#"
-                                                                        class="meta-author">{{ $article->auther }}</a></span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                @endif
-                                            </div>
+                                            @if(!empty($article->auther))
+                                                <div class="rs-post-meta">
+                                                    <ul>
+                                                        <li><span class="rs-meta">By<a href="#"
+                                                                    class="meta-author">{{ $article->auther }}</a></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endif
                                         </div>
 
                                         <div class="news-thumb">
@@ -536,7 +527,7 @@
 
 
                 {{-- Right: Advertisement --}}
-                <div class="col-xl-4 col-lg-4">
+                <div class="col-xl-3 col-lg-3">
                     <div class="rs-sidebar-wrapper">
                         <div class="rs-sidebar mb-30">
                             <x-advertisement-box width="100%" height="400px" />
@@ -555,7 +546,6 @@
             justify-content: space-between;
             gap: 25px;
             padding: 25px 0;
-            border-bottom: 1px solid #e6e6e6;
         }
 
         .news-clean-content {
@@ -564,33 +554,15 @@
 
         /* Category */
         .news-category {
-            font-size: 14px;
+            font-size: 11px;
             font-weight: 600;
             color: #e3120b;
-            margin-bottom: 6px;
+            margin-bottom: 3px;
         }
 
         /* Title */
         .news-title {
             font-size: 20px;
-            font-weight: 600;
-            line-height: 1.2;
-            margin-bottom: 10px;
-        }
-
-        .news-title a {
-            color: #111;
-            text-decoration: none;
-        }
-
-        .news-title a:hover {
-            text-decoration: underline;
-        }
-
-        /* Meta */
-        .news-meta {
-            font-size: 14px;
-            color: #666;
         }
 
         /* Image */
@@ -605,6 +577,29 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .rs-grid-divider-4>div {
+            position: relative;
+            border-bottom: 1px solid var(--rs-border-primary);
+        }
+
+        /* remove bottom border from last row */
+        .rs-grid-divider-4>div:nth-last-child(-n+2) {
+            border-bottom: none;
+        }
+
+        /* SHORT vertical divider (only between left items) */
+        .rs-grid-divider-4>div:nth-child(odd)::after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            /* space from top */
+            bottom: 20px;
+            /* space from bottom (important 🔥) */
+            right: 0;
+            width: 1px;
+            background: var(--rs-border-primary);
         }
 
         @media (max-width: 1200px) {
@@ -623,7 +618,7 @@
         @media (max-width: 768px) {
 
             .news-title {
-                font-size: 22px;
+                font-size: 19px;
             }
 
         }
