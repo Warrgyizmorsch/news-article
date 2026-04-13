@@ -96,6 +96,13 @@
         border-color: #0d6efd;
         color: #fff;
     }
+
+    .dropdown-toggle-btn {
+        margin-left: auto;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+    }
 </style>
 <div class="fix">
     <div class="offcanvas-area custom-offcanvas" data-lenis-prevent
@@ -138,11 +145,12 @@
                         @forelse($headerCategories as $category)
                         @if(strtolower($category->slug) === 'politics')
                             <!-- Politics category with dropdown showing all subcategories -->
-                            <li class="menu-item-has-children">
+                            <li class="has-dropdown">
                                 <a href="{{ route('category.show', $category->slug) }}">
                                     {{ $category->name }}
                                 </a>
-                                <ul class="submenu last-children">
+
+                                <ul class="submenu">
                                     @forelse($headerSubCategories as $subcat)
                                         <li>
                                             <a href="{{ route('category.show', $subcat->slug) }}">
@@ -261,4 +269,35 @@
     onclick="document.querySelector('.offcanvas-area').classList.remove('opened'); document.querySelector('.offcanvas-overlay').classList.remove('overlay-open');">
 </div>
 <div class="offcanvas-overlay-white"></div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownItems = document.querySelectorAll(".offcanvas-menu .has-dropdown > a");
+
+        dropdownItems.forEach(item => {
+            item.addEventListener("click", function (e) {
+                e.preventDefault(); // prevent navigation
+
+                const parent = this.parentElement;
+                const submenu = parent.querySelector(".submenu");
+
+                // close others (optional)
+                document.querySelectorAll(".offcanvas-menu .has-dropdown").forEach(el => {
+                    if (el !== parent) {
+                        el.classList.remove("open");
+                        el.querySelector(".submenu").style.display = "none";
+                    }
+                });
+
+                // toggle current
+                if (parent.classList.contains("open")) {
+                    parent.classList.remove("open");
+                    submenu.style.display = "none";
+                } else {
+                    parent.classList.add("open");
+                    submenu.style.display = "block";
+                }
+            });
+        });
+    });
+</script>
 <!-- Offcanvas area end -->
