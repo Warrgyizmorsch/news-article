@@ -73,7 +73,7 @@
                                                     {{ $article->category->name ?? 'News' }}
                                                 </a>
                                             </div>
-                                            <h6 class="rs-post-small-title underline" style="margin:0;">
+                                            <h6 class="rs-post-small-title underline big-font-size" style="margin:0;">
                                                 <a href="{{ route('news.show', $article->slug) }}">
                                                     {{ \Illuminate\Support\Str::limit($article->title, 65) }}
                                                 </a>
@@ -193,7 +193,7 @@
 
                         {{-- Advertisement Box --}}
                         <div class="mt-auto">
-                            <x-advertisement-box width="100%" height="200px" />
+                            <x-advertisement-box width="100%" height="100%" style="min-height: 200px;" />
                         </div>
                     </div>
                 </div>
@@ -317,11 +317,22 @@
                     color: #374151;
                     font-weight: 500;
                 }
+                .big-font-size {
+                    font-size: 23px !important;
+                }
+                @media (max-width: 768px) {
+                    .hero-card-thumb{
+                        aspect-ratio: auto;
+                    }
+                    .big-font-size {
+                        font-size: 13px !important;
+                    }
+                }
             </style>
         </section>
 
         <!-- SECTION 2: Grid Articles (3 Per Row) -->
-        <section class="rs-trending-news-area" style="padding-top:60px; padding-bottom: 30px;">
+        <section class="rs-trending-news-area" style="padding-top:60px; padding-bottom: 10px;">
             <div class="container">
                 <div class="row g-5" style="border-top: 1px solid var(--rs-border-primary);">
                     {{-- Left: Articles Grid (3 per row) --}}
@@ -368,11 +379,7 @@
 
                     {{-- Right: Advertisement --}}
                     <div class="col-xl-3 col-lg-3">
-                        <div class="rs-sidebar-wrapper">
-                            <div class="rs-sidebar mb-30">
-                                <x-advertisement-box width="100%" height="350px" />
-                            </div>
-                        </div>
+                        <x-advertisement-box width="100%" height="100%" style="min-height: 250px;" />
                     </div>
                 </div>
             </div>
@@ -622,11 +629,7 @@
 
                     {{-- Right: Advertisement --}}
                     <div class="col-xl-3 col-lg-3">
-                        <div class="rs-sidebar-wrapper">
-                            <div class="rs-sidebar mb-30">
-                                <x-advertisement-box width="100%" height="300px" />
-                            </div>
-                        </div>
+                        <x-advertisement-box width="100%" height="100%" style="min-height: 300px;" />
                     </div>
                 </div>
             </div>

@@ -115,7 +115,7 @@
 /* IMAGE */
 .da-video-thumb {
     position: relative;
-    aspect-ratio: 3/4;
+    aspect-ratio: 3/5;
     overflow: hidden;
 }
 

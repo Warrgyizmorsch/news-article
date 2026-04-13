@@ -1,6 +1,6 @@
 <!-- footer area start -->
 <footer class="rs-footer-area rs-footer-one">
-    <div class="footer-top">
+    <div class="" style="padding: 40px 0; position: relative; z-index: 1;">
         <div class="container">
             <div class="row g-5">
                 {{-- Column 1 --}}
