@@ -609,9 +609,6 @@
     </script>
     <!-- video area end -->
 
-    <!-- DA Video section  -->
-    <!-- @include('components.da-video-section') -->
-
     <!-- ad banner area start -->
     <!-- <div class="ad-banner-area rs-ad-banner-one section-space">
                                                                                             <div class="container">
