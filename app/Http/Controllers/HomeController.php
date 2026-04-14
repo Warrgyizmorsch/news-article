@@ -366,6 +366,9 @@ class HomeController extends Controller
                 ->whereNotNull('published_at')
                 ->whereMonth('published_at', $currentMonth->month)
                 ->whereYear('published_at', $currentMonth->year)
+                ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
+                ->orderBy('sort_order')
+                ->orderByDesc('published_at')
                 ->latest('published_at')
                 ->take(1)
                 ->get();
