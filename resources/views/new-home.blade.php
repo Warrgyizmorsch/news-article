@@ -896,6 +896,8 @@
                     const swiper = new Swiper(slider, {
                         slidesPerView: 1,
                         spaceBetween: 20,
+                        autoHeight: true, // ✅ IMPORTANT FIX
+
                         navigation: {
                             nextEl: slider.querySelector('.articles-slider-next'),
                             prevEl: slider.querySelector('.articles-slider-prev'),
@@ -906,7 +908,7 @@
                         },
                         loop: true,
                         autoplay: {
-                            delay: 3000,
+                            delay: 5000,
                             disableOnInteraction: false,
                         },
                     });
