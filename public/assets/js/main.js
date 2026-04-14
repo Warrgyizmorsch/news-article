@@ -424,7 +424,7 @@
             // Sticky Header
             var stickyHeader = $("#rs-sticky-header");
             $(window).on("scroll", function () {
-                if ($(this).scrollTop() > 200) {
+                if ($(this).scrollTop() > 400) {
                     stickyHeader.addClass("active");
                 } else {
                     stickyHeader.removeClass("active");
