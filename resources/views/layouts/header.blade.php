@@ -304,7 +304,7 @@
     <div class="rs-header-area rs-header-three">
         <div class="container-fluid g-0">
             <!-- top start -->
-            <div class="rs-header-top rs-header-top-one">
+            <div class="rs-header-top rs-header-top-one" style="background: gray;">
                 <div class="header-top-left">
                     <!-- <div class="header-top-item">
                         <span class="popup-circle">

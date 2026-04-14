@@ -198,7 +198,7 @@
 
                     {{-- Advertisement Box --}}
                     <div class="mt-auto">
-                        <x-advertisement-box width="100%" height="100%" style="min-height: 200px;" />
+                        <x-advertisement-box width="100%" height="100%" style="min-height: 100px;" />
                     </div>
                 </div>
             </div>

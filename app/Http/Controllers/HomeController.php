@@ -322,12 +322,45 @@ class HomeController extends Controller
         $heroCenter = $politicsArticles->first(); // 1 political article for center
         $heroLeft = $politicsArticles->slice(1, 2)->values(); // 2 political articles for left
 
-        // Get Bookshelf Article for right side (latest from current month)
+        // Get Bookshelf and lifestyle Article for right side (latest from current month)
+
+        // Initialize first
+        $heroRightArticle = collect();
+
+        /*
+        |--------------------------------------------------------------------------
+        | LIFESTYLE ARTICLE (with sort_order priority)
+        |--------------------------------------------------------------------------
+        */
+        $lifestyleCategory = Category::where('slug', 'lifestyle')->where('status', 1)->first();
+
+        $lifestyleHeroArticle = collect();
+
+        if ($lifestyleCategory) {
+            $lifestyleHeroArticle = Article::with(['category', 'author'])
+                ->where('category_id', $lifestyleCategory->id)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->whereMonth('published_at', $currentMonth->month)
+                ->whereYear('published_at', $currentMonth->year)
+                ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
+                ->orderBy('sort_order')
+                ->orderByDesc('published_at')
+                ->take(1)
+                ->get();
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | BOOKSHELF ARTICLE (latest)
+        |--------------------------------------------------------------------------
+        */
         $bookshelfCategory = Category::where('slug', 'bookshelf')->where('status', 1)->first();
 
-        $heroRightArticle = collect();
+        $bookshelfHeroArticle = collect();
+
         if ($bookshelfCategory) {
-            $heroRightArticle = Article::with(['category', 'author'])
+            $bookshelfHeroArticle = Article::with(['category', 'author'])
                 ->where('category_id', $bookshelfCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
@@ -335,9 +368,17 @@ class HomeController extends Controller
                 ->whereYear('published_at', $currentMonth->year)
                 ->latest('published_at')
                 ->take(1)
-                ->get()
-                ->values();
+                ->get();
         }
+
+        /*
+        |--------------------------------------------------------------------------
+        | MERGE BOTH
+        |--------------------------------------------------------------------------
+        */
+        $heroRightArticle = $bookshelfHeroArticle
+            ->merge($lifestyleHeroArticle)
+            ->values();
 
         // ===== SECTION 2: Grid Section (8 articles, 4 per row, current month) =====
         // Get 8 articles from current month but NOT from section 1
