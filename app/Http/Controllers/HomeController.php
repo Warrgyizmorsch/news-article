@@ -440,65 +440,49 @@ class HomeController extends Controller
             ->take(2)
             ->get();
 
-        // ===== SECTION 4: Previous Month Articles (2x2 grid: 1 politics, 1 business, 1 lifestyle, 1 bookshelf) =====
-        $previousMonthArticles = [];
+        // ===== SECTION 4: Previous Month Articles (Grouped by Category) =====
+        $previousMonthArticles = collect();
 
-        // Get 1 Politics article from previous month
-        $politicsArticle = Article::with(['category', 'author'])
-            ->where('section_id', 22)
-            ->where('status', 'published')
-            ->whereNotNull('published_at')
-            ->whereMonth('published_at', $previousMonth->month)
-            ->whereYear('published_at', $previousMonth->year)
-            ->latest('published_at')
-            ->first();
+        $categoriesOrder = [
+            'politics' => ['type' => 'section', 'value' => 22],
+            'business' => ['type' => 'slug'],
+            'lifestyle' => ['type' => 'slug'],
+            'bookshelf' => ['type' => 'slug'],
+        ];
 
-        if ($politicsArticle) {
-            $previousMonthArticles['politics'] = $politicsArticle;
-        }
+        foreach ($categoriesOrder as $slug => $config) {
 
-        // Get 1 Business article from previous month
-        $businessCategory = Category::where('slug', 'business')->where('status', 1)->first();
-        $businessArticle = Article::with(['category', 'author'])
-            ->where('category_id', $businessCategory?->id)
-            ->where('status', 'published')
-            ->whereNotNull('published_at')
-            ->whereMonth('published_at', $previousMonth->month)
-            ->whereYear('published_at', $previousMonth->year)
-            ->latest('published_at')
-            ->first();
+            if ($config['type'] === 'section') {
+                $articles = Article::with(['category', 'author'])
+                    ->where('section_id', $config['value'])
+                    ->where('status', 'published')
+                    ->whereNotNull('published_at')
+                    // ->whereMonth('published_at', $previousMonth->month)
+                    ->whereYear('published_at', $previousMonth->year)
+                    ->latest('published_at')
+                    ->get();
+            } else {
+                $category = Category::where('slug', $slug)->where('status', 1)->first();
 
-        if ($businessArticle) {
-            $previousMonthArticles['business'] = $businessArticle;
-        }
+                if (!$category)
+                    continue;
 
-        // Get 1 Lifestyle article from previous month
-        $lifestyleCategory = Category::where('slug', 'lifestyle')->where('status', 1)->first();
-        $lifestyleArticle = Article::with(['category', 'author'])
-            ->where('category_id', $lifestyleCategory?->id)
-            ->where('status', 'published')
-            ->whereNotNull('published_at')
-            ->whereMonth('published_at', $previousMonth->month)
-            ->whereYear('published_at', $previousMonth->year)
-            ->latest('published_at')
-            ->first();
+                $articles = Article::with(['category', 'author'])
+                    ->where('category_id', $category->id)
+                    ->where('status', 'published')
+                    ->whereNotNull('published_at')
+                    ->whereMonth('published_at', $previousMonth->month)
+                    ->whereYear('published_at', $previousMonth->year)
+                    ->latest('published_at')
+                    ->get();
+            }
 
-        if ($lifestyleArticle) {
-            $previousMonthArticles['lifestyle'] = $lifestyleArticle;
-        }
-
-        // Get 1 Bookshelf article from previous month
-        $bookshelfArticle = Article::with(['category', 'author'])
-            ->where('category_id', $bookshelfCategory?->id)
-            ->where('status', 'published')
-            ->whereNotNull('published_at')
-            ->whereMonth('published_at', $previousMonth->month)
-            ->whereYear('published_at', $previousMonth->year)
-            ->latest('published_at')
-            ->first();
-
-        if ($bookshelfArticle) {
-            $previousMonthArticles['bookshelf'] = $bookshelfArticle;
+            if ($articles->isNotEmpty()) {
+                $previousMonthArticles->push([
+                    'category' => ucfirst($slug),
+                    'articles' => $articles
+                ]);
+            }
         }
 
         $featuredVideos = DaVideo::latest()->limit(10)->get();
