@@ -457,7 +457,7 @@ class HomeController extends Controller
                     ->where('section_id', $config['value'])
                     ->where('status', 'published')
                     ->whereNotNull('published_at')
-                    // ->whereMonth('published_at', $previousMonth->month)
+                    ->whereMonth('published_at', $previousMonth->month)
                     ->whereYear('published_at', $previousMonth->year)
                     ->latest('published_at')
                     ->get();
