@@ -95,7 +95,7 @@
 
                                 @forelse($footerRecentPosts as $post)
                                     <div class="rs-post-small-item">
-                                        <div class="rs-post-small-thumb">
+                                        <div class="rs-post-small-thumb" style="min-width: 80px; max-width: 65px;">
                                             <a href="{{ route('news.show', $post->slug) }}" class="image-link">
                                                 <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                                      alt="{{ $post->title }}">
@@ -111,14 +111,16 @@
 
                                             <div class="rs-post-meta meta-white">
                                                 <ul>
+                                                    @if(!empty($post->auther))
                                                     <li>
                                                         <span class="rs-meta">
                                                             By
                                                             <a href="javascript:void(0)" class="meta-author">
-                                                                {{ $post->author->name ?? 'Admin' }}
+                                                                {{ $post->auther }}
                                                             </a>
                                                         </span>
                                                     </li>
+                                                    @endif
                                                     <li>
                                                         <span class="rs-meta">
                                                             <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">

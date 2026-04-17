@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
             }
             ])
                 ->where('status', 1)
+                ->where('main_menu', 1)
                 ->having('articles_count', '>', 0)
                 ->orderBy('sort_order')
                 ->orderBy('name')
@@ -41,13 +43,50 @@ class AppServiceProvider extends ServiceProvider
                 ->get();
 
             // Footer Recent Posts
-            $footerRecentPosts = Article::with(['author'])
-                ->where('status', 'published')
-                ->where('category_id', '!=', 21)
-                ->whereNotNull('published_at')
-                ->latest('published_at')
-                ->take(3)
-                ->get();
+
+            $currentMonth = Carbon::now();
+
+            $categories = Category::whereIn('slug', ['politics', 'business', 'lifestyle', 'bookshelf'])
+                ->where('status', 1)
+                ->get()
+                ->keyBy('slug');
+
+            $footerRecentPosts = collect();
+
+            foreach (['politics', 'business', 'lifestyle', 'bookshelf'] as $slug) {
+
+                if (!isset($categories[$slug])) {
+                    continue;
+                }
+
+                $article = Article::with(['author', 'category'])
+                    ->where('category_id', $categories[$slug]->id)
+                    ->where('status', 'published')
+                    ->whereNotNull('published_at')
+
+                    // ✅ CURRENT MONTH FILTER
+                    ->whereMonth('published_at', $currentMonth->month)
+                    ->whereYear('published_at', $currentMonth->year)
+
+                    // ✅ SORT ORDER PRIORITY (same as newHome)
+                    ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
+                    ->orderBy('sort_order')
+                    ->orderByDesc('published_at')
+
+                    ->first();
+
+                if ($article) {
+                    $footerRecentPosts->push($article);
+                }
+            }
+
+            // $footerRecentPosts = Article::with(['author'])
+            //     ->where('status', 'published')
+            //     ->where('category_id', '!=', 21)
+            //     ->whereNotNull('published_at')
+            //     ->latest('published_at')
+            //     ->take(3)
+            //     ->get();
 
             // Footer Tags
             $footerTags = Tag::withCount([
