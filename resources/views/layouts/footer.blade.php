@@ -95,7 +95,7 @@
 
                                 @forelse($footerRecentPosts as $post)
                                     <div class="rs-post-small-item">
-                                        <div class="rs-post-small-thumb" style="min-width: 80px; max-width: 65px;">
+                                        <div class="rs-post-small-thumb" style="min-width: 105px; max-width: 110px;">
                                             <a href="{{ route('news.show', $post->slug) }}" class="image-link">
                                                 <img src="{{ $post->featured_image ? asset('storage/' . $post->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
                                                      alt="{{ $post->title }}">
