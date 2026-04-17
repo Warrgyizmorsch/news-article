@@ -301,9 +301,19 @@ class HomeController extends Controller
         $currentMonth = Carbon::now();
         $previousMonth = Carbon::now()->subMonth();
 
+        // Fetch all categories 
+        $politicsCategory = Category::where('slug', 'politics')->where('status', 1)->first();
+
+        $lifestyleCategory = Category::where('slug', 'lifestyle')->where('status', 1)->first();
+
+        $bookshelfCategory = Category::where('slug', 'bookshelf')->where('status', 1)->first();
+
+        $businessCategory = Category::where('slug', 'business')->where('status', 1)->first();
+
+        $monthlyEditionCategory = Category::where('slug', 'monthly-editions')->where('status', 1)->first();
+
         // ===== SECTION 1: Hero Section =====
         // Get Political Articles (Center + Left: 2 + 1)
-        $politicsCategory = Category::where('slug', 'politics')->where('status', 1)->first();
 
         $politicsArticles = collect();
         if ($politicsCategory) {
@@ -314,7 +324,7 @@ class HomeController extends Controller
                 ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
                 ->orderBy('sort_order')
                 ->orderByDesc('published_at')
-                ->take(3)
+                ->take(7)
                 ->get()
                 ->values();
         }
@@ -332,7 +342,6 @@ class HomeController extends Controller
         | LIFESTYLE ARTICLE (with sort_order priority)
         |--------------------------------------------------------------------------
         */
-        $lifestyleCategory = Category::where('slug', 'lifestyle')->where('status', 1)->first();
 
         $lifestyleHeroArticle = collect();
 
@@ -355,7 +364,6 @@ class HomeController extends Controller
         | BOOKSHELF ARTICLE (latest)
         |--------------------------------------------------------------------------
         */
-        $bookshelfCategory = Category::where('slug', 'bookshelf')->where('status', 1)->first();
 
         $bookshelfHeroArticle = collect();
 
@@ -398,7 +406,7 @@ class HomeController extends Controller
         | 1. POLITICS ARTICLES
         |--------------------------------------------------------------------------
         */
-        $politicsArticles = Article::with(['category', 'author'])
+        $politicsSection2Articles = Article::with(['category', 'author'])
             ->where('section_id', 22)
             ->where('status', 'published')
             ->whereNotNull('published_at')
@@ -411,32 +419,31 @@ class HomeController extends Controller
             ->take($remainingLimit)
             ->get();
 
-        $remainingLimit -= $politicsArticles->count();
+        $remainingLimit -= $politicsSection2Articles->count();
 
         /*
         |--------------------------------------------------------------------------
         | 2. BUSINESS ARTICLES (if needed)
         |--------------------------------------------------------------------------
         */
-        $businessArticles = collect();
+        $businessSection2Articles = collect();
 
         if ($remainingLimit > 0) {
-            $businessCategory = Category::where('slug', 'business')->where('status', 1)->first();
 
             if ($businessCategory) {
-                $businessArticles = Article::with(['category', 'author'])
+                $businessSection2Articles = Article::with(['category', 'author'])
                     ->where('category_id', $businessCategory->id)
                     ->where('status', 'published')
                     ->whereNotNull('published_at')
                     ->whereMonth('published_at', $currentMonth->month)
                     ->whereYear('published_at', $currentMonth->year)
                     ->whereNotIn('id', $heroArticleIds)
-                    ->whereNotIn('id', $politicsArticles->pluck('id'))
+                    ->whereNotIn('id', $politicsSection2Articles->pluck('id'))
                     ->orderByDesc('published_at')
                     ->take($remainingLimit)
                     ->get();
 
-                $remainingLimit -= $businessArticles->count();
+                $remainingLimit -= $businessSection2Articles->count();
             }
         }
 
@@ -445,21 +452,20 @@ class HomeController extends Controller
         | 3. LIFESTYLE ARTICLES (if still needed)
         |--------------------------------------------------------------------------
         */
-        $lifestyleArticles = collect();
+        $lifestyleSection2Articles = collect();
 
         if ($remainingLimit > 0) {
-            $lifestyleCategory = Category::where('slug', 'lifestyle')->where('status', 1)->first();
 
             if ($lifestyleCategory) {
-                $lifestyleArticles = Article::with(['category', 'author'])
+                $lifestyleSection2Articles = Article::with(['category', 'author'])
                     ->where('category_id', $lifestyleCategory->id)
                     ->where('status', 'published')
                     ->whereNotNull('published_at')
                     ->whereMonth('published_at', $currentMonth->month)
                     ->whereYear('published_at', $currentMonth->year)
                     ->whereNotIn('id', $heroArticleIds)
-                    ->whereNotIn('id', $politicsArticles->pluck('id'))
-                    ->whereNotIn('id', $businessArticles->pluck('id'))
+                    ->whereNotIn('id', $politicsSection2Articles->pluck('id'))
+                    ->whereNotIn('id', $businessSection2Articles->pluck('id'))
                     ->orderByDesc('published_at')
                     ->take($remainingLimit)
                     ->get();
@@ -471,9 +477,9 @@ class HomeController extends Controller
         | FINAL MERGE
         |--------------------------------------------------------------------------
         */
-        $gridArticles = $politicsArticles
-            ->merge($businessArticles)
-            ->merge($lifestyleArticles)
+        $gridArticles = $politicsSection2Articles
+            ->merge($businessSection2Articles)
+            ->merge($lifestyleSection2Articles)
             ->values();
 
         $popularArticles = Article::with(['category', 'author'])
@@ -531,6 +537,56 @@ class HomeController extends Controller
 
         $featuredVideos = DaVideo::latest()->limit(10)->get();
 
+        // Fetching all categories articles -- Politics articles are fetched at the starting of the function
+
+        $businessArticles = collect();
+        if ($businessCategory) {
+            $businessArticles = Article::with(['category', 'author'])
+                ->where('category_id', $businessCategory->id)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->orderByDesc('published_at')
+                ->take(9)
+                ->get()
+                ->values();
+        }
+
+        $bookshelfArticles = collect();
+        if ($bookshelfCategory) {
+            $bookshelfArticles = Article::with(['category', 'author'])
+                ->where('category_id', $bookshelfCategory->id)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->latest('published_at')
+                ->take(3)
+                ->get()
+                ->values();
+        }
+
+        $lifestyleArticles = collect();
+        if ($lifestyleCategory) {
+            $lifestyleArticles = Article::with(['category', 'author'])
+                ->where('category_id', $lifestyleCategory->id)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->orderByDesc('published_at')
+                ->take(3)
+                ->get()
+                ->values();
+        }
+
+        $monthlyEditionArticles = collect();
+        if ($monthlyEditionCategory) {
+            $monthlyEditionArticles = Article::with(['category', 'author'])
+                ->where('category_id', $monthlyEditionCategory->id)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->latest('published_at')
+                ->take(3)
+                ->get()
+                ->values();
+        }
+
         return view('new-home', compact(
             'heroCenter',
             'heroLeft',
@@ -538,7 +594,17 @@ class HomeController extends Controller
             'gridArticles',
             'previousMonthArticles',
             'popularArticles',
-            'featuredVideos'
+            'featuredVideos',
+            'politicsCategory',
+            'lifestyleCategory',
+            'bookshelfCategory',
+            'businessCategory',
+            'monthlyEditionCategory',
+            'politicsArticles',
+            'businessArticles',
+            'bookshelfArticles',
+            'lifestyleArticles',
+            'monthlyEditionArticles'
         ));
     }
 

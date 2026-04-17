@@ -58,6 +58,25 @@
         .gap-on-mobile {
             gap:0;
         }
+        .rs-post-overlay-four .rs-post-overlay-bg-thumb::after {
+            background: linear-gradient(
+                180deg,
+                rgba(24, 51, 108, 0) 40%,
+                rgba(24, 51, 108, 0.6) 100%
+            );
+        }
+        .rs-post-overlay-one .rs-post-overlay-bg-thumb::after {
+            background: linear-gradient(
+                180deg,
+                rgba(24, 51, 108, 0) 40%,
+                rgba(24, 51, 108, 0.6) 100%
+            );
+        }
+        .title-view-all{
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+        }
         @media only screen and (max-width: 768px) {
             .hide-on-mobile {
                 display: none !important;
