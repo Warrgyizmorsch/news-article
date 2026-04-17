@@ -198,8 +198,8 @@
 
                     {{-- Advertisement Box --}}
                     <!-- <div class="mt-auto">
-                                                            <x-advertisement-box width="100%" height="100%" style="min-height: 100px;" />
-                                                        </div> -->
+                                                                <x-advertisement-box width="100%" height="100%" style="min-height: 100px;" />
+                                                            </div> -->
                 </div>
             </div>
         </div>
@@ -1053,6 +1053,14 @@
                 </div>
             </div>
         </div>
+        <style>
+            @media only screen and (max-width: 767px) {
+                .rs-post-medium-one .rs-post-medium-item {
+                    gap: 5px !important;
+                    margin-bottom: 25px !important;
+                }
+            }
+        </style>
     </section>
 
     <!-- SECTION 7: Bookshelf section -->
@@ -1156,7 +1164,8 @@
                             <div class="swiper-wrapper">
                                 @foreach($bookshelfArticles as $article)
                                     <div class="swiper-slide">
-                                        <div class="rs-post-overlay rs-post-overlay-four" style="border-radius: 3px; height: 400px;">
+                                        <div class="rs-post-overlay rs-post-overlay-four"
+                                            style="border-radius: 3px; height: 400px;">
                                             <a href="{{ route('news.show', $article->slug) }}">
                                                 <div class="rs-post-overlay-bg-thumb"
                                                     style="background-image: url('{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}'); background-position: center;">
@@ -1183,7 +1192,7 @@
                                                         @endif
                                                     </ul>
                                                 </div>
-                            </div>
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach
