@@ -570,7 +570,7 @@ class HomeController extends Controller
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->orderByDesc('published_at')
-                ->take(3)
+                ->take(4)
                 ->get()
                 ->values();
         }

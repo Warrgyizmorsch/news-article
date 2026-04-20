@@ -198,8 +198,8 @@
 
                     {{-- Advertisement Box --}}
                     <!-- <div class="mt-auto">
-                                                                    <x-advertisement-box width="100%" height="100%" style="min-height: 100px;" />
-                                                                </div> -->
+                                                                                <x-advertisement-box width="100%" height="100%" style="min-height: 100px;" />
+                                                                            </div> -->
                 </div>
             </div>
         </div>
@@ -1253,104 +1253,91 @@
 
                     {{-- TITLE --}}
                     <div class="section-title-space title-view-all">
-                        <div class="">
-                            <div class="section-title-wrapper">
-                                <h2 class="section-title">
-                                    Lifestyle
-                                </h2>
-                            </div>
-                        </div>
+                        <h2 class="section-title">Lifestyle</h2>
 
-                        <div class="">
-                            <div class="section-btn d-flex justify-content-lg-end">
-                                <a class="rs-btn has-text has-icon" href="{{ route('category.show', 'lifestyle') }}">
-                                    View All
-                                    <span class="icon-box">
-                                        <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                fill="#121213" />
-                                        </svg>
-                                        <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                fill="#121213" />
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
+                        <div class="section-btn d-flex justify-content-lg-end">
+                            <a class="rs-btn has-text has-icon" href="{{ route('category.show', 'lifestyle') }}">
+                                View All
+                            </a>
                         </div>
                     </div>
 
                     @if(isset($lifestyleArticles[0]))
 
-                        {{-- 🔥 ROW 1: BIG FEATURED --}}
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <div class="rs-post-overlay rs-post-overlay-one lifestyle-hero">
-                                    <a href="{{ route('news.show', $lifestyleArticles[0]->slug) }}">
-                                        <div class="rs-post-overlay-bg-thumb"
-                                            style="background-image:url('{{ asset('storage/' . $lifestyleArticles[0]->featured_image) }}')">
-                                        </div>
-                                    </a>
-
-                                    <div class="rs-post-overlay-content">
-                                        <h3 class="rs-post-overlay-title is-white underline">
-                                            <a href="{{ route('news.show', $lifestyleArticles[0]->slug) }}">
-                                                {{ \Illuminate\Support\Str::limit($lifestyleArticles[0]->title, 80) }}
-                                            </a>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- ⚡ ROW 2: 2 MEDIUM CARDS --}}
+                        {{-- 🔥 ROW 1: 2 FEATURED CARDS --}}
                         <div class="row g-4 mb-4">
-                            @for($i = 1; $i <= 2; $i++)
+
+                            @for($i = 0; $i <= 1; $i++)
                                 @if(isset($lifestyleArticles[$i]))
                                     <div class="col-md-6">
-                                        <div class="rs-post-overlay rs-post-overlay-four lifestyle-medium">
-                                            <a href="{{ route('news.show', $lifestyleArticles[$i]->slug) }}">
-                                                <div class="rs-post-overlay-bg-thumb"
-                                                    style="background-image:url('{{ asset('storage/' . $lifestyleArticles[$i]->featured_image) }}')">
-                                                </div>
-                                            </a>
+                                        <div class="lifestyle-card">
 
-                                            <div class="rs-post-overlay-content">
-                                                <h5 class="rs-post-overlay-title is-white underline">
-                                                    {{ \Illuminate\Support\Str::limit($lifestyleArticles[$i]->title, 50) }}
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endfor
-                        </div>
-
-                        {{-- 🧾 ROW 3: COMPACT HORIZONTAL LIST --}}
-                        <div class="row">
-                            @for($i = 3; $i <= 6; $i++)
-                                @if(isset($lifestyleArticles[$i]))
-                                    <div class="col-md-4 mb-3">
-                                        <div class="rs-post-small lifestyle-list">
-                                            <div class="rs-post-small-thumb">
+                                            {{-- IMAGE --}}
+                                            <div class="lifestyle-thumb">
                                                 <a href="{{ route('news.show', $lifestyleArticles[$i]->slug) }}">
-                                                    <img src="{{ asset('storage/' . $lifestyleArticles[$i]->featured_image) }}" alt="">
+                                                    <img src="{{ asset('storage/' . $lifestyleArticles[$i]->featured_image) }}">
                                                 </a>
                                             </div>
 
-                                            <div class="rs-post-small-content">
-                                                <h6 class="rs-post-small-title underline">
-                                                    {{ \Illuminate\Support\Str::limit($lifestyleArticles[$i]->title, 45) }}
-                                                </h6>
+                                            {{-- CONTENT --}}
+                                            <div class="lifestyle-content">
+
+                                                <h4 class="title">
+                                                    <a href="{{ route('news.show', $lifestyleArticles[$i]->slug) }}">
+                                                        {{ \Illuminate\Support\Str::limit($lifestyleArticles[$i]->title, 70) }}
+                                                    </a>
+                                                </h4>
+
+                                                @if(!empty($lifestyleArticles[$i]->auther))
+                                                    <div class="meta">
+                                                        By {{ $lifestyleArticles[$i]->auther }}
+                                                    </div>
+                                                @endif
                                             </div>
+
                                         </div>
                                     </div>
                                 @endif
                             @endfor
+
+                        </div>
+
+                        {{-- ⚡ ROW 2: 2 HORIZONTAL CARDS --}}
+                        <div class="row g-4 mb-4" style="margin-top:20px;">
+
+                            @for($i = 2; $i <= 3; $i++)
+                                @if(isset($lifestyleArticles[$i]))
+                                    <div class="col-md-6">
+                                        <div class="lifestyle-horizontal">
+
+                                            {{-- IMAGE --}}
+                                            <div class="thumb">
+                                                <a href="{{ route('news.show', $lifestyleArticles[$i]->slug) }}">
+                                                    <img src="{{ asset('storage/' . $lifestyleArticles[$i]->featured_image) }}">
+                                                </a>
+                                            </div>
+
+                                            {{-- CONTENT --}}
+                                            <div class="content">
+
+                                                <h5 class="title">
+                                                    <a href="{{ route('news.show', $lifestyleArticles[$i]->slug) }}">
+                                                        {{ \Illuminate\Support\Str::limit($lifestyleArticles[$i]->title, 55) }}
+                                                    </a>
+                                                </h5>
+
+                                                @if(!empty($lifestyleArticles[$i]->auther))
+                                                    <div class="meta">
+                                                        By {{ $lifestyleArticles[$i]->auther }}
+                                                    </div>
+                                                @endif
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                @endif
+                            @endfor
+
                         </div>
 
                     @endif
@@ -1365,45 +1352,102 @@
             </div>
         </div>
         <style>
-            /* HERO BIG CARD */
-            .lifestyle-hero {
-                height: 420px;
+            /* CARD BASE */
+            .lifestyle-card {
+                background: #fff;
                 border-radius: 6px;
+                overflow: hidden;
+                border: 1px solid var(--rs-border-primary);
+                transition: 0.3s;
+            }
+
+            .lifestyle-card:hover {
+                transform: translateY(-3px);
+            }
+
+            /* IMAGE */
+            .lifestyle-thumb {
+                width: 100%;
+                height: 200px;
                 overflow: hidden;
             }
 
-            /* MEDIUM CARDS */
-            .lifestyle-medium {
-                height: 320px;
-                border-radius: 6px;
-            }
-
-            /* SMALL LIST STYLE */
-            .lifestyle-list {
-                display: flex;
-                gap: 10px;
-            }
-
-            .lifestyle-list .rs-post-small-thumb {
-                width: 90px;
-                height: 70px;
-                flex-shrink: 0;
-            }
-
-            .lifestyle-list img {
+            .lifestyle-thumb img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                transition: 0.4s;
+            }
+
+            .lifestyle-thumb:hover img {
+                transform: scale(1.05);
+            }
+
+            /* CONTENT */
+            .lifestyle-content {
+                padding: 12px;
+            }
+
+            .lifestyle-content .title {
+                font-size: 18px;
+                font-weight: 600;
+                margin: 5px 0;
+            }
+
+            .lifestyle-content .meta {
+                font-size: 13px;
+                color: #777;
+            }
+
+            /* HORIZONTAL */
+            .lifestyle-horizontal {
+                display: flex;
+                gap: 15px;
+                border-bottom: 1px solid var(--rs-border-primary);
+                padding-bottom: 10px;
+            }
+
+            .lifestyle-horizontal .thumb {
+                flex: 0 0 120px;
+                height: 90px;
+            }
+
+            .lifestyle-horizontal img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 6px;
+            }
+
+            .lifestyle-horizontal .content {
+                flex: 1;
+            }
+
+            /* SMALL */
+            .lifestyle-card.small .lifestyle-thumb {
+                height: 120px;
             }
 
             /* MOBILE */
             @media (max-width: 768px) {
-                .lifestyle-hero {
-                    height: 250px;
+
+                /* TOP → SINGLE COLUMN */
+                .rs-lifestyle-section .row>div {
+                    width: 100%;
                 }
 
-                .lifestyle-medium {
-                    height: 220px;
+                /* SECOND ROW → 2 PER ROW */
+                .lifestyle-horizontal {
+                    flex-direction: column;
+                }
+
+                .lifestyle-thumb {
+                    height: 100%;
+                }
+
+                .lifestyle-horizontal .thumb {
+                    width: 100%;
+                    height: 100%;
                 }
             }
         </style>
