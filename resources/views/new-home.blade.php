@@ -198,8 +198,8 @@
 
                     {{-- Advertisement Box --}}
                     <!-- <div class="mt-auto">
-                                                                <x-advertisement-box width="100%" height="100%" style="min-height: 100px;" />
-                                                            </div> -->
+                                                                    <x-advertisement-box width="100%" height="100%" style="min-height: 100px;" />
+                                                                </div> -->
                 </div>
             </div>
         </div>
@@ -588,7 +588,7 @@
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-title-wrapper">
                         <h2 class="section-title is-black">
-                            Featured Stories from Last Month
+                            Featured stories from last month
                         </h2>
                     </div>
                 </div>
@@ -1063,7 +1063,353 @@
         </style>
     </section>
 
-    <!-- SECTION 7: Bookshelf section -->
+    <!-- SECTION 7: Business section -->
+    <section class="rs-trending-news-area rs-trending-news-three" style="padding: 30px 0;">
+        <div class="container">
+            <div class="section-title-space title-view-all">
+                <div class="">
+                    <div class="section-title-wrapper">
+                        <h2 class="section-title">
+                            {{ $businessCategory->name ?? 'Business' }}
+                        </h2>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="section-btn d-flex justify-content-lg-end">
+                        <a class="rs-btn has-text has-icon" href="{{ route('category.show', 'business') }}">View All
+                            <span class="icon-box">
+                                <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                        fill="#121213" />
+                                </svg>
+                                <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                        fill="#121213" />
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            @if(isset($businessArticles[0]))
+                <div class="row g-5">
+                    <div class="{{ count($businessArticles) > 1 ? 'col-xl-4' : 'col-xl-12' }}">
+                        <div style="height: 100%;" class="rs-post-overlay rs-post-overlay-one featured-category-post">
+                            <a href="{{ route('news.show', $businessArticles[0]->slug) }}">
+                                <div class="rs-post-overlay-bg-thumb"
+                                    data-background="{{ $businessArticles[0]->featured_image ? asset('storage/' . $businessArticles[0]->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
+                                </div>
+                            </a>
+
+                            <div class="rs-post-overlay-content">
+
+                                <h5 class="rs-post-overlay-title is-white underline">
+                                    <a href="{{ route('news.show', $businessArticles[0]->slug) }}">
+                                        {{ \Illuminate\Support\Str::limit($businessArticles[0]->title, 55) }}
+                                    </a>
+                                </h5>
+
+                                <div class="rs-post-meta meta-white">
+                                    <ul>
+                                        @if(!empty($businessArticles[0]->auther))
+                                            <li>
+                                                <span class="rs-meta">
+                                                    By <a href="javascript:void(0)" class="meta-author">
+                                                        {{ $businessArticles[0]->auther }}
+                                                    </a>
+                                                </span>
+                                            </li>
+                                        @endif
+                                        <li>
+                                            <span class="rs-meta">
+                                                <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M4.33447 3.8335C4.06114 3.8335 3.83447 3.60683 3.83447 3.3335V1.3335C3.83447 1.06016 4.06114 0.833496 4.33447 0.833496C4.60781 0.833496 4.83447 1.06016 4.83447 1.3335V3.3335C4.83447 3.60683 4.60781 3.8335 4.33447 3.8335ZM9.66781 3.8335C9.39447 3.8335 9.16781 3.60683 9.16781 3.3335V1.3335C9.16781 1.06016 9.39447 0.833496 9.66781 0.833496C9.94114 0.833496 10.1678 1.06016 10.1678 1.3335V3.3335C10.1678 3.60683 9.94114 3.8335 9.66781 3.8335ZM12.6678 6.56016H1.33447C1.06114 6.56016 0.834473 6.3335 0.834473 6.06016C0.834473 5.78683 1.06114 5.56016 1.33447 5.56016H12.6678C12.9411 5.56016 13.1678 5.78683 13.1678 6.06016C13.1678 6.3335 12.9411 6.56016 12.6678 6.56016Z"
+                                                        fill="white"></path>
+                                                    <path
+                                                        d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
+                                                        fill="white"></path>
+                                                </svg>
+                                                <span>
+                                                    {{ $businessArticles[0]->published_at ? $businessArticles[0]->published_at->format('F Y') : '' }}
+                                                </span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if(count($businessArticles) > 1)
+                        <div class="col-xl-8">
+                            <div class="rs-post-small-nineteen">
+                                <div class="rs-post-small-wrapper">
+                                    @for($i = 1; $i < 9; $i++)
+                                        @if(isset($businessArticles[$i]))
+                                            @php $article = $businessArticles[$i]; @endphp
+                                            <div class="rs-post-small">
+                                                <div class="rs-post-small-thumb" style="border-radius:3px;">
+                                                    <a href="{{ route('news.show', $article->slug) }}" class="image-link">
+                                                        <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
+                                                            alt="{{ $article->title }}">
+                                                    </a>
+                                                </div>
+                                                <div class="rs-post-small-content">
+                                                    <h6 class="rs-post-small-title underline">
+                                                        <a href="{{ route('news.show', $article->slug) }}">
+                                                            {{ \Illuminate\Support\Str::limit($article->title, 55) }}
+                                                        </a>
+                                                    </h6>
+                                                    @if(!empty($article->auther))
+                                                        <div class="rs-post-meta">
+                                                            <ul>
+                                                                <li>
+                                                                    <span class="rs-meta">
+                                                                        By <a href="javascript:void(0)" class="meta-author">
+                                                                            {{ $article->auther }}
+                                                                        </a>
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endfor
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            @endif
+        </div>
+
+        <style>
+            /* Business Articles - Mobile 2-column grid for remaining articles */
+            @media (max-width: 768px) {
+                .rs-post-small-nineteen .rs-post-small-wrapper {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 15px;
+                }
+
+                .rs-post-small-nineteen .rs-post-small {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                    gap: 0px !important;
+                    padding: 15px 0;
+                }
+
+                .rs-post-small-nineteen .rs-post-small-thumb {
+                    width: 100%;
+                    aspect-ratio: 16/10;
+                    margin-bottom: 4px;
+                    overflow: hidden;
+                }
+
+                .rs-post-small-nineteen .rs-post-small-thumb img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                .rs-post-small-nineteen .rs-post-small-content {
+                    width: 100%;
+                }
+
+                .rs-post-small-nineteen .rs-post-small-title {
+                    font-size: 15px;
+                    line-height: 1.3;
+                }
+
+                .rs-post-meta {
+                    font-size: 10px;
+                }
+
+                .rs-post-small-nineteen .rs-post-small:nth-child(1) {
+                    border-top: 1px solid var(--rs-border-primary) !important;
+                    padding-top: 12px !important;
+                }
+            }
+        </style>
+    </section>
+
+    <!-- SECTION 8: Lifestyle section -->
+    <section class="rs-trending-news-area rs-lifestyle-section" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row g-5">
+
+                {{-- LEFT CONTENT --}}
+                <div class="col-xl-9 col-lg-9">
+
+                    {{-- TITLE --}}
+                    <div class="section-title-space title-view-all">
+                        <div class="">
+                            <div class="section-title-wrapper">
+                                <h2 class="section-title">
+                                    Lifestyle
+                                </h2>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <div class="section-btn d-flex justify-content-lg-end">
+                                <a class="rs-btn has-text has-icon" href="{{ route('category.show', 'lifestyle') }}">
+                                    View All
+                                    <span class="icon-box">
+                                        <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                                fill="#121213" />
+                                        </svg>
+                                        <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                                fill="#121213" />
+                                        </svg>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if(isset($lifestyleArticles[0]))
+
+                        {{-- 🔥 ROW 1: BIG FEATURED --}}
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="rs-post-overlay rs-post-overlay-one lifestyle-hero">
+                                    <a href="{{ route('news.show', $lifestyleArticles[0]->slug) }}">
+                                        <div class="rs-post-overlay-bg-thumb"
+                                            style="background-image:url('{{ asset('storage/' . $lifestyleArticles[0]->featured_image) }}')">
+                                        </div>
+                                    </a>
+
+                                    <div class="rs-post-overlay-content">
+                                        <h3 class="rs-post-overlay-title is-white underline">
+                                            <a href="{{ route('news.show', $lifestyleArticles[0]->slug) }}">
+                                                {{ \Illuminate\Support\Str::limit($lifestyleArticles[0]->title, 80) }}
+                                            </a>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- ⚡ ROW 2: 2 MEDIUM CARDS --}}
+                        <div class="row g-4 mb-4">
+                            @for($i = 1; $i <= 2; $i++)
+                                @if(isset($lifestyleArticles[$i]))
+                                    <div class="col-md-6">
+                                        <div class="rs-post-overlay rs-post-overlay-four lifestyle-medium">
+                                            <a href="{{ route('news.show', $lifestyleArticles[$i]->slug) }}">
+                                                <div class="rs-post-overlay-bg-thumb"
+                                                    style="background-image:url('{{ asset('storage/' . $lifestyleArticles[$i]->featured_image) }}')">
+                                                </div>
+                                            </a>
+
+                                            <div class="rs-post-overlay-content">
+                                                <h5 class="rs-post-overlay-title is-white underline">
+                                                    {{ \Illuminate\Support\Str::limit($lifestyleArticles[$i]->title, 50) }}
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endfor
+                        </div>
+
+                        {{-- 🧾 ROW 3: COMPACT HORIZONTAL LIST --}}
+                        <div class="row">
+                            @for($i = 3; $i <= 6; $i++)
+                                @if(isset($lifestyleArticles[$i]))
+                                    <div class="col-md-4 mb-3">
+                                        <div class="rs-post-small lifestyle-list">
+                                            <div class="rs-post-small-thumb">
+                                                <a href="{{ route('news.show', $lifestyleArticles[$i]->slug) }}">
+                                                    <img src="{{ asset('storage/' . $lifestyleArticles[$i]->featured_image) }}" alt="">
+                                                </a>
+                                            </div>
+
+                                            <div class="rs-post-small-content">
+                                                <h6 class="rs-post-small-title underline">
+                                                    {{ \Illuminate\Support\Str::limit($lifestyleArticles[$i]->title, 45) }}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endfor
+                        </div>
+
+                    @endif
+
+                </div>
+
+                {{-- RIGHT AD --}}
+                <div class="col-xl-3 col-lg-3">
+                    <x-advertisement-box width="100%" height="100%" style="min-height: 300px;" />
+                </div>
+
+            </div>
+        </div>
+        <style>
+            /* HERO BIG CARD */
+            .lifestyle-hero {
+                height: 420px;
+                border-radius: 6px;
+                overflow: hidden;
+            }
+
+            /* MEDIUM CARDS */
+            .lifestyle-medium {
+                height: 320px;
+                border-radius: 6px;
+            }
+
+            /* SMALL LIST STYLE */
+            .lifestyle-list {
+                display: flex;
+                gap: 10px;
+            }
+
+            .lifestyle-list .rs-post-small-thumb {
+                width: 90px;
+                height: 70px;
+                flex-shrink: 0;
+            }
+
+            .lifestyle-list img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* MOBILE */
+            @media (max-width: 768px) {
+                .lifestyle-hero {
+                    height: 250px;
+                }
+
+                .lifestyle-medium {
+                    height: 220px;
+                }
+            }
+        </style>
+    </section>
+
+    <!-- SECTION 9: Bookshelf section -->
     <section class="rs-trending-news-area rs-trending-news-three" style="padding: 30px 0;">
         <div class="container">
             <div class="row g-5">
@@ -1284,352 +1630,6 @@
                 }
             });
         </script>
-    </section>
-
-    <!-- SECTION 8: Business section -->
-    <section class="rs-trending-news-area rs-trending-news-three" style="padding: 30px 0;">
-        <div class="container">
-            <div class="section-title-space title-view-all">
-                <div class="">
-                    <div class="section-title-wrapper">
-                        <h2 class="section-title">
-                            {{ $businessCategory->name ?? 'Business' }}
-                        </h2>
-                    </div>
-                </div>
-                <div class="">
-                    <div class="section-btn d-flex justify-content-lg-end">
-                        <a class="rs-btn has-text has-icon" href="{{ route('category.show', 'business') }}">View All
-                            <span class="icon-box">
-                                <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                        fill="#121213" />
-                                </svg>
-                                <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                        fill="#121213" />
-                                </svg>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            @if(isset($businessArticles[0]))
-                <div class="row g-5">
-                    <div class="{{ count($businessArticles) > 1 ? 'col-xl-4' : 'col-xl-12' }}">
-                        <div style="height: 100%;" class="rs-post-overlay rs-post-overlay-one featured-category-post">
-                            <a href="{{ route('news.show', $businessArticles[0]->slug) }}">
-                                <div class="rs-post-overlay-bg-thumb"
-                                    data-background="{{ $businessArticles[0]->featured_image ? asset('storage/' . $businessArticles[0]->featured_image) : asset('assets/images/default/news-placeholder.webp') }}">
-                                </div>
-                            </a>
-
-                            <div class="rs-post-overlay-content">
-
-                                <h5 class="rs-post-overlay-title is-white underline">
-                                    <a href="{{ route('news.show', $businessArticles[0]->slug) }}">
-                                        {{ \Illuminate\Support\Str::limit($businessArticles[0]->title, 55) }}
-                                    </a>
-                                </h5>
-
-                                <div class="rs-post-meta meta-white">
-                                    <ul>
-                                        @if(!empty($businessArticles[0]->auther))
-                                            <li>
-                                                <span class="rs-meta">
-                                                    By <a href="javascript:void(0)" class="meta-author">
-                                                        {{ $businessArticles[0]->auther }}
-                                                    </a>
-                                                </span>
-                                            </li>
-                                        @endif
-                                        <li>
-                                            <span class="rs-meta">
-                                                <svg width="14" height="16" viewBox="0 0 14 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M4.33447 3.8335C4.06114 3.8335 3.83447 3.60683 3.83447 3.3335V1.3335C3.83447 1.06016 4.06114 0.833496 4.33447 0.833496C4.60781 0.833496 4.83447 1.06016 4.83447 1.3335V3.3335C4.83447 3.60683 4.60781 3.8335 4.33447 3.8335ZM9.66781 3.8335C9.39447 3.8335 9.16781 3.60683 9.16781 3.3335V1.3335C9.16781 1.06016 9.39447 0.833496 9.66781 0.833496C9.94114 0.833496 10.1678 1.06016 10.1678 1.3335V3.3335C10.1678 3.60683 9.94114 3.8335 9.66781 3.8335ZM12.6678 6.56016H1.33447C1.06114 6.56016 0.834473 6.3335 0.834473 6.06016C0.834473 5.78683 1.06114 5.56016 1.33447 5.56016H12.6678C12.9411 5.56016 13.1678 5.78683 13.1678 6.06016C13.1678 6.3335 12.9411 6.56016 12.6678 6.56016Z"
-                                                        fill="white"></path>
-                                                    <path
-                                                        d="M9.66667 15.1668H4.33333C1.9 15.1668 0.5 13.7668 0.5 11.3335V5.66683C0.5 3.2335 1.9 1.8335 4.33333 1.8335H9.66667C12.1 1.8335 13.5 3.2335 13.5 5.66683V11.3335C13.5 13.7668 12.1 15.1668 9.66667 15.1668ZM4.33333 2.8335C2.42667 2.8335 1.5 3.76016 1.5 5.66683V11.3335C1.5 13.2402 2.42667 14.1668 4.33333 14.1668H9.66667C11.5733 14.1668 12.5 13.2402 12.5 11.3335V5.66683C12.5 3.76016 11.5733 2.8335 9.66667 2.8335H4.33333Z"
-                                                        fill="white"></path>
-                                                </svg>
-                                                <span>
-                                                    {{ $businessArticles[0]->published_at ? $businessArticles[0]->published_at->format('F Y') : '' }}
-                                                </span>
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @if(count($businessArticles) > 1)
-                        <div class="col-xl-8">
-                            <div class="rs-post-small-nineteen">
-                                <div class="rs-post-small-wrapper">
-                                    @for($i = 1; $i < 9; $i++)
-                                        @if(isset($businessArticles[$i]))
-                                            @php $article = $businessArticles[$i]; @endphp
-                                            <div class="rs-post-small">
-                                                <div class="rs-post-small-thumb" style="border-radius:3px;">
-                                                    <a href="{{ route('news.show', $article->slug) }}" class="image-link">
-                                                        <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : asset('assets/images/default/news-placeholder.webp') }}"
-                                                            alt="{{ $article->title }}">
-                                                    </a>
-                                                </div>
-                                                <div class="rs-post-small-content">
-                                                    <h6 class="rs-post-small-title underline">
-                                                        <a href="{{ route('news.show', $article->slug) }}">
-                                                            {{ \Illuminate\Support\Str::limit($article->title, 55) }}
-                                                        </a>
-                                                    </h6>
-                                                    @if(!empty($article->auther))
-                                                        <div class="rs-post-meta">
-                                                            <ul>
-                                                                <li>
-                                                                    <span class="rs-meta">
-                                                                        By <a href="javascript:void(0)" class="meta-author">
-                                                                            {{ $article->auther }}
-                                                                        </a>
-                                                                    </span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        @endif
-                                    @endfor
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-            @endif
-        </div>
-
-        <style>
-            /* Business Articles - Mobile 2-column grid for remaining articles */
-            @media (max-width: 768px) {
-                .rs-post-small-nineteen .rs-post-small-wrapper {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 15px;
-                }
-
-                .rs-post-small-nineteen .rs-post-small {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: start;
-                    gap: 0px !important;
-                    padding: 15px 0;
-                }
-
-                .rs-post-small-nineteen .rs-post-small-thumb {
-                    width: 100%;
-                    aspect-ratio: 16/10;
-                    margin-bottom: 4px;
-                    overflow: hidden;
-                }
-
-                .rs-post-small-nineteen .rs-post-small-thumb img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-
-                .rs-post-small-nineteen .rs-post-small-content {
-                    width: 100%;
-                }
-
-                .rs-post-small-nineteen .rs-post-small-title {
-                    font-size: 15px;
-                    line-height: 1.3;
-                }
-
-                .rs-post-meta {
-                    font-size: 10px;
-                }
-
-                .rs-post-small-nineteen .rs-post-small:nth-child(1) {
-                    border-top: 1px solid var(--rs-border-primary) !important;
-                    padding-top: 12px !important;
-                }
-            }
-        </style>
-    </section>
-
-    <!-- SECTION 9: Lifestyle section -->
-    <section class="rs-trending-news-area rs-lifestyle-section" style="padding: 30px 0;">
-        <div class="container">
-            <div class="row g-5">
-
-                {{-- LEFT CONTENT --}}
-                <div class="col-xl-9 col-lg-9">
-
-                    {{-- TITLE --}}
-                    <div class="section-title-space title-view-all">
-                        <div class="">
-                            <div class="section-title-wrapper">
-                                <h2 class="section-title">
-                                    Lifestyle
-                                </h2>
-                            </div>
-                        </div>
-
-                        <div class="">
-                            <div class="section-btn d-flex justify-content-lg-end">
-                                <a class="rs-btn has-text has-icon" href="{{ route('category.show', 'lifestyle') }}">
-                                    View All
-                                    <span class="icon-box">
-                                        <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                fill="#121213" />
-                                        </svg>
-                                        <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                fill="#121213" />
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    @if(isset($lifestyleArticles[0]))
-
-                        {{-- 🔥 ROW 1: BIG FEATURED --}}
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <div class="rs-post-overlay rs-post-overlay-one lifestyle-hero">
-                                    <a href="{{ route('news.show', $lifestyleArticles[0]->slug) }}">
-                                        <div class="rs-post-overlay-bg-thumb"
-                                            style="background-image:url('{{ asset('storage/' . $lifestyleArticles[0]->featured_image) }}')">
-                                        </div>
-                                    </a>
-
-                                    <div class="rs-post-overlay-content">
-                                        <h3 class="rs-post-overlay-title is-white underline">
-                                            <a href="{{ route('news.show', $lifestyleArticles[0]->slug) }}">
-                                                {{ \Illuminate\Support\Str::limit($lifestyleArticles[0]->title, 80) }}
-                                            </a>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- ⚡ ROW 2: 2 MEDIUM CARDS --}}
-                        <div class="row g-4 mb-4">
-                            @for($i = 1; $i <= 2; $i++)
-                                @if(isset($lifestyleArticles[$i]))
-                                    <div class="col-md-6">
-                                        <div class="rs-post-overlay rs-post-overlay-four lifestyle-medium">
-                                            <a href="{{ route('news.show', $lifestyleArticles[$i]->slug) }}">
-                                                <div class="rs-post-overlay-bg-thumb"
-                                                    style="background-image:url('{{ asset('storage/' . $lifestyleArticles[$i]->featured_image) }}')">
-                                                </div>
-                                            </a>
-
-                                            <div class="rs-post-overlay-content">
-                                                <h5 class="rs-post-overlay-title is-white underline">
-                                                    {{ \Illuminate\Support\Str::limit($lifestyleArticles[$i]->title, 50) }}
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endfor
-                        </div>
-
-                        {{-- 🧾 ROW 3: COMPACT HORIZONTAL LIST --}}
-                        <div class="row">
-                            @for($i = 3; $i <= 6; $i++)
-                                @if(isset($lifestyleArticles[$i]))
-                                    <div class="col-md-4 mb-3">
-                                        <div class="rs-post-small lifestyle-list">
-                                            <div class="rs-post-small-thumb">
-                                                <a href="{{ route('news.show', $lifestyleArticles[$i]->slug) }}">
-                                                    <img src="{{ asset('storage/' . $lifestyleArticles[$i]->featured_image) }}" alt="">
-                                                </a>
-                                            </div>
-
-                                            <div class="rs-post-small-content">
-                                                <h6 class="rs-post-small-title underline">
-                                                    {{ \Illuminate\Support\Str::limit($lifestyleArticles[$i]->title, 45) }}
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endfor
-                        </div>
-
-                    @endif
-
-                </div>
-
-                {{-- RIGHT AD --}}
-                <div class="col-xl-3 col-lg-3">
-                    <x-advertisement-box width="100%" height="100%" style="min-height: 300px;" />
-                </div>
-
-            </div>
-        </div>
-        <style>
-            /* HERO BIG CARD */
-            .lifestyle-hero {
-                height: 420px;
-                border-radius: 6px;
-                overflow: hidden;
-            }
-
-            /* MEDIUM CARDS */
-            .lifestyle-medium {
-                height: 320px;
-                border-radius: 6px;
-            }
-
-            /* SMALL LIST STYLE */
-            .lifestyle-list {
-                display: flex;
-                gap: 10px;
-            }
-
-            .lifestyle-list .rs-post-small-thumb {
-                width: 90px;
-                height: 70px;
-                flex-shrink: 0;
-            }
-
-            .lifestyle-list img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-            /* MOBILE */
-            @media (max-width: 768px) {
-                .lifestyle-hero {
-                    height: 250px;
-                }
-
-                .lifestyle-medium {
-                    height: 220px;
-                }
-            }
-        </style>
     </section>
 
 @endsection
