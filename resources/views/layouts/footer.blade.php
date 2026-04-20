@@ -66,10 +66,10 @@
                     </div>
                 </div>
 
-                {{-- Column 2: Top Categories --}}
+                {{-- Column 2: Categories --}}
                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6">
                     <div class="footer-widget footer-1-col-2">
-                        <h6 class="footer-widget-title">Top Categories</h6>
+                        <h6 class="footer-widget-title">Categories</h6>
                         <div class="footer-widget-link">
                             <ul>
                                 @forelse($footerCategories as $category)
