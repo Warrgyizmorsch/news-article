@@ -1258,6 +1258,18 @@
                         <div class="section-btn d-flex justify-content-lg-end">
                             <a class="rs-btn has-text has-icon" href="{{ route('category.show', 'lifestyle') }}">
                                 View All
+                                <span class="icon-box">
+                                    <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                            fill="#121213" />
+                                    </svg>
+                                    <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                            fill="#121213" />
+                                    </svg>
+                                </span>
                             </a>
                         </div>
                     </div>
@@ -1368,7 +1380,7 @@
             /* IMAGE */
             .lifestyle-thumb {
                 width: 100%;
-                height: 200px;
+                height: 250px;
                 overflow: hidden;
             }
 
