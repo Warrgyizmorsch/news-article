@@ -82,48 +82,54 @@
             </h5>
             <ul class="rs-social-wrapper" style="list-style: none; padding: 0;">
                 <li class="rs-social-item mb-2">
-                    <a href="#" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #3b5998; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
+                    <a href="https://www.facebook.com/democracyasia/" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #3b5998; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
                         <span class="d-flex align-items-center">
                             <i class="ri-facebook-fill" style="font-size: 18px; margin-right: 12px;"></i>
                             <span class="fw-bold">Facebook</span>
                         </span>
-                        <span style="font-size: 12px; opacity: 0.8;">88.2k Followers</span>
                     </a>
                 </li>
                 <li class="rs-social-item mb-2">
-                    <a href="#" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #000000; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
+                    <a href="https://x.com/Democracyasia" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #000000; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
                         <span class="d-flex align-items-center">
                             <i class="ri-twitter-x-fill" style="font-size: 18px; margin-right: 12px;"></i>
                             <span class="fw-bold">Twitter</span>
                         </span>
-                        <span style="font-size: 12px; opacity: 0.8;">48.6k Followers</span>
                     </a>
                 </li>
                 <li class="rs-social-item mb-2">
-                    <a href="#" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #0077b5; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
+                    <a href="https://www.linkedin.com/company/democracy-asia/about/?viewAsMember=true" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #0077b5; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
                         <span class="d-flex align-items-center">
                             <i class="ri-linkedin-fill" style="font-size: 18px; margin-right: 12px;"></i>
                             <span class="fw-bold">LinkedIn</span>
                         </span>
-                        <span style="font-size: 12px; opacity: 0.8;">30.3k Followers</span>
                     </a>
                 </li>
                 <li class="rs-social-item mb-2">
-                    <a href="#" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #e1306c; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
+                    <a href="https://www.instagram.com/democracyasiaofficial/?hl=en" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #e1306c; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
                         <span class="d-flex align-items-center">
                             <i class="ri-instagram-line" style="font-size: 18px; margin-right: 12px;"></i>
                             <span class="fw-bold">Instagram</span>
                         </span>
-                        <span style="font-size: 12px; opacity: 0.8;">24.5k Followers</span>
                     </a>
                 </li>
                 <li class="rs-social-item">
-                    <a href="#" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #bd081c; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
+                    <a href="https://in.pinterest.com/democracyasia/_saved/" class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all" style="background: #bd081c; border-radius: 8px;" onmouseover="this.style.opacity='0.9';" onmouseout="this.style.opacity='1';">
                         <span class="d-flex align-items-center">
                             <i class="ri-pinterest-fill" style="font-size: 18px; margin-right: 12px;"></i>
                             <span class="fw-bold">Pinterest</span>
                         </span>
-                        <span style="font-size: 12px; opacity: 0.8;">28.2k Followers</span>
+                    </a>
+                </li>
+                <li class="rs-social-item mb-2">
+                    <a href="https://www.youtube.com/@democracyasiaofficial"
+                        class="d-flex align-items-center justify-content-between p-3 text-white text-decoration-none transition-all"
+                        style="background: #ff0000; border-radius: 8px;" onmouseover="this.style.opacity='0.9';"
+                        onmouseout="this.style.opacity='1';">
+                        <span class="d-flex align-items-center">
+                            <i class="ri-youtube-fill" style="font-size: 18px; margin-right: 12px;"></i>
+                            <span class="fw-bold">YouTube</span>
+                        </span>
                     </a>
                 </li>
             </ul>

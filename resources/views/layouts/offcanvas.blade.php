@@ -236,17 +236,23 @@
 
             <!-- Social Links -->
             <div style="display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;">
-                <a href="#" class="custom-social-btn">
+                <a href="https://www.facebook.com/democracyasia/" target="_blank" class="custom-social-btn">
                     <i class="ri-facebook-fill" style="font-size: 18px;"></i>
                 </a>
-                <a href="#" class="custom-social-btn text-white">
+                <a href="https://x.com/Democracyasia" target="_blank" class="custom-social-btn text-white">
                     <i class="ri-twitter-x-fill" style="font-size: 18px;"></i>
                 </a>
-                <a href="#" class="custom-social-btn text-white">
+                <a href="https://www.youtube.com/@DemocracyAsia" target="_blank" class="custom-social-btn text-white">
                     <i class="ri-youtube-fill" style="font-size: 18px;"></i>
                 </a>
-                <a href="#" class="custom-social-btn text-white">
+                <a href="https://www.linkedin.com/company/democracy-asia/about/?viewAsMember=true" target="_blank" class="custom-social-btn text-white">
                     <i class="ri-linkedin-box-fill" style="font-size: 18px;"></i>
+                </a>
+                <a href="https://in.pinterest.com/democracyasia/_saved/" target="_blank" class="custom-social-btn text-white">
+                    <i class="ri-pinterest-fill" style="font-size: 18px;"></i>
+                </a>
+                <a href="https://www.instagram.com/democracyasiaofficial/?hl=en" target="_blank" class="custom-social-btn text-white">
+                    <i class="ri-instagram-fill" style="font-size: 18px;"></i>
                 </a>
             </div>
 
