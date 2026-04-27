@@ -189,6 +189,25 @@
                 line-height: 25px !important;
             }
 
+            .article-body-content h1 {
+                font-family: var(--rs-text-serif) !important;
+            }
+            .article-body-content h2 {
+                font-family: var(--rs-text-serif) !important;
+            }
+            .article-body-content h3 {
+                font-family: var(--rs-text-serif) !important;
+            }
+            .article-body-content h4 {
+                font-family: var(--rs-text-serif) !important;
+            }
+            .article-body-content h5 {
+                font-family: var(--rs-text-serif) !important;
+            }
+            .article-body-content h6 {
+                font-family: var(--rs-text-serif) !important;
+            }
+
             .article-body-content blockquote {
                 position: relative;
                 padding: 40px;
