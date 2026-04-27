@@ -736,6 +736,7 @@ class HomeController extends Controller
         $articleQuery = Article::with(['category', 'author', 'tags'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
+            ->orderByRaw('YEAR(published_at) DESC, MONTH(published_at) DESC')
             ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
             ->orderBy('sort_order', 'asc')
             ->orderBy('published_at', 'desc');
