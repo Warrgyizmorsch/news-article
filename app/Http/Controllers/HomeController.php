@@ -300,6 +300,7 @@ class HomeController extends Controller
         // Get current and previous month dates
         $currentMonth = Carbon::now();
         $previousMonth = Carbon::now()->subMonth();
+        $previousToPreviousMonth = Carbon::now()->subMonths(2);
 
         // Fetch all categories 
         $politicsCategory = Category::where('slug', 'politics')->where('status', 1)->first();
@@ -321,6 +322,9 @@ class HomeController extends Controller
                 ->where('section_id', 22)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
+                ->where('published_at', '<=', now())
+                ->whereMonth('published_at', $currentMonth->month)
+                ->whereYear('published_at', $currentMonth->year)
                 ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
                 ->orderBy('sort_order')
                 ->orderByDesc('published_at')
@@ -350,6 +354,7 @@ class HomeController extends Controller
                 ->where('category_id', $lifestyleCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
+                ->where('published_at', '<=', now())
                 ->whereMonth('published_at', $currentMonth->month)
                 ->whereYear('published_at', $currentMonth->year)
                 ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
@@ -372,6 +377,7 @@ class HomeController extends Controller
                 ->where('category_id', $bookshelfCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
+                ->where('published_at', '<=', now())
                 ->whereMonth('published_at', $currentMonth->month)
                 ->whereYear('published_at', $currentMonth->year)
                 ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
@@ -410,6 +416,7 @@ class HomeController extends Controller
             ->where('section_id', 22)
             ->where('status', 'published')
             ->whereNotNull('published_at')
+            ->where('published_at', '<=', now())
             ->whereMonth('published_at', $currentMonth->month)
             ->whereYear('published_at', $currentMonth->year)
             ->whereNotIn('id', $heroArticleIds)
@@ -537,18 +544,64 @@ class HomeController extends Controller
 
         $featuredVideos = DaVideo::latest()->limit(10)->get();
 
-        // Fetching all categories articles -- Politics articles are fetched at the starting of the function
+        // Fetching all categories articles 
+
+        $politicsSectionArticles = collect();
+
+        if ($politicsCategory) {
+
+            $politicsSectionArticles = Article::with(['category', 'author'])
+                ->where('section_id', 22)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->whereMonth('published_at', $previousToPreviousMonth->month)
+                ->whereYear('published_at', $previousToPreviousMonth->year)
+                ->orderByDesc('published_at')
+                ->take(7)
+                ->get()
+                ->values();
+
+            if ($politicsSectionArticles->count() < 7) {
+                $politicsSectionArticles = Article::with(['category', 'author'])
+                    ->where('section_id', 22)
+                    ->where('status', 'published')
+                    ->whereNotNull('published_at')
+                    ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
+                    ->orderBy('sort_order')
+                    ->orderByDesc('published_at')
+                    ->take(7)
+                    ->get()
+                    ->values();
+            }
+        }
 
         $businessArticles = collect();
+
         if ($businessCategory) {
+
+            // Step 1: Try previous to previous month
             $businessArticles = Article::with(['category', 'author'])
                 ->where('category_id', $businessCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
+                ->whereMonth('published_at', $previousToPreviousMonth->month)
+                ->whereYear('published_at', $previousToPreviousMonth->year)
                 ->orderByDesc('published_at')
                 ->take(9)
                 ->get()
                 ->values();
+
+            // Step 2: Fallback if not enough
+            if ($businessArticles->count() < 9) {
+                $businessArticles = Article::with(['category', 'author'])
+                    ->where('category_id', $businessCategory->id)
+                    ->where('status', 'published')
+                    ->whereNotNull('published_at')
+                    ->orderByDesc('published_at')
+                    ->take(9)
+                    ->get()
+                    ->values();
+            }
         }
 
         $bookshelfArticles = collect();
@@ -564,15 +617,30 @@ class HomeController extends Controller
         }
 
         $lifestyleArticles = collect();
+
         if ($lifestyleCategory) {
+
             $lifestyleArticles = Article::with(['category', 'author'])
                 ->where('category_id', $lifestyleCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
+                ->whereMonth('published_at', $previousToPreviousMonth->month)
+                ->whereYear('published_at', $previousToPreviousMonth->year)
                 ->orderByDesc('published_at')
                 ->take(4)
                 ->get()
                 ->values();
+
+            if ($lifestyleArticles->count() < 4) {
+                $lifestyleArticles = Article::with(['category', 'author'])
+                    ->where('category_id', $lifestyleCategory->id)
+                    ->where('status', 'published')
+                    ->whereNotNull('published_at')
+                    ->orderByDesc('published_at')
+                    ->take(4)
+                    ->get()
+                    ->values();
+            }
         }
 
         $monthlyEditionArticles = collect();
@@ -600,7 +668,7 @@ class HomeController extends Controller
             'bookshelfCategory',
             'businessCategory',
             'monthlyEditionCategory',
-            'politicsArticles',
+            'politicsSectionArticles',
             'businessArticles',
             'bookshelfArticles',
             'lifestyleArticles',

@@ -30,6 +30,10 @@
         .modal-backdrop {
             position: static;
         }
+
+        .table-responsive .table tr td {
+            white-space: wrap !important;
+        }
     </style>
 
     <main>

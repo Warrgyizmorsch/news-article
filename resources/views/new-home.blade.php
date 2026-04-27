@@ -972,8 +972,8 @@
                         <div class="rs-post-medium rs-post-medium-one">
 
                             @for($i = 0; $i < 7; $i++)
-                                @if(isset($politicsArticles[$i]))
-                                    @php $article = $politicsArticles[$i]; @endphp
+                                @if(isset($politicsSectionArticles[$i]))
+                                    @php $article = $politicsSectionArticles[$i]; @endphp
                                     <div class="rs-post-medium-item" style="padding-bottom: 10px;">
                                         <div class="rs-post-medium-thumb" style="border-radius:3px;">
                                             <a href="{{ route('news.show', $article->slug) }}" style="height: 100%;">
