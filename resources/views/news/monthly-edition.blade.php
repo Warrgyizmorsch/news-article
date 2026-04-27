@@ -112,10 +112,10 @@
                                     </span>
                                 </div>
                                 <h1
-                                    style="font-size: 56px; font-weight: 700; color: #111827; line-height: 1.1; font-family: 'Playfair Display', serif; margin-bottom: 24px;">
+                                    style="font-size: 56px; font-weight: 700; color: #111827; line-height: 1.1; font-family: 'Playfair Display', serif; margin-bottom: 5px;">
                                     {{ $latestArticle->title }}
                                 </h1>
-                                <p>
+                                <p style="margin-bottom: 15px;">
                                     {{ $latestArticle->excerpt }}
                                 </p>
                                 <div class="mt-4">
