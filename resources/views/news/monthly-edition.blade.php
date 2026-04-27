@@ -115,6 +115,9 @@
                                     style="font-size: 56px; font-weight: 700; color: #111827; line-height: 1.1; font-family: 'Playfair Display', serif; margin-bottom: 24px;">
                                     {{ $latestArticle->title }}
                                 </h1>
+                                <p>
+                                    {{ $latestArticle->excerpt }}
+                                </p>
                                 <div class="mt-4">
 
                                     @if($latestArticle->pdf_file)
