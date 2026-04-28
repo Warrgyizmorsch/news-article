@@ -362,8 +362,8 @@ class HomeController extends Controller
 
         $heroRightPriority = [
             $lifestyleCategory,
-            $democracyCategory,
             $securityCategory,
+            $democracyCategory,
         ];
 
         foreach ($heroRightPriority as $category) {
@@ -467,12 +467,19 @@ class HomeController extends Controller
         | 2. OTHER CATEGORIES (DYNAMIC LOOP)
         |--------------------------------------------------------------------------
         */
-        $priorityCategories = [
-            $democracyCategory,
-            $businessCategory,
-            $securityCategory,
-            $lifestyleCategory,
-        ];
+        // $priorityCategories = [
+        //     $democracyCategory,
+        //     $businessCategory,
+        //     $securityCategory,
+        //     $lifestyleCategory,
+        //     $bookshelfCategory,
+        // ];
+
+        $priorityCategories = Category::where('status', 1)
+            ->where('main_menu', 1)
+            ->whereNotIn('slug', ['politics', 'monthly-editions'])
+            ->orderBy('sort_order')
+            ->get();
 
         foreach ($priorityCategories as $category) {
 
@@ -535,6 +542,8 @@ class HomeController extends Controller
                     ->whereNotNull('published_at')
                     ->whereMonth('published_at', $previousMonth->month)
                     ->whereYear('published_at', $previousMonth->year)
+                    ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
+                    ->orderBy('sort_order')
                     ->latest('published_at')
                     ->get();
             } else {
@@ -549,6 +558,8 @@ class HomeController extends Controller
                     ->whereNotNull('published_at')
                     ->whereMonth('published_at', $previousMonth->month)
                     ->whereYear('published_at', $previousMonth->year)
+                    ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
+                    ->orderBy('sort_order')
                     ->latest('published_at')
                     ->get();
             }
