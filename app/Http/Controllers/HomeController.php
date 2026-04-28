@@ -298,9 +298,19 @@ class HomeController extends Controller
     public function newHome()
     {
         // Get current and previous month dates
-        $currentMonth = Carbon::now();
-        $previousMonth = Carbon::now()->subMonth();
-        $previousToPreviousMonth = Carbon::now()->subMonths(2);
+        $currentDate = Carbon::now();
+
+        // If date > 25 → shift to next month
+        if ($currentDate->day > 25) {
+            $editorialMonth = $currentDate->copy()->addMonth();
+        } else {
+            $editorialMonth = $currentDate->copy();
+        }
+
+        // Now derive previous months based on this
+        $currentMonth = $editorialMonth;
+        $previousMonth = $editorialMonth->copy()->subMonth();
+        $previousToPreviousMonth = $editorialMonth->copy()->subMonths(2);
 
         // Fetch all categories 
         $politicsCategory = Category::where('slug', 'politics')->where('status', 1)->first();
