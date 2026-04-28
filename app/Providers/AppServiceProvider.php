@@ -44,7 +44,18 @@ class AppServiceProvider extends ServiceProvider
 
             // Footer Recent Posts
 
-            $currentMonth = Carbon::now();
+            // $currentMonth = Carbon::now();
+            $currentDate = Carbon::now();
+
+            // If date > 25 → shift to next month
+            if ($currentDate->day > 25) {
+                $editorialMonth = $currentDate->copy()->addMonth();
+            } else {
+                $editorialMonth = $currentDate->copy();
+            }
+
+            // Now derive previous months based on this
+            $currentMonth = $editorialMonth;
 
             $categories = Category::whereIn('slug', ['business', 'lifestyle', 'bookshelf'])
                 ->where('status', 1)
