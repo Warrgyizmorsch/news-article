@@ -298,6 +298,10 @@ class HomeController extends Controller
     public function newHome()
     {
         // Get current and previous month dates
+        // $currentMonth = Carbon::now();
+        // $previousMonth = Carbon::now()->subMonth();
+        // $previousToPreviousMonth = Carbon::now()->subMonths(2);
+
         $currentDate = Carbon::now();
 
         // If date > 25 → shift to next month
@@ -320,6 +324,10 @@ class HomeController extends Controller
         $bookshelfCategory = Category::where('slug', 'bookshelf')->where('status', 1)->first();
 
         $businessCategory = Category::where('slug', 'business')->where('status', 1)->first();
+
+        $democracyCategory = Category::where('slug', 'democracy')->where('status', 1)->first();
+
+        $securityCategory = Category::where('slug', 'security')->where('status', 1)->first();
 
         $monthlyEditionCategory = Category::where('slug', 'monthly-editions')->where('status', 1)->first();
 
@@ -350,17 +358,22 @@ class HomeController extends Controller
         // Initialize first
         $heroRightArticle = collect();
 
-        /*
-        |--------------------------------------------------------------------------
-        | LIFESTYLE ARTICLE (with sort_order priority)
-        |--------------------------------------------------------------------------
-        */
+        $heroRightMainArticle = collect();
 
-        $lifestyleHeroArticle = collect();
+        $heroRightPriority = [
+            $lifestyleCategory,
+            $democracyCategory,
+            $securityCategory,
+        ];
 
-        if ($lifestyleCategory) {
-            $lifestyleHeroArticle = Article::with(['category', 'author'])
-                ->where('category_id', $lifestyleCategory->id)
+        foreach ($heroRightPriority as $category) {
+
+            if (!$category) {
+                continue;
+            }
+
+            $article = Article::with(['category', 'author'])
+                ->where('category_id', $category->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->whereMonth('published_at', $currentMonth->month)
@@ -370,6 +383,11 @@ class HomeController extends Controller
                 ->orderByDesc('published_at')
                 ->take(1)
                 ->get();
+
+            if ($article->isNotEmpty()) {
+                $heroRightMainArticle = $article;
+                break; // stop at first available
+            }
         }
 
         /*
@@ -401,7 +419,7 @@ class HomeController extends Controller
         |--------------------------------------------------------------------------
         */
         $heroRightArticle = $bookshelfHeroArticle
-            ->merge($lifestyleHeroArticle)
+            ->merge($heroRightMainArticle)
             ->values();
 
         // ===== SECTION 2: Grid Section (8 articles, 4 per row, current month) =====
@@ -413,87 +431,82 @@ class HomeController extends Controller
             ->filter();
 
         $remainingLimit = 8;
+        $gridArticles = collect();
+
+        // Start exclusion with hero articles
+        $excludeIds = collect($heroArticleIds);
 
         /*
         |--------------------------------------------------------------------------
-        | 1. POLITICS ARTICLES
+        | 1. POLITICS (SPECIAL HANDLING - section_id)
         |--------------------------------------------------------------------------
         */
-        $politicsSection2Articles = Article::with(['category', 'author'])
-            ->where('section_id', 22)
-            ->where('status', 'published')
-            ->whereNotNull('published_at')
-            ->whereMonth('published_at', $currentMonth->month)
-            ->whereYear('published_at', $currentMonth->year)
-            ->whereNotIn('id', $heroArticleIds)
-            ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
-            ->orderBy('sort_order')
-            ->orderByDesc('published_at')
-            ->take($remainingLimit)
-            ->get();
+        if ($remainingLimit > 0 && $politicsCategory) {
 
-        $remainingLimit -= $politicsSection2Articles->count();
+            $politicsArticles = Article::with(['category', 'author'])
+                ->where('section_id', 22) // special condition
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->whereMonth('published_at', $currentMonth->month)
+                ->whereYear('published_at', $currentMonth->year)
+                ->whereNotIn('id', $excludeIds)
+                ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
+                ->orderBy('sort_order')
+                ->orderByDesc('published_at')
+                ->take($remainingLimit)
+                ->get();
 
-        /*
-        |--------------------------------------------------------------------------
-        | 2. BUSINESS ARTICLES (if needed)
-        |--------------------------------------------------------------------------
-        */
-        $businessSection2Articles = collect();
+            $gridArticles = $gridArticles->merge($politicsArticles);
 
-        if ($remainingLimit > 0) {
-
-            if ($businessCategory) {
-                $businessSection2Articles = Article::with(['category', 'author'])
-                    ->where('category_id', $businessCategory->id)
-                    ->where('status', 'published')
-                    ->whereNotNull('published_at')
-                    ->whereMonth('published_at', $currentMonth->month)
-                    ->whereYear('published_at', $currentMonth->year)
-                    ->whereNotIn('id', $heroArticleIds)
-                    ->whereNotIn('id', $politicsSection2Articles->pluck('id'))
-                    ->orderByDesc('published_at')
-                    ->take($remainingLimit)
-                    ->get();
-
-                $remainingLimit -= $businessSection2Articles->count();
-            }
+            $remainingLimit -= $politicsArticles->count();
+            $excludeIds = $excludeIds->merge($politicsArticles->pluck('id'));
         }
 
         /*
         |--------------------------------------------------------------------------
-        | 3. LIFESTYLE ARTICLES (if still needed)
+        | 2. OTHER CATEGORIES (DYNAMIC LOOP)
         |--------------------------------------------------------------------------
         */
-        $lifestyleSection2Articles = collect();
+        $priorityCategories = [
+            $democracyCategory,
+            $businessCategory,
+            $securityCategory,
+            $lifestyleCategory,
+        ];
 
-        if ($remainingLimit > 0) {
+        foreach ($priorityCategories as $category) {
 
-            if ($lifestyleCategory) {
-                $lifestyleSection2Articles = Article::with(['category', 'author'])
-                    ->where('category_id', $lifestyleCategory->id)
-                    ->where('status', 'published')
-                    ->whereNotNull('published_at')
-                    ->whereMonth('published_at', $currentMonth->month)
-                    ->whereYear('published_at', $currentMonth->year)
-                    ->whereNotIn('id', $heroArticleIds)
-                    ->whereNotIn('id', $politicsSection2Articles->pluck('id'))
-                    ->whereNotIn('id', $businessSection2Articles->pluck('id'))
-                    ->orderByDesc('published_at')
-                    ->take($remainingLimit)
-                    ->get();
+            if ($remainingLimit <= 0) {
+                break;
             }
+
+            if (!$category) {
+                continue;
+            }
+
+            $articles = Article::with(['category', 'author'])
+                ->where('category_id', $category->id)
+                ->where('status', 'published')
+                ->whereNotNull('published_at')
+                ->whereMonth('published_at', $currentMonth->month)
+                ->whereYear('published_at', $currentMonth->year)
+                ->whereNotIn('id', $excludeIds)
+                ->orderByDesc('published_at')
+                ->take($remainingLimit)
+                ->get();
+
+            $gridArticles = $gridArticles->merge($articles);
+
+            $remainingLimit -= $articles->count();
+            $excludeIds = $excludeIds->merge($articles->pluck('id'));
         }
 
         /*
         |--------------------------------------------------------------------------
-        | FINAL MERGE
+        | FINAL RESULT
         |--------------------------------------------------------------------------
         */
-        $gridArticles = $politicsSection2Articles
-            ->merge($businessSection2Articles)
-            ->merge($lifestyleSection2Articles)
-            ->values();
+        $gridArticles = $gridArticles->values();
 
         $popularArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
