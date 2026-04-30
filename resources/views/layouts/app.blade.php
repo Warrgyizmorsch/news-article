@@ -15,10 +15,12 @@
     <meta property="og:description" content="@yield('og_description', 'Latest news and insights from Democracy Asia')">
     <meta property="og:url" content="@yield('og_url', url()->current())">
     <meta property="og:site_name" content="Democracy Asia">
-    <meta property="og:image" content="@yield('og_image', asset('assets/images/default/news-placeholder.webp'))">
-    
+    <meta property="og:image" content="@yield('og_image')">
+    <meta property="og:image:secure_url" content="@yield('og_image')">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    
     
     {{-- Twitter --}}
     <meta name="twitter:card" content="summary_large_image">

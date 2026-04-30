@@ -14,12 +14,24 @@
 
 @section('og_url', url()->current())
 
-@section(
-    'og_image',
-    $article->featured_image
-    ? asset('storage/' . $article->featured_image)
-    : asset('assets/images/default/news-placeholder.webp')
-)
+@php
+    // ✅ Safe image handling (NO controller needed)
+
+    $defaultImage = asset('assets/images/default/news-placeholder.jpg'); // changed to JPG
+
+    $imagePath = $article->featured_image
+        ? public_path('storage/' . $article->featured_image)
+        : null;
+
+    $imageUrl = ($article->featured_image && file_exists($imagePath))
+        ? asset('storage/' . $article->featured_image)
+        : $defaultImage;
+
+    // ✅ Cache busting (forces Facebook to refresh)
+    $imageUrl = $imageUrl . '?v=' . time();
+@endphp
+
+@section('og_image', $imageUrl)
 
 @section('content')
 
