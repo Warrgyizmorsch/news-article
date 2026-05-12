@@ -10,7 +10,7 @@
 
             <!-- Close Button -->
             @if(($class ?? '') == 'home-top-ad')
-                <button class="ad-close-btn" onclick="document.getElementById('homeTopAd').style.display='none'">
+                <button class="ad-close-btn" onclick="closeTopAd()">
                     ×
                 </button>
             @endif
@@ -94,6 +94,10 @@
         text-align: center;
         cursor: pointer;
         z-index: 10;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /* Ad Label */
@@ -119,3 +123,29 @@
         color: #aaa;
     }
 </style>
+
+<script>
+    // Disable browser automatic scroll restore
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+    function closeTopAd() {
+        const ad = document.getElementById('homeTopAd');
+
+        if (ad) {
+            ad.style.display = 'none';
+        }
+    }
+
+    // Smoothly open page directly from advertisement
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const ad = document.getElementById('homeTopAd');
+
+        if (ad) {
+            window.scrollTo(0, ad.offsetTop);
+        }
+
+    });
+</script>
