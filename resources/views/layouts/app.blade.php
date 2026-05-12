@@ -96,9 +96,11 @@
 
 <body class="rs-smoother-yes">
 
-    @include('components.advertisement-box', [
+@include('components.advertisement-box', [
     'width' => '100%',
-    'height' => '200px'
+    'height' => '200px',
+    'image' => asset('assets/images/ad/advertisement.webp'),
+    'class' => 'home-top-ad'
 ])
 
     @include('layouts.header')
