@@ -305,7 +305,7 @@ class HomeController extends Controller
         $currentDate = Carbon::now();
 
         // If date > 25 → shift to next month
-        if ($currentDate->day > 25) {
+        if ($currentDate->day > 30) {
             $editorialMonth = $currentDate->copy()->addMonth();
         } else {
             $editorialMonth = $currentDate->copy();
