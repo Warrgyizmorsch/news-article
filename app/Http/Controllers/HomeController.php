@@ -381,6 +381,7 @@ class HomeController extends Controller
             $lifestyleCategory,
             $securityCategory,
             $democracyCategory,
+            $businessCategory
         ];
 
         foreach ($heroRightPriority as $category) {
