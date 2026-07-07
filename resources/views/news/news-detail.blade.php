@@ -196,7 +196,7 @@
 
             .article-excerpt-wrapper {
                 display: grid;
-                grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+                grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.6fr);
                 gap: 24px;
                 align-items: center;
                 margin-bottom: 24px;
@@ -218,10 +218,8 @@
 
             .article-excerpt-image {
                 width: 100%;
-                border-radius: 12px;
                 object-fit: cover;
                 max-height: 320px;
-                box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
             }
 
             @media (max-width: 768px) {
