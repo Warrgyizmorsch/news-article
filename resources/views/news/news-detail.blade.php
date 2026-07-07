@@ -228,8 +228,8 @@
                 }
                 .article-excerpt-image {
                     width: 100%;
-                    object-fit: fill;
-                    max-height: 270px;
+                    object-fit: cover;
+                    max-height: 100%;
                 }
             }
 
