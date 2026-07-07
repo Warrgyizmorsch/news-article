@@ -218,13 +218,18 @@
 
             .article-excerpt-image {
                 width: 100%;
-                object-fit: cover;
-                max-height: 320px;
+                object-fit: contain;
+                max-height: 170px;
             }
 
             @media (max-width: 768px) {
                 .article-excerpt-wrapper {
                     grid-template-columns: 1fr;
+                }
+                .article-excerpt-image {
+                    width: 100%;
+                    object-fit: fill;
+                    max-height: 270px;
                 }
             }
 
