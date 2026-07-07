@@ -162,6 +162,30 @@
                         </div>
                     </div>
 
+                    <div class="row g-3 align-items-start mb-4">
+                        <label class="col-lg-3 col-form-label fw-semibold">Excerpt Image</label>
+                        <div class="col-lg-9">
+                            <div class="d-flex align-items-center gap-3 flex-wrap">
+                                <div class="image-preview" id="excerptThumbPreview">
+                                    @if($article->excerpt_image)
+                                    <img src="{{ asset('storage/' . $article->excerpt_image) }}" alt="excerpt preview">
+                                    @else
+                                    <img src="/images/blank.jpeg" alt="excerpt preview">
+                                    @endif
+                                </div>
+                                <div>
+                                    <label class="form-label mb-1">Upload excerpt image</label>
+                                    <input type="file" name="excerpt_image" class="form-control"
+                                        accept=".png,.jpg,.jpeg,.webp" id="excerptThumbInput">
+                                    <div class="form-text">Allowed file types: png, jpg, jpeg, webp.</div>
+                                    @error('excerpt_image')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row g-3 mb-4" id="contentSection">
                         <label class="col-lg-3 col-form-label fw-semibold">Content</label>
                         <div class="col-lg-9">
@@ -404,15 +428,29 @@ $selectedTags = old('tags', $article->tags->pluck('id')->toArray());
         });
 
         (function() {
-            const input = document.getElementById('thumbInput');
-            const preview = document.querySelector('#thumbPreview img');
-            if (input) {
-                input.addEventListener('change', (e) => {
+            const featuredInput = document.getElementById('thumbInput');
+            const featuredPreview = document.querySelector('#thumbPreview img');
+            if (featuredInput && featuredPreview) {
+                featuredInput.addEventListener('change', (e) => {
                     const file = e.target.files?.[0];
                     if (!file) return;
                     const reader = new FileReader();
                     reader.onload = (ev) => {
-                        preview.src = ev.target.result;
+                        featuredPreview.src = ev.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            const excerptInput = document.getElementById('excerptThumbInput');
+            const excerptPreview = document.querySelector('#excerptThumbPreview img');
+            if (excerptInput && excerptPreview) {
+                excerptInput.addEventListener('change', (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        excerptPreview.src = ev.target.result;
                     };
                     reader.readAsDataURL(file);
                 });

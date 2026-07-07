@@ -194,6 +194,42 @@
                 color: var(--rs-body-text);
             }
 
+            .article-excerpt-wrapper {
+                display: grid;
+                grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+                gap: 24px;
+                align-items: center;
+                margin-bottom: 24px;
+            }
+
+            /* .article-excerpt-card {
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 20px;
+            } */
+
+            .article-excerpt-card p {
+                margin-bottom: 0;
+                font-size: 18px;
+                line-height: 1.7;
+                color: #334155;
+            }
+
+            .article-excerpt-image {
+                width: 100%;
+                border-radius: 12px;
+                object-fit: cover;
+                max-height: 320px;
+                box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+            }
+
+            @media (max-width: 768px) {
+                .article-excerpt-wrapper {
+                    grid-template-columns: 1fr;
+                }
+            }
+
             .article-body-content p {
                 font-family: var(--rs-text-serif) !important;
                 color: var(--rs-title-primary) !important;
@@ -651,9 +687,21 @@ $remaining = collect($paragraphs)->slice(2)->implode('</p>');
 
                             <div class="article-body-content">
 
-                                <div>
-                                    <p class="article-excerpt">{{ $article->excerpt }}</p>
-                                </div>
+                                @if(isset($article->excerpt_image) && $article->excerpt_image)
+                                    <div class="article-excerpt-wrapper">
+                                        <div>
+                                            <p class="article-excerpt">{{ $article->excerpt }}</p>
+                                        </div>
+
+                                        <img class="article-excerpt-image"
+                                            src="{{ asset('storage/' . $article->excerpt_image) }}"
+                                            alt="{{ $article->title }} excerpt image">
+                                    </div>
+                                @else
+                                    <div>
+                                        <p class="article-excerpt">{{ $article->excerpt }}</p>
+                                    </div>
+                                @endif
 
                                 <div class="rs-meta-item" style="margin-bottom: 18px;">
                                     <i class="ri-time-line"></i>
