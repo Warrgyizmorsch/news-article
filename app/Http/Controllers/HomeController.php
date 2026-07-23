@@ -207,8 +207,8 @@ class HomeController extends Controller
         $politicsArticles = collect();
 
         if ($politicsCategory) {
-            $politicsArticles = Article::with(['category', 'author'])
-                ->where('section_id', 22)
+            $politicsArticles = Article::forCard()->with(['category', 'author'])
+                ->where('section_id', $politicsCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
@@ -311,7 +311,7 @@ class HomeController extends Controller
             $editorialMonth = $currentDate->copy();
         }
 
-        // These are recalculated below if the next-month fallback is needed.
+        // Now derive previous months based on this
         $currentMonth = $editorialMonth;
         $previousMonth = $editorialMonth->copy()->subMonth();
         $previousToPreviousMonth = $editorialMonth->copy()->subMonths(2);
@@ -331,44 +331,13 @@ class HomeController extends Controller
 
         $monthlyEditionCategory = Category::where('slug', 'monthly-editions')->where('status', 1)->first();
 
-        if (!$editorialMonth->isSameMonth($currentDate)) {
-            $heroCategoryIds = collect([
-                $lifestyleCategory?->id,
-                $bookshelfCategory?->id,
-                $democracyCategory?->id,
-                $securityCategory?->id,
-            ])->filter()->values();
-
-            $hasNextMonthHeroArticles = Article::where('status', 'published')
-                ->whereNotNull('published_at')
-                ->whereMonth('published_at', $editorialMonth->month)
-                ->whereYear('published_at', $editorialMonth->year)
-                ->where(function ($query) use ($heroCategoryIds) {
-                    $query->where('section_id', 22);
-
-                    if ($heroCategoryIds->isNotEmpty()) {
-                        $query->orWhereIn('category_id', $heroCategoryIds);
-                    }
-                })
-                ->exists();
-
-            if (!$hasNextMonthHeroArticles) {
-                $editorialMonth = $currentDate->copy();
-            }
-
-            // Keep "Featured stories from last month" relative to the visible home month.
-            $currentMonth = $editorialMonth;
-            $previousMonth = $editorialMonth->copy()->subMonth();
-            $previousToPreviousMonth = $editorialMonth->copy()->subMonths(2);
-        }
-
         // ===== SECTION 1: Hero Section =====
         // Get Political Articles (Center + Left: 2 + 1)
 
         $politicsArticles = collect();
         if ($politicsCategory) {
-            $politicsArticles = Article::with(['category', 'author'])
-                ->where('section_id', 22)
+            $politicsArticles = Article::forCard()->with(['category', 'author'])
+                ->where('section_id', $politicsCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->whereMonth('published_at', $currentMonth->month)
@@ -403,7 +372,7 @@ class HomeController extends Controller
                 continue;
             }
 
-            $article = Article::with(['category', 'author'])
+            $article = Article::forCard()->with(['category', 'author'])
                 ->where('category_id', $category->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
@@ -430,7 +399,7 @@ class HomeController extends Controller
         $bookshelfHeroArticle = collect();
 
         if ($bookshelfCategory) {
-            $bookshelfHeroArticle = Article::with(['category', 'author'])
+            $bookshelfHeroArticle = Article::forCard()->with(['category', 'author'])
                 ->where('category_id', $bookshelfCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
@@ -474,8 +443,8 @@ class HomeController extends Controller
         */
         if ($remainingLimit > 0 && $politicsCategory) {
 
-            $politicsArticles = Article::with(['category', 'author'])
-                ->where('section_id', 22) // special condition
+            $politicsArticles = Article::forCard()->with(['category', 'author'])
+                ->where('section_id', $politicsCategory->id) // special condition
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->whereMonth('published_at', $currentMonth->month)
@@ -522,7 +491,7 @@ class HomeController extends Controller
                 continue;
             }
 
-            $articles = Article::with(['category', 'author'])
+            $articles = Article::forCard()->with(['category', 'author'])
                 ->where('category_id', $category->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
@@ -546,7 +515,7 @@ class HomeController extends Controller
         */
         $gridArticles = $gridArticles->values();
 
-        $popularArticles = Article::with(['category', 'author'])
+        $popularArticles = Article::forCard()->with(['category', 'author'])
             ->where('status', 'published')
             ->where('category_id', '!=', 21)
             ->whereNotNull('published_at')
@@ -558,7 +527,7 @@ class HomeController extends Controller
         $previousMonthArticles = collect();
 
         $categoriesOrder = [
-            'politics' => ['type' => 'section', 'value' => 22],
+            'politics' => ['type' => 'section', 'value' => $politicsCategory?->id],
             'business' => ['type' => 'slug'],
             'lifestyle' => ['type' => 'slug'],
             'bookshelf' => ['type' => 'slug'],
@@ -567,7 +536,11 @@ class HomeController extends Controller
         foreach ($categoriesOrder as $slug => $config) {
 
             if ($config['type'] === 'section') {
-                $articles = Article::with(['category', 'author'])
+                if (!$config['value']) {
+                    continue;
+                }
+
+                $articles = Article::forCard()->with(['category', 'author'])
                     ->where('section_id', $config['value'])
                     ->where('status', 'published')
                     ->whereNotNull('published_at')
@@ -583,7 +556,7 @@ class HomeController extends Controller
                 if (!$category)
                     continue;
 
-                $articles = Article::with(['category', 'author'])
+                $articles = Article::forCard()->with(['category', 'author'])
                     ->where('category_id', $category->id)
                     ->where('status', 'published')
                     ->whereNotNull('published_at')
@@ -611,8 +584,8 @@ class HomeController extends Controller
 
         if ($politicsCategory) {
 
-            $politicsSectionArticles = Article::with(['category', 'author'])
-                ->where('section_id', 22)
+            $politicsSectionArticles = Article::forCard()->with(['category', 'author'])
+                ->where('section_id', $politicsCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->whereMonth('published_at', $previousToPreviousMonth->month)
@@ -623,8 +596,8 @@ class HomeController extends Controller
                 ->values();
 
             if ($politicsSectionArticles->count() < 7) {
-                $politicsSectionArticles = Article::with(['category', 'author'])
-                    ->where('section_id', 22)
+                $politicsSectionArticles = Article::forCard()->with(['category', 'author'])
+                    ->where('section_id', $politicsCategory->id)
                     ->where('status', 'published')
                     ->whereNotNull('published_at')
                     ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END')
@@ -641,7 +614,7 @@ class HomeController extends Controller
         if ($businessCategory) {
 
             // Step 1: Try previous to previous month
-            $businessArticles = Article::with(['category', 'author'])
+            $businessArticles = Article::forCard()->with(['category', 'author'])
                 ->where('category_id', $businessCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
@@ -654,7 +627,7 @@ class HomeController extends Controller
 
             // Step 2: Fallback if not enough
             if ($businessArticles->count() < 9) {
-                $businessArticles = Article::with(['category', 'author'])
+                $businessArticles = Article::forCard()->with(['category', 'author'])
                     ->where('category_id', $businessCategory->id)
                     ->where('status', 'published')
                     ->whereNotNull('published_at')
@@ -667,7 +640,7 @@ class HomeController extends Controller
 
         $bookshelfArticles = collect();
         if ($bookshelfCategory) {
-            $bookshelfArticles = Article::with(['category', 'author'])
+            $bookshelfArticles = Article::forCard()->with(['category', 'author'])
                 ->where('category_id', $bookshelfCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
@@ -681,7 +654,7 @@ class HomeController extends Controller
 
         if ($lifestyleCategory) {
 
-            $lifestyleArticles = Article::with(['category', 'author'])
+            $lifestyleArticles = Article::forCard()->with(['category', 'author'])
                 ->where('category_id', $lifestyleCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
@@ -693,7 +666,7 @@ class HomeController extends Controller
                 ->values();
 
             if ($lifestyleArticles->count() < 4) {
-                $lifestyleArticles = Article::with(['category', 'author'])
+                $lifestyleArticles = Article::forCard()->with(['category', 'author'])
                     ->where('category_id', $lifestyleCategory->id)
                     ->where('status', 'published')
                     ->whereNotNull('published_at')
@@ -706,7 +679,7 @@ class HomeController extends Controller
 
         $monthlyEditionArticles = collect();
         if ($monthlyEditionCategory) {
-            $monthlyEditionArticles = Article::with(['category', 'author'])
+            $monthlyEditionArticles = Article::forCard()->with(['category', 'author'])
                 ->where('category_id', $monthlyEditionCategory->id)
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
@@ -807,7 +780,7 @@ class HomeController extends Controller
             ->orderBy('published_at', 'desc');
 
         if ($slug === 'politics') {
-            $articleQuery->where('section_id', 22);
+            $articleQuery->where('section_id', $category->id);
         } else {
             $articleQuery->where('category_id', $category->id);
         }
@@ -1024,7 +997,7 @@ class HomeController extends Controller
 
         $article->increment('views');
 
-        $relatedArticles = Article::with(['category', 'author'])
+        $relatedArticles = Article::forCard()->with(['category', 'author'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
             ->where('category_id', $article->category_id)
@@ -1033,7 +1006,7 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
-        $popularArticles = Article::with(['category', 'author'])
+        $popularArticles = Article::forCard()->with(['category', 'author'])
             ->where('status', 'published')
             ->where('category_id', '!=', 21)
             ->whereNotNull('published_at')

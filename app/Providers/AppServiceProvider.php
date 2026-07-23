@@ -57,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
             // Now derive previous months based on this
             $currentMonth = $editorialMonth;
 
-            $categories = Category::whereIn('slug', ['business', 'lifestyle', 'bookshelf'])
+            $categories = Category::whereIn('slug', ['politics', 'business', 'lifestyle', 'bookshelf'])
                 ->where('status', 1)
                 ->get()
                 ->keyBy('slug');
@@ -68,9 +68,12 @@ class AppServiceProvider extends ServiceProvider
 
                 // 🔥 POLITICS (via section_id)
                 if ($slug === 'politics') {
+                    if (!isset($categories[$slug])) {
+                        continue;
+                    }
 
-                    $article = Article::with(['author', 'category'])
-                        ->where('section_id', 22) // ✅ same as newHome
+                    $article = Article::forCard()->with(['author', 'category'])
+                        ->where('section_id', $categories[$slug]->id) // same mapping as newHome
                         ->where('status', 'published')
                         ->whereNotNull('published_at')
 
@@ -88,7 +91,7 @@ class AppServiceProvider extends ServiceProvider
                         continue;
                     }
 
-                    $article = Article::with(['author', 'category'])
+                    $article = Article::forCard()->with(['author', 'category'])
                         ->where('category_id', $categories[$slug]->id)
                         ->where('status', 'published')
                         ->whereNotNull('published_at')
@@ -175,7 +178,7 @@ class AppServiceProvider extends ServiceProvider
                 ->take(8)
                 ->get();
 
-            $headerMegaFeaturedNews = Article::with(['author', 'category'])
+            $headerMegaFeaturedNews = Article::forCard()->with(['author', 'category'])
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->where(function ($q) {
@@ -186,7 +189,7 @@ class AppServiceProvider extends ServiceProvider
                 ->latest('published_at')
                 ->first();
 
-            $headerMegaLatestNews = Article::with(['author', 'category'])
+            $headerMegaLatestNews = Article::forCard()->with(['author', 'category'])
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->when($headerMegaFeaturedNews, function ($q) use ($headerMegaFeaturedNews) {
@@ -197,7 +200,7 @@ class AppServiceProvider extends ServiceProvider
                 ->take(2)
                 ->get();
 
-            $headerMegaBreakingNews = Article::with(['author', 'category'])
+            $headerMegaBreakingNews = Article::forCard()->with(['author', 'category'])
                 ->where('status', 'published')
                 ->whereNotNull('published_at')
                 ->where('is_breaking', true)

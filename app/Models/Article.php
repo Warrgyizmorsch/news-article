@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 
 class Article extends Model
 {
@@ -40,6 +41,20 @@ class Article extends Model
         'is_breaking' => 'boolean',
         'published_at' => 'datetime',
     ];
+
+    /** Keep article-card queries small even when an article has huge LONGTEXT content. */
+    public function scopeForCard(Builder $query): Builder
+    {
+        return $query
+            ->select([
+                'id', 'category_id', 'section_id', 'user_id', 'title', 'slug',
+                'excerpt', 'featured_image', 'featured_image_description',
+                'sort_order', 'status', 'is_featured', 'is_breaking', 'is_hero',
+                'pdf_file', 'auther', 'published_at', 'views', 'created_at',
+            ])
+            // Some existing cards use content when excerpt is empty.
+            ->selectRaw('LEFT(content, 1000) as content');
+    }
 
     public function category()
     {
