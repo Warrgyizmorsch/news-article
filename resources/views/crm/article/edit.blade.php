@@ -301,7 +301,7 @@ $selectedTags = old('tags', $article->tags->pluck('id')->toArray());
                     <div class="row g-3 mb-4">
                         <label class="col-lg-3 col-form-label fw-semibold">Country</label>
                         <div class="col-lg-9">
-                            <input type="text" class="form-control" name="country" placeholder="Enter Country Name" value="{{ old('country, $article->country') }}">
+                            <input type="text" class="form-control" name="country" placeholder="Enter Country Name" value="{{ old('country', $article->country) }}">
                             @error('country')
                             <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
