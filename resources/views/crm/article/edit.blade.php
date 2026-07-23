@@ -380,183 +380,190 @@ $selectedTags = old('tags', $article->tags->pluck('id')->toArray());
         </div>
     </div>
 
-    <link href="{{ asset('vendor/summernote/summernote-lite.min.css') }}" rel="stylesheet">
-    <script src="{{ asset('vendor/summernote/summernote-lite.min.js') }}"></script>
-    <style>
-        .preview-wrapper {
-            position: relative;
-            display: inline-block;
-        }
+    @push('styles')
+        <link href="{{ asset('vendor/summernote/summernote-lite.min.css') }}" rel="stylesheet">
+    @endpush
 
-        .preview-img {
-            width: 120px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-        }
+    @push('scripts')
+        <script src="{{ asset('vendor/summernote/summernote-lite.min.js') }}"></script>
+        <style>
+            .preview-wrapper {
+                position: relative;
+                display: inline-block;
+            }
 
-        .remove-btn {
-            position: absolute;
-            top: -1px;
-            right: -1px;
-            background: red;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-    </style>
-    <script>
-        $('#summernote').summernote({
-            placeholder: 'Write article content here...',
-            tabsize: 2,
-            height: 250,
-            callbacks: {
-                onImageUpload: function(files) {
-                    uploadEditorImage(files[0], this);
-                }
-            },
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture']],
-                ['view', ['codeview', 'help']]
-            ]
-        });
+            .preview-img {
+                width: 120px;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 6px;
+                border: 1px solid #ddd;
+            }
 
-        function uploadEditorImage(file, editor) {
-            let data = new FormData();
-            data.append("image", file);
-            data.append("_token", "{{ csrf_token() }}");
+            .remove-btn {
+                position: absolute;
+                top: -1px;
+                right: -1px;
+                background: red;
+                color: #fff;
+                border: none;
+                border-radius: 50%;
+                width: 22px;
+                height: 22px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+        </style>
+        <script>
+            $(document).ready(function() {
+                $('#summernote').summernote({
+                    placeholder: 'Write article content here...',
+                    tabsize: 2,
+                    height: 350,
+                    callbacks: {
+                        onImageUpload: function(files) {
+                            uploadEditorImage(files[0], this);
+                        }
+                    },
+                    toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture']],
+                        ['view', ['codeview', 'help']]
+                    ]
+                });
+            });
 
-            $.ajax({
-                url: "{{ route('articles.uploadEditorImage') }}",
-                method: "POST",
-                data: data,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    if (response.url) {
-                        $(editor).summernote('insertImage', response.url);
+            function uploadEditorImage(file, editor) {
+                let data = new FormData();
+                data.append("image", file);
+                data.append("_token", "{{ csrf_token() }}");
+
+                $.ajax({
+                    url: "{{ route('articles.uploadEditorImage') }}",
+                    method: "POST",
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.url) {
+                            $(editor).summernote('insertImage', response.url);
+                        }
+                    },
+                    error: function() {
+                        alert('Image upload failed.');
                     }
-                },
-                error: function() {
-                    alert('Image upload failed.');
-                }
-            });
-        }
-
-        (function() {
-            const featuredInput = document.getElementById('thumbInput');
-            const featuredPreview = document.querySelector('#thumbPreview img');
-            if (featuredInput && featuredPreview) {
-                featuredInput.addEventListener('change', (e) => {
-                    const file = e.target.files?.[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = (ev) => {
-                        featuredPreview.src = ev.target.result;
-                    };
-                    reader.readAsDataURL(file);
                 });
             }
 
-            const excerptInput = document.getElementById('excerptThumbInput');
-            const excerptPreview = document.querySelector('#excerptThumbPreview img');
-            if (excerptInput && excerptPreview) {
-                excerptInput.addEventListener('change', (e) => {
-                    const file = e.target.files?.[0];
-                    if (!file) return;
+            (function() {
+                const featuredInput = document.getElementById('thumbInput');
+                const featuredPreview = document.querySelector('#thumbPreview img');
+                if (featuredInput && featuredPreview) {
+                    featuredInput.addEventListener('change', (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                            featuredPreview.src = ev.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                }
+
+                const excerptInput = document.getElementById('excerptThumbInput');
+                const excerptPreview = document.querySelector('#excerptThumbPreview img');
+                if (excerptInput && excerptPreview) {
+                    excerptInput.addEventListener('change', (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                            excerptPreview.src = ev.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                }
+            })();
+
+            $(document).ready(function() {
+
+                function toggleSections() {
+                    const selectedText = $('#sectionSelect').find(':selected').text().toLowerCase();
+
+                    if (selectedText.includes('monthly edition')) {
+                        $('#contentSection').addClass('d-none');
+                        $('#categorySection').addClass('d-none');
+                        $('#imageUploadSection').removeClass('d-none');
+                    } else {
+                        $('#contentSection').removeClass('d-none');
+                        $('#categorySection').removeClass('d-none');
+                        $('#imageUploadSection').addClass('d-none');
+                    }
+                }
+
+                $('#sectionSelect').on('change', toggleSections);
+
+                toggleSections(); // page load
+            });
+
+            let deletedImages = [];
+
+            $(document).on('click', '.remove-existing', function() {
+                const wrapper = $(this).closest('.existing-image');
+                const id = wrapper.data('id');
+
+                deletedImages.push(id);
+                $('#deletedImages').val(deletedImages.join(','));
+
+                wrapper.remove();
+            });
+
+            let selectedFiles = [];
+
+            $('#multiImageInput').on('change', function(e) {
+
+                const files = Array.from(e.target.files);
+                const previewContainer = $('#imagePreviewContainer');
+
+                previewContainer.html('');
+                selectedFiles = files;
+
+                files.forEach((file, index) => {
+
                     const reader = new FileReader();
-                    reader.onload = (ev) => {
-                        excerptPreview.src = ev.target.result;
+
+                    reader.onload = function(ev) {
+                        const html = `
+                    <div class="preview-wrapper" data-index="${index}">
+                        <img src="${ev.target.result}" class="preview-img">
+                        <button type="button" class="remove-btn remove-new">&times;</button>
+                    </div>
+                `;
+                        previewContainer.append(html);
                     };
+
                     reader.readAsDataURL(file);
                 });
-            }
-        })();
-
-        $(document).ready(function() {
-
-            function toggleSections() {
-                const selectedText = $('#sectionSelect').find(':selected').text().toLowerCase();
-
-                if (selectedText.includes('monthly edition')) {
-                    $('#contentSection').addClass('d-none');
-                     $('#categorySection').addClass('d-none');
-                    $('#imageUploadSection').removeClass('d-none');
-                } else {
-                    $('#contentSection').removeClass('d-none');
-                    $('#categorySection').removeClass('d-none');
-                    $('#imageUploadSection').addClass('d-none');
-                }
-            }
-
-            $('#sectionSelect').on('change', toggleSections);
-
-            toggleSections(); // page load
-        });
-
-        let deletedImages = [];
-
-        $(document).on('click', '.remove-existing', function() {
-            const wrapper = $(this).closest('.existing-image');
-            const id = wrapper.data('id');
-
-            deletedImages.push(id);
-            $('#deletedImages').val(deletedImages.join(','));
-
-            wrapper.remove();
-        });
-
-        let selectedFiles = [];
-
-        $('#multiImageInput').on('change', function(e) {
-
-            const files = Array.from(e.target.files);
-            const previewContainer = $('#imagePreviewContainer');
-
-            previewContainer.html('');
-            selectedFiles = files;
-
-            files.forEach((file, index) => {
-
-                const reader = new FileReader();
-
-                reader.onload = function(ev) {
-                    const html = `
-                <div class="preview-wrapper" data-index="${index}">
-                    <img src="${ev.target.result}" class="preview-img">
-                    <button type="button" class="remove-btn remove-new">&times;</button>
-                </div>
-            `;
-                    previewContainer.append(html);
-                };
-
-                reader.readAsDataURL(file);
             });
-        });
 
-        $(document).on('click', '.remove-new', function() {
+            $(document).on('click', '.remove-new', function() {
 
-            const wrapper = $(this).closest('.preview-wrapper');
-            const index = wrapper.data('index');
+                const wrapper = $(this).closest('.preview-wrapper');
+                const index = wrapper.data('index');
 
-            selectedFiles.splice(index, 1);
+                selectedFiles.splice(index, 1);
 
-            const dataTransfer = new DataTransfer();
-            selectedFiles.forEach(file => dataTransfer.items.add(file));
+                const dataTransfer = new DataTransfer();
+                selectedFiles.forEach(file => dataTransfer.items.add(file));
 
-            $('#multiImageInput')[0].files = dataTransfer.files;
+                $('#multiImageInput')[0].files = dataTransfer.files;
 
-            wrapper.remove();
-        });
-    </script>
+                wrapper.remove();
+            });
+        </script>
+    @endpush
 </x-crm.layout.app>
