@@ -356,9 +356,8 @@ $selectedTags = old('tags', $article->tags->pluck('id')->toArray());
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
+    <link href="{{ asset('vendor/summernote/summernote-lite.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('vendor/summernote/summernote-lite.min.js') }}"></script>
     <style>
         .preview-wrapper {
             position: relative;
