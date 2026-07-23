@@ -125,7 +125,7 @@ class ArticleController extends Controller
 
     public function edit($id)
     {
-        $article = Article::with(['tags:id,name', 'images:id,article_id,image'])->findOrFail($id);
+        $article = Article::with(['tags', 'images'])->findOrFail($id);
 
         $categories = Cache::remember('crm_active_categories', 300, function () {
             return Category::select('id', 'name', 'sort_order')->where('status', 1)->orderBy('sort_order')->orderBy('name')->get();
