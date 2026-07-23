@@ -10,7 +10,6 @@ use App\Models\ArticleImage;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -48,15 +47,9 @@ class ArticleController extends Controller
 
     public function create()
     {
-        $categories = Cache::remember('crm_active_categories', 300, function () {
-            return Category::select('id', 'name', 'sort_order')->where('status', 1)->orderBy('sort_order')->orderBy('name')->get();
-        });
-        $sections = Cache::remember('crm_active_sections', 300, function () {
-            return Category::select('id', 'name', 'sort_order')->where('status', 1)->where('main_menu', 1)->orderBy('sort_order')->orderBy('name')->get();
-        });
-        $tags = Cache::remember('crm_all_tags', 300, function () {
-            return Tag::select('id', 'name')->orderBy('name')->get();
-        });
+        $categories = Category::where('status', 1)->orderBy('sort_order')->orderBy('name')->get();
+        $sections = Category::where('status', 1)->where('main_menu', 1)->orderBy('sort_order')->orderBy('name')->get();
+        $tags = Tag::orderBy('name')->get();
 
         return view('crm.article.create', compact('categories', 'tags', 'sections'));
     }
@@ -121,17 +114,10 @@ class ArticleController extends Controller
 
     public function edit($id)
     {
-        $article = Article::with(['tags:id,name', 'images:id,article_id,image'])->findOrFail($id);
-
-        $categories = Cache::remember('crm_active_categories', 300, function () {
-            return Category::select('id', 'name', 'sort_order')->where('status', 1)->orderBy('sort_order')->orderBy('name')->get();
-        });
-        $sections = Cache::remember('crm_active_sections', 300, function () {
-            return Category::select('id', 'name', 'sort_order')->where('status', 1)->where('main_menu', 1)->orderBy('sort_order')->orderBy('name')->get();
-        });
-        $tags = Cache::remember('crm_all_tags', 300, function () {
-            return Tag::select('id', 'name')->orderBy('name')->get();
-        });
+        $article = Article::with(['tags', 'images'])->findOrFail($id);
+        $categories = Category::where('status', 1)->orderBy('sort_order')->orderBy('name')->get();
+        $sections = Category::where('status', 1)->where('main_menu', 1)->orderBy('sort_order')->orderBy('name')->get();
+        $tags = Tag::orderBy('name')->get();
 
         return view('crm.article.edit', compact('article', 'categories', 'tags', 'sections'));
     }

@@ -93,7 +93,7 @@
                             @if(Auth::user()->image)
                                 <img src="{{ asset('storage/' . Auth::user()->image) }}" alt="profile-img" class="img-fluid user-avtar me-0" style="height: 100%; width: 100%; object-fit: cover;">
                             @else
-                                <img src="{{ asset('crm-assets/assets/images/avatar/1.png') }}" alt="default_Img" class="img-fluid user-avtar me-0" style="height: 100%; width: 100%; object-fit: cover;"/>
+                                <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" alt="default_Img" class="img-fluid user-avtar me-0" style="height: 100%; width: 100%; object-fit: cover;"/>
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-user-dropdown">
@@ -103,7 +103,7 @@
                                         @if(Auth::user()->image)
                                             <img src="{{ asset('storage/' . Auth::user()->image) }}" alt="profile-img" class="img-fluid user-avtar" style="height: 100%; width: 100%; object-fit: cover;">
                                         @else
-                                            <img src="{{ asset('crm-assets/assets/images/avatar/1.png') }}" alt="default_Img" class="img-fluid user-avtar" style="height: 100%; width: 100%; object-fit: cover;" />
+                                            <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" alt="default_Img" class="img-fluid user-avtar" style="height: 100%; width: 100%; object-fit: cover;" />
                                         @endif
                                     </div>
                                     <div>

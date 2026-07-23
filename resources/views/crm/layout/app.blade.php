@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{{ asset('crm-assets/assets/css/theme.min.css') }}">
 
     <!-- Phone Input Country Code  -->
-    <link rel="stylesheet" href="{{ asset('vendor/intl-tel-input/intlTelInput.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css" />
 
     {{-- Extra CSS from child views --}}
     @stack('styles')
@@ -143,8 +143,8 @@
     @stack('scripts')
 
     <!-- intlTelInput scripts -->
-    <script src="{{ asset('vendor/intl-tel-input/intlTelInput.min.js') }}"></script>
-    <script src="{{ asset('vendor/intl-tel-input/utils.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"></script>
 
     <style>
         /* FIX: Disable blur on Bootstrap modal-open */
