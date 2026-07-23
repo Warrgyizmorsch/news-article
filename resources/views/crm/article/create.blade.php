@@ -376,6 +376,11 @@
             placeholder: 'Write article content here...',
             tabsize: 2,
             height: 250,
+            callbacks: {
+                onImageUpload: function(files) {
+                    uploadEditorImage(files[0], this);
+                }
+            },
             toolbar: [
                 ['style', ['style']],
                 ['font', ['bold', 'underline', 'clear']],
@@ -386,6 +391,28 @@
                 ['view', ['codeview', 'help']]
             ]
         });
+
+        function uploadEditorImage(file, editor) {
+            let data = new FormData();
+            data.append("image", file);
+            data.append("_token", "{{ csrf_token() }}");
+
+            $.ajax({
+                url: "{{ route('articles.uploadEditorImage') }}",
+                method: "POST",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response.url) {
+                        $(editor).summernote('insertImage', response.url);
+                    }
+                },
+                error: function() {
+                    alert('Image upload failed.');
+                }
+            });
+        }
 
         (function() {
             const featuredInput = document.getElementById('thumbInput');

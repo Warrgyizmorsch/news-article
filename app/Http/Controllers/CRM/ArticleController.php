@@ -288,4 +288,19 @@ class ArticleController extends Controller
         return redirect()->route('articles.trashed')
             ->with('success', 'Article permanently deleted successfully.');
     }
+
+    public function uploadEditorImage(\Illuminate\Http\Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpg,jpeg,png,webp,gif|max:10240',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('articles/editor', 'public');
+            $url = asset('storage/' . $path);
+            return response()->json(['url' => $url]);
+        }
+
+        return response()->json(['error' => 'Image upload failed'], 400);
+    }
 }
