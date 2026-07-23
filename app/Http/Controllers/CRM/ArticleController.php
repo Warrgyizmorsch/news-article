@@ -86,6 +86,10 @@ class ArticleController extends Controller
                 $data['featured_image'] = $request->file('featured_image')->store('articles', 'public');
             }
 
+            if ($request->hasFile('excerpt_image')) {
+                $data['excerpt_image'] = $request->file('excerpt_image')->store('articles/excerpts', 'public');
+            }
+
             if ($request->hasFile('pdf_file')) {
                 $data['pdf_file'] = $request->file('pdf_file')->store('articles/pdfs', 'public');
             }
@@ -165,6 +169,14 @@ class ArticleController extends Controller
                 }
 
                 $data['featured_image'] = $request->file('featured_image')->store('articles', 'public');
+            }
+
+            if ($request->hasFile('excerpt_image')) {
+                if ($article->excerpt_image && Storage::disk('public')->exists($article->excerpt_image)) {
+                    Storage::disk('public')->delete($article->excerpt_image);
+                }
+
+                $data['excerpt_image'] = $request->file('excerpt_image')->store('articles/excerpts', 'public');
             }
 
             if ($request->hasFile('pdf_file')) {

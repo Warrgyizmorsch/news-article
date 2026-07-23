@@ -37,3 +37,8 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+.env.save
+articles.sql
+da_db.sql
+sql-error-part.txt

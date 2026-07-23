@@ -297,18 +297,35 @@ class HomeController extends Controller
 
     public function newHome()
     {
-        // Get current and previous month dates
-        // $currentMonth = Carbon::now();
-        // $previousMonth = Carbon::now()->subMonth();
-        // $previousToPreviousMonth = Carbon::now()->subMonths(2);
+
+        // $currentDate = Carbon::now();
+
+        // if ($currentDate->day > 25) {
+        //     $editorialMonth = $currentDate->copy()->addMonth();
+        // } else {
+        //     $editorialMonth = $currentDate->copy();
+        // }
 
         $currentDate = Carbon::now();
 
-        // If date > 25 → shift to next month
+        $editorialMonth = $currentDate->copy();
+
         if ($currentDate->day > 25) {
-            $editorialMonth = $currentDate->copy()->addMonth();
-        } else {
-            $editorialMonth = $currentDate->copy();
+
+            $nextMonth = $currentDate->copy()->addMonth();
+
+            // Check if next month has published articles
+            $nextMonthArticlesCount = Article::where('status', 'published')
+                ->whereNotNull('published_at')
+                ->whereMonth('published_at', $nextMonth->month)
+                ->whereYear('published_at', $nextMonth->year)
+                ->count();
+
+
+            // Change editorial month only if next month has articles
+            if ($nextMonthArticlesCount > 0) {
+                $editorialMonth = $nextMonth;
+            }
         }
 
         // Now derive previous months based on this
@@ -364,6 +381,7 @@ class HomeController extends Controller
             $lifestyleCategory,
             $securityCategory,
             $democracyCategory,
+            $businessCategory
         ];
 
         foreach ($heroRightPriority as $category) {
