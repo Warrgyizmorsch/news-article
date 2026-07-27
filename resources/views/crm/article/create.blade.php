@@ -381,9 +381,36 @@
                     placeholder: 'Write article content here...',
                     tabsize: 2,
                     height: 350,
+                    buttons: {
+                        editorImage: function(context) {
+                            const ui = $.summernote.ui;
+
+                            return ui.button({
+                                contents: '<i class="note-icon-picture"></i>',
+                                tooltip: 'Upload image',
+                                click: function() {
+                                    context.invoke('editor.saveRange');
+
+                                    const input = document.createElement('input');
+                                    input.type = 'file';
+                                    input.accept = 'image/jpeg,image/png,image/webp,image/gif';
+                                    input.onchange = function() {
+                                        const file = input.files && input.files[0];
+                                        if (!file) return;
+
+                                        uploadEditorImage(file, document.getElementById('summernote'), function(url) {
+                                            context.invoke('editor.restoreRange');
+                                            context.invoke('editor.insertImage', url);
+                                        });
+                                    };
+                                    input.click();
+                                }
+                            }).render();
+                        }
+                    },
                     callbacks: {
                         onImageUpload: function(files) {
-                            uploadEditorImage(files[0], this);
+                            Array.from(files).forEach(file => uploadEditorImage(file, this));
                         }
                     },
                     toolbar: [
@@ -392,13 +419,13 @@
                         ['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
                         ['table', ['table']],
-                        ['insert', ['link', 'picture']],
+                        ['insert', ['link', 'editorImage']],
                         ['view', ['codeview', 'help']]
                     ]
                 });
             });
 
-            function uploadEditorImage(file, editor) {
+            function uploadEditorImage(file, editor, insertImage) {
                 let data = new FormData();
                 data.append("image", file);
                 data.append("_token", "{{ csrf_token() }}");
@@ -411,11 +438,17 @@
                     processData: false,
                     success: function(response) {
                         if (response.url) {
-                            $(editor).summernote('insertImage', response.url);
+                            if (insertImage) {
+                                insertImage(response.url);
+                            } else {
+                                $(editor).summernote('insertImage', response.url);
+                            }
                         }
                     },
-                    error: function() {
-                        alert('Image upload failed.');
+                    error: function(xhr) {
+                        const message = xhr.responseJSON?.message || xhr.responseJSON?.errors?.image?.[0] ||
+                            'Image upload failed.';
+                        alert(message);
                     }
                 });
             }
