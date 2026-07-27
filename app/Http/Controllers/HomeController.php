@@ -310,19 +310,25 @@ class HomeController extends Controller
 
         $editorialMonth = $currentDate->copy();
 
+        $monthlyEditionCategory = Category::where('slug', 'monthly-editions')->where('status', 1)->first();
+
         if ($currentDate->day > 25) {
 
             $nextMonth = $currentDate->copy()->addMonth();
 
-            // Check if next month has published articles
-            $nextMonthArticlesCount = Article::where('status', 'published')
+            // Check if next month has published articles excluding monthly editions
+            $nextMonthArticlesQuery = Article::where('status', 'published')
                 ->whereNotNull('published_at')
                 ->whereMonth('published_at', $nextMonth->month)
-                ->whereYear('published_at', $nextMonth->year)
-                ->count();
+                ->whereYear('published_at', $nextMonth->year);
 
+            if ($monthlyEditionCategory) {
+                $nextMonthArticlesQuery->where('category_id', '!=', $monthlyEditionCategory->id);
+            }
 
-            // Change editorial month only if next month has articles
+            $nextMonthArticlesCount = $nextMonthArticlesQuery->count();
+
+            // Change editorial month only if next month has non-monthly-edition articles
             if ($nextMonthArticlesCount > 0) {
                 $editorialMonth = $nextMonth;
             }
