@@ -58,13 +58,15 @@
 
                                             <img src="{{ $thumbnail }}" alt="{{ $video->title }}">
 
-                                            {{-- Overlay --}}
-                                            <div class="da-video-overlay"></div>
+                                            @if(!empty(trim((string) $video->title)))
+                                                {{-- Overlay --}}
+                                                <div class="da-video-overlay"></div>
 
-                                            {{-- TITLE (BOTTOM LEFT) --}}
-                                            <div class="da-video-content">
-                                                <h4>{{ \Illuminate\Support\Str::limit($video->title, 60) }}</h4>
-                                            </div>
+                                                {{-- TITLE (BOTTOM LEFT) --}}
+                                                <div class="da-video-content">
+                                                    <h4>{{ \Illuminate\Support\Str::limit($video->title, 60) }}</h4>
+                                                </div>
+                                            @endif
 
                                             {{-- PLAY BUTTON --}}
                                             <div class="da-video-play">

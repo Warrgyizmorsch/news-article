@@ -34,14 +34,14 @@ class DaVideoController extends Controller
     {
         // Validation
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'url' => 'required|url',
             // Max size set to 10MB (10240 KB), adjust as needed
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:10240', 
         ]);
 
         $video = new DaVideo();
-        $video->title = $request->title;
+        $video->title = $request->input('title', '');
         $video->url = $request->url;
 
         // Direct Image Upload (No Compression)
@@ -87,12 +87,12 @@ class DaVideoController extends Controller
     {
         // Validation
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'url' => 'required|url',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:10240',
         ]);
 
-        $video->title = $request->title;
+        $video->title = $request->input('title', '');
         $video->url = $request->url;
 
         // Direct Image Update (No Compression)

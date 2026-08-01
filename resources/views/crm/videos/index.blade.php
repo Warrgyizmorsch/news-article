@@ -26,10 +26,10 @@
             <div class="row g-4 align-items-end">
                 
                 <div class="col-md-4">
-                    <label class="form-label font-weight-bold text-uppercase small text-muted mb-1">Video Title <span class="text-danger">*</span></label>
+                    <label class="form-label font-weight-bold text-uppercase small text-muted mb-1">Video Title</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light border-end-0"><i class="feather feather-type text-muted"></i></span>
-                        <input type="text" name="title" class="form-control border-start-0 ps-0" value="{{ $video->title ?? old('title') }}" required placeholder="Enter video title">
+                        <input type="text" name="title" class="form-control border-start-0 ps-0" value="{{ $video->title ?? old('title') }}" placeholder="Enter video title">
                     </div>
                 </div>
 
