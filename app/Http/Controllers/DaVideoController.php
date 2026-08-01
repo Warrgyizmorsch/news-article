@@ -40,8 +40,13 @@ class DaVideoController extends Controller
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:10240', 
         ]);
 
+        $title = $request->input('title');
+        if (is_string($title)) {
+            $title = trim($title);
+        }
+
         $video = new DaVideo();
-        $video->title = $request->input('title', '');
+        $video->title = ($title === '' || $title === null) ? null : $title;
         $video->url = $request->url;
 
         // Direct Image Upload (No Compression)
@@ -92,7 +97,12 @@ class DaVideoController extends Controller
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:10240',
         ]);
 
-        $video->title = $request->input('title', '');
+        $title = $request->input('title');
+        if (is_string($title)) {
+            $title = trim($title);
+        }
+
+        $video->title = ($title === '' || $title === null) ? null : $title;
         $video->url = $request->url;
 
         // Direct Image Update (No Compression)
