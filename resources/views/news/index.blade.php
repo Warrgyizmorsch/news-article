@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $pageType === 'news' ? 'Articles' : $pageTitle . ' Articles')
+    @section('title', $pageType === 'news' ? (!empty($searchTerm) ? 'Search: ' . $searchTerm : 'Articles') : $pageTitle . ' Articles')
 
 @section('content')
 
@@ -83,7 +83,7 @@
                 <div class="mb-30">
                     <h2 class="section-title">
                         @if($pageType === 'news')
-                        All Articles
+                        {{ !empty($searchTerm) ? 'Search results for "' . $searchTerm . '"' : 'All Articles' }}
                         @elseif($pageType === 'category')
                         {{ $pageTitle }}
                         @elseif($pageType === 'tag')
@@ -172,7 +172,11 @@
                     @empty
                     <div class="col-12">
                         <div class="alert alert-light mb-0">
-                            No published articles found.
+                            @if(!empty($searchTerm))
+                                No published articles matched "{{ $searchTerm }}". Try another title, writer, country, or topic.
+                            @else
+                                No published articles found.
+                            @endif
                         </div>
                     </div>
                     @endforelse

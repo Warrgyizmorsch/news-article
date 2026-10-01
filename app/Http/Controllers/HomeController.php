@@ -729,11 +729,18 @@ class HomeController extends Controller
 
     public function newsIndex()
     {
-        $articles = Article::with(['category', 'author', 'tags'])
+        $searchTerm = trim(mb_substr((string) request()->query('q', ''), 0, 120));
+        $searchTerms = $this->articleSearchTerms($searchTerm);
+
+        $articleQuery = Article::with(['category', 'author', 'tags'])
             ->where('status', 'published')
             ->whereNotNull('published_at')
+            ->matchingTerms($searchTerms);
+
+        $articles = $articleQuery
             ->latest('published_at')
-            ->paginate(12)->withQueryString();
+            ->paginate(12)
+            ->withQueryString();
 
         $popularArticles = Article::with(['category', 'author'])
             ->where('status', 'published')
@@ -778,8 +785,49 @@ class HomeController extends Controller
             'sidebarTags',
             'pageTitle',
             'pageType',
-            'pageObject'
+            'pageObject',
+            'searchTerm'
         ));
+    }
+
+    public function articleSearchSuggestions()
+    {
+        $searchTerm = trim(mb_substr((string) request()->query('q', ''), 0, 120));
+        $searchTerms = $this->articleSearchTerms($searchTerm);
+
+        if (mb_strlen($searchTerm) < 2 || empty($searchTerms)) {
+            return response()->json([]);
+        }
+
+        $articles = Article::with(['category:id,name', 'author:id,name'])
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->matchingTerms($searchTerms)
+            ->latest('published_at')
+            ->take(4)
+            ->get();
+
+        return response()->json($articles->map(function (Article $article) {
+            return [
+                'title' => $article->title,
+                'url' => route('news.show', $article->slug),
+                'image' => $article->featured_image
+                    ? asset('storage/' . $article->featured_image)
+                    : asset('assets/images/default/news-placeholder.webp'),
+                'author' => $article->auther ?: $article->author?->name,
+                'country' => $article->country,
+                'category' => $article->category?->name,
+            ];
+        }));
+    }
+
+    private function articleSearchTerms(string $searchTerm): array
+    {
+        return array_slice(
+            preg_split('/\s+/u', $searchTerm, -1, PREG_SPLIT_NO_EMPTY) ?: [],
+            0,
+            8
+        );
     }
 
     public function category($slug)

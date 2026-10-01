@@ -7,6 +7,269 @@
             flex-wrap: nowrap;
         }
 
+        .header-search-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border: 1px solid #e1e5e9;
+            border-radius: 50%;
+            background: #fff;
+            color: #10171e;
+            cursor: pointer;
+            font-size: 20px;
+            transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+        }
+
+        .header-search-toggle:hover,
+        .header-search-toggle[aria-expanded="true"] {
+            border-color: var(--rs-theme-primary);
+            color: var(--rs-theme-primary);
+        }
+
+        .header-search-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            height: 44px;
+            padding: 0 13px;
+            border: 1px solid #dbe1e7;
+            border-radius: 999px;
+            background: #fff !important;
+            color: #647180;
+            box-shadow: 0 3px 12px rgba(16, 23, 30, 0.07);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .header-search-field:focus-within {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+        }
+
+        .header-search-field i {
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .header-search-field input[type="search"] {
+            width: 100%;
+            min-width: 0;
+            height: 40px;
+            padding: 0;
+            border: 0 !important;
+            outline: 0 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            color: #17212b !important;
+            color-scheme: light;
+            font-size: 14px;
+        }
+
+        .header-search-field input::placeholder {
+            color: #778391 !important;
+            opacity: 1;
+        }
+
+        .article-search-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 12000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(13, 20, 28, 0.58);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .article-search-modal.is-open {
+            display: flex;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .article-search-modal[hidden] {
+            display: none !important;
+        }
+
+        .article-search-dialog {
+            display: flex;
+            flex-direction: column;
+            width: min(620px, 100%);
+            height: min(76vh, 720px);
+            max-height: calc(100vh - 40px);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+            transform: translateY(14px) scale(0.98);
+            transition: transform 0.22s ease;
+        }
+
+        .article-search-modal.is-open .article-search-dialog {
+            transform: translateY(0) scale(1);
+        }
+
+        .article-search-dialog-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 18px 20px 14px;
+            border-bottom: 1px solid #edf0f3;
+        }
+
+        .article-search-dialog-title {
+            margin: 0;
+            color: #17212b;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .article-search-close {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+            border: 0;
+            border-radius: 50%;
+            background: #f1f4f7;
+            color: #4f5b66;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .article-search-close:hover {
+            background: #e7ecf1;
+            color: #17212b;
+        }
+
+        .article-search-form {
+            margin: 16px 18px 0;
+        }
+
+        .article-search-results {
+            flex: 1;
+            min-height: 0;
+            padding: 8px 12px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+        }
+
+        .header-search-status {
+            margin: 0;
+            padding: 22px 10px;
+            color: #687583;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .header-search-result {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 9px;
+            border-radius: 10px;
+            color: #17212b;
+            text-decoration: none;
+            animation: header-search-result-in 0.24s both;
+            animation-delay: calc(var(--result-index, 0) * 35ms);
+            transition: background 0.18s ease, transform 0.18s ease;
+        }
+
+        .header-search-result:hover,
+        .header-search-result:focus-visible {
+            background: #f2f6fb;
+            color: #10171e;
+            transform: translateX(2px);
+        }
+
+        .header-search-result-image {
+            width: 58px;
+            height: 52px;
+            flex-shrink: 0;
+            border-radius: 7px;
+            background: #edf1f5;
+            object-fit: cover;
+        }
+
+        .header-search-result-copy {
+            min-width: 0;
+        }
+
+        .header-search-result-title {
+            display: -webkit-box;
+            overflow: hidden;
+            margin: 0 0 4px;
+            color: #17212b;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.35;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        .header-search-result-meta {
+            overflow: hidden;
+            color: #74808d;
+            font-size: 12px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .article-search-dialog-footer {
+            display: flex;
+            justify-content: flex-end;
+            flex-shrink: 0;
+            padding: 12px 18px;
+            border-top: 1px solid #edf0f3;
+        }
+
+        .article-search-all {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 40px;
+            padding: 0 15px;
+            border: 0;
+            border-radius: 8px;
+            background: var(--rs-theme-primary);
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .article-search-all:hover {
+            background: #10171e;
+            color: #fff;
+        }
+
+        @keyframes header-search-result-in {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .article-search-modal,
+            .article-search-dialog,
+            .header-search-result {
+                animation: none;
+                transition: none;
+            }
+        }
+
         .header-auth-link {
             display: inline-flex;
             align-items: center;
@@ -142,7 +405,15 @@
         @media (max-width: 576px) {
             .header-auth-actions {
                 gap: 8px;
-                flex-wrap: nowrap;
+                flex-wrap: wrap;
+            }
+
+            .header-search-toggle {
+                width: 40px;
+                height: 40px;
+                flex: 0 0 40px;
+                order: 10;
+                margin-left: auto;
             }
 
             .header-subscribe-btn {
@@ -386,6 +657,11 @@
                 </div>
 
                 <div class="header-auth-actions">
+                    <button type="button" class="header-search-toggle" aria-label="Search articles"
+                        title="Search articles" aria-expanded="false" aria-controls="article-search-modal">
+                        <i class="ri-search-line" aria-hidden="true"></i>
+                    </button>
+
                     @guest
                         <a href="javascript:void(0)" class="header-subscribe-btn"
                             onclick="openNewsletterModal('subscribe')">
@@ -792,3 +1068,205 @@
 <!-- header area two end -->
 
 @include('layouts.offcanvas')
+
+<div id="article-search-modal" class="article-search-modal"
+    data-suggestions-url="{{ route('news.search.suggestions') }}"
+    data-fallback-image="{{ asset('assets/images/default/news-placeholder.webp') }}" aria-hidden="true" hidden>
+    <section class="article-search-dialog" role="dialog" aria-modal="true" aria-labelledby="article-search-dialog-title">
+        <div class="article-search-dialog-header">
+            <h2 id="article-search-dialog-title" class="article-search-dialog-title">Search articles</h2>
+            <button type="button" class="article-search-close" aria-label="Close suggestions">
+                <i class="ri-close-line" aria-hidden="true"></i>
+            </button>
+        </div>
+        <form id="header-article-search-form" class="article-search-form"
+            action="{{ route('news.index') }}" method="GET" role="search">
+            <label class="visually-hidden" for="header-article-search-input">Search articles</label>
+            <div class="header-search-field">
+                <i class="ri-search-line" aria-hidden="true"></i>
+                <input id="header-article-search-input" type="search" name="q"
+                    value="{{ request('q') }}" placeholder="Title, writer, country, topic..."
+                    maxlength="120" autocomplete="off">
+            </div>
+        </form>
+        <div class="article-search-results" aria-live="polite" aria-relevant="additions text">
+            <p class="header-search-status">Type at least 2 characters to find articles.</p>
+        </div>
+        <div class="article-search-dialog-footer">
+            <button type="submit" class="article-search-all" form="header-article-search-form">
+                See all results <i class="ri-arrow-right-line" aria-hidden="true"></i>
+            </button>
+        </div>
+    </section>
+</div>
+
+<script>
+    (() => {
+        const toggle = document.querySelector('.header-search-toggle');
+        const input = document.getElementById('header-article-search-input');
+        const form = document.getElementById('header-article-search-form');
+        const modal = document.getElementById('article-search-modal');
+        const dialog = modal?.querySelector('.article-search-dialog');
+        const results = modal?.querySelector('.article-search-results');
+        const closeButton = modal?.querySelector('.article-search-close');
+
+        if (!toggle || !input || !form || !modal || !dialog || !results || !closeButton) return;
+
+        let debounceTimer;
+        let activeRequest;
+        let previousBodyOverflow = '';
+
+        const setStatus = (message) => {
+            results.replaceChildren();
+            const status = document.createElement('p');
+            status.className = 'header-search-status';
+            status.textContent = message;
+            results.append(status);
+        };
+
+        const renderSuggestions = (articles) => {
+            results.replaceChildren();
+
+            if (!articles.length) {
+                setStatus('No matching articles yet. Try another name, place, or topic.');
+                return;
+            }
+
+            articles.forEach((article, index) => {
+                const link = document.createElement('a');
+                link.className = 'header-search-result';
+                link.href = article.url;
+                link.style.setProperty('--result-index', index);
+
+                const image = document.createElement('img');
+                image.className = 'header-search-result-image';
+                image.src = article.image;
+                image.alt = '';
+                image.loading = 'lazy';
+                image.addEventListener('error', () => {
+                    image.src = modal.dataset.fallbackImage;
+                }, { once: true });
+
+                const copy = document.createElement('div');
+                copy.className = 'header-search-result-copy';
+
+                const title = document.createElement('p');
+                title.className = 'header-search-result-title';
+                title.textContent = article.title;
+
+                const meta = document.createElement('div');
+                meta.className = 'header-search-result-meta';
+                meta.textContent = [article.author, article.country, article.category]
+                    .filter(Boolean)
+                    .join(' · ');
+
+                copy.append(title, meta);
+                link.append(image, copy);
+                results.append(link);
+            });
+        };
+
+        const loadSuggestions = () => {
+            window.clearTimeout(debounceTimer);
+            const term = input.value.trim();
+
+            if (term.length < 2) {
+                activeRequest?.abort();
+                setStatus('Type at least 2 characters to find articles.');
+                return;
+            }
+
+            setStatus('Finding articles...');
+            debounceTimer = window.setTimeout(async () => {
+                activeRequest?.abort();
+                activeRequest = new AbortController();
+
+                const url = new URL(modal.dataset.suggestionsUrl, window.location.origin);
+                url.searchParams.set('q', term);
+
+                try {
+                    const response = await fetch(url, {
+                        headers: { Accept: 'application/json' },
+                        signal: activeRequest.signal,
+                    });
+
+                    if (!response.ok) throw new Error('Search request failed');
+
+                    const articles = await response.json();
+                    if (input.value.trim() === term) renderSuggestions(articles);
+                } catch (error) {
+                    if (error.name !== 'AbortError' && input.value.trim() === term) {
+                        setStatus('Search is temporarily unavailable. Please try again.');
+                    }
+                }
+            }, 220);
+        };
+
+        const closeModal = () => {
+            modal.classList.remove('is-open');
+            modal.setAttribute('aria-hidden', 'true');
+            toggle.setAttribute('aria-expanded', 'false');
+            window.setTimeout(() => {
+                if (!modal.classList.contains('is-open')) {
+                    modal.hidden = true;
+                    document.body.style.overflow = previousBodyOverflow;
+                }
+            }, 210);
+        };
+
+        const openModal = () => {
+            if (!modal.hidden) return;
+            previousBodyOverflow = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+            modal.hidden = false;
+            modal.setAttribute('aria-hidden', 'false');
+            window.requestAnimationFrame(() => modal.classList.add('is-open'));
+            closeButton.focus();
+        };
+
+        toggle.addEventListener('click', () => {
+            const isOpening = modal.hidden;
+            toggle.setAttribute('aria-expanded', String(isOpening));
+
+            if (isOpening) {
+                openModal();
+                input.focus();
+                if (input.value.trim()) loadSuggestions();
+            } else {
+                closeModal();
+            }
+        });
+
+        input.addEventListener('input', loadSuggestions);
+        form.addEventListener('submit', (event) => {
+            if (event.submitter?.classList.contains('article-search-all')) return;
+            event.preventDefault();
+            loadSuggestions();
+        });
+
+        closeButton.addEventListener('click', () => {
+            closeModal();
+            toggle.focus();
+        });
+
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
+                toggle.focus();
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!modal.hidden && !modal.contains(event.target) && !toggle.contains(event.target)) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.hidden) {
+                closeModal();
+                toggle.focus();
+            }
+        });
+    })();
+</script>

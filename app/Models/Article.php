@@ -57,6 +57,39 @@ class Article extends Model
             ->selectRaw('LEFT(content, 1000) as content');
     }
 
+    public function scopeMatchingTerms(Builder $query, array $terms): Builder
+    {
+        foreach ($terms as $term) {
+            $like = '%' . $term . '%';
+
+            $query->where(function (Builder $matches) use ($like) {
+                $matches->where('title', 'like', $like)
+                    ->orWhere('slug', 'like', $like)
+                    ->orWhere('excerpt', 'like', $like)
+                    ->orWhere('content', 'like', $like)
+                    ->orWhere('meta_title', 'like', $like)
+                    ->orWhere('meta_description', 'like', $like)
+                    ->orWhere('country', 'like', $like)
+                    ->orWhere('auther', 'like', $like)
+                    ->orWhere('auther_description', 'like', $like)
+                    ->orWhereHas('category', function (Builder $category) use ($like) {
+                        $category->where('name', 'like', $like);
+                    })
+                    ->orWhereHas('section', function (Builder $section) use ($like) {
+                        $section->where('name', 'like', $like);
+                    })
+                    ->orWhereHas('tags', function (Builder $tag) use ($like) {
+                        $tag->where('name', 'like', $like);
+                    })
+                    ->orWhereHas('author', function (Builder $author) use ($like) {
+                        $author->where('name', 'like', $like);
+                    });
+            });
+        }
+
+        return $query;
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
