@@ -586,7 +586,7 @@
     </section>
 
     <!-- SECTION 3: Highlight Stories (Videos Section) -->
-    @include('components.highlight-video');
+    @include('components.highlight-video')
 
     <!-- SECTION 4: Previous Month Articles (Single Slider with All Categories) -->
     <section class="rs-trending-news-area" style="padding: 20px 0;">
