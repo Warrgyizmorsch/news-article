@@ -672,8 +672,18 @@ $remaining = collect($paragraphs)->slice(2)->implode('</p>');
                             </div>
 
                                 <div class="rs-post-meta-row">
-                                    <div>
-                                        <p>{{ $article->category->name }}</p>
+                                    <div class="rs-article-categories d-flex flex-wrap gap-2 align-items-center">
+                                        @if($article->categories && $article->categories->count() > 0)
+                                            @foreach($article->categories as $cat)
+                                                <a href="{{ route('category.show', $cat->slug) }}" class="post-tag is-green" style="text-decoration: none;">
+                                                    {{ $cat->name }}
+                                                </a>
+                                            @endforeach
+                                        @elseif($article->category)
+                                            <a href="{{ route('category.show', $article->category->slug) }}" class="post-tag is-green" style="text-decoration: none;">
+                                                {{ $article->category->name }}
+                                            </a>
+                                        @endif
                                     </div>
 
                                     <div class="rs-meta-item">

@@ -1,5 +1,10 @@
 <x-crm.layout.app>
     <style>
+        .preview-container-box {
+            position: relative;
+            display: inline-block;
+        }
+
         .image-preview {
             width: 220px;
             height: 150px;
@@ -10,12 +15,42 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .image-preview img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .image-remove-cross {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #dc3545;
+            color: #ffffff !important;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            z-index: 10;
+            transition: all 0.2s ease;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .image-remove-cross:hover {
+            background: #b02a37;
+            transform: scale(1.15);
+            color: #ffffff !important;
         }
 
         .note-editor .note-editable {
@@ -54,8 +89,13 @@
                         <label class="col-lg-3 col-form-label fw-semibold">Featured Image</label>
                         <div class="col-lg-9">
                             <div class="d-flex align-items-center gap-3 flex-wrap">
-                                <div class="image-preview" id="thumbPreview">
-                                    <img src="/images/blank.jpeg" alt="preview">
+                                <div class="preview-container-box">
+                                    <div class="image-preview" id="thumbPreview">
+                                        <img src="{{ asset('images/blank.jpeg') }}" alt="preview" id="featuredPreviewImg" onerror="this.onerror=null;this.src='{{ asset('images/blank.jpeg') }}';">
+                                    </div>
+                                    <button type="button" class="image-remove-cross" id="removeFeaturedBtn" title="Remove image" style="display:none;">
+                                        &times;
+                                    </button>
                                 </div>
                                 <div>
                                     <label class="form-label mb-1">Upload image</label>
@@ -108,17 +148,19 @@
                         </div>
                     </div>
                     <div class="row g-3 mb-4" id="categorySection">
-                        <label class="col-lg-3 col-form-label fw-semibold">Category</label>
+                        <label class="col-lg-3 col-form-label fw-semibold">Categories</label>
                         <div class="col-lg-9">
-                            <select name="category_id" class="form-select" data-select2-selector="tag">
-                                <option value="">Select Category</option>
+                            <select name="categories[]" class="form-select" data-select2-selector="language" multiple>
                                 @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                <option value="{{ $category->id }}" {{ in_array($category->id, (array)old('categories', [])) ? 'selected' : '' }}>
                                     {{ $category->name }}
                                 </option>
                                 @endforeach
                             </select>
-                            @error('category_id')
+                            @error('categories')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                            @error('categories.*')
                             <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
                         </div>
@@ -160,8 +202,13 @@
                         <label class="col-lg-3 col-form-label fw-semibold">Excerpt Image</label>
                         <div class="col-lg-9">
                             <div class="d-flex align-items-center gap-3 flex-wrap">
-                                <div class="image-preview" id="excerptThumbPreview">
-                                    <img src="/images/blank.jpeg" alt="excerpt preview">
+                                <div class="preview-container-box">
+                                    <div class="image-preview" id="excerptThumbPreview">
+                                        <img src="{{ asset('images/blank.jpeg') }}" alt="excerpt preview" id="excerptPreviewImg" onerror="this.onerror=null;this.src='{{ asset('images/blank.jpeg') }}';">
+                                    </div>
+                                    <button type="button" class="image-remove-cross" id="removeExcerptBtn" title="Remove excerpt image" style="display:none;">
+                                        &times;
+                                    </button>
                                 </div>
                                 <div>
                                     <label class="form-label mb-1">Upload excerpt image</label>
@@ -568,6 +615,61 @@
                 });
 
             });
+
+            // Featured & Excerpt Image Preview and Remove handlers
+            (function() {
+                const blankPlaceholder = "{{ asset('images/blank.jpeg') }}";
+
+                const featuredInput = document.getElementById('thumbInput');
+                const featuredPreview = document.getElementById('featuredPreviewImg');
+                const removeFeaturedBtn = document.getElementById('removeFeaturedBtn');
+
+                if (featuredInput && featuredPreview) {
+                    featuredInput.addEventListener('change', (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                            featuredPreview.src = ev.target.result;
+                            if (removeFeaturedBtn) removeFeaturedBtn.style.display = 'flex';
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                }
+
+                if (removeFeaturedBtn) {
+                    removeFeaturedBtn.addEventListener('click', () => {
+                        featuredPreview.src = blankPlaceholder;
+                        if (featuredInput) featuredInput.value = '';
+                        removeFeaturedBtn.style.display = 'none';
+                    });
+                }
+
+                const excerptInput = document.getElementById('excerptThumbInput');
+                const excerptPreview = document.getElementById('excerptPreviewImg');
+                const removeExcerptBtn = document.getElementById('removeExcerptBtn');
+
+                if (excerptInput && excerptPreview) {
+                    excerptInput.addEventListener('change', (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                            excerptPreview.src = ev.target.result;
+                            if (removeExcerptBtn) removeExcerptBtn.style.display = 'flex';
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                }
+
+                if (removeExcerptBtn) {
+                    removeExcerptBtn.addEventListener('click', () => {
+                        excerptPreview.src = blankPlaceholder;
+                        if (excerptInput) excerptInput.value = '';
+                        removeExcerptBtn.style.display = 'none';
+                    });
+                }
+            })();
 
             let isSlugEdited = false;
 

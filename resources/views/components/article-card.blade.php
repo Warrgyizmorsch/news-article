@@ -13,10 +13,18 @@
 
         <div class="rs-post-small-content mt-2">
 
-            <div class="rs-post-tag-two">
-                <a href="javascript:void(0)" class="post-tag is-green">
-                    {{ $article->category->name ?? 'News' }}
-                </a>
+            <div class="rs-post-tag-two d-flex flex-wrap gap-1">
+                @if($article->categories && $article->categories->count() > 0)
+                    @foreach($article->categories as $cat)
+                        <a href="{{ route('category.show', $cat->slug) }}" class="post-tag is-green">
+                            {{ $cat->name }}
+                        </a>
+                    @endforeach
+                @else
+                    <a href="javascript:void(0)" class="post-tag is-green">
+                        {{ $article->category->name ?? 'News' }}
+                    </a>
+                @endif
             </div>
 
             <h5 class="rs-post-small-title underline mt-2">

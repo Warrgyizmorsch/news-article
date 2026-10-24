@@ -95,6 +95,11 @@ class Article extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'article_category');
+    }
+
      public function section()
     {
         return $this->belongsTo(Category::class, 'section_id');
@@ -114,4 +119,51 @@ class Article extends Model
     {
         return $this->hasMany(ArticleImage::class,'article_id');
     }
+
+    public function getFeaturedImageUrlAttribute(): string
+    {
+        if (empty($this->featured_image)) {
+            return asset('images/blank.jpeg');
+        }
+
+        if (str_starts_with($this->featured_image, 'http://') || str_starts_with($this->featured_image, 'https://')) {
+            return $this->featured_image;
+        }
+
+        $cleanPath = ltrim($this->featured_image, '/');
+
+        if (file_exists(public_path('storage/' . $cleanPath)) || file_exists(storage_path('app/public/' . $cleanPath))) {
+            return asset('storage/' . $cleanPath);
+        }
+
+        if (app()->environment('local')) {
+            return 'https://democracyasia.com/storage/' . $cleanPath;
+        }
+
+        return asset('storage/' . $cleanPath);
+    }
+
+    public function getExcerptImageUrlAttribute(): string
+    {
+        if (empty($this->excerpt_image)) {
+            return asset('images/blank.jpeg');
+        }
+
+        if (str_starts_with($this->excerpt_image, 'http://') || str_starts_with($this->excerpt_image, 'https://')) {
+            return $this->excerpt_image;
+        }
+
+        $cleanPath = ltrim($this->excerpt_image, '/');
+
+        if (file_exists(public_path('storage/' . $cleanPath)) || file_exists(storage_path('app/public/' . $cleanPath))) {
+            return asset('storage/' . $cleanPath);
+        }
+
+        if (app()->environment('local')) {
+            return 'https://democracyasia.com/storage/' . $cleanPath;
+        }
+
+        return asset('storage/' . $cleanPath);
+    }
 }
+

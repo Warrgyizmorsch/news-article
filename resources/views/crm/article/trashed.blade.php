@@ -67,11 +67,7 @@
                             <tr>
                                 <td>
                                     <div class="thumb-img">
-                                        @if(!empty($article->featured_image))
-                                            <img src="{{ asset('storage/' . $article->featured_image) }}" alt="thumb">
-                                        @else
-                                            <img src="/images/blank.jpeg" alt="default_thumb">
-                                        @endif
+                                        <img src="{{ $article->featured_image_url }}" alt="thumb" onerror="this.onerror=null;this.src='{{ asset('images/blank.jpeg') }}';">
                                     </div>
                                 </td>
                                 <td>{{ $article->title }}</td>

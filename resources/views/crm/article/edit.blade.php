@@ -1,5 +1,10 @@
 <x-crm.layout.app>
     <style>
+        .preview-container-box {
+            position: relative;
+            display: inline-block;
+        }
+
         .image-preview {
             width: 220px;
             height: 150px;
@@ -10,12 +15,42 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .image-preview img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .image-remove-cross {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #dc3545;
+            color: #ffffff !important;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            z-index: 10;
+            transition: all 0.2s ease;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .image-remove-cross:hover {
+            background: #b02a37;
+            transform: scale(1.15);
+            color: #ffffff !important;
         }
 
         .note-editor .note-editable {
@@ -54,18 +89,24 @@
                         <label class="col-lg-3 col-form-label fw-semibold">Featured Image</label>
                         <div class="col-lg-9">
                             <div class="d-flex align-items-center gap-3 flex-wrap">
-                                <div class="image-preview" id="thumbPreview">
-                                    @if($article->featured_image)
-                                    <img src="{{ asset('storage/' . $article->featured_image) }}" alt="preview">
-                                    @else
-                                    <img src="/images/blank.jpeg" alt="preview">
-                                    @endif
+                                <div class="preview-container-box">
+                                    <div class="image-preview" id="thumbPreview">
+                                        <img src="{{ $article->featured_image_url }}" alt="preview" id="featuredPreviewImg" onerror="this.onerror=null;this.src='{{ asset('images/blank.jpeg') }}';">
+                                    </div>
+                                    <button type="button" class="image-remove-cross" id="removeFeaturedBtn" title="Remove Featured Image" style="{{ $article->featured_image ? '' : 'display:none;' }}">
+                                        &times;
+                                    </button>
                                 </div>
-                                <div>
+                                <div class="d-flex flex-column gap-1">
                                     <label class="form-label mb-1">Upload image</label>
                                     <input type="file" name="featured_image" class="form-control"
                                         accept=".png,.jpg,.jpeg,.webp" id="thumbInput">
                                     <div class="form-text">Allowed file types: png, jpg, jpeg, webp.</div>
+                                    <div id="featuredStatusText" class="mt-1" style="display:none;">
+                                        <span class="badge bg-danger text-white py-1 px-2">Featured image will be removed upon updating</span>
+                                        <button type="button" class="btn btn-link btn-sm text-primary p-0 ms-2" id="undoFeaturedBtn">Undo</button>
+                                    </div>
+                                    <input type="hidden" name="remove_featured_image" id="removeFeaturedImage" value="0">
                                     @error('featured_image')
                                     <div class="text-danger mt-1">{{ $message }}</div>
                                     @enderror
@@ -113,18 +154,27 @@
                     </div>
 
                     <div class="row g-3 mb-4" id="categorySection">
-                        <label class="col-lg-3 col-form-label fw-semibold">Category</label>
+                        <label class="col-lg-3 col-form-label fw-semibold">Categories</label>
                         <div class="col-lg-9">
-                            <select name="category_id" class="form-select" data-select2-selector="tag">
-                                <option value="">Select Category</option>
+                            @php
+                            $selectedCategories = old('categories', $article->categories->pluck('id')->toArray());
+                            if (empty($selectedCategories) && $article->category_id) {
+                                $selectedCategories = [(int)$article->category_id];
+                            }
+                            @endphp
+
+                            <select name="categories[]" class="form-select" data-select2-selector="language" multiple>
                                 @foreach($categories as $category)
                                 <option value="{{ $category->id }}"
-                                    {{ old('category_id', $article->category_id) == $category->id ? 'selected' : '' }}>
+                                    {{ in_array($category->id, $selectedCategories) ? 'selected' : '' }}>
                                     {{ $category->name }}
                                 </option>
                                 @endforeach
                             </select>
-                            @error('category_id')
+                            @error('categories')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                            @error('categories.*')
                             <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
                         </div>
@@ -166,18 +216,24 @@
                         <label class="col-lg-3 col-form-label fw-semibold">Excerpt Image</label>
                         <div class="col-lg-9">
                             <div class="d-flex align-items-center gap-3 flex-wrap">
-                                <div class="image-preview" id="excerptThumbPreview">
-                                    @if($article->excerpt_image)
-                                    <img src="{{ asset('storage/' . $article->excerpt_image) }}" alt="excerpt preview">
-                                    @else
-                                    <img src="/images/blank.jpeg" alt="excerpt preview">
-                                    @endif
+                                <div class="preview-container-box">
+                                    <div class="image-preview" id="excerptThumbPreview">
+                                        <img src="{{ $article->excerpt_image_url }}" alt="excerpt preview" id="excerptPreviewImg" onerror="this.onerror=null;this.src='{{ asset('images/blank.jpeg') }}';">
+                                    </div>
+                                    <button type="button" class="image-remove-cross" id="removeExcerptBtn" title="Remove Excerpt Image" style="{{ $article->excerpt_image ? '' : 'display:none;' }}">
+                                        &times;
+                                    </button>
                                 </div>
-                                <div>
+                                <div class="d-flex flex-column gap-1">
                                     <label class="form-label mb-1">Upload excerpt image</label>
                                     <input type="file" name="excerpt_image" class="form-control"
                                         accept=".png,.jpg,.jpeg,.webp" id="excerptThumbInput">
                                     <div class="form-text">Allowed file types: png, jpg, jpeg, webp.</div>
+                                    <div id="excerptStatusText" class="mt-1" style="display:none;">
+                                        <span class="badge bg-danger text-white py-1 px-2">Excerpt image will be removed upon updating</span>
+                                        <button type="button" class="btn btn-link btn-sm text-primary p-0 ms-2" id="undoExcerptBtn">Undo</button>
+                                    </div>
+                                    <input type="hidden" name="remove_excerpt_image" id="removeExcerptImage" value="0">
                                     @error('excerpt_image')
                                     <div class="text-danger mt-1">{{ $message }}</div>
                                     @enderror
@@ -210,17 +266,17 @@
                         </div>
                     </div>
 
-                    <div class="row g-3 mb-4 d-none" id="imageUploadSection">
+                    <div class="row g-3 mb-4 {{ $article->images->count() > 0 ? '' : 'd-none' }}" id="imageUploadSection">
                         <label class="col-lg-3 col-form-label fw-semibold">Upload Images</label>
                         <div class="col-lg-9">
-                            <input type="file" id="multiImageInput" name="images[]" class="form-control" multiple >
+                            <input type="file" id="multiImageInput" name="images[]" class="form-control" multiple accept=".png,.jpg,.jpeg,.webp">
 
                             <!-- Existing Images -->
                             <div id="existingImages" class="d-flex flex-wrap gap-2 mt-3">
                                 @foreach($article->images as $img)
                                 <div class="preview-wrapper existing-image" data-id="{{ $img->id }}">
-                                    <img src="{{ asset('storage/' . $img->image) }}" class="preview-img">
-                                    <button type="button" class="remove-btn remove-existing">&times;</button>
+                                    <img src="{{ $img->image_url }}" class="preview-img" onerror="this.onerror=null;this.src='{{ asset('images/blank.jpeg') }}';">
+                                    <button type="button" class="remove-btn remove-existing" title="Delete image">&times;</button>
                                 </div>
                                 @endforeach
                             </div>
@@ -493,8 +549,17 @@ $selectedTags = old('tags', $article->tags->pluck('id')->toArray());
             }
 
             (function() {
+                const blankPlaceholder = "{{ asset('images/blank.jpeg') }}";
+                const initialFeaturedUrl = "{{ $article->featured_image ? $article->featured_image_url : asset('images/blank.jpeg') }}";
+                const initialFeaturedExists = {{ $article->featured_image ? 'true' : 'false' }};
+
                 const featuredInput = document.getElementById('thumbInput');
-                const featuredPreview = document.querySelector('#thumbPreview img');
+                const featuredPreview = document.getElementById('featuredPreviewImg');
+                const removeFeaturedBtn = document.getElementById('removeFeaturedBtn');
+                const undoFeaturedBtn = document.getElementById('undoFeaturedBtn');
+                const removeFeaturedInput = document.getElementById('removeFeaturedImage');
+                const featuredStatusText = document.getElementById('featuredStatusText');
+
                 if (featuredInput && featuredPreview) {
                     featuredInput.addEventListener('change', (e) => {
                         const file = e.target.files?.[0];
@@ -502,13 +567,47 @@ $selectedTags = old('tags', $article->tags->pluck('id')->toArray());
                         const reader = new FileReader();
                         reader.onload = (ev) => {
                             featuredPreview.src = ev.target.result;
+                            if (removeFeaturedBtn) removeFeaturedBtn.style.display = 'block';
+                            if (featuredStatusText) featuredStatusText.style.display = 'none';
+                            if (removeFeaturedInput) removeFeaturedInput.value = '0';
                         };
                         reader.readAsDataURL(file);
                     });
                 }
 
+                if (removeFeaturedBtn) {
+                    removeFeaturedBtn.addEventListener('click', () => {
+                        featuredPreview.src = blankPlaceholder;
+                        if (featuredInput) featuredInput.value = '';
+                        removeFeaturedBtn.style.display = 'none';
+                        if (removeFeaturedInput) removeFeaturedInput.value = '1';
+                        if (featuredStatusText) featuredStatusText.style.display = 'block';
+                    });
+                }
+
+                if (undoFeaturedBtn) {
+                    undoFeaturedBtn.addEventListener('click', () => {
+                        featuredPreview.src = initialFeaturedUrl;
+                        if (featuredInput) featuredInput.value = '';
+                        if (removeFeaturedInput) removeFeaturedInput.value = '0';
+                        if (featuredStatusText) featuredStatusText.style.display = 'none';
+                        if (removeFeaturedBtn && initialFeaturedExists) {
+                            removeFeaturedBtn.style.display = 'block';
+                        }
+                    });
+                }
+
+                // Excerpt Image
+                const initialExcerptUrl = "{{ $article->excerpt_image ? $article->excerpt_image_url : asset('images/blank.jpeg') }}";
+                const initialExcerptExists = {{ $article->excerpt_image ? 'true' : 'false' }};
+
                 const excerptInput = document.getElementById('excerptThumbInput');
-                const excerptPreview = document.querySelector('#excerptThumbPreview img');
+                const excerptPreview = document.getElementById('excerptPreviewImg');
+                const removeExcerptBtn = document.getElementById('removeExcerptBtn');
+                const undoExcerptBtn = document.getElementById('undoExcerptBtn');
+                const removeExcerptInput = document.getElementById('removeExcerptImage');
+                const excerptStatusText = document.getElementById('excerptStatusText');
+
                 if (excerptInput && excerptPreview) {
                     excerptInput.addEventListener('change', (e) => {
                         const file = e.target.files?.[0];
@@ -516,8 +615,33 @@ $selectedTags = old('tags', $article->tags->pluck('id')->toArray());
                         const reader = new FileReader();
                         reader.onload = (ev) => {
                             excerptPreview.src = ev.target.result;
+                            if (removeExcerptBtn) removeExcerptBtn.style.display = 'block';
+                            if (excerptStatusText) excerptStatusText.style.display = 'none';
+                            if (removeExcerptInput) removeExcerptInput.value = '0';
                         };
                         reader.readAsDataURL(file);
+                    });
+                }
+
+                if (removeExcerptBtn) {
+                    removeExcerptBtn.addEventListener('click', () => {
+                        excerptPreview.src = blankPlaceholder;
+                        if (excerptInput) excerptInput.value = '';
+                        removeExcerptBtn.style.display = 'none';
+                        if (removeExcerptInput) removeExcerptInput.value = '1';
+                        if (excerptStatusText) excerptStatusText.style.display = 'block';
+                    });
+                }
+
+                if (undoExcerptBtn) {
+                    undoExcerptBtn.addEventListener('click', () => {
+                        excerptPreview.src = initialExcerptUrl;
+                        if (excerptInput) excerptInput.value = '';
+                        if (removeExcerptInput) removeExcerptInput.value = '0';
+                        if (excerptStatusText) excerptStatusText.style.display = 'none';
+                        if (removeExcerptBtn && initialExcerptExists) {
+                            removeExcerptBtn.style.display = 'block';
+                        }
                     });
                 }
             })();
@@ -525,7 +649,8 @@ $selectedTags = old('tags', $article->tags->pluck('id')->toArray());
             $(document).ready(function() {
 
                 function toggleSections() {
-                    const selectedText = $('#sectionSelect').find(':selected').text().toLowerCase();
+                    const selectedText = ($('#sectionSelect').find(':selected').text() || '').toLowerCase();
+                    const hasExistingImages = $('#existingImages .existing-image').length > 0;
 
                     if (selectedText.includes('monthly edition')) {
                         $('#contentSection').addClass('d-none');
@@ -534,7 +659,11 @@ $selectedTags = old('tags', $article->tags->pluck('id')->toArray());
                     } else {
                         $('#contentSection').removeClass('d-none');
                         $('#categorySection').removeClass('d-none');
-                        $('#imageUploadSection').addClass('d-none');
+                        if (hasExistingImages) {
+                            $('#imageUploadSection').removeClass('d-none');
+                        } else {
+                            $('#imageUploadSection').addClass('d-none');
+                        }
                     }
                 }
 
