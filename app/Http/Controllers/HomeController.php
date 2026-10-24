@@ -847,7 +847,13 @@ class HomeController extends Controller
         if ($slug === 'politics') {
             $articleQuery->where('section_id', $category->id);
         } else {
-            $articleQuery->where('category_id', $category->id);
+            $catId = $category->id;
+            $articleQuery->where(function($q) use ($catId) {
+                $q->where('category_id', $catId)
+                  ->orWhereHas('categories', function($sub) use ($catId) {
+                      $sub->where('categories.id', $catId);
+                  });
+            });
         }
 
         if ($slug === 'monthly-editions') {
@@ -1054,7 +1060,7 @@ class HomeController extends Controller
     }
     public function newsDetailSlug($slug)
     {
-        $article = Article::with(['category', 'author', 'tags'])
+        $article = Article::with(['category', 'categories', 'author', 'tags'])
             ->where('slug', $slug)
             ->where('status', 'published')
             ->whereNotNull('published_at')

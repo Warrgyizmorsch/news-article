@@ -20,7 +20,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $query = Article::with(['category', 'section', 'author']);
+        $query = Article::with(['category', 'categories', 'section', 'author']);
 
         if (request('title')) {
             $query->where('title', 'like', '%' . request('title') . '%');
@@ -31,7 +31,13 @@ class ArticleController extends Controller
         }
 
         if (request('category_id')) {
-            $query->where('category_id', request('category_id'));
+            $catId = request('category_id');
+            $query->where(function($q) use ($catId) {
+                $q->where('category_id', $catId)
+                  ->orWhereHas('categories', function($sub) use ($catId) {
+                      $sub->where('categories.id', $catId);
+                  });
+            });
         }
 
         if (request('section_id')) {
@@ -77,7 +83,10 @@ class ArticleController extends Controller
             $data['auther_description'] = $request->auther_description;
             $data['country'] = $request->country;
 
-            if ($request->section_id && !$request->category_id) {
+            $categoryIds = $request->categories ?? ($request->category_id ? [$request->category_id] : []);
+            if (!empty($categoryIds)) {
+                $data['category_id'] = $categoryIds[0];
+            } elseif ($request->section_id) {
                 $data['category_id'] = $request->section_id;
             }
 
@@ -98,7 +107,13 @@ class ArticleController extends Controller
                 $data['published_at'] = now();
             }
 
+            unset($data['categories']);
+
             $article = Article::create($data);
+
+            if (!empty($categoryIds)) {
+                $article->categories()->sync($categoryIds);
+            }
 
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
@@ -125,7 +140,7 @@ class ArticleController extends Controller
 
     public function edit($id)
     {
-        $article = Article::with(['tags', 'images'])->findOrFail($id);
+        $article = Article::with(['tags', 'images', 'categories'])->findOrFail($id);
 
         $categories = Cache::remember('crm_active_categories', 300, function () {
             return Category::select('id', 'name', 'sort_order')->where('status', 1)->orderBy('sort_order')->orderBy('name')->get();
@@ -158,12 +173,20 @@ class ArticleController extends Controller
             $data['auther_description'] = $request->auther_description;
             $data['country'] = $request->country;
 
-             if ($request->section_id && !$request->category_id) {
+            $categoryIds = $request->categories ?? ($request->category_id ? [$request->category_id] : []);
+            if (!empty($categoryIds)) {
+                $data['category_id'] = $categoryIds[0];
+            } elseif ($request->section_id && empty($article->category_id)) {
                 $data['category_id'] = $request->section_id;
             }
 
 
-            if ($request->hasFile('featured_image')) {
+            if ($request->boolean('remove_featured_image')) {
+                if ($article->featured_image && Storage::disk('public')->exists($article->featured_image)) {
+                    Storage::disk('public')->delete($article->featured_image);
+                }
+                $data['featured_image'] = null;
+            } elseif ($request->hasFile('featured_image')) {
                 if ($article->featured_image && Storage::disk('public')->exists($article->featured_image)) {
                     Storage::disk('public')->delete($article->featured_image);
                 }
@@ -171,7 +194,12 @@ class ArticleController extends Controller
                 $data['featured_image'] = $request->file('featured_image')->store('articles', 'public');
             }
 
-            if ($request->hasFile('excerpt_image')) {
+            if ($request->boolean('remove_excerpt_image')) {
+                if ($article->excerpt_image && Storage::disk('public')->exists($article->excerpt_image)) {
+                    Storage::disk('public')->delete($article->excerpt_image);
+                }
+                $data['excerpt_image'] = null;
+            } elseif ($request->hasFile('excerpt_image')) {
                 if ($article->excerpt_image && Storage::disk('public')->exists($article->excerpt_image)) {
                     Storage::disk('public')->delete($article->excerpt_image);
                 }
@@ -195,8 +223,11 @@ class ArticleController extends Controller
                 $data['published_at'] = $data['published_at'] ?? $article->published_at;
             }
 
+            unset($data['remove_featured_image'], $data['remove_excerpt_image'], $data['deleted_images'], $data['images'], $data['categories']);
+
             $article->update($data);
             $article->tags()->sync($data['tags'] ?? []);
+            $article->categories()->sync($categoryIds);
 
             if ($request->deleted_images) {
                 $deletedIds = explode(',', $request->deleted_images);

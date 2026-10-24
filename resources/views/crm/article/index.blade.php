@@ -149,18 +149,24 @@
                             <tr>
                                 <td>
                                     <div class="thumb-img">
-                                        @if(!empty($article->featured_image))
-                                            <img src="{{ asset('storage/' . $article->featured_image) }}" alt="thumb">
-                                        @else
-                                            <img src="/images/blank.jpeg" alt="default_thumb">
-                                        @endif
+                                        <img src="{{ $article->featured_image_url }}" alt="thumb" onerror="this.onerror=null;this.src='{{ asset('images/blank.jpeg') }}';">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="fw-semibold">{{ $article->title }}</div>
                                     <small class="text-muted">{{ $article->slug }}</small>
                                 </td>
-                                <td>{{ $article->category->name ?? '-' }}</td>
+                                <td>
+                                    @if($article->categories && $article->categories->count() > 0)
+                                        <div class="d-flex flex-wrap gap-1">
+                                            @foreach($article->categories as $cat)
+                                                <span class="badge bg-light text-dark border">{{ $cat->name }}</span>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        {{ $article->category->name ?? '-' }}
+                                    @endif
+                                </td>
                                 <td>{{ $article->section->name ?? '-' }}</td>
                                 <td>{{$article->country ?? '-'}}</td>
                                 <td>
