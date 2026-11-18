@@ -81,6 +81,16 @@
 </div>
 
 <script>
+  // Open modal after 3 seconds on page load
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      var modal = document.getElementById('daNewsletterModal');
+      if (modal && !modal.classList.contains('active')) {
+        modal.classList.add('active');
+      }
+    }, 3000);
+  });
+
   // Close modal logic
   document.getElementById('daNewsletterClose').addEventListener('click', function () {
     document.getElementById('daNewsletterModal').classList.remove('active');

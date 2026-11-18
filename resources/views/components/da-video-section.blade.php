@@ -4,37 +4,35 @@
             <div class="row">
                 <div class="col-xl-9 col-lg-9">
                     <!-- Section heading  -->
-                    <div class="row section-title-space align-items-center g-5">
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="section-title-wrapper">
-                                <h2 class="section-title rs-split-text-enable split-in-left">DA Videos</h2>
-                            </div>
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 section-title-space mb-3">
+                        <div class="section-title-wrapper">
+                            <h2 class="section-title rs-split-text-enable split-in-left m-0">DA Videos</h2>
                         </div>
                     
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="section-btn d-flex align-items-center justify-content-lg-end gap-2 flex-wrap">
-                                <a class="rs-btn has-text has-icon da-yt-sub-btn" href="https://www.youtube.com/@democracyasiaofficial?sub_confirmation=1" target="_blank" style="background:#e1120b; color:#ffffff; border-color:#e1120b; text-transform: none;">
-                                    <i class="ri-youtube-fill" style="font-size: 18px; margin-right: 6px;"></i>
-                                    Subscribe on YouTube
-                                </a>
-                                <a class="rs-btn has-text has-icon" href="https://www.youtube.com/@democracyasiaofficial" target="_blank">
-                                    View All
-                                    <span class="icon-box">
-                                        <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                fill="#121213" />
-                                        </svg>
-                                        <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
-                                                fill="#121213" />
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
+                        <div class="d-flex align-items-center gap-3 flex-wrap">
+                            <a class="da-yt-subscribe-btn" href="https://www.youtube.com/@democracyasiaofficial?sub_confirmation=1" target="_blank" title="Subscribe to Democracy Asia on YouTube">
+                                <svg width="20" height="15" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg>
+                                <span>Subscribe on YouTube</span>
+                            </a>
+                            <a class="rs-btn has-text has-icon m-0" href="https://www.youtube.com/@democracyasiaofficial" target="_blank" style="white-space: nowrap;">
+                                View All
+                                <span class="icon-box">
+                                    <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                            fill="#121213" />
+                                    </svg>
+                                    <svg class="icon-second" width="17" height="12" viewBox="0 0 17 12" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M15.3153 5.0991C13.1189 5.0991 11.1171 3.0991 11.1171 0.900901V0H9.31532V0.900901C9.31532 2.4991 10.0162 3.9982 11.1162 5.0991H0V6.9009H11.1162C10.0162 8.0018 9.31532 9.5009 9.31532 11.0991V12H11.1171V11.0991C11.1171 8.9018 13.1189 6.9009 15.3153 6.9009H16.2162V5.0991H15.3153Z"
+                                            fill="#121213" />
+                                    </svg>
+                                </span>
+                            </a>
                         </div>
                     </div>
 
@@ -116,6 +114,31 @@
 
     </div>
     <style>
+        /* YOUTUBE SUBSCRIBE BUTTON */
+        .da-yt-subscribe-btn {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            background: #e1120b !important;
+            color: #ffffff !important;
+            font-size: 13.5px !important;
+            font-weight: 600 !important;
+            padding: 8px 18px !important;
+            border-radius: 50px !important;
+            text-decoration: none !important;
+            white-space: nowrap !important;
+            transition: all 0.25s ease !important;
+            box-shadow: 0 3px 10px rgba(225, 18, 11, 0.25) !important;
+            line-height: 1 !important;
+            border: none !important;
+        }
+        .da-yt-subscribe-btn:hover {
+            background: #b80d07 !important;
+            color: #ffffff !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 5px 14px rgba(225, 18, 11, 0.4) !important;
+        }
+
         /* CARD */
 .da-video-card {
     border-radius: 5px;

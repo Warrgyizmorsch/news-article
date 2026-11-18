@@ -1,3 +1,12 @@
+@if(!request()->routeIs('news.show'))
+<!-- Global Newsletter Section Above Footer -->
+<div class="rs-footer-newsletter-banner" style="background: #f8fafc; border-top: 1px solid #e5e7eb; padding: 10px 0;">
+    <div class="container">
+        @include('components.newsletter-story-box')
+    </div>
+</div>
+@endif
+
 <!-- footer area start -->
 <footer class="rs-footer-area rs-footer-one">
     <div class="" style="padding: 40px 0; position: relative; z-index: 1;">
