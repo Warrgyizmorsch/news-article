@@ -963,17 +963,17 @@ $readingTime = ceil($wordCount / 200);
 
                             <!-- Tags -->
 
-
-                            <!-- Author Box -->
-                            <div class="rs-author-box">
-                                <div class="rs-author-info" style="width: 100%;">
-                                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
-                                        <h4 class="m-0" style="font-style: italic;">By <span>{{ $article->auther ?? 'Editorial Staff' }}</span></h4>
                                         @if(!empty($article->video_url))
                                             <a href="{{ $article->video_url }}" target="_blank" class="rs-watch-video-btn">
                                                 <i class="ri-play-circle-fill"></i> Watch the video
                                             </a>
                                         @endif
+                            <!-- Author Box -->
+                            <div class="rs-author-box">
+                                <div class="rs-author-info" style="width: 100%;">
+                                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                                        <h4 class="m-0" style="font-style: italic;">By <span>{{ $article->auther ?? 'Editorial Staff' }}</span></h4>
+                                       
                                     </div>
                                     <p>
                                         {!! $article->auther_description ?: 'Our dedicated team of journalists and editors work tirelessly to bring you the most accurate and insightful news coverage. With a passion for storytelling and a commitment to journalistic integrity, our team strives to keep you informed about the latest developments shaping our world.' !!}
