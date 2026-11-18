@@ -77,8 +77,8 @@
     }
 
     .custom-social-btn {
-        width: 44px;
-        height: 44px;
+        width: 33px;
+        height: 33px;
         border: 1px solid #27272a;
         border-radius: 8px;
         display: flex;

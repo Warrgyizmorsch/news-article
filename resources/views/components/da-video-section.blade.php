@@ -16,7 +16,7 @@
                                 </svg>
                                 <span>Subscribe on YouTube</span>
                             </a>
-                            <a class="rs-btn has-text has-icon m-0" href="https://www.youtube.com/@democracyasiaofficial" target="_blank" style="white-space: nowrap;">
+                            <!-- <a class="rs-btn has-text has-icon m-0" href="https://www.youtube.com/@democracyasiaofficial" target="_blank" style="white-space: nowrap;">
                                 View All
                                 <span class="icon-box">
                                     <svg class="icon-first" width="17" height="12" viewBox="0 0 17 12" fill="none"
@@ -32,7 +32,7 @@
                                             fill="#121213" />
                                     </svg>
                                 </span>
-                            </a>
+                            </a> -->
                         </div>
                     </div>
 
@@ -43,12 +43,12 @@
                             @foreach($featuredVideos as $video)
 
                                 @php
-    preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^\&\?\/]+)/', $video->url, $matches);
-    $youtubeId = $matches[1] ?? null;
+                                preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^\&\?\/]+)/', $video->url, $matches);
+                                $youtubeId = $matches[1] ?? null;
 
-    $thumbnail = $video->thumbnail
-        ? asset('uploads/thumbnails/' . $video->thumbnail)
-        : "https://img.youtube.com/vi/" . $youtubeId . "/hqdefault.jpg";
+                                $thumbnail = $video->thumbnail
+                                    ? asset('uploads/thumbnails/' . $video->thumbnail)
+                                    : "https://img.youtube.com/vi/" . $youtubeId . "/hqdefault.jpg";
                                 @endphp
 
                                 <div class="swiper-slide">

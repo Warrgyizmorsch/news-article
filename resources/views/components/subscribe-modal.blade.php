@@ -81,25 +81,46 @@
 </div>
 
 <script>
-  // Open modal after 3 seconds on page load
-  window.addEventListener('load', function () {
-    setTimeout(function () {
-      var modal = document.getElementById('daNewsletterModal');
-      if (modal && !modal.classList.contains('active')) {
+  (function () {
+    var STORAGE_KEY = 'da_newsletter_popup_seen';
+    var HIDE_FOR_MS = 7 * 24 * 60 * 60 * 1000; // don't show again for 7 days
+    var modal = document.getElementById('daNewsletterModal');
+    if (!modal) return;
+
+    function recentlySeen() {
+      try {
+        var t = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+        return t && (Date.now() - t) < HIDE_FOR_MS;
+      } catch (e) { return false; }
+    }
+
+    function markSeen() {
+      try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch (e) {}
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      markSeen();
+    }
+
+    // Auto-open once (per 7 days), and never while the reader is typing in a field
+    window.addEventListener('load', function () {
+      if (recentlySeen()) return;
+      setTimeout(function () {
+        var el = document.activeElement;
+        var typing = el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') && !modal.contains(el);
+        if (typing || modal.classList.contains('active')) return;
         modal.classList.add('active');
-      }
-    }, 3000);
-  });
+        markSeen();
+      }, 3000);
+    });
 
-  // Close modal logic
-  document.getElementById('daNewsletterClose').addEventListener('click', function () {
-    document.getElementById('daNewsletterModal').classList.remove('active');
-  });
-
-  // Optional: Close when clicking overlay
-  document.querySelector('.da-newsletter-overlay').addEventListener('click', function () {
-    document.getElementById('daNewsletterModal').classList.remove('active');
-  });
+    document.getElementById('daNewsletterClose').addEventListener('click', closeModal);
+    modal.querySelector('.da-newsletter-overlay').addEventListener('click', closeModal);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+    });
+  })();
 </script>
 
 <style>

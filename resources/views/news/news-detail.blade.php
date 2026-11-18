@@ -715,7 +715,7 @@ $remaining = collect($paragraphs)->slice(2)->implode('</p>');
                                     <div class="rs-article-categories d-flex flex-wrap gap-2 align-items-center">
                                         @if($article->categories && $article->categories->count() > 0)
                                             @foreach($article->categories as $cat)
-                                                <a href="{{ route('category.show', $cat->slug) }}" class="post-tag is-green" style="text-decoration: none;">
+                                                <a href="{{ route('category.show', $cat->slug) }}" class="post-tag is-green" style="text-decoration: none;color: white;">
                                                     {{ $cat->name }}
                                                 </a>
                                             @endforeach
@@ -732,7 +732,7 @@ $remaining = collect($paragraphs)->slice(2)->implode('</p>');
 
                                 </div>
 
-                                <h1 class="rs-blog-post-title">
+                                <h1 class="rs-blog-post-title" style="font-color: #ffffff;">
                                     {{ $article->title }}
                                 </h1>
 
@@ -981,64 +981,8 @@ $readingTime = ceil($wordCount / 200);
                                 </div>
                             </div>
 
-                            <!-- Follow Us Box Inside Article -->
-                            <div class="rs-article-follow-box mt-4 p-4" style="background: #ffffff; border: 1px solid #e5e7eb; border-left: 4px solid #e1120b; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                                    <div>
-                                        <h4 class="m-0 mb-1" style="font-family: var(--rr-ff-serif, 'Playfair Display', Georgia, serif); font-size: 19px; font-weight: 700; color: #111827;">Follow Democracy Asia</h4>
-                                        <p class="m-0 text-muted" style="font-size: 13px;">Stay connected with our independent journalism and real-time updates across social platforms.</p>
-                                    </div>
-                                    <div class="d-flex align-items-center flex-wrap gap-2">
-                                        <!-- X -->
-                                        <a href="https://x.com/Democracyasia" target="_blank" rel="noopener noreferrer" title="Follow on X"
-                                            style="width: 36px; height: 36px; border-radius: 50%; background: #000000; color: #fff; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s;"
-                                            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-                                            <i class="ri-twitter-x-line" style="font-size: 16px;"></i>
-                                        </a>
-                                        <!-- YouTube -->
-                                        <a href="https://www.youtube.com/@democracyasiaofficial" target="_blank" rel="noopener noreferrer" title="Subscribe on YouTube"
-                                            style="width: 36px; height: 36px; border-radius: 50%; background: #ff0000; color: #fff; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s;"
-                                            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-                                            <i class="ri-youtube-fill" style="font-size: 18px;"></i>
-                                        </a>
-                                        <!-- Instagram -->
-                                        <a href="https://www.instagram.com/democracyasiaofficial" target="_blank" rel="noopener noreferrer" title="Follow on Instagram"
-                                            style="width: 36px; height: 36px; border-radius: 50%; background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); color: #fff; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s;"
-                                            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-                                            <i class="ri-instagram-line" style="font-size: 17px;"></i>
-                                        </a>
-                                        <!-- TikTok -->
-                                        <a href="https://www.tiktok.com/@democracyasia" target="_blank" rel="noopener noreferrer" title="Follow on TikTok"
-                                            style="width: 36px; height: 36px; border-radius: 50%; background: #000000; color: #fff; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s;"
-                                            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/>
-                                            </svg>
-                                        </a>
-                                        <!-- Facebook -->
-                                        <a href="https://www.facebook.com/democracyasia/" target="_blank" rel="noopener noreferrer" title="Follow on Facebook"
-                                            style="width: 36px; height: 36px; border-radius: 50%; background: #1877f2; color: #fff; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s;"
-                                            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-                                            <i class="ri-facebook-fill" style="font-size: 18px;"></i>
-                                        </a>
-                                        <!-- LinkedIn -->
-                                        <a href="https://www.linkedin.com/company/democracy-asia" target="_blank" rel="noopener noreferrer" title="Follow on LinkedIn"
-                                            style="width: 36px; height: 36px; border-radius: 50%; background: #0a66c2; color: #fff; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s;"
-                                            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-                                            <i class="ri-linkedin-fill" style="font-size: 17px;"></i>
-                                        </a>
-                                        <!-- Pinterest -->
-                                        <a href="https://in.pinterest.com/democracyasia/" target="_blank" rel="noopener noreferrer" title="Follow on Pinterest"
-                                            style="width: 36px; height: 36px; border-radius: 50%; background: #bd081c; color: #fff; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s;"
-                                            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-                                            <i class="ri-pinterest-fill" style="font-size: 17px;"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Subscribe Box Inside Article -->
-                            @include('components.newsletter-story-box')
+                            @include('components.newsletter-story-box', ['showSocial' => true])
 
                             <!-- Related News -->
                             @if($relatedArticles->count())
