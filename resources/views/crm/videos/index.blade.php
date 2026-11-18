@@ -25,7 +25,7 @@
             
             <div class="row g-4 align-items-end">
                 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label font-weight-bold text-uppercase small text-muted mb-1">Video Title</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light border-end-0"><i class="feather feather-type text-muted"></i></span>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label font-weight-bold text-uppercase small text-muted mb-1">YouTube URL <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <span class="input-group-text bg-light border-end-0"><i class="feather feather-link text-muted"></i></span>
@@ -41,7 +41,15 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
+                    <label class="form-label font-weight-bold text-uppercase small text-muted mb-1">Short Description</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0"><i class="feather feather-file-text text-muted"></i></span>
+                        <textarea name="description" class="form-control border-start-0 ps-0" rows="2" placeholder="Brief summary or highlight of this video">{{ $video->description ?? old('description') }}</textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
                     <label class="form-label font-weight-bold text-uppercase small text-muted mb-1">Thumbnail Image</label>
                     <div class="input-group">
                         
@@ -75,6 +83,7 @@
                             <th class="ps-3 py-3" style="width: 80px;">Sr. No.</th>
                             <th style="width: 100px;">Thumbnail</th>
                             <th>Video Title</th>
+                            <th>Description</th>
                             <th>YouTube Link</th>
                             <th class="text-center" style="width: 100px;">Action</th>
                         </tr>
@@ -90,7 +99,8 @@
                                     <span class="badge bg-light text-muted border">No Image</span>
                                 @endif
                             </td>
-                            <td class="fw-bold text-dark">{{ $v->title }}</td>
+                            <td class="fw-bold text-dark">{{ $v->title ?: '—' }}</td>
+                            <td class="text-muted small" style="max-width: 250px;">{{ \Illuminate\Support\Str::limit($v->description, 80) ?: '—' }}</td>
                             <td><a href="{{ $v->url }}" target="_blank" class="text-primary small"><i class="feather feather-external-link"></i> Watch Video</a></td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-1">

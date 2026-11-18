@@ -12,7 +12,11 @@
                         </div>
                     
                         <div class="col-xl-6 col-lg-6">
-                            <div class="section-btn">
+                            <div class="section-btn d-flex align-items-center justify-content-lg-end gap-2 flex-wrap">
+                                <a class="rs-btn has-text has-icon da-yt-sub-btn" href="https://www.youtube.com/@democracyasiaofficial?sub_confirmation=1" target="_blank" style="background:#e1120b; color:#ffffff; border-color:#e1120b; text-transform: none;">
+                                    <i class="ri-youtube-fill" style="font-size: 18px; margin-right: 6px;"></i>
+                                    Subscribe on YouTube
+                                </a>
                                 <a class="rs-btn has-text has-icon" href="https://www.youtube.com/@democracyasiaofficial" target="_blank">
                                     View All
                                     <span class="icon-box">
@@ -56,17 +60,18 @@
 
                                         <div class="da-video-thumb">
 
-                                            <img src="{{ $thumbnail }}" alt="{{ $video->title }}">
+                                            <img src="{{ $thumbnail }}" alt="{{ $video->title ?? 'DA Video' }}">
 
-                                            @if(!empty(trim((string) $video->title)))
-                                                {{-- Overlay --}}
-                                                <div class="da-video-overlay"></div>
+                                            {{-- Overlay --}}
+                                            <div class="da-video-overlay"></div>
 
-                                                {{-- TITLE (BOTTOM LEFT) --}}
-                                                <div class="da-video-content">
-                                                    <h4>{{ \Illuminate\Support\Str::limit($video->title, 60) }}</h4>
-                                                </div>
-                                            @endif
+                                            {{-- TITLE & SHORT DESCRIPTION (BOTTOM) --}}
+                                            <div class="da-video-content">
+                                                <h4>{{ \Illuminate\Support\Str::limit($video->title ?: 'Democracy Asia Video', 55) }}</h4>
+                                                @if(!empty($video->description))
+                                                    <p class="da-video-desc">{{ \Illuminate\Support\Str::limit($video->description, 80) }}</p>
+                                                @endif
+                                            </div>
 
                                             {{-- PLAY BUTTON --}}
                                             <div class="da-video-play">
@@ -140,29 +145,42 @@
 .da-video-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.15) 100%);
     z-index: 1;
 }
 
 /* CONTENT (BOTTOM LEFT) */
 .da-video-content {
     position: absolute;
-    bottom: 15px;
-    left: 15px;
-    right: 15px;
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
     z-index: 2;
 }
 
 .da-video-content h4 {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     color: #fff;
-    line-height: 1.3;
-
+    line-height: 1.35;
+    margin-bottom: 4px;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.da-video-content .da-video-desc {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.35;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }
 
 /* PLAY BUTTON (CENTER) */

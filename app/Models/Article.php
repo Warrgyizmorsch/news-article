@@ -32,6 +32,7 @@ class Article extends Model
         'views',
         'section_id',
         'pdf_file',
+        'video_url',
         'auther',
         'auther_description',
         'country',

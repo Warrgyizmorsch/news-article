@@ -82,6 +82,7 @@ class ArticleController extends Controller
             $data['auther'] = $request->auther;
             $data['auther_description'] = $request->auther_description;
             $data['country'] = $request->country;
+            $data['video_url'] = $request->video_url;
 
             $categoryIds = $request->categories ?? ($request->category_id ? [$request->category_id] : []);
             if (!empty($categoryIds)) {
@@ -172,6 +173,7 @@ class ArticleController extends Controller
             $data['auther'] = $request->auther;
             $data['auther_description'] = $request->auther_description;
             $data['country'] = $request->country;
+            $data['video_url'] = $request->video_url;
 
             $categoryIds = $request->categories ?? ($request->category_id ? [$request->category_id] : []);
             if (!empty($categoryIds)) {

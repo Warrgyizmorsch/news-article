@@ -615,14 +615,15 @@
                     <div class="header-top-social-wrapper">
                         <h6 class="header-top-social-title"> Follow Us:</h6>
                         <div class="header-top-social theme-social has-transparent">
-                            <a href="https://www.facebook.com/democracyasia/" target="_blank"><i class="ri-facebook-fill"></i></a>
-                            <a href="https://www.instagram.com/democracyasiaofficial/?hl=en" target="_blank"> <i class="ri-instagram-line"></i></a>
-                            <a href="https://www.linkedin.com/company/democracy-asia/about/?viewAsMember=true" target="_blank"><i class="ri-linkedin-fill"></i></a>
-                            <a href="https://x.com/Democracyasia" target="_blank"><i class="ri-twitter-x-line"></i></a>
-                            <a href="https://in.pinterest.com/democracyasia/_saved/" target="_blank">
+                            <a href="https://www.facebook.com/democracyasia/" target="_blank" title="Facebook"><i class="ri-facebook-fill"></i></a>
+                            <a href="https://www.instagram.com/democracyasiaofficial" target="_blank" title="Instagram"><i class="ri-instagram-line"></i></a>
+                            <a href="https://www.linkedin.com/company/democracy-asia" target="_blank" title="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+                            <a href="https://x.com/Democracyasia" target="_blank" title="X"><i class="ri-twitter-x-line"></i></a>
+                            <a href="https://www.tiktok.com/@democracyasia" target="_blank" title="TikTok"><i class="ri-tiktok-fill"></i></a>
+                            <a href="https://in.pinterest.com/democracyasia/" target="_blank" title="Pinterest">
                                 <i class="ri-pinterest-fill"></i>
                             </a>
-                            <a href="https://www.youtube.com/@democracyasiaofficial" target="_blank">
+                            <a href="https://www.youtube.com/@democracyasiaofficial" target="_blank" title="YouTube">
                                 <i class="ri-youtube-fill"></i>
                             </a>
                         </div>

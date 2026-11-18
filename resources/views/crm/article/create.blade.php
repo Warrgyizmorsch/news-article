@@ -240,6 +240,17 @@
                         </div>
                     </div>
 
+                    <div class="row g-3 mb-4">
+                        <label class="col-lg-3 col-form-label fw-semibold">Video URL</label>
+                        <div class="col-lg-9">
+                            <input type="url" name="video_url" class="form-control" placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/..." value="{{ old('video_url') }}">
+                            <div class="form-text">Optional YouTube, Vimeo or video link. If added, a "Watch the video" button will be shown next to the author's name on the article.</div>
+                            @error('video_url')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     <!-- Multiple Images Upload -->
                     <div class="row g-3 mb-4 d-none" id="imageUploadSection">
                         <label class="col-lg-3 col-form-label fw-semibold">Upload Images</label>

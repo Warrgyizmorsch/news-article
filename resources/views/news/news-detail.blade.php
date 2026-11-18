@@ -520,12 +520,47 @@
                 background: #000;
             }
 
+            .tiktok {
+                background: #010101;
+            }
+
             .facebook {
                 background: #1877F2;
             }
 
             .copy {
                 background: #555;
+            }
+
+            .rs-watch-video-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: #e1120b;
+                color: #fff !important;
+                font-weight: 600;
+                font-size: 13px;
+                padding: 6px 16px;
+                border-radius: 6px;
+                text-decoration: none;
+                box-shadow: 0 2px 8px rgba(225,18,11,0.25);
+                transition: all 0.25s ease;
+            }
+
+            .rs-watch-video-btn:hover {
+                background: #b50e08 !important;
+                color: #fff !important;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(225,18,11,0.35);
+            }
+
+            .rs-follow-btn {
+                transition: transform 0.2s ease, opacity 0.2s ease;
+            }
+
+            .rs-follow-btn:hover {
+                transform: translateY(-2px);
+                opacity: 0.9;
             }
         </style>
 
@@ -639,6 +674,11 @@ $remaining = collect($paragraphs)->slice(2)->implode('</p>');
                                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}" target="_blank" class="share-icon facebook"
                                         title="Share on Facebook">
                                         <i class="ri-facebook-fill"></i>
+                                    </a>
+
+                                    <!-- TikTok -->
+                                    <a href="https://www.tiktok.com/@democracyasia" target="_blank" class="share-icon tiktok" title="Follow & Share on TikTok">
+                                        <i class="ri-tiktok-fill"></i>
                                     </a>
 
                                     <!-- Copy Link -->
@@ -926,9 +966,15 @@ $readingTime = ceil($wordCount / 200);
 
                             <!-- Author Box -->
                             <div class="rs-author-box">
-                                <div class="rs-author-info">
-                                    <h4 style="font-style: italic;">By <span>{{ $article->auther ?? 'Editorial Staff' }}</span>
-                                    </h4>
+                                <div class="rs-author-info" style="width: 100%;">
+                                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                                        <h4 class="m-0" style="font-style: italic;">By <span>{{ $article->auther ?? 'Editorial Staff' }}</span></h4>
+                                        @if(!empty($article->video_url))
+                                            <a href="{{ $article->video_url }}" target="_blank" class="rs-watch-video-btn">
+                                                <i class="ri-play-circle-fill"></i> Watch the video
+                                            </a>
+                                        @endif
+                                    </div>
                                     <p>
                                         {!! $article->auther_description ?: 'Our dedicated team of journalists and editors work tirelessly to bring you the most accurate and insightful news coverage. With a passion for storytelling and a commitment to journalistic integrity, our team strives to keep you informed about the latest developments shaping our world.' !!}
                                     </p>

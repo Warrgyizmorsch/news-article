@@ -37,6 +37,7 @@ class UpdateArticleRequest extends FormRequest
             'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id',
             'featured_image_description' => ['nullable', 'string', 'max:500'],
+            'video_url' => 'nullable|url|max:2048',
             'sort_order' => ['nullable', 'integer'],
             'deleted_images' => 'nullable|string',
             'images' => 'nullable|array',

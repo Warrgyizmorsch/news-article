@@ -266,6 +266,23 @@
                         </div>
                     </div>
 
+                    <div class="row g-3 mb-4">
+                        <label class="col-lg-3 col-form-label fw-semibold">Video URL</label>
+                        <div class="col-lg-9">
+                            <input type="url" name="video_url" class="form-control" placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/..." value="{{ old('video_url', $article->video_url) }}">
+                            <div class="form-text">Optional YouTube, Vimeo or video link. If added, a "Watch the video" button will be shown next to the author's name on the article.</div>
+                            @if($article->video_url)
+                            <p class="mt-2">
+                                Current:
+                                <a href="{{ $article->video_url }}" target="_blank" class="text-primary"><i class="ri-external-link-line"></i> {{ $article->video_url }}</a>
+                            </p>
+                            @endif
+                            @error('video_url')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="row g-3 mb-4 {{ $article->images->count() > 0 ? '' : 'd-none' }}" id="imageUploadSection">
                         <label class="col-lg-3 col-form-label fw-semibold">Upload Images</label>
                         <div class="col-lg-9">

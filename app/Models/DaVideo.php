@@ -14,6 +14,7 @@ class DaVideo extends Model
 
     protected $fillable = [
         'title',
+        'description',
         'url',
         'thumbnail',
     ];
